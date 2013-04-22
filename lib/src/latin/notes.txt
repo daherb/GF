@@ -1,3 +1,5 @@
+Before
+-------------------------------------------------
 Renaming on Mac:
 
   for each in *Eng.gf ;  
@@ -26,4 +28,17 @@ concrete GrammarLat of Grammar =
   StructuralLat,
 --  IdiomLat
 
+16.4.2012
+-------------------------------------------------
+Output of gf -src LangLat.gf &> 1st_run.txt to have a list what is missing
 
+17.4.2012
+-------------------------------------------------
+Trying to get a gold standard for the lexicon
+
+Step 1: Start finishing the lexicon using Langenscheidts Schulwoerterbuch Latein
+and the Latin Wikipedia
+Some Problems:
+- no excat translation for ceiling
+- same word for child and boy/girl
+- different words for find either by accident or after searching
