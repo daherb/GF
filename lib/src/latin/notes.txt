@@ -42,3 +42,7 @@ Some Problems:
 - no excat translation for ceiling
 - same word for child and boy/girl
 - different words for find either by accident or after searching
+- no exact translation for glove
+- no exact translation for hat and cap
+- no translation for married in Langescheidt,
+- no exact translation for pen in Langenscheidt, assume similarity to stylus
