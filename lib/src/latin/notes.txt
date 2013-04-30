@@ -47,3 +47,4 @@ Some Problems:
 - no translation for married in Langescheidt,
 - no exact translation for pen in Langenscheidt, assume similarity to stylus
 - is planet really masculine?
+- same word for boot and shoe?
