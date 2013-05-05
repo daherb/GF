@@ -48,5 +48,8 @@ Some Problems:
 - no exact translation for pen in Langenscheidt, assume similarity to stylus
 - is planet really masculine?
 - same word for boot and shoe?
+- make/extinguish fire as words for switch on/off
+- same word for bone and leg
+- i hate ambiguos words
 Todo:
 - Need to check prepositions
