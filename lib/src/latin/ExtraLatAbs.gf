@@ -1,4 +1,4 @@
-abstract ExtraEngAbs = Extra ** {
+abstract ExtraLatAbs = Extra ** {
 
 -- uncontracted negations; contracted are the default
   fun

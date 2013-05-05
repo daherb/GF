@@ -1,4 +1,4 @@
-abstract IrregEngAbs = Cat ** {
+abstract IrregLatAbs = Cat ** {
 fun
   awake_V : V ;
   bear_V : V ;
