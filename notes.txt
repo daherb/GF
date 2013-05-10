@@ -1,0 +1,55 @@
+Before
+-------------------------------------------------
+Renaming on Mac:
+
+  for each in *Eng.gf ;  
+  do 
+  mv $each $(basename $each Eng.gf)Lat.gf
+  done
+
+In-place change:
+
+  sed -e 's/Eng/Lat/g' -i *Lat.gf
+
+Start with the following:
+
+concrete GrammarLat of Grammar = 
+  NounLat, 
+  VerbLat, 
+  AdjectiveLat,
+--  AdverbLat,
+--  NumeralLat,
+  SentenceLat,
+--  QuestionLat,
+--  RelativeLat,
+--  ConjunctionLat,
+--  PhraseLat,
+  TextX,
+  StructuralLat,
+--  IdiomLat
+
+16.4.2012
+-------------------------------------------------
+Output of gf -src LangLat.gf &> 1st_run.txt to have a list what is missing
+
+17.4.2012
+-------------------------------------------------
+Trying to get a gold standard for the lexicon
+
+Step 1: Start finishing the lexicon using Langenscheidts Schulwoerterbuch Latein
+and the Latin Wikipedia
+Some Problems:
+- no excat translation for ceiling
+- same word for child and boy/girl
+- different words for find either by accident or after searching
+- no exact translation for glove
+- no exact translation for hat and cap
+- no translation for married in Langescheidt,
+- no exact translation for pen in Langenscheidt, assume similarity to stylus
+- is planet really masculine?
+- same word for boot and shoe?
+- make/extinguish fire as words for switch on/off
+- same word for bone and leg
+- i hate ambiguos words
+Todo:
+- Need to check prepositions
