@@ -13,18 +13,23 @@ oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
   Adjective : Type = {s : Gender => Number => Case => Str} ;
 
-  -- sound changes
-  vowel : pattern Str = #("a" | "e" | "o" | "u" | "y");
-  consonant : pattern Str = #("p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "h" );
+  -- sounds and sound changes
+  vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
+  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "h" );
   semivowel : pattern Str = #( "j" | "w" );
-  -- sound1 : Str -> Level ->Str -- Apophony
-  sound2 : prefix: Str -> word: Str -> Str =
-    case word of {
-      
-    } ;
+  stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
+  fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
+  nasal : pattern Str = #( "m" | "n" );
+  liquid : pattern Str = #( "r" | "l" );
 
-
-  -- worst case
+-- To file as a bug :
+--  consonant : pattern Str = stop | fricative;
+--  test : Str -> Str =
+--    \n ->
+--    case n of {
+--      #consonant + rest => "Got it";
+--      full => "Nope"
+--    };
 
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd, g -> {
