@@ -30,6 +30,7 @@ oper
 --      #consonant + rest => "Got it";
 --      full => "Nope"
 --    };
+-- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
 
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd, g -> {
@@ -581,6 +582,8 @@ oper
     ;
 
   mkPrep : Str -> Case -> {s : Str ; c : Case} = \s,c -> {s = s ; c = c} ;
+
+  mkAdv : Str -> { s: Str } = \adv -> { s = adv } ;
 
 param
   Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
