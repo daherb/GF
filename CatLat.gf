@@ -69,11 +69,11 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --
 ---- Open lexical classes, e.g. Lexicon
 
-    V = Verb ;
-    V2 = Verb ** {c : Preposition} ;
---    V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
+--    V = Verb ;
+    V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
+    V2, V2A, V2Q, V2S = Verb ** {c : Preposition} ;
 --    V2, V2A, V2Q, V2S = Verb ** {c2 : Str} ;
---    V3 = Verb ** {c2, c3 : Str} ;
+    V3 = Verb ** {c2, c3 : Str} ;
 --    VV = {s : VVForm => Str ; isAux : Bool} ;
 --    V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 --
@@ -81,8 +81,8 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --    A2 = {s : AForm => Str ; c2 : Str} ;
 --
     N = Noun ;
---    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
---    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
+    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
+    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
     PN = {s : Case => Str ; g : Gender} ;
 --
 }
