@@ -50,6 +50,14 @@ Some Problems:
 - same word for boot and shoe?
 - make/extinguish fire as words for switch on/off
 - same word for bone and leg
-- i hate ambiguos words
+- i hate ambigous words
 Todo:
 - Need to check prepositions
+
+Step 2: Define linearization for the first categories and generate the paradigms
+- Change CatLat.gf a little bit
+- Comment all lexicon entries with categories without linearization or generating
+  errors in ResLat.gf
+- Create gf script generate_paradigms.gfs to generate all yet implemented word forms
+
+Step 3: Check the forms
