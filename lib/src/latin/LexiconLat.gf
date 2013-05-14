@@ -8,7 +8,7 @@ concrete LexiconLat of Lexicon = CatLat ** open
 
 flags 
   optimize=values ;
-
+  coding = utf8;
 lin
   airplane_N = mkN "aëroplanum" ; -- -i n. http://la.wikipedia.org/wiki/A%C3%ABroplanum
   -- Category not yet implemented
