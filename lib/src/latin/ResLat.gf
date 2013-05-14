@@ -13,7 +13,24 @@ oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
   Adjective : Type = {s : Gender => Number => Case => Str} ;
 
-  -- worst case
+  -- sounds and sound changes
+  vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
+  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "h" );
+  semivowel : pattern Str = #( "j" | "w" );
+  stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
+  fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
+  nasal : pattern Str = #( "m" | "n" );
+  liquid : pattern Str = #( "r" | "l" );
+
+-- To file as a bug :
+--  consonant : pattern Str = stop | fricative;
+--  test : Str -> Str =
+--    \n ->
+--    case n of {
+--      #consonant + rest => "Got it";
+--      full => "Nope"
+--    };
+-- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
 
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd, g -> {
@@ -565,6 +582,8 @@ oper
     ;
 
   mkPrep : Str -> Case -> {s : Str ; c : Case} = \s,c -> {s = s ; c = c} ;
+
+  mkAdv : Str -> { s: Str } = \adv -> { s = adv } ;
 
 param
   Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
