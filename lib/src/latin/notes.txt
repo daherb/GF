@@ -60,4 +60,4 @@ Step 2: Define linearization for the first categories and generate the paradigms
   errors in ResLat.gf
 - Create gf script generate_paradigms.gfs to generate all yet implemented word forms
 
-Step 3: Check the forms
+Step 3: Check the forms in paradigms.txt
