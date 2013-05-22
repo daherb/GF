@@ -1,13 +1,7 @@
 i -src LexiconLat.gf
-ps "Nouns\n" | wf -file=paradigms.txt
-gt -cat=N | l -table | wf -append -file=paradigms.txt
-ps "Adjectives\n" | wf -append -file=paradigms.txt
+gt -cat=N | l -table | wf -file=paradigms.txt
 gt -cat=A | l -table | wf -append -file=paradigms.txt
-ps "Verbs\n" | wf -append -file=paradigms.txt
 gt -cat=V | l -table | wf -append -file=paradigms.txt
-ps "Nouns\n" | wf -append -file=paradigms.txt
 gt -cat=V2 | l -table | wf -append -file=paradigms.txt
-ps "Adverbs\n" | wf -append -file=paradigms.txt
 gt -cat=Adv | l -table | wf -append -file=paradigms.txt
-ps "Prepositions\n" | wf -append -file=paradigms.txt
 gt -cat=Prep | l -table | wf -append -file=paradigms.txt

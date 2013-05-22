@@ -1,10 +1,9 @@
-Nouns
 s Sg Nom : aëroplanum
 s Sg Acc : aëroplanum
 s Sg Gen : aëroplani
 s Sg Dat : aëroplano
 s Sg Abl : aëroplano
-s Sg Voc : aëroplano
+s Sg Voc : aëroplane
 s Pl Nom : aëroplana
 s Pl Acc : aëroplana
 s Pl Gen : aëroplanorum
@@ -17,7 +16,7 @@ s Sg Acc : domicilium
 s Sg Gen : domicilii
 s Sg Dat : domicilio
 s Sg Abl : domicilio
-s Sg Voc : domicilium
+s Sg Voc : domicilie
 s Pl Nom : domicilia
 s Pl Acc : domicilia
 s Pl Gen : domiciliorum
@@ -30,7 +29,7 @@ s Sg Acc : malum
 s Sg Gen : mali
 s Sg Dat : malo
 s Sg Abl : malo
-s Sg Voc : malum
+s Sg Voc : male
 s Pl Nom : mala
 s Pl Acc : mala
 s Pl Gen : malorum
@@ -82,7 +81,7 @@ s Sg Acc : tergum
 s Sg Gen : tergi
 s Sg Dat : tergo
 s Sg Abl : tergo
-s Sg Voc : tergum
+s Sg Voc : terge
 s Pl Nom : terga
 s Pl Acc : terga
 s Pl Gen : tergorum
@@ -2443,7 +2442,6 @@ s Pl Dat : annis
 s Pl Abl : annis
 s Pl Voc : anni
 
-Adjectives
 s Masc Sg Nom : malus
 s Masc Sg Acc : malum
 s Masc Sg Gen : mali
@@ -4183,7 +4181,6 @@ s Neutr Pl Dat : parvis
 s Neutr Pl Abl : parvis
 s Neutr Pl Voc : parva
 
-Verbs
 act (VAct VSim (VPres VInd) Sg P1) : flo
 act (VAct VSim (VPres VInd) Sg P2) : flas
 act (VAct VSim (VPres VInd) Sg P3) : flat
@@ -6200,7 +6197,6 @@ act (VAct VAnt VFut Pl P3) : vaduerint
 inf VSim : vadere
 inf VAnt : vaduisse
 
-Nouns
 act (VAct VSim (VPres VInd) Sg P1) : mordeo
 act (VAct VSim (VPres VInd) Sg P2) : mordes
 act (VAct VSim (VPres VInd) Sg P3) : mordet
@@ -9401,7 +9397,6 @@ c s :
 inf VSim : scribere
 inf VAnt : scribuisse
 
-Adverbs
 s : iam
 
  s : longe
@@ -9410,4 +9405,3 @@ s : iam
 
  s : hodie
 
-Prepositions
