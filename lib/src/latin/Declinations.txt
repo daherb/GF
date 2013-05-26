@@ -1,145 +1,27 @@
-1./a-Declination
-s Sg Nom : -a
-s Sg Acc : -am
-s Sg Gen : -ae
-s Sg Dat : -ae
-s Sg Abl : in -a
-s Sg Voc : -a
-s Pl Nom : -ae
-s Pl Acc : -as
-s Pl Gen : -arum
-s Pl Dat : -is
-s Pl Abl : in -is
-s Pl Voc : -ae
+1./a-Declination   2./o-Declination			 3. Declination
+s Sg Nom : -a	   s Sg Nom : -us     -um    -er	 s Sg Nom : -or		-as	  -ur	    -is	   -rs
+s Sg Acc : -am	   s Sg Acc : -um     -um    -r-um	 s Sg Acc : -or-em	-at-em	  -ur	    -em	   -rt-em
+s Sg Gen : -ae	   s Sg Gen : -i      -i     -r-i	 s Sg Gen : -or-is	-at-is	  -or-is    -is	   -rt-is
+s Sg Dat : -ae	   s Sg Dat : -o      -o     -o		 s Sg Dat : -or-i	-at-i	  -or-i	    -i	   -rt-i
+s Sg Abl : in -a   s Sg Abl : in -o   -o     in/a -o	 s Sg Abl : -or-e	-at-e	  -or-e	    -e	   -rt-e
+s Sg Voc : -a 	   s Sg Voc : -e      -um    -er  	 s Sg Voc : -or		-as	  -ur	    -is	   -rs
+s Pl Nom : -ae	   s Pl Nom : -i      -a     -r-i	 s Pl Nom : -or-es	-at-es	  -or-a	    -es	   -rt-es
+s Pl Acc : -as	   s Pl Acc : -os     -a     -r-os	 s Pl Acc : -or-es	-at-es	  -or-a	    -es	   -rt-es
+s Pl Gen : -arum   s Pl Gen : -orum   -orum  -r-orum	 s Pl Gen : -or-um	-at-um	  -or-um    -ium   -rt-ium
+s Pl Dat : -is	   s Pl Dat : -is     -is    -r-is	 s Pl Dat : -or-ibus	-at-ibus  -or-ibus  -ibus  -rt-ibus
+s Pl Abl : in -is  s Pl Abl : in -is  -is    in/a -r-is	 s Pl Abl : -or-ibus	-at-ibus  -or-ibus  -ibus  -rt-ibus
+s Pl Voc : -ae	   s Pl Voc : -i      -a     -r-i 	 s Pl Voc : -or-es	-at-es	  -or-es    -es	   -rt-es
 
-2./o-Declination
-s Sg Nom : -us
-s Sg Acc : -um
-s Sg Gen : -i
-s Sg Dat : -o
-s Sg Abl : in -o
-s Sg Voc : -e
-s Pl Nom : -i
-s Pl Acc : -os
-s Pl Gen : -orum
-s Pl Dat : -is
-s Pl Abl : in -is
-s Pl Voc : -i
-
-s Sg Nom : -um
-s Sg Acc : -um
-s Sg Gen : -i
-s Sg Dat : -o
-s Sg Abl : -o
-s Sg Voc : -um
-s Pl Nom : -a
-s Pl Acc : -a
-s Pl Gen : -orum
-s Pl Dat : -is
-s Pl Abl : -is
-s Pl Voc : -a
-
-s Sg Nom : -er
-s Sg Acc : -r-um
-s Sg Gen : -r-i
-s Sg Dat : -o
-s Sg Abl : in/a -o
-s Sg Voc : -er
-s Pl Nom : -r-i
-s Pl Acc : -r-os
-s Pl Gen : -r-orum
-s Pl Dat : -r-is
-s Pl Abl : in/a -r-is
-s Pl Voc : -r-i
-
-3. Declination
-s Sg Nom : -or
-s Sg Acc : -or-em
-s Sg Gen : -or-is
-s Sg Dat : -or-i
-s Sg Abl : -or-e
-s Sg Voc : -or
-s Pl Nom : -or-es
-s Pl Acc : -or-es
-s Pl Gen : -or-um
-s Pl Dat : -or-ibus
-s Pl Abl : -or-ibus
-s Pl Voc : -or-es
-
-s Sg Nom : -as
-s Sg Acc : -at-em
-s Sg Gen : -at-is
-s Sg Dat : -at-i
-s Sg Abl : -at-e
-s Sg Voc : -as
-s Pl Nom : -at-es
-s Pl Acc : -at-es
-s Pl Gen : -at-um
-s Pl Dat : -at-ibus
-s Pl Abl : -at-ibus
-s Pl Voc : -at-es
-
-s Sg Nom : -ur
-s Sg Acc : -ur
-s Sg Gen : -or-is
-s Sg Dat : -or-i
-s Sg Abl : -or-e
-s Sg Voc : -ur
-s Pl Nom : -or-a
-s Pl Acc : -or-a
-s Pl Gen : -or-um
-s Pl Dat : -or-ibus
-s Pl Abl : -or-ibus
-s Pl Voc : -or-es
-
-s Sg Nom : -is
-s Sg Acc : -em
-s Sg Gen : -is
-s Sg Dat : -i
-s Sg Abl : -e
-s Sg Voc : -is
-s Pl Nom : -es
-s Pl Acc : -es
-s Pl Gen : -ium
-s Pl Dat : -ibus
-s Pl Abl : -ibus
-s Pl Voc : -es
-
-s Sg Nom : -rs
-s Sg Acc : -rt-em
-s Sg Gen : -rt-is
-s Sg Dat : -rt-i
-s Sg Abl : -rt-e
-s Sg Voc : -rs
-s Pl Nom : -rt-es
-s Pl Acc : -rt-es
-s Pl Gen : -rt-ium
-s Pl Dat : -rt-ibus
-s Pl Abl : -rt-ibus
-s Pl Voc : -rt-es
-
-s Sg Nom : -is
-s Sg Acc : -im
-s Sg Gen : -is
-s Sg Dat : -i
-s Sg Abl : -i
-s Sg Voc : -is
-s Pl Nom : -es
-s Pl Acc : -is
-s Pl Gen : -ium
-s Pl Dat : -ibus
-s Pl Abl : -ibus
-s Pl Voc : -is
-
-s Sg Nom : -e
-s Sg Acc : -e
-s Sg Gen : -is
-s Sg Dat : -i
-s Sg Abl : -i
-s Sg Voc : -is
-s Pl Nom : -es
-s Pl Acc : -es
-s Pl Gen : -ium
-s Pl Dat : -ibus
-s Pl Abl : -ibus
-s Pl Voc : -es
+     	   	     	      4./u-Declination		 5./e-Declination
+s Sg Nom : -is	   -e	      s Sg Nom : -us	-u	 s Sg Nom : -es
+s Sg Acc : -im	   -e	      s Sg Acc : -um	-u	 s Sg Acc : -em
+s Sg Gen : -is	   -is	      s Sg Gen : -us	-us	 s Sg Gen : -ei
+s Sg Dat : -i	   -i	      s Sg Dat : -ui	-u	 s Sg Dat : -ei
+s Sg Abl : -i	   -i	      s Sg Abl : -u	-u	 s Sg Abl : -e
+s Sg Voc : -is	   -e	      s Sg Voc : -us	-u	 s Sg Voc : -es
+s Pl Nom : -es	   -ia	      s Pl Nom : -us	-ua	 s Pl Nom : -es
+s Pl Acc : -is	   -ia	      s Pl Acc : -us	-ua	 s Pl Acc : -es
+s Pl Gen : -ium	   -ium	      s Pl Gen : -uum	-uum	 s Pl Gen : -erum
+s Pl Dat : -ibus   -ibus      s Pl Dat : -ibus	-ibus	 s Pl Dat : -ebus
+s Pl Abl : -ibus   -ibus      s Pl Abl : -ibus	-ibus	 s Pl Abl : -ebus
+s Pl Voc : -es	   -ia	      s Pl Voc : -us	-ua	 s Pl Voc : -es
