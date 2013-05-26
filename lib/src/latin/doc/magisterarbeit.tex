@@ -1,0 +1,44 @@
+\documentclass[draft,11pt]{amsbook}
+
+\usepackage[utf8]{inputenc}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, left=3cm, right=3cm, top=3cm]{geometry}
+
+\begin{document}
+\setcounter{tocdepth}{3}
+\date{30.9.2013}
+\makeatletter
+
+\begin{titlepage}
+\begin{center}
+\vspace{4cm}
+\begin{huge}
+Hausarbeit \\
+zur Erlangung des Magistergrades \\
+an der Ludwig-Maximilians-Universität München
+\end{huge} \\[3cm]
+{\Huge Erstellen einer Lateingrammatik im Grammatical Framework} \\[6cm]
+{\LARGE vorgelegt von Herbert Lange} \\[5cm]
+\end{center}
+\parindent0mm
+\begin{huge} 
+Fach: Computerlinguistik  \\[0.3cm]
+Referent: Prof. Dr. Klaus U. Schulz \\[0.3cm]
+München, den \@date 
+\end{huge}
+\end{titlepage}
+\makeatother
+\tableofcontents
+\section{Einleitung}
+In dieser Arbeit soll beispielhaft das Vorgehen dargestellt werden, das nötig ist um eine computergestützte Grammatik zu entwickeln und einzusetzen. Als Grammatikformalismus fiel die Wahl auf das Grammatical Framework, das an der Universität Göteborg begonnen wurde und nun als freie Software entwickelt wird. Es ist sehr ausdrucksmächtig und bietet, durch das Konzept einer standartisierten Sprachbibliothek, Methoden zur Unterstützung bei der Implementierung und Verwendung von Grammatiken. Eben diese Bibliothek soll im Zuge dieser Arbeit möglichst vollständig um die lateinische Sprache erweitert werden, deren Entwicklung vor einigen Jahren im frühesten Stadium eingestellt wurde. 
+\subsection{Das Grammatical Framework}
+\subsubsection{Der Grammatikformalismus}
+\subsubsection{Die Ressource Grammar Library}
+\subsection{Die Lateinische Sprache}
+\section{Grammatikerstellung}
+\subsection{Lexikon}
+Den Beginn der Grammatikimplementierung bildet im Falle dieser Arbeit die Erstellung eines minimalen Lexikons. Durch die Abstrakte Syntax der RGL wird eine Liste von ca 400 englischen Worten vorgegeben, die in jeder Sprache umgesetzt werden müseen. Um diese Worte in die lateinische Sprache zu übersetzen wurde primär ein zweisprachiges lateinisch-deutsches Schulwörterbuch\footnote{Lang...} verwendet. Gerade bei begriffen aus der heutigen Alltagswelt war dies jedoch meist nicht ausreichend. Um lateinische Übersetzungen moderner Begriffe zu erhalten wurde zusätzlich die lateinischsprachige Wikipedia verwendet.
+\subsection{Morphologie}
+\subsection{Syntax}
+\end{document}
