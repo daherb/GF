@@ -777,7 +777,7 @@ s Pl Gen : ignum
 s Pl Dat : ignibus
 s Pl Abl : ignibus
 s Pl Voc : ignes
-===1
+
  s Sg Nom : piscis
 s Sg Acc : piscem
 s Sg Gen : piscis
@@ -786,7 +786,7 @@ s Sg Abl : pisce
 s Sg Voc : piscis
 s Pl Nom : pisces
 s Pl Acc : pisces
-s Pl Gen : piscium
+s Pl Gen : piscum
 s Pl Dat : piscibus
 s Pl Abl : piscibus
 s Pl Voc : pisces
@@ -897,16 +897,16 @@ s Pl Voc : amicae
 
  s Sg Nom : fructus
 s Sg Acc : fructum
-s Sg Gen : fructi
-s Sg Dat : fructo
-s Sg Abl : in fructo
-s Sg Voc : fructe
-s Pl Nom : fructi
-s Pl Acc : fructos
-s Pl Gen : fructorum
-s Pl Dat : fructis
-s Pl Abl : in fructis
-s Pl Voc : fructi
+s Sg Gen : fructus
+s Sg Dat : fructui
+s Sg Abl : fructu
+s Sg Voc : fructus
+s Pl Nom : fructus
+s Pl Acc : fructus
+s Pl Gen : fructuum
+s Pl Dat : fructibus
+s Pl Abl : fructibus
+s Pl Voc : fructus
 
  s Sg Nom : hortus
 s Sg Acc : hortum
@@ -936,23 +936,23 @@ s Pl Voc : puellae
 
  s Sg Nom : caestus
 s Sg Acc : caestum
-s Sg Gen : caesti
-s Sg Dat : caesto
-s Sg Abl : in caesto
-s Sg Voc : caeste
-s Pl Nom : caesti
-s Pl Acc : caestos
-s Pl Gen : caestorum
-s Pl Dat : caestis
-s Pl Abl : in caestis
-s Pl Voc : caesti
+s Sg Gen : caestus
+s Sg Dat : caestui
+s Sg Abl : caestu
+s Sg Voc : caestus
+s Pl Nom : caestus
+s Pl Acc : caestss
+s Pl Gen : caestuum
+s Pl Dat : caestibus
+s Pl Abl : caestibus
+s Pl Voc : caestus
 
  s Sg Nom : aurum
 s Sg Acc : aurum
 s Sg Gen : auri
 s Sg Dat : auro
 s Sg Abl : auro
-s Sg Voc : aure
+s Sg Voc : aurum
 s Pl Nom : aura
 s Pl Acc : aura
 s Pl Gen : aurorum
@@ -974,14 +974,14 @@ s Pl Abl : in grammaticis
 s Pl Voc : grammaticae
 
  s Sg Nom : gramen
-s Sg Acc : gramen ?
+s Sg Acc : gramen
 s Sg Gen : graminis
 s Sg Dat : gramini
 s Sg Abl : gramine
 s Sg Voc : gramen
 s Pl Nom : gramina
 s Pl Acc : gramina
-s Pl Gen : graminum ?
+s Pl Gen : graminum
 s Pl Dat : graminibus
 s Pl Abl : graminibus
 s Pl Voc : gramina
@@ -1014,29 +1014,29 @@ s Pl Voc : capilli
 
  s Sg Nom : manus
 s Sg Acc : manum
-s Sg Gen : mani
-s Sg Dat : mano
-s Sg Abl : in mano
-s Sg Voc : mane
-s Pl Nom : mani
-s Pl Acc : manos
-s Pl Gen : manorum
-s Pl Dat : manis
-s Pl Abl : in manis
-s Pl Voc : mani
+s Sg Gen : manus
+s Sg Dat : manui
+s Sg Abl : manu
+s Sg Voc : manus
+s Pl Nom : manus
+s Pl Acc : manus
+s Pl Gen : manuum
+s Pl Dat : manibus
+s Pl Abl : manibus
+s Pl Voc : manus
 
  s Sg Nom : portus
 s Sg Acc : portum
-s Sg Gen : porti
-s Sg Dat : porto
-s Sg Abl : in porto
-s Sg Voc : porte
-s Pl Nom : porti
-s Pl Acc : portos
-s Pl Gen : portorum
-s Pl Dat : portis
-s Pl Abl : inportis
-s Pl Voc : porti
+s Sg Gen : portus
+s Sg Dat : portui
+s Sg Abl : portu
+s Sg Voc : portus
+s Pl Nom : portus
+s Pl Acc : portus
+s Pl Gen : portuum
+s Pl Dat : portibus
+s Pl Abl : portibus
+s Pl Voc : portus
 
  s Sg Nom : petasus
 s Sg Acc : petasum
@@ -1059,7 +1059,7 @@ s Sg Abl : corde
 s Sg Voc : cor
 s Pl Nom : corda
 s Pl Acc : corda
-s Pl Gen : cordium
+s Pl Gen : cordum
 s Pl Dat : cordibus
 s Pl Abl : cordibus
 s Pl Voc : corda
@@ -1072,7 +1072,7 @@ s Sg Abl : colle
 s Sg Voc : collis
 s Pl Nom : colles
 s Pl Acc : colles
-s Pl Gen : collium
+s Pl Gen : collum
 s Pl Dat : collibus
 s Pl Abl : collibus
 s Pl Voc : colles
@@ -1271,7 +1271,7 @@ s Pl Gen : scortorum
 s Pl Dat : scortis
 s Pl Abl : scortis
 s Pl Voc : scorta
-===2
+
  s Sg Nom : os
 s Sg Acc : os
 s Sg Gen : oris
