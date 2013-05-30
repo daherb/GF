@@ -51,17 +51,17 @@ s Pl Abl : artibus
 s Pl Voc : artes
 
  s Sg Nom : cinis
-s Sg Acc : cinem
-s Sg Gen : cinis
-s Sg Dat : cini
-s Sg Abl : cine
+s Sg Acc : cinerem
+s Sg Gen : cineris
+s Sg Dat : cineri
+s Sg Abl : cinere
 s Sg Voc : cinis
-s Pl Nom : cines
-s Pl Acc : cines
-s Pl Gen : cinium
-s Pl Dat : cinibus
-s Pl Abl : cinibus
-s Pl Voc : cines
+s Pl Nom : cineres
+s Pl Acc : cineres
+s Pl Gen : cinerium
+s Pl Dat : cineribus
+s Pl Abl : cineribus
+s Pl Voc : cineres
 
  s Sg Nom : infans
 s Sg Acc : infantem
@@ -142,17 +142,17 @@ s Pl Abl : in cervisiis
 s Pl Voc : cervisiae
 
  s Sg Nom : venter
-s Sg Acc : ventrum
-s Sg Gen : ventri
-s Sg Dat : ventro
+s Sg Acc : ventrem
+s Sg Gen : ventris
+s Sg Dat : ventri
 s Sg Abl : ventro
 s Sg Voc : venter
-s Pl Nom : ventri
-s Pl Acc : ventros
-s Pl Gen : ventrorum
-s Pl Dat : ventris
-s Pl Abl : ventris
-s Pl Voc : ventri
+s Pl Nom : ventres
+s Pl Acc : ventres
+s Pl Gen : ventrum
+s Pl Dat : ventribus
+s Pl Abl : ventribus
+s Pl Voc : ventres
 
  s Sg Nom : birota
 s Sg Acc : birotam
@@ -227,7 +227,7 @@ s Sg Abl : osse
 s Sg Voc : os
 s Pl Nom : ossa
 s Pl Acc : ossa
-s Pl Gen : ossium/ossum
+s Pl Gen : ossum
 s Pl Dat : ossibus
 s Pl Abl : ossibus
 s Pl Voc : ossa
@@ -276,7 +276,7 @@ s Sg Acc : puerum
 s Sg Gen : pueri
 s Sg Dat : puero
 s Sg Abl : in/a puero
-s Sg Voc : puer/puere
+s Sg Voc : puer
 s Pl Nom : pueri
 s Pl Acc : pueros
 s Pl Gen : puerorum
@@ -311,17 +311,17 @@ s Pl Abl : panibus
 s Pl Voc : pania
 
  s Sg Nom : pectus
-s Sg Acc : pectum
-s Sg Gen : pecti
-s Sg Dat : pecto
-s Sg Abl : in pecto
-s Sg Voc : pecte
-s Pl Nom : pecti
-s Pl Acc : pectos
+s Sg Acc : pectus
+s Sg Gen : pectoris
+s Sg Dat : pectori
+s Sg Abl : pectore
+s Sg Voc : pectctus
+s Pl Nom : pectores
+s Pl Acc : pectores
 s Pl Gen : pectorum
-s Pl Dat : pectis
-s Pl Abl : in pectis
-s Pl Voc : pecti
+s Pl Dat : pectoribus
+s Pl Abl : pectoris
+s Pl Voc : pectores
 
  s Sg Nom : butyrum
 s Sg Acc : butyrum
@@ -416,15 +416,15 @@ s Pl Voc : tegimenta
 
  s Sg Nom : sedes
 s Sg Acc : sedem
-s Sg Gen : sedei
-s Sg Dat : sedei
+s Sg Gen : sedis
+s Sg Dat : sedi
 s Sg Abl : sede
 s Sg Voc : sedes
 s Pl Nom : sedes
 s Pl Acc : sedes
-s Pl Gen : sederum
-s Pl Dat : sedebus
-s Pl Abl : sedebus
+s Pl Gen : sedium
+s Pl Dat : sedibus
+s Pl Abl : sedibus
 s Pl Voc : sedes
 
  s Sg Nom : caseus
@@ -441,17 +441,17 @@ s Pl Abl : in caseis
 s Pl Voc : casei
 
  s Sg Nom : puer
-s Sg Acc : puerum
-s Sg Gen : pueri
-s Sg Dat : puero
-s Sg Abl : in/a puero
+s Sg Acc : puerem
+s Sg Gen : pueris
+s Sg Dat : pueri
+s Sg Abl : puere
 s Sg Voc : puer
-s Pl Nom : pueri
-s Pl Acc : pueros
-s Pl Gen : puerorum
-s Pl Dat : pueris
-s Pl Abl : in/a pueris
-s Pl Voc : pueri
+s Pl Nom : pueres
+s Pl Acc : pueres
+s Pl Gen : puerum
+s Pl Dat : pueribus
+s Pl Abl : pueribus
+s Pl Voc : pueres
 
 s Sg Nom : puella
 s Sg Acc : puellam
@@ -494,15 +494,15 @@ s Pl Voc : urbes
 
  s Sg Nom : nubes
 s Sg Acc : nubem
-s Sg Gen : nubei
-s Sg Dat : nubei
+s Sg Gen : nubis
+s Sg Dat : nubi
 s Sg Abl : nube
 s Sg Voc : nubes
 s Pl Nom : nubes
 s Pl Acc : nubes
-s Pl Gen : nuberum
-s Pl Dat : nubebus
-s Pl Abl : nubebus
+s Pl Gen : nubium
+s Pl Dat : nubibus
+s Pl Abl : nubibus
 s Pl Voc : nubes
 
  s Sg Nom : pallium
@@ -578,9 +578,9 @@ s Sg Abl : bove
 s Sg Voc : bos
 s Pl Nom : boves
 s Pl Acc : boves
-s Pl Gen : bovium
-s Pl Dat : bovibus
-s Pl Abl : bovibus
+s Pl Gen : boum
+s Pl Dat : bobus/bubus
+s Pl Abl : bobus/bubus
 s Pl Voc : boves
 
  s Sg Nom : dies
@@ -636,17 +636,17 @@ s Pl Abl : in portis
 s Pl Voc : portae
 
  s Sg Nom : pulvis
-s Sg Acc : pulvem
-s Sg Gen : pulvis
-s Sg Dat : pulvi
-s Sg Abl : pulve
-s Sg Voc : pulvis
-s Pl Nom : pulves
-s Pl Acc : pulves
-s Pl Gen : pulvium
-s Pl Dat : pulvibus
-s Pl Abl : pulvibus
-s Pl Voc : pulves
+s Sg Acc : pulverem
+s Sg Gen : pulveris
+s Sg Dat : pulveri
+s Sg Abl : pulvere
+s Sg Voc : pulveris
+s Pl Nom : pulveres
+s Pl Acc : pulveres
+s Pl Gen : pulverum
+s Pl Dat : pulveribus
+s Pl Abl : pulveribus
+s Pl Voc : pulveres
 
  s Sg Nom : auris
 s Sg Acc : aurem
@@ -773,11 +773,11 @@ s Sg Abl : igne
 s Sg Voc : ignis
 s Pl Nom : ignes
 s Pl Acc : ignes
-s Pl Gen : ignium
+s Pl Gen : ignum
 s Pl Dat : ignibus
 s Pl Abl : ignibus
 s Pl Voc : ignes
-
+===1
  s Sg Nom : piscis
 s Sg Acc : piscem
 s Sg Gen : piscis
@@ -1271,7 +1271,7 @@ s Pl Gen : scortorum
 s Pl Dat : scortis
 s Pl Abl : scortis
 s Pl Voc : scorta
-===
+===2
  s Sg Nom : os
 s Sg Acc : os
 s Sg Gen : oris
@@ -2012,7 +2012,7 @@ s Pl Gen : fumorum
 s Pl Dat : fumis
 s Pl Abl : fumis
 s Pl Voc : fumi
----
+
  s Sg Nom : serpens
 s Sg Acc : serpentem
 s Sg Gen : serpentis
@@ -2027,30 +2027,30 @@ s Pl Abl : serpentibus
 s Pl Voc : serpentes
 
  s Sg Nom : nix
-s Sg Acc : nicem
-s Sg Gen : nicis
-s Sg Dat : nici
-s Sg Abl : nice
+s Sg Acc : nivem
+s Sg Gen : nivis
+s Sg Dat : nivi
+s Sg Abl : nive
 s Sg Voc : nix
-s Pl Nom : nices
-s Pl Acc : nices
-s Pl Gen : nicum
-s Pl Dat : nicibus
-s Pl Abl : nicibus
-s Pl Voc : nices
+s Pl Nom : nives
+s Pl Acc : nives
+s Pl Gen : nivum
+s Pl Dat : nivibus
+s Pl Abl : nivibus
+s Pl Voc : nives
 
- s Sg Nom : udo
-s Sg Acc : udinem
-s Sg Gen : udinis
-s Sg Dat : udini
-s Sg Abl : udine
-s Sg Voc : udo
-s Pl Nom : udines
-s Pl Acc : udines
-s Pl Gen : udinum
-s Pl Dat : udinibus
-s Pl Abl : udinibus
-s Pl Voc : udines
+ s Sg Nom : udo ?
+s Sg Acc : udonem ?
+s Sg Gen : udonis ?
+s Sg Dat : udoni ?
+s Sg Abl : udone ?
+s Sg Voc : udo ?
+s Pl Nom : udones ?
+s Pl Acc : udones ?
+s Pl Gen : udonum ?
+s Pl Dat : udonibus ?
+s Pl Abl : udonibus ?
+s Pl Voc : udones ?
 
  s Sg Nom : carmen
 s Sg Acc : carmen
@@ -2069,13 +2069,13 @@ s Pl Voc : carmina
 s Sg Acc : stellam
 s Sg Gen : stellae
 s Sg Dat : stellae
-s Sg Abl : stella
+s Sg Abl : in stella
 s Sg Voc : stella
 s Pl Nom : stellae
 s Pl Acc : stellas
 s Pl Gen : stellarum
 s Pl Dat : stellis
-s Pl Abl : stellis
+s Pl Abl : in stellis
 s Pl Voc : stellae
 
  s Sg Nom : chalybs
@@ -2095,13 +2095,13 @@ s Pl Voc : chalybes
 s Sg Acc : baculum
 s Sg Gen : baculi
 s Sg Dat : baculo
-s Sg Abl : baculo
+s Sg Abl : in baculo
 s Sg Voc : bacule
 s Pl Nom : baculi
 s Pl Acc : baculos
 s Pl Gen : baculorum
 s Pl Dat : baculis
-s Pl Abl : baculis
+s Pl Abl : in baculis
 s Pl Voc : baculi
 
 s Sg Nom : baculum
@@ -2109,7 +2109,7 @@ s Sg Acc : baculum
 s Sg Gen : baculi
 s Sg Dat : baculo
 s Sg Abl : baculo
-s Sg Voc : bacule
+s Sg Voc : baculum
 s Pl Nom : bacula
 s Pl Acc : bacula
 s Pl Gen : baculorum
@@ -2118,17 +2118,17 @@ s Pl Abl : baculis
 s Pl Voc : bacula
 
  s Sg Nom : lapis
-s Sg Acc : lapem
-s Sg Gen : lapis
-s Sg Dat : lapi
-s Sg Abl : lape
+s Sg Acc : lapidem
+s Sg Gen : lapidis
+s Sg Dat : lapidi
+s Sg Abl : lapide
 s Sg Voc : lapis
-s Pl Nom : lapes
-s Pl Acc : lapes
-s Pl Gen : lapum
-s Pl Dat : lapibus
-s Pl Abl : lapibus
-s Pl Voc : lapes
+s Pl Nom : lapides
+s Pl Acc : lapides
+s Pl Gen : lapidum
+s Pl Dat : lapidibus
+s Pl Abl : lapidibus
+s Pl Voc : lapides
 
  s Sg Nom : fornax
 s Sg Acc : fornacem
@@ -2147,66 +2147,66 @@ s Pl Voc : fornaces
 s Sg Acc : discipulum
 s Sg Gen : discipuli
 s Sg Dat : discipulo
-s Sg Abl : discipulo
+s Sg Abl : in discipulo
 s Sg Voc : discipule
 s Pl Nom : discipuli
 s Pl Acc : discipulos
 s Pl Gen : discipulorum
 s Pl Dat : discipulis
-s Pl Abl : discipulis
+s Pl Abl : in discipulis
 s Pl Voc : discipuli
 
 s Sg Nom : discipula
 s Sg Acc : discipulam
 s Sg Gen : discipulae
 s Sg Dat : discipulae
-s Sg Abl : discipula
+s Sg Abl : in discipula
 s Sg Voc : discipula
 s Pl Nom : discipulae
 s Pl Acc : discipulas
 s Pl Gen : discipularum
 s Pl Dat : discipulis
-s Pl Abl : discipulis
+s Pl Abl : in discipulis
 s Pl Voc : discipulae
 
  s Sg Nom : mensa
 s Sg Acc : mensam
 s Sg Gen : mensae
 s Sg Dat : mensae
-s Sg Abl : mensa
+s Sg Abl : in mensa
 s Sg Voc : mensa
 s Pl Nom : mensae
 s Pl Acc : mensas
 s Pl Gen : mensarum
 s Pl Dat : mensis
-s Pl Abl : mensis
+s Pl Abl : in mensis
 s Pl Voc : mensae
 
  s Sg Nom : cauda
 s Sg Acc : caudam
 s Sg Gen : caudae
 s Sg Dat : caudae
-s Sg Abl : cauda
+s Sg Abl : in cauda
 s Sg Voc : cauda
 s Pl Nom : caudae
 s Pl Acc : caudas
 s Pl Gen : caudarum
 s Pl Dat : caudis
-s Pl Abl : caudis
+s Pl Abl : in caudis
 s Pl Voc : caudae
 
  s Sg Nom : magister
-s Sg Acc : magisterum
-s Sg Gen : magisteri
-s Sg Dat : magistero
-s Sg Abl : magistero
-s Sg Voc : magistere
-s Pl Nom : magisteri
-s Pl Acc : magisteros
-s Pl Gen : magisterorum
-s Pl Dat : magisteris
-s Pl Abl : magisteris
-s Pl Voc : magisteri
+s Sg Acc : magistrum
+s Sg Gen : magistri
+s Sg Dat : magistro
+s Sg Abl : in/a magistro
+s Sg Voc : magister
+s Pl Nom : magistri
+s Pl Acc : magistros
+s Pl Gen : magistrorum
+s Pl Dat : magistris
+s Pl Abl : in/a magistris
+s Pl Voc : magiseri
 
  s Sg Nom : televisio
 s Sg Acc : televisionem
@@ -2225,39 +2225,39 @@ s Pl Voc : televisiones
 s Sg Acc : linguam
 s Sg Gen : linguae
 s Sg Dat : linguae
-s Sg Abl : lingua
+s Sg Abl : in lingua
 s Sg Voc : lingua
 s Pl Nom : linguae
 s Pl Acc : linguas
 s Pl Gen : linguarum
 s Pl Dat : linguis
-s Pl Abl : linguis
+s Pl Abl : in linguis
 s Pl Voc : linguae
 
  s Sg Nom : dens
-s Sg Acc : denem
-s Sg Gen : denis
-s Sg Dat : deni
-s Sg Abl : dene
+s Sg Acc : dentem
+s Sg Gen : dentis
+s Sg Dat : denti
+s Sg Abl : dente
 s Sg Voc : dens
-s Pl Nom : denes
-s Pl Acc : denes
-s Pl Gen : denum
-s Pl Dat : denibus
-s Pl Abl : denibus
-s Pl Voc : denes
+s Pl Nom : dentes
+s Pl Acc : dentes
+s Pl Gen : dentum
+s Pl Dat : dentibus
+s Pl Abl : dentibus
+s Pl Voc : dentes
 
  s Sg Nom : hamaxostichus
 s Sg Acc : hamaxostichum
 s Sg Gen : hamaxostichi
 s Sg Dat : hamaxosticho
-s Sg Abl : hamaxosticho
+s Sg Abl : in hamaxosticho
 s Sg Voc : hamaxostiche
 s Pl Nom : hamaxostichi
 s Pl Acc : hamaxostichos
 s Pl Gen : hamaxostichorum
 s Pl Dat : hamaxostichis
-s Pl Abl : hamaxostichis
+s Pl Abl : in hamaxostichis
 s Pl Voc : hamaxostichi
 
  s Sg Nom : arbor
@@ -2290,13 +2290,13 @@ s Pl Voc : universitates
 s Sg Acc : vicum
 s Sg Gen : vici
 s Sg Dat : vico
-s Sg Abl : vico
+s Sg Abl : in vico
 s Sg Voc : vice
 s Pl Nom : vici
 s Pl Acc : vicos
 s Pl Gen : vicorum
 s Pl Dat : vicis
-s Pl Abl : vicis
+s Pl Abl : in vicis
 s Pl Voc : vici
 
  s Sg Nom : bellum
@@ -2304,7 +2304,7 @@ s Sg Acc : bellum
 s Sg Gen : belli
 s Sg Dat : bello
 s Sg Abl : bello
-s Sg Voc : belle
+s Sg Voc : bellum
 s Pl Nom : bella
 s Pl Acc : bella
 s Pl Gen : bellorum
@@ -2316,52 +2316,52 @@ s Pl Voc : bella
 s Sg Acc : aquam
 s Sg Gen : aquae
 s Sg Dat : aquae
-s Sg Abl : aqua
+s Sg Abl : in aqua
 s Sg Voc : aqua
 s Pl Nom : aquae
 s Pl Acc : aquas
 s Pl Gen : aquarum
 s Pl Dat : aquis
-s Pl Abl : aquis
+s Pl Abl : in aquis
 s Pl Voc : aquae
 
  s Sg Nom : mulier
-s Sg Acc : mulierum
-s Sg Gen : mulieri
-s Sg Dat : muliero
-s Sg Abl : muliero
-s Sg Voc : muliere
-s Pl Nom : mulieri
-s Pl Acc : mulieros
-s Pl Gen : mulierorum
-s Pl Dat : mulieris
-s Pl Abl : mulieris
-s Pl Voc : mulieri
+s Sg Acc : mulierem
+s Sg Gen : mulieris
+s Sg Dat : mulieri
+s Sg Abl : muliere
+s Sg Voc : mulier
+s Pl Nom : mulieres
+s Pl Acc : mulieres
+s Pl Gen : mulierum
+s Pl Dat : mulieribus
+s Pl Abl : mulieribus
+s Pl Voc : mulieres
 
  s Sg Nom : ventus
 s Sg Acc : ventum
 s Sg Gen : venti
 s Sg Dat : vento
-s Sg Abl : vento
+s Sg Abl : in vento
 s Sg Voc : vente
 s Pl Nom : venti
 s Pl Acc : ventos
 s Pl Gen : ventorum
 s Pl Dat : ventis
-s Pl Abl : ventis
+s Pl Abl : in ventis
 s Pl Voc : venti
 
  s Sg Nom : fenestra
 s Sg Acc : fenestram
 s Sg Gen : fenestrae
 s Sg Dat : fenestrae
-s Sg Abl : fenestra
+s Sg Abl : in fenestra
 s Sg Voc : fenestra
 s Pl Nom : fenestrae
 s Pl Acc : fenestras
 s Pl Gen : fenestrarum
 s Pl Dat : fenestris
-s Pl Abl : fenestris
+s Pl Abl : in fenestris
 s Pl Voc : fenestrae
 
  s Sg Nom : vinum
@@ -2369,7 +2369,7 @@ s Sg Acc : vinum
 s Sg Gen : vini
 s Sg Dat : vino
 s Sg Abl : vino
-s Sg Voc : vine
+s Sg Voc : vinum
 s Pl Nom : vina
 s Pl Acc : vina
 s Pl Gen : vinorum
@@ -2381,13 +2381,13 @@ s Pl Voc : vina
 s Sg Acc : alam
 s Sg Gen : alae
 s Sg Dat : alae
-s Sg Abl : ala
+s Sg Abl : in ala
 s Sg Voc : ala
 s Pl Nom : alae
 s Pl Acc : alas
 s Pl Gen : alarum
 s Pl Dat : alis
-s Pl Abl : alis
+s Pl Abl : in alis
 s Pl Voc : alae
 
  s Sg Nom : femina
@@ -2395,12 +2395,12 @@ s Sg Acc : feminam
 s Sg Gen : feminae
 s Sg Dat : feminae
 s Sg Abl : femina
-s Sg Voc : femina
+s Sg Voc : in femina
 s Pl Nom : feminae
 s Pl Acc : feminas
 s Pl Gen : feminarum
 s Pl Dat : feminis
-s Pl Abl : feminis
+s Pl Abl : in feminis
 s Pl Voc : feminae
 
  s Sg Nom : lignum
@@ -2408,7 +2408,7 @@ s Sg Acc : lignum
 s Sg Gen : ligni
 s Sg Dat : ligno
 s Sg Abl : ligno
-s Sg Voc : ligne
+s Sg Voc : lignum
 s Pl Nom : ligna
 s Pl Acc : ligna
 s Pl Gen : lignorum
@@ -2424,7 +2424,7 @@ s Sg Abl : verme
 s Sg Voc : vermis
 s Pl Nom : vermes
 s Pl Acc : vermes
-s Pl Gen : vermum
+s Pl Gen : vermium
 s Pl Dat : vermibus
 s Pl Abl : vermibus
 s Pl Voc : vermes
@@ -2433,12 +2433,11 @@ s Pl Voc : vermes
 s Sg Acc : annum
 s Sg Gen : anni
 s Sg Dat : anno
-s Sg Abl : anno
+s Sg Abl : in anno
 s Sg Voc : anne
 s Pl Nom : anni
 s Pl Acc : annos
 s Pl Gen : annorum
 s Pl Dat : annis
-s Pl Abl : annis
+s Pl Abl : in annis
 s Pl Voc : anni
-
