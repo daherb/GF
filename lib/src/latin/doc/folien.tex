@@ -139,18 +139,76 @@ Ursprünglich Sprache der Bewohner der mittelitalienischen Region Latium
 \end{frame}
 \subsection{Lexikon}
 \begin{frame}{Lexikon}
+\begin{itemize}
+  \item Ca. 400 vorgegebene englische Wörter aus allen möglichen Wortarten und verschiedenen Bereichen
+  \item Keine Klärung von Ambiguitäten (z.B. bank) $\rightarrow$ willkürliche Wahl der Übersetzung
+  \item Viele moderne Begriffe (Auto, Eisenbahn, Computer, Fernseher) $\rightarrow$ Übersetzung mit Hilfe der Wikipedia
+  \item Begriffe ohne auffindbare Übersetzung (ein-/ausschalten) $\rightarrow$ Wahl eines naheliegenden Wortes (accendere/exstinguere)
+  \item Manche Differenzierungen nicht in jeder Sprache möglich
+\end{itemize}
+\end{frame}
+\begin{frame}{}
+\begin{block}{Beispiel}
+{\scriptsize\ttfamily
+  blue\_A = mkA ( variants { ''caeruleus'' ; ''caerulus'' } ) ; -- 3 L... \\
+  boat\_N = mkN ''navicula'' ; -- -ae f. L... \\
+  book\_N = mkN ''liber'' ''libri'' masculine ; -- Ranta; -bri m. L... \\
+  boot\_N = mkN ''calceus'' ; -- -i m. L... \\
+  boss\_N = mkN ''dux'' ''ducis'' ( variants { feminine ; masculine } ) ; -- ducis m./f. L... \\
+  boy\_N = mkN ''puer'' ''pueri'' masculine ; -- -eri m. L... \\
+  bread\_N = ( variants { (mkN ''panis'' ''panis'' masculine ) ; mkN ''pane'' } ) ; -- -is m./n. L...  \\
+  break\_V2 = mkV2 (mkV ''rumpo'' ''rupi'' ''ruptum'' ''rumpere'') ; -- Ranta; 3 L...
+}
+\end{block}
 \end{frame}
 \subsection{Morphologie}
 \begin{frame}{Morphologie}
+\begin{itemize}
+\item Einteilung in vier Gruppen: Nomina (Substantive, Adjektive, Pronomina, Numeralia), Verben, Partikel (Adverbien, Präpositionen, Konjunktionen), Interjektionen. Es gibt keine Artikel
+\item Nomina und Verben werden flektiert, Partikel und Interjektionen werden nicht flektiert
+\item Fünf Nomendeklinationen, drei Adjektivdeklinationen, Adjektivkomparation, Adverbbildung, vier Verbkonjugationen, Deponentia
+\end{itemize}
+\end{frame}
+\begin{frame}{Smart Paradigms}
+Pattern Matching um für ein Wort aus möglichst wenig Formen das Paradigma zu bestimmen
+\begin{block}{Beispiel}
+{\scriptsize\ttfamily
+  noun : Str -> Noun = \textbackslash verbum ->  \\
+    case verbum of \{ \\
+      \_ + ''a''  => noun1 verbum ; \\
+      \_ + ''us'' => noun2us verbum ; \\
+      \_ + ''um'' => noun2um verbum ; \\
+      \_ + ''er'' => noun2er verbum ;  \\
+      \_ + ''u''  => noun4u verbum ;  \\
+      \_ + ''es'' => noun5 verbum ;  \\
+      \_  => noun3 verbum \\
+      \} ; 
+}
+\end{block}
 \end{frame}
 \subsection{Syntax}
 \begin{frame}{Syntax}
+\begin{itemize}
+\item Problem: Freie Wortstellung im Satz $\rightarrow$ Variationen erhöhen die Komplexität exponentiell
+\item Zunächst: Beschränkung auf SOV-Wortstellung
+\item Optional: Suche nach performanten Implementierungsmöglichkeiten für beschränkte oder volle Variation
+\end{itemize}
+\end{frame}
+\subsection{Ausblick}
+\begin{frame}{Ausblick}
+\begin{itemize}
+\item Anbinden eines größeres Lexikons
+\item Integration in eine weboberfläche oder eine Android-App
+\item Benutzung für die Lehre (Translation Quiz)
+\end{itemize}
 \end{frame}
 \section{Literatur}
 \begin{frame}{Literatur}
 \begin{itemize}
-  \item Ranta, Aarne: Grammatical Framework; Programming with Multilingual Grammars, CSLI Publications, Stanford 2011 
   \item Bayer, Karl u. Lindauer, Josef: Lateinische Grammatik, C.C. Buchners Verlag, Bamberg 1994
+  \item Leuman, M./Hofmann, J.B./ Szantyr, A.: Lateinische Grammatik. Auf der Grundlage des Werkes von Friedrich Stolz und Joseph Hermann Schmalz; Band 2: Lateinische Syntax und Stilistik, C.H. Beck'sche Verlagsbuchhandlung, München 1972
+  \item Ranta, Aarne: Grammatical Framework. Programming with Multilingual Grammars, CSLI Publications, Stanford 2011 
+  \item Ranta, Aarne: Grammatical Framework Tutorial, http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html 2010
 \end{itemize}
 \end{frame}
 \end{document}
