@@ -32,27 +32,50 @@ oper
 --    };
 -- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
 
-  mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
-    \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd, g -> {
-    s = table {
-      Sg => table {
-        Nom => sn ;
-        Acc => sa ;
-        Gen => sg ;
-        Dat => sd ;
-        Abl => sab ;
-        Voc => sv
-        } ;
-      Pl => table {
-        Nom | Voc => pn ;
-        Acc => pa ;
-        Gen => pg ;
-        Dat | Abl => pd
-        }
+  mkNoun = overload { 
+    mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
+      \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
+	s = table {
+	  Sg => table {
+            Nom => sn ;
+            Acc => sa ;
+            Gen => sg ;
+            Dat => sd ;
+            Abl => sab ;
+            Voc => sv
+            } ;
+	  Pl => table {
+            Nom | Voc => pn ;
+            Acc => pa ;
+            Gen => pg ;
+            Dat | Abl => pd
+            }
+	  } ;
+	g = g
       } ;
-    g = g
+    mkNoun : (n1,_,_,_,_,_,_,_,_,_,n11 : Str) -> Gender -> Noun = 
+      \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,pab,g -> {
+	s = table {
+	  Sg => table {
+            Nom => sn ;
+            Acc => sa ;
+            Gen => sg ;
+            Dat => sd ;
+            Abl => sab ;
+            Voc => sv
+            } ;
+	  Pl => table {
+            Nom | Voc => pn ;
+            Acc => pa ;
+            Gen => pg ;
+            Dat => pd ;
+	    Abl => pab
+            }
+	  } ;
+	g = g
+      } ;
     } ;
-
+    
   -- declensions
 
   noun1 : Str -> Noun = \mensa ->
@@ -61,8 +84,8 @@ oper
       mensis = init mensa + "is" ;
     in
     mkNoun 
-      mensa (mensa +"m") mensae mensae mensa mensa
-      mensae (mensa + "s") (mensa + "rum") mensis
+      mensa (mensa +"m") mensae mensae ("in" ++ mensa) mensa
+      mensae (mensa + "s") (mensa + "rum") mensis ("in" ++ mensis)
       Fem ;
 
   noun2us : Str -> Noun = \servus ->
@@ -73,8 +96,8 @@ oper
       servo = serv + "o" ;
     in
     mkNoun 
-      servus servum servi servo servo (serv + "e")
-      servi (serv + "os") (serv + "orum") (serv + "is")
+      servus servum servi servo ("in" ++ servo) (serv + "e")
+      servi (serv + "os") (serv + "orum") (serv + "is") ("in" ++ serv + "is")
       Masc ;
 
   noun2er : Str -> Noun = \puer ->
@@ -82,10 +105,11 @@ oper
       puerum = puer + "um" ;
       pueri = puer + "i" ;
       puero = puer + "o" ;
+      abl = variants { "in" ; "a" } ;
     in
     mkNoun 
-      puer puerum pueri puero puero (puer + "e")
-      pueri (puer + "os") (puer + "orum") (puer + "is")
+      puer puerum pueri puero ( abl ++ puero) puer
+      pueri (puer + "os") (puer + "orum") (puer + "is") ( abl ++ puer + "is")
       Masc ;
 
   noun2um : Str -> Noun = \bellum ->
@@ -96,7 +120,7 @@ oper
       bella = bell + "a" ;
     in
     mkNoun 
-      bellum bellum belli bello bello (bell + "e")
+      bellum bellum belli bello bello (bell + "um")
       bella bella (bell + "orum") (bell + "is")
       Neutr ;
 
@@ -120,13 +144,23 @@ oper
         _ => reg + "e"
         } ;
       regemes : Str * Str = case g of {
-        Neutr => <rex,reg + "a"> ;
+        Neutr => case rex of { 
+	  _ + "e" => <rex,reg + "ia"> ;
+	  _ => <rex,reg + "a">
+	  } ;
         _     => <reg + "em", reg + "es">
         } ;
+      pg = case g of {
+	Fem => "ium" ;
+	_ => case rex of {
+	  _ + "e" => "ium" ;
+	  _ => "um"
+	  } 
+	} ;
     in
     mkNoun
       rex regemes.p1 (reg + "is") (reg + "i") rege rex
-      regemes.p2 regemes.p2 (reg + "um") (reg + "ibus") 
+      regemes.p2 regemes.p2 (reg + pg) (reg + "ibus") 
       g ;
 
 
@@ -168,7 +202,7 @@ oper
       cornua = cornu + "a"
     in
     mkNoun
-      cornu cornu (cornu + "s") (cornu + "i") cornu cornu
+      cornu cornu (cornu + "s") cornu cornu cornu
       cornua cornua (cornu + "um") (corn + "ibus")
       Neutr ;
 
