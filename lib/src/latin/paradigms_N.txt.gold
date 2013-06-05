@@ -58,12 +58,38 @@ s Sg Abl : cinere
 s Sg Voc : cinis
 s Pl Nom : cineres
 s Pl Acc : cineres
+s Pl Gen : cinerum
+s Pl Dat : cineribus
+s Pl Abl : cineribus
+s Pl Voc : cineres
+
+s Sg Nom : cinis
+s Sg Acc : cinerem
+s Sg Gen : cineris
+s Sg Dat : cineri
+s Sg Abl : cinere
+s Sg Voc : cinis
+s Pl Nom : cineres
+s Pl Acc : cineres
 s Pl Gen : cinerium
 s Pl Dat : cineribus
 s Pl Abl : cineribus
 s Pl Voc : cineres
 
  s Sg Nom : infans
+s Sg Acc : infantem
+s Sg Gen : infantis
+s Sg Dat : infanti
+s Sg Abl : infante
+s Sg Voc : infans
+s Pl Nom : infantes
+s Pl Acc : infantes
+s Pl Gen : infantum
+s Pl Dat : infantibus
+s Pl Abl : infantibus
+s Pl Voc : infantes
+
+s Sg Nom : infans
 s Sg Acc : infantem
 s Sg Gen : infantis
 s Sg Dat : infanti
@@ -110,6 +136,19 @@ s Sg Abl : cortice
 s Sg Voc : cortex
 s Pl Nom : cortices
 s Pl Acc : cortices
+s Pl Gen : corticum
+s Pl Dat : corticibus
+s Pl Abl : corticibus
+s Pl Voc : cortices
+
+s Sg Nom : cortex
+s Sg Acc : corticem
+s Sg Gen : corticis
+s Sg Dat : cortici
+s Sg Abl : cortice
+s Sg Voc : cortex
+s Pl Nom : cortices
+s Pl Acc : cortices
 s Pl Gen : corticium
 s Pl Dat : corticibus
 s Pl Abl : corticibus
@@ -145,7 +184,7 @@ s Pl Voc : cervisiae
 s Sg Acc : ventrem
 s Sg Gen : ventris
 s Sg Dat : ventri
-s Sg Abl : ventro
+s Sg Abl : ventre
 s Sg Voc : venter
 s Pl Nom : ventres
 s Pl Acc : ventres
@@ -187,7 +226,7 @@ s Sg Dat : sanguini
 s Sg Abl : sanguine
 s Sg Voc : sanguis
 s Pl Nom : sanguines
-s Pl Acc : sanguinis
+s Pl Acc : sanguines
 s Pl Gen : sanguinum
 s Pl Dat : sanguinibus
 s Pl Abl : sanguinibus
@@ -210,8 +249,8 @@ s Pl Voc : sangines
 s Sg Acc : naviculam
 s Sg Gen : naviculae
 s Sg Dat : naviculae
-s Sg Abl : navicula
-s Sg Voc : in navicula
+s Sg Abl : in navicula
+s Sg Voc : navicula
 s Pl Nom : naviculae
 s Pl Acc : naviculas
 s Pl Gen : navicularum
@@ -233,17 +272,56 @@ s Pl Abl : ossibus
 s Pl Voc : ossa
 
  s Sg Nom : liber
-s Sg Acc : librum
-s Sg Gen : libri
-s Sg Dat : libro
-s Sg Abl : in/a libro
+s Sg Acc : liberum
+s Sg Gen : liberi
+s Sg Dat : libero
+s Sg Abl : in libero
 s Sg Voc : liber
-s Pl Nom : libri
-s Pl Acc : libros
-s Pl Gen : librorum
-s Pl Dat : libris
-s Pl Abl : in/a libris
-s Pl Voc : libri
+s Pl Nom : liberi
+s Pl Acc : liberos
+s Pl Gen : liberorum
+s Pl Dat : liberis
+s Pl Abl : in liberis
+s Pl Voc : liberi
+
+s Sg Nom : liber
+s Sg Acc : liberum
+s Sg Gen : liberi
+s Sg Dat : libero
+s Sg Abl : a libero
+s Sg Voc : liber
+s Pl Nom : liberi
+s Pl Acc : liberos
+s Pl Gen : liberorum
+s Pl Dat : liberis
+s Pl Abl : in liberis
+s Pl Voc : liberi
+
+s Sg Nom : liber
+s Sg Acc : liberum
+s Sg Gen : liberi
+s Sg Dat : libero
+s Sg Abl : in libero
+s Sg Voc : liber
+s Pl Nom : liberi
+s Pl Acc : liberos
+s Pl Gen : liberorum
+s Pl Dat : liberis
+s Pl Abl : a liberis
+s Pl Voc : liberi
+
+s Sg Nom : liber
+s Sg Acc : liberum
+s Sg Gen : liberi
+s Sg Dat : libero
+s Sg Abl : a libero
+s Sg Voc : liber
+s Pl Nom : liberi
+s Pl Acc : liberos
+s Pl Gen : liberorum
+s Pl Dat : liberis
+s Pl Abl : a liberis
+s Pl Voc : liberi
 
  s Sg Nom : calceus
 s Sg Acc : calceum
@@ -271,17 +349,69 @@ s Pl Dat : ducibus
 s Pl Abl : ducibus
 s Pl Voc : duces
 
+s Sg Nom : dux
+s Sg Acc : ducem
+s Sg Gen : ducis
+s Sg Dat : duci
+s Sg Abl : duce
+s Sg Voc : dux
+s Pl Nom : duces
+s Pl Acc : duces
+s Pl Gen : ducium
+s Pl Dat : ducibus
+s Pl Abl : ducibus
+s Pl Voc : duces
+
  s Sg Nom : puer
 s Sg Acc : puerum
 s Sg Gen : pueri
 s Sg Dat : puero
-s Sg Abl : in/a puero
+s Sg Abl : in puero
 s Sg Voc : puer
 s Pl Nom : pueri
 s Pl Acc : pueros
 s Pl Gen : puerorum
 s Pl Dat : pueris
-s Pl Abl : in/a pueris
+s Pl Abl : in pueris
+s Pl Voc : pueri
+
+s Sg Nom : puer
+s Sg Acc : puerum
+s Sg Gen : pueri
+s Sg Dat : puero
+s Sg Abl : a puero
+s Sg Voc : puer
+s Pl Nom : pueri
+s Pl Acc : pueros
+s Pl Gen : puerorum
+s Pl Dat : pueris
+s Pl Abl : in pueris
+s Pl Voc : pueri
+
+s Sg Nom : puer
+s Sg Acc : puerum
+s Sg Gen : pueri
+s Sg Dat : puero
+s Sg Abl : in puero
+s Sg Voc : puer
+s Pl Nom : pueri
+s Pl Acc : pueros
+s Pl Gen : puerorum
+s Pl Dat : pueris
+s Pl Abl : a pueris
+s Pl Voc : pueri
+
+s Sg Nom : puer
+s Sg Acc : puerum
+s Sg Gen : pueri
+s Sg Dat : puero
+s Sg Abl : a puero
+s Sg Voc : puer
+s Pl Nom : pueri
+s Pl Acc : pueros
+s Pl Gen : puerorum
+s Pl Dat : pueris
+s Pl Abl : a pueris
 s Pl Voc : pueri
 
  s Sg Nom : panis
@@ -315,13 +445,13 @@ s Sg Acc : pectus
 s Sg Gen : pectoris
 s Sg Dat : pectori
 s Sg Abl : pectore
-s Sg Voc : pectctus
-s Pl Nom : pectores
-s Pl Acc : pectores
+s Sg Voc : pectus
+s Pl Nom : pectora
+s Pl Acc : pectora
 s Pl Gen : pectorum
 s Pl Dat : pectoribus
-s Pl Abl : pectoris
-s Pl Voc : pectores
+s Pl Abl : pectoribus
+s Pl Voc : pectora
 
  s Sg Nom : butyrum
 s Sg Acc : butyrum
@@ -377,15 +507,15 @@ s Pl Voc : autocineta
 
  s Sg Nom : feles
 s Sg Acc : felem
-s Sg Gen : felei
-s Sg Dat : felei
+s Sg Gen : felis
+s Sg Dat : feli
 s Sg Abl : fele
 s Sg Voc : feles
 s Pl Nom : feles
 s Pl Acc : feles
-s Pl Gen : felerum
-s Pl Dat : felebus
-s Pl Abl : felebus
+s Pl Gen : felium
+s Pl Dat : felibus
+s Pl Abl : felibus
 s Pl Voc : feles
 
 s Sg Nom : felis
@@ -440,31 +570,18 @@ s Pl Dat : caseis
 s Pl Abl : in caseis
 s Pl Voc : casei
 
- s Sg Nom : puer
-s Sg Acc : puerem
-s Sg Gen : pueris
-s Sg Dat : pueri
-s Sg Abl : puere
-s Sg Voc : puer
-s Pl Nom : pueres
-s Pl Acc : pueres
-s Pl Gen : puerum
-s Pl Dat : pueribus
-s Pl Abl : pueribus
-s Pl Voc : pueres
-
-s Sg Nom : puella
-s Sg Acc : puellam
-s Sg Gen : puellae
-s Sg Dat : puellae
-s Sg Abl : in puella
-s Sg Voc : puella
-s Pl Nom : puellae
-s Pl Acc : puellas
-s Pl Gen : puellarum
-s Pl Dat : puellis
-s Pl Abl : in puellis
-s Pl Voc : puellae
+ s Sg Nom : proles
+s Sg Acc : prolem
+s Sg Gen : prolis
+s Sg Dat : proli
+s Sg Abl : prole
+s Sg Voc : proles
+s Pl Nom : proles
+s Pl Acc : proles
+s Pl Gen : prolium
+s Pl Dat : prolibus
+s Pl Abl : prolibus
+s Pl Voc : proles
 
  s Sg Nom : ecclesia
 s Sg Acc : ecclesiam
@@ -640,7 +757,7 @@ s Sg Acc : pulverem
 s Sg Gen : pulveris
 s Sg Dat : pulveri
 s Sg Abl : pulvere
-s Sg Voc : pulveris
+s Sg Voc : pulvis
 s Pl Nom : pulveres
 s Pl Acc : pulveres
 s Pl Gen : pulverum
@@ -688,6 +805,19 @@ s Pl Abl : ovis
 s Pl Voc : ova
 
  s Sg Nom : hostis
+s Sg Acc : hostem
+s Sg Gen : hostis
+s Sg Dat : hosti
+s Sg Abl : hoste
+s Sg Voc : hostis
+s Pl Nom : hostes
+s Pl Acc : hostes
+s Pl Gen : hostum
+s Pl Dat : hostibus
+s Pl Abl : hostibus
+s Pl Voc : hostes
+
+s Sg Nom : hostis
 s Sg Acc : hostem
 s Sg Gen : hostis
 s Sg Dat : hosti
@@ -786,7 +916,7 @@ s Sg Abl : pisce
 s Sg Voc : piscis
 s Pl Nom : pisces
 s Pl Acc : pisces
-s Pl Gen : piscum
+s Pl Gen : piscium
 s Pl Dat : piscibus
 s Pl Abl : piscibus
 s Pl Voc : pisces
@@ -941,7 +1071,7 @@ s Sg Dat : caestui
 s Sg Abl : caestu
 s Sg Voc : caestus
 s Pl Nom : caestus
-s Pl Acc : caestss
+s Pl Acc : caestus
 s Pl Gen : caestuum
 s Pl Dat : caestibus
 s Pl Abl : caestibus
@@ -1072,7 +1202,7 @@ s Sg Abl : colle
 s Sg Voc : collis
 s Pl Nom : colles
 s Pl Acc : colles
-s Pl Gen : collum
+s Pl Gen : collium
 s Pl Dat : collibus
 s Pl Abl : collibus
 s Pl Voc : colles
@@ -1087,7 +1217,7 @@ s Pl Nom : cornus
 s Pl Acc : cornus
 s Pl Gen : cornuum
 s Pl Dat : cornibus
-s Pl Abl : cornibuss
+s Pl Abl : cornibus
 s Pl Voc : cornus
 
 s Sg Nom : cornu
@@ -1125,7 +1255,7 @@ s Sg Voc : domus
 s Pl Nom : domus
 s Pl Acc : domus
 s Pl Gen : domuum
-s Pl Dat : domibuss
+s Pl Dat : domibus
 s Pl Abl : domibus
 s Pl Voc : domus
 
@@ -1286,30 +1416,30 @@ s Pl Abl : oribus
 s Pl Voc : ora
 
  s Sg Nom : iecur
-s Sg Acc : iecurem
+s Sg Acc : iecur
 s Sg Gen : iecuris
 s Sg Dat : iecuri
 s Sg Abl : iecure
 s Sg Voc : iecur
-s Pl Nom : iecures
-s Pl Acc : iecures
+s Pl Nom : iecura
+s Pl Acc : iecura
 s Pl Gen : iecurum
 s Pl Dat : iecuribus
 s Pl Abl : iecuribus
-s Pl Voc : iecures
+s Pl Voc : iecura
 
 s Sg Nom : iocur
-s Sg Acc : iocurem
+s Sg Acc : iocur
 s Sg Gen : iocuris
 s Sg Dat : iocuri
 s Sg Abl : iocure
 s Sg Voc : iocur
-s Pl Nom : iocures
-s Pl Acc : iocures
+s Pl Nom : iocura
+s Pl Acc : iocura
 s Pl Gen : iocurum
 s Pl Dat : iocuribus
 s Pl Abl : iocuribus
-s Pl Voc : iocures
+s Pl Voc : iocura
 
  s Sg Nom : pedis
 s Sg Acc : pedem
@@ -1373,7 +1503,7 @@ s Pl Nom : lunae
 s Pl Acc : lunas
 s Pl Gen : lunarum
 s Pl Dat : lunis
-s Pl Abl : lunis
+s Pl Abl : in lunis
 s Pl Voc : lunae
 
  s Sg Nom : mons
@@ -2004,13 +2134,13 @@ s Pl Voc : caela
 s Sg Acc : fumum
 s Sg Gen : fumi
 s Sg Dat : fumo
-s Sg Abl : fumo
-s Sg Voc : fumum
+s Sg Abl : in fumo
+s Sg Voc : fume
 s Pl Nom : fumi
 s Pl Acc : fumos
 s Pl Gen : fumorum
 s Pl Dat : fumis
-s Pl Abl : fumis
+s Pl Abl : in fumis
 s Pl Voc : fumi
 
  s Sg Nom : serpens
