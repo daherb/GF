@@ -62,4 +62,8 @@ oper
   feminine = Fem ;
   neuter = Neutr ;
 
+-- To be implemented, just place holders
+  mkPN : N -> PN = \n -> n ** { lock_PN = <> } ;
+  mkN2 : N -> Prep -> N2 = \n,p -> n ** { lock_N2 = <> } ;
+  mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> n ** { lock_N3 = <> } ;
 }
