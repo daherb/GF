@@ -32,49 +32,27 @@ oper
 --    };
 -- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
 
-  mkNoun = overload { 
-    mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
-      \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
-	s = table {
-	  Sg => table {
-            Nom => sn ;
-            Acc => sa ;
-            Gen => sg ;
-            Dat => sd ;
-            Abl => sab ;
-            Voc => sv
-            } ;
-	  Pl => table {
-            Nom | Voc => pn ;
-            Acc => pa ;
-            Gen => pg ;
-            Dat | Abl => pd
-            }
-	  } ;
-	g = g
-      } ;
-    mkNoun : (n1,_,_,_,_,_,_,_,_,_,n11 : Str) -> Gender -> Noun = 
-      \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,pab,g -> {
-	s = table {
-	  Sg => table {
-            Nom => sn ;
-            Acc => sa ;
-            Gen => sg ;
-            Dat => sd ;
-            Abl => sab ;
-            Voc => sv
-            } ;
-	  Pl => table {
-            Nom | Voc => pn ;
-            Acc => pa ;
-            Gen => pg ;
-            Dat => pd ;
-	    Abl => pab
-            }
-	  } ;
-	g = g
-      } ;
+  mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
+    \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
+      s = table {
+	Sg => table {
+          Nom => sn ;
+          Acc => sa ;
+          Gen => sg ;
+          Dat => sd ;
+          Abl => sab ;
+          Voc => sv
+          } ;
+	Pl => table {
+          Nom | Voc => pn ;
+          Acc => pa ;
+          Gen => pg ;
+          Dat | Abl => pd
+          }
+	} ;
+      g = g
     } ;
+  
     
   -- declensions
 
@@ -84,8 +62,8 @@ oper
       mensis = init mensa + "is" ;
     in
     mkNoun 
-      mensa (mensa +"m") mensae mensae ("in" ++ mensa) mensa
-      mensae (mensa + "s") (mensa + "rum") mensis ("in" ++ mensis)
+      mensa (mensa +"m") mensae mensae mensa mensa
+      mensae (mensa + "s") (mensa + "rum") mensis
       Fem ;
 
   noun2us : Str -> Noun = \servus ->
@@ -96,8 +74,8 @@ oper
       servo = serv + "o" ;
     in
     mkNoun 
-      servus servum servi servo ("in" ++ servo) (serv + "e")
-      servi (serv + "os") (serv + "orum") (serv + "is") ("in" ++ serv + "is")
+      servus servum servi servo servo (serv + "e")
+      servi (serv + "os") (serv + "orum") (serv + "is")
       Masc ;
 
   noun2er : Str -> Noun = \puer ->
@@ -105,11 +83,10 @@ oper
       puerum = puer + "um" ;
       pueri = puer + "i" ;
       puero = puer + "o" ;
-      abl = variants { "in" ; "a" } ;
     in
     mkNoun 
-      puer puerum pueri puero ( abl ++ puero) puer
-      pueri (puer + "os") (puer + "orum") (puer + "is") ( abl ++ puer + "is")
+      puer puerum pueri puero puero puer
+      pueri (puer + "os") (puer + "orum") (puer + "is")
       Masc ;
 
   noun2um : Str -> Noun = \bellum ->
@@ -124,6 +101,34 @@ oper
       bella bella (bell + "orum") (bell + "is")
       Neutr ;
 
+-- Consonant declension
+  noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
+    let
+      reg : Str = Predef.tk 2 regis ;
+      regemes : Str * Str = case g of {
+	Masc | Fem => < reg + "em" , reg + "es" > ;
+	Neutr => < reg + "a" , reg + "a" > 
+	} ;
+    in
+    mkNoun
+      rex regemes.p1 ( reg + "is" ) ( reg + "i" ) ( reg + "e" ) rex
+      regemes.p2 regemes.p2 ( reg + "um" ) ( reg + "ibus" ) 
+      g ;
+
+-- i-declension
+  noun3i : Str -> Str -> Gender -> Noun = \ars,artis,g ->
+    let 
+      art : Str = Predef.tk 2 artis ;
+      artemes : Str * Str = case g of {
+	Masc | Fem => < art + "em" , art + "es" > ;
+	Neutr => < art + "e" , art + "ia" > 
+	} ;
+    in
+    mkNoun
+      ars artemes.p1 ( art + "is" ) ( art + "i" ) ( art + "e" ) ars
+      artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
+      g ;
+
 -- smart paradigm for declensions 1&2
 
   noun12 : Str -> Noun = \verbum -> 
@@ -135,56 +140,46 @@ oper
       _  => Predef.error ("noun12 does not apply to" ++ verbum)
       } ;
 
-  noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
+--  noun3 = overload {
+  noun3 : Str -> Str -> Gender -> Noun = \rex,regis,g ->
     let
-      reg = Predef.tk 2 regis ;
-      rege : Str = case rex of {
-        _ + "e" => reg + "i" ;
-        _ + ("al" | "ar") => rex + "i" ;
-        _ => reg + "e"
-        } ;
-      regemes : Str * Str = case g of {
-        Neutr => case rex of { 
-	  _ + "e" => <rex,reg + "ia"> ;
-	  _ => <rex,reg + "a">
-	  } ;
-        _     => <reg + "em", reg + "es">
-        } ;
-      pg = case g of {
-	Fem => "ium" ;
-	_ => case rex of {
-	  _ + "e" => "ium" ;
-	  _ => "um"
-	  } 
-	} ;
+      reg : Str = Predef.tk 2 regis ;
     in
-    mkNoun
-      rex regemes.p1 (reg + "is") (reg + "i") rege rex
-      regemes.p2 regemes.p2 (reg + pg) (reg + "ibus") 
-      g ;
+    case <rex,reg> of {
+      < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Landauer 32 2.3
+      < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Landauer 32 2.2
+      < _ + ( "is" | "es" ) , _ > => 
+	if_then_else 
+	  Noun 
+	  -- assumption based on Bayer-Landauer 32 2.1
+	  ( pbool2bool ( Predef.eqInt ( Predef.length rex ) ( Predef.length regis ) ) ) 
+	  ( noun3i rex regis g ) 
+	  ( noun3c rex regis g ) ;
+      _ => noun3c rex regis g
+    } ;
 
-
-  noun3 : Str -> Noun = \labor -> 
-    case labor of {
-      _    + "r"   => noun3c labor (labor + "is")    Masc ;
-      fl   + "os"  => noun3c labor (fl    + "oris")  Masc ;
-      lim  + "es"  => noun3c labor (lim   + "itis")  Masc ;
-      cod  + "ex"  => noun3c labor (cod   + "icis")  Masc ;
-      poem + "a"   => noun3c labor (poem  + "atis")  Neutr ;
-      calc + "ar"  => noun3c labor (calc  + "aris")  Neutr ;
-      mar  + "e"   => noun3c labor (mar   + "is")    Neutr ;
-      car  + "men" => noun3c labor (car   + "minis") Neutr ;
-      rob  + "ur"  => noun3c labor (rob   + "oris")  Neutr ;
-      temp + "us"  => noun3c labor (temp  + "oris")  Neutr ;
-      vers + "io"  => noun3c labor (vers  + "ionis") Fem ;
-      imag + "o"   => noun3c labor (imag  + "inis")  Fem ;
-      ae   + "tas" => noun3c labor (ae    + "tatis") Fem ;
-      vo   + "x"   => noun3c labor (vo    + "cis")   Fem ;
-      pa   + "rs"  => noun3c labor (pa    + "rtis")  Fem ;
-      cut  + "is"  => noun3c labor (cut   + "is")    Fem ;
-      urb  + "s"   => noun3c labor (urb   + "is")    Fem ;
-      _  => Predef.error ("noun3 does not apply to" ++ labor)
-      } ;
+--   noun3 : Str -> Noun = \labor -> 
+--     case labor of {
+--       _    + "r"   => noun3c labor (labor + "is")    Masc ;
+--       fl   + "os"  => noun3c labor (fl    + "oris")  Masc ;
+--       lim  + "es"  => noun3c labor (lim   + "itis")  Masc ;
+--       cod  + "ex"  => noun3c labor (cod   + "icis")  Masc ;
+--       poem + "a"   => noun3c labor (poem  + "atis")  Neutr ;
+--       calc + "ar"  => noun3c labor (calc  + "aris")  Neutr ;
+--       mar  + "e"   => noun3c labor (mar   + "is")    Neutr ;
+--       car  + "men" => noun3c labor (car   + "minis") Neutr ;
+--       rob  + "ur"  => noun3c labor (rob   + "oris")  Neutr ;
+--       temp + "us"  => noun3c labor (temp  + "oris")  Neutr ;
+--       vers + "io"  => noun3c labor (vers  + "ionis") Fem ;
+--       imag + "o"   => noun3c labor (imag  + "inis")  Fem ;
+--       ae   + "tas" => noun3c labor (ae    + "tatis") Fem ;
+--       vo   + "x"   => noun3c labor (vo    + "cis")   Fem ;
+--       pa   + "rs"  => noun3c labor (pa    + "rtis")  Fem ;
+--       cut  + "is"  => noun3c labor (cut   + "is")    Fem ;
+--       urb  + "s"   => noun3c labor (urb   + "is")    Fem ;
+--       _  => Predef.error ("noun3 does not apply to" ++ labor)
+--       } ;
+-- };
 
   noun4us : Str -> Noun = \fructus -> 
     let
@@ -232,7 +227,7 @@ oper
       <_ + "us", _ + "us"> => noun4us verbum ;
       <_ + "u",  _ + "us"> => noun4u verbum ;
       <_ + "es", _ + "ei"> => noun5 verbum ;
-      _  => noun3c verbum verbi g
+      _  => noun3 verbum verbi g
       }
     in  
     nounWithGen g s ;
@@ -245,7 +240,7 @@ oper
       _ + "er" => noun2er verbum ;
       _ + "u"  => noun4u verbum ;
       _ + "es" => noun5 verbum ;
-      _  => noun3 verbum
+      _  => Predef.error ("3rd declinsion cannot be applied to just one noun form " ++ verbum)
       } ;
 
 
