@@ -24,7 +24,7 @@
 \def\bool{{\mathbb B}}
 \def\real{{\mathbb R}}
 
-\title{Implementierung einer Lateingrammatik im Grammatical Framework \\ \quad \\ \large Kolloquium Computerlinguistisches Arbeiten SS 2013 }
+\title{Implementierung einer Lateingrammatik im Grammatical Framework \\ \quad \\ \large Kolloquium computerlinguistisches Arbeiten SS 2013 }
 \author{Herbert Lange}
 
 \date{\today} 
@@ -44,7 +44,7 @@
 \begin{frame}[fragile]{Das Grammatical Framework}
 \begin{itemize}
 \item Mächtigkeit äquivalent zu PMCFG (Parallel Multiple Context-Free Grammars)
-$\rightarrow$ zwischen mild und voll kontext-sensitiv
+$\rightarrow$ zwischen mild und voll kontextsensitiv
 \item Trennung von abstrakter und konkreter Syntax
 \item Verschiedene API-Ebenen und Einbindungsmöglichkeiten (u.a. Java, JavaScript)
 \end{itemize}
@@ -63,17 +63,18 @@ $\rightarrow$ zwischen mild und voll kontext-sensitiv
 \begin{block}{Beispiel}
 {\scriptsize\ttfamily
 > i alltenses/LangGer.gfo \\
-linking ... OK \\
-Languages: LangGer \\
-47884 msec \\
+% linking ... OK \\
+% Languages: LangGer \\
+% 47884 msec \\
 Lang> p ''der Mann sieht die Frau'' \\
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN man\_N)) (ComplSlash (SlashV2a see\_V2) (DetCN (DetQuant DefArt NumSg) (UseN woman\_N)))))) NoVoc
 }
 \end{block}
 {\tiny
+\begin{center}
 \begin{tabular}{|l|l|l|l|}
 \hline
-Funktion & Wert & Argumente & Übersetzung\\
+Funktion & Typ & Argumente & Übersetzung\\
 \hline
 PhrUtt & Phr & (PConj) Utt (Voc) & der Mann sieht die Frau \\
 NoPConj & PConj &  & (Keine Konjunktion) \\
@@ -97,6 +98,7 @@ ComplSlash & VP & VPSlash NP & sehen die Frau \\
 NoVoc & Voc & & (Keine Anrede) \\
 \hline
 \end{tabular}
+\end{center}
 }
 \end{frame}
 \subsection{Die Lateinische Sprache}
@@ -143,7 +145,7 @@ Ursprünglich Sprache der Bewohner der mittelitalienischen Region Latium
   \item Ca. 400 vorgegebene englische Wörter aus allen möglichen Wortarten und verschiedenen Bereichen
   \item Keine Klärung von Ambiguitäten (z.B. bank) $\rightarrow$ willkürliche Wahl der Übersetzung
   \item Viele moderne Begriffe (Auto, Eisenbahn, Computer, Fernseher) $\rightarrow$ Übersetzung mit Hilfe der Wikipedia
-  \item Begriffe ohne auffindbare Übersetzung (ein-/ausschalten) $\rightarrow$ Wahl eines naheliegenden Wortes (accendere/exstinguere)
+  \item Begriffe ohne auffindbare Übersetzung (ein-/ausschalten) $\rightarrow$ Wahl eines nahe liegenden Wortes (accendere/exstinguere)
   \item Manche Differenzierungen nicht in jeder Sprache möglich
 \end{itemize}
 \end{frame}
@@ -198,8 +200,15 @@ Pattern Matching um für ein Wort aus möglichst wenig Formen das Paradigma zu b
 \begin{frame}{Ausblick}
 \begin{itemize}
 \item Anbinden eines größeres Lexikons
-\item Integration in eine weboberfläche oder eine Android-App
+\item Integration in eine Weboberfläche oder eine Android-App
 \item Benutzung für die Lehre (Translation Quiz)
+\end{itemize}
+\end{frame}
+\begin{frame}{Zusammenfassung}
+\begin{itemize}
+  \item Lexikon mit ca. 400 teils moderne Wörter
+  \item Morphologie mit Smart Paradigms
+  \item Syntax, zunächst nur SOV, später möglicherweise freie Variation
 \end{itemize}
 \end{frame}
 \section{Literatur}
