@@ -81,8 +81,12 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --    A2 = {s : AForm => Str ; c2 : Str} ;
 --
     N = Noun ;
-    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
-    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
-    PN = {s : Case => Str ; g : Gender} ;
+-- To be really implemented
+    N2 = Noun ;
+    N3 = Noun ;
+    PN = Noun ;
+--    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
+--    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
+--    PN = {s : Case => Str ; g : Gender} ;
 --
 }
