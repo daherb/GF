@@ -61,3 +61,10 @@ Step 2: Define linearization for the first categories and generate the paradigms
 - Create gf script generate_paradigms.gfs to generate all yet implemented word forms
 
 Step 3: Check the forms in paradigms.txt
+
+Lots and lots of work. Starting to use incremented checking and changing
+6.6.2013:
+---------------------
+Changing morphology:
+splitting 3rd declension into consonant and i-declension
+defining rules for each of this classes
