@@ -68,3 +68,7 @@ Lots and lots of work. Starting to use incremented checking and changing
 Changing morphology:
 splitting 3rd declension into consonant and i-declension
 defining rules for each of this classes
+
+
+
+Recheck liber, puer, iocur, iecur, vir
