@@ -107,7 +107,7 @@ oper
       reg : Str = Predef.tk 2 regis ;
       regemes : Str * Str = case g of {
 	Masc | Fem => < reg + "em" , reg + "es" > ;
-	Neutr => < reg + "a" , reg + "a" > 
+	Neutr => < rex , reg + "a" > 
 	} ;
     in
     mkNoun
@@ -121,11 +121,18 @@ oper
       art : Str = Predef.tk 2 artis ;
       artemes : Str * Str = case g of {
 	Masc | Fem => < art + "em" , art + "es" > ;
-	Neutr => < art + "e" , art + "ia" > 
+	Neutr => case art of {
+	  _ + #consonant + #consonant => < ars , art + "a" > ; -- maybe complete fiction but may be working
+	  _ => < ars , art + "ia" > -- Bayer-Landauer 32 4
+	  }
 	} ;
+      arte : Str = case ars of {
+	_ + ( "e" | "al" | "ar" ) => art + "i" ;
+	_ => art + "e"
+	};
     in
     mkNoun
-      ars artemes.p1 ( art + "is" ) ( art + "i" ) ( art + "e" ) ars
+      ars artemes.p1 ( art + "is" ) ( art + "i" ) arte ars
       artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
       g ;
 
@@ -146,7 +153,10 @@ oper
       reg : Str = Predef.tk 2 regis ;
     in
     case <rex,reg> of {
+      -- Some exceptions with no fitting rules
+      < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Landauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
       < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Landauer 32 2.3
+      < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Landauer 31 2.2 
       < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Landauer 32 2.2
       < _ + ( "is" | "es" ) , _ > => 
 	if_then_else 
