@@ -154,6 +154,7 @@ oper
     in
     case <rex,reg> of {
       -- Some exceptions with no fitting rules
+      < "nix" , _ > => noun3i rex regis g; -- L...
       < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Landauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
       < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Landauer 32 2.3
       < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Landauer 31 2.2 
