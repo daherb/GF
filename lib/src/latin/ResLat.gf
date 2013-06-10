@@ -143,7 +143,7 @@ oper
       _ + "a"  => noun1 verbum ;
       _ + "us" => noun2us verbum ;
       _ + "um" => noun2um verbum ;
-      _ + "er" => noun2er verbum ;
+      _ + ( "er" | "ir" ) => noun2er verbum ;
       _  => Predef.error ("noun12 does not apply to" ++ verbum)
       } ;
 
@@ -247,7 +247,7 @@ oper
       _ + "a"  => noun1 verbum ;
       _ + "us" => noun2us verbum ;
       _ + "um" => noun2um verbum ;
-      _ + "er" => noun2er verbum ;
+      _ + ( "er" | "ir" ) => noun2er verbum ;
       _ + "u"  => noun4u verbum ;
       _ + "es" => noun5 verbum ;
       _  => Predef.error ("3rd declinsion cannot be applied to just one noun form " ++ verbum)
