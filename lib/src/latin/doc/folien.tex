@@ -3,6 +3,9 @@
 %\usetheme{Singapore} % anderes Layout
 %\usetheme{Antibes} % anderes Layout
 %\usecolortheme{lily}
+\usetheme{Antibes}
+\usecolortheme{beaver}
+\setbeamertemplate{footline}[frame number]
 \usepackage{color}
 \usepackage{german}
 \usepackage{latexsym,amssymb}
@@ -24,7 +27,7 @@
 \def\bool{{\mathbb B}}
 \def\real{{\mathbb R}}
 
-\title{Implementierung einer Lateingrammatik im Grammatical Framework \\ \quad \\ \large Kolloquium computerlinguistisches Arbeiten SS 2013 }
+\title{Implementierung einer Lateingrammatik im Grammatical Framework \\ \quad \\ \large Kolloquium Computerlinguistisches Arbeiten SS 2013 }
 \author{Herbert Lange}
 
 \date{\today} 
@@ -109,7 +112,7 @@ Teil der indogermanischen Sprachfamilie $\rightarrow$ Ähnlichkeiten zu germanis
   \hline
   lateinisch & griechisch & deutsch \\
   \hline
-  pater & patēr & Vater \\
+  pater & patḗr & Vater \\
   ager & agrós & Acker \\
   trēs & treĩs & drei \\
   decem & déka & zehn \\
@@ -192,8 +195,8 @@ Pattern Matching um für ein Wort aus möglichst wenig Formen das Paradigma zu b
 \begin{frame}{Syntax}
 \begin{itemize}
 \item Problem: Freie Wortstellung im Satz $\rightarrow$ Variationen erhöhen die Komplexität exponentiell
-\item Zunächst: Beschränkung auf SOV-Wortstellung
-\item Optional: Suche nach performanten Implementierungsmöglichkeiten für beschränkte oder volle Variation
+\item Zunächst: Beschränkung auf SOV-Wortstellung (Subjekt-Objekt-Verb)
+\item Später: Suche nach performanten Implementierungsmöglichkeiten für beschränkte oder volle Variation
 \end{itemize}
 \end{frame}
 \subsection{Ausblick}
@@ -201,14 +204,14 @@ Pattern Matching um für ein Wort aus möglichst wenig Formen das Paradigma zu b
 \begin{itemize}
 \item Anbinden eines größeres Lexikons
 \item Integration in eine Weboberfläche oder eine Android-App
-\item Benutzung für die Lehre (Translation Quiz)
+\item Anwendung in der Lehre (Translation Quiz)
 \end{itemize}
 \end{frame}
 \begin{frame}{Zusammenfassung}
 \begin{itemize}
-  \item Lexikon mit ca. 400 teils moderne Wörter
+  \item Lexikon mit ca. 400 teils modernen Wörtern
   \item Morphologie mit Smart Paradigms
-  \item Syntax, zunächst nur SOV, später möglicherweise freie Variation
+  \item Syntax mit möglichst freier Wortstellung
 \end{itemize}
 \end{frame}
 \section{Literatur}
