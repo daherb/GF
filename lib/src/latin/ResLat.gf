@@ -78,15 +78,16 @@ oper
       servi (serv + "os") (serv + "orum") (serv + "is")
       Masc ;
 
-  noun2er : Str -> Noun = \puer ->
+  noun2er : Str -> Str -> Noun = \liber,libri ->
     let
-      puerum = puer + "um" ;
-      pueri = puer + "i" ;
-      puero = puer + "o" ;
+      libr : Str = Predef.tk 1 libri;
+      librum = libr + "um" ;
+      libri = libr + "i" ;
+      libro = libr + "o" ;
     in
     mkNoun 
-      puer puerum pueri puero puero puer
-      pueri (puer + "os") (puer + "orum") (puer + "is")
+      liber librum libri libro libro liber
+      libri ( libr + "os" ) ( libr + "orum" ) ( libr + "is" )
       Masc ;
 
   noun2um : Str -> Noun = \bellum ->
@@ -143,7 +144,13 @@ oper
       _ + "a"  => noun1 verbum ;
       _ + "us" => noun2us verbum ;
       _ + "um" => noun2um verbum ;
-      _ + ( "er" | "ir" ) => noun2er verbum ;
+      _ + ( "er" | "ir" ) => 
+	let
+	  puer = verbum ; 
+	  pue = Predef.tk 1 puer ; 
+	  e = Predef.dp 1 pue ;
+	  pu = Predef.tk 1 pue ;
+	  in noun2er verbum ( pu + e + "ri" );
       _  => Predef.error ("noun12 does not apply to" ++ verbum)
       } ;
 
@@ -153,6 +160,8 @@ oper
       reg : Str = Predef.tk 2 regis ;
     in
     case <rex,reg> of {
+      -- Bos has to many exceptions to be handled correctly
+      < "bos" , "bov" > => mkNoun "bos" "bovem" "bovis" "bovi" "bove" "bos" "boves" "boves" "boum" "bobus" g;
       -- Some exceptions with no fitting rules
       < "nix" , _ > => noun3i rex regis g; -- L...
       < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Landauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
@@ -234,7 +243,8 @@ oper
       <_ + "a",  _ + "ae"> => noun1 verbum ;
       <_ + "us", _ + "i">  => noun2us verbum ;
       <_ + "um", _ + "i">  => noun2um verbum ;
-      <_ + "er", _ + "i">  => noun2er verbum ;
+      <_ + ( "er" | "ir" ) , _ + "i">  => noun2er verbum verbi ;
+
       <_ + "us", _ + "us"> => noun4us verbum ;
       <_ + "u",  _ + "us"> => noun4u verbum ;
       <_ + "es", _ + "ei"> => noun5 verbum ;
@@ -248,13 +258,11 @@ oper
       _ + "a"  => noun1 verbum ;
       _ + "us" => noun2us verbum ;
       _ + "um" => noun2um verbum ;
-      _ + ( "er" | "ir" ) => noun2er verbum ;
+      _ + ( "er" | "ir" ) => noun2er verbum ( (Predef.tk 2 verbum) + "ri" ) ;
       _ + "u"  => noun4u verbum ;
       _ + "es" => noun5 verbum ;
       _  => Predef.error ("3rd declinsion cannot be applied to just one noun form " ++ verbum)
       } ;
-
-
 
 -- adjectives
 
