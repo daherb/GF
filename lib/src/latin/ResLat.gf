@@ -325,9 +325,10 @@ oper
 
   adj123 : Str -> Str -> Adjective = \bonus,boni ->
     case <bonus,boni> of {
-      <_ + ("us" | "er"), _ + "i">  => adj12 bonus ;
+      <_ + ("us" | "er"), _ + "i" > => adj12 bonus ;
       <_ + ("us" | "er"), _ + "is"> => adj3x bonus boni ;
       <_                , _ + "is"> => adj3x bonus boni ;
+      <_ + "is"         , _ + "e" > => adj3x bonus boni ;
       _ => Predef.error ("adj123: not applicable to" ++ bonus ++ boni)
     } ;
 
