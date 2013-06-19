@@ -148,7 +148,14 @@ oper
 	let
 	  puer = verbum ; 
 	  pue = Predef.tk 1 puer ; 
-	  e = Predef.dp 1 pue ;
+	  e = case puer of {
+	    -- Exception of nouns where e is part of the word stem Bayer-Landauer 27 4.2
+	    "puer" | "socer" | "gener" | "vesper" => "e" ;
+	    -- Exception of adjectives where e is part of the word stem 31 3.2
+	    ("asper" | "miser" | "tener" | "frugifer") + _ => "e";
+	    -- "liber" => ( "e"  | "" ) ; conflicting with noun liber
+	    _ => ""
+	    } ;
 	  pu = Predef.tk 1 pue ;
 	  in noun2er verbum ( pu + e + "ri" );
       _  => Predef.error ("noun12 does not apply to" ++ verbum)
@@ -277,10 +284,13 @@ oper
   adj12 : Str -> Adjective = \bonus ->
     let
       bon : Str = case bonus of {
-       pulch + "er" => pulch + "r" ;
-       bon + "us" => bon ;
-       _ => Predef.error ("adj12 does not apply to" ++ bonus)
-       }
+	-- Exceptions Bayer-Landauer 41 3.2
+	("asper" | "liber" | "miser" | "tener" | "frugifer") => bonus ;
+	-- Usual cases
+	pulch + "er" => pulch + "r" ;
+	bon + "us" => bon ;
+	_ => Predef.error ("adj12 does not apply to" ++ bonus)
+	}
     in
     mkAdjective (noun12 bonus) (noun1 (bon + "a")) (noun2um (bon + "um")) ;
 
