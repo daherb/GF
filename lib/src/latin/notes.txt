@@ -83,3 +83,7 @@ Fixed some issues in adjective declension.
 Going on to verbs
 
 Todo: Replace  ... ** { lock_N =<> } with lin ...
+
+26.6.2013
+----------------------
+Added Adjective comparation: just to be completely tested. But how?
