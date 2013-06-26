@@ -1,4 +1,4 @@
---# -path=.:../abstract:../../prelude:../common
+--# -path=.:../abstract:../prelude:../common
 
 --1 Latin Lexical Paradigms
 --
