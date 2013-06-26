@@ -11,7 +11,7 @@ param
 
 oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
-  Adjective : Type = {s : Gender => Number => Case => Str} ;
+  Adjective : Type = {s : Degree => Gender => Number => Case => Str} ;
 
   -- sounds and sound changes
   vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
@@ -273,12 +273,35 @@ oper
 
 -- adjectives
 
-  mkAdjective : (_,_,_ : Noun) -> Adjective = \bonus,bona,bonum -> {
-    s = table {
-      Masc  => bonus.s ;
-      Fem   => bona.s ;
-      Neutr => bonum.s 
-      }
+  mkAdjective : (_,_,_ : Noun) -> Adjective = \bonus,bona,bonum ->
+    let comp_super : ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) =
+	  case bonus.s!Sg!Gen of {
+	    -- Exception Bayer-Landauer 50 1
+	    "boni" => < comp "meli" , table Gender [ (noun1 "optimus").s ; (noun2us "optima").s ; (noun2um "optimum").s ] > ;
+	    "mali" => < comp "pei" , super "pessus" > ;
+	    "magni" => < comp "mai" , table Gender [ (noun1 "maximus").s; (noun2us "maxima").s ; (noun2um "maximum").s ] > ;
+	    "parvi" => < comp "mini" , table Gender [ (noun1 "minimus").s ; (noun2us "minima").s ; (noun2um "minimum").s ] >;
+	    --Exception Bayer-Landauer 50.3
+	    "novi" => < comp "recenti" , super "recens" > ;
+	    "feri" => < comp "feroci" , super "ferox" > ;
+	    "sacris" => < comp "sancti" , super "sanctus" >;
+	    "frugiferi" => < comp "fertilis" , super "fertilis" > ;
+	    "veti" => < comp "vetusti" , super "vetustus" >;
+	    "inopis" => < comp "egentis" , super "egens" >;
+	    -- Default Case use Singular Genetive to determine comparative
+	    sggen => < comp sggen , super (bonus.s!Sg!Nom) >
+	  }
+    in
+    {
+      s = table {
+	Posit => table {
+	  Masc  => bonus.s ;
+	  Fem   => bona.s ;
+	  Neutr => bonum.s 
+	  };
+	Compar => comp_super.p1 ;
+	Superl => comp_super.p2 
+	}
     } ;
     
   adj12 : Str -> Adjective = \bonus ->
@@ -320,6 +343,62 @@ oper
       audaces audaces (audac + "ium") (audac + "ibus") 
       g ;
 
+  comp : Str -> ( Gender => Number => Case => Str ) = \boni -> -- Bayer-Landauer 46 2
+    case boni of {
+      bon + ( "i" | "is" ) => 
+	table
+	{
+	  Fem | Masc => table {
+	    Sg => table Case [ bon + "ior" ; 
+			       bon + "iorem" ; 
+			       bon + "ioris" ; 
+			       bon + "iori" ; 
+			       bon + "iore"; 
+			       bon + "ior" ] ;
+	    Pl => table Case [ bon + "iores" ; 
+			       bon + "iores" ; 
+			       bon + "iorum" ; 
+			       bon + "ioribus" ; 
+			       bon + "ioribus" ; 
+			       bon + "iores" ]
+	    } ;
+	  Neutr => table {
+	    Sg => table Case [ bon + "ius" ; 
+			       bon + "ius" ; 
+			       bon + "ioris" ; 
+			       bon + "iori" ; 
+			       bon + "iore" ; 
+			       bon + "ius" ] ;
+	    Pl => table Case [ bon + "iora" ; 
+			       bon + "iora" ; 
+			       bon + "iorum" ; 
+			       bon + "ioribus" ; 
+			       bon + "ioribus" ; 
+			       bon + "iora" ] 
+	    }
+	}
+    } ;
+
+  super : Str -> (Gender => Number => Case => Str) = \bonus ->
+    let
+      prefix : Str = case bonus of {
+	ac + "er" => bonus ; -- Bayer-Landauer 48 2
+	faci + "lis" => faci + "l" ; -- Bayer-Landauer 48 3
+	feli + "x" => feli + "c" ; -- Bayer-Landauer 48 1
+	ege + "ns" => ege + "nt" ; -- Bayer-Landauer 48 1
+	bon + ( "us" | "is") => bon -- Bayer-Landauer 48 1
+	};
+      suffix : Str = case bonus of {
+	  ac + "er" => "rim" ; -- Bayer-Landauer 48 2
+	  faci + "lis" => "lim" ; -- Bayer-Landauer 48 3
+	  _ => "issim" -- Bayer-Landauer 48 1
+	  };
+    in
+    table {
+      Fem => (noun1 ( prefix + suffix + "a" )).s ;
+      Masc => (noun2us ( prefix + suffix + "us" )).s ;
+      Neutr => (noun2um ( prefix + suffix + "um" )).s
+    } ;
 
 -- smart paradigm
 
