@@ -1,4 +1,4 @@
-----# -path=.:../../prelude
+----# -path=.:../prelude
 --
 ----1 A Simple Latlish Resource Morphology
 ----
