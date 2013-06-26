@@ -1,8 +1,9 @@
 \documentclass[draft,11pt]{amsbook}
 
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \usepackage[onehalfspacing]{setspace}
 \usepackage[ngerman]{babel}
+\usepackage{fontspec}
 \usepackage[a4paper, left=3cm, right=3cm, top=3cm]{geometry}
 
 \begin{document}
@@ -38,7 +39,10 @@ In dieser Arbeit soll beispielhaft das Vorgehen dargestellt werden, das nötig i
 \subsection{Die Lateinische Sprache}
 \section{Grammatikerstellung}
 \subsection{Lexikon}
-Den Beginn der Grammatikimplementierung bildet im Falle dieser Arbeit die Erstellung eines minimalen Lexikons. Durch die Abstrakte Syntax der RGL wird eine Liste von ca 400 englischen Worten vorgegeben, die in jeder Sprache umgesetzt werden müseen. Um diese Worte in die lateinische Sprache zu übersetzen wurde primär ein zweisprachiges lateinisch-deutsches Schulwörterbuch\footnote{Lang...} verwendet. Gerade bei begriffen aus der heutigen Alltagswelt war dies jedoch meist nicht ausreichend. Um lateinische Übersetzungen moderner Begriffe zu erhalten wurde zusätzlich die lateinischsprachige Wikipedia verwendet.
+Den Beginn der Grammatikimplementierung bildet im Falle dieser Arbeit die Erstellung eines minimalen Lexikons. Durch die Abstrakte Syntax der RGL wird in der Quelltextdatei \textit{lib/src/abstract/Lexicon.gf} eine Liste von ca. 400 englischen Bezeichnern für Worte vorgegeben, die in jeder Sprache umgesetzt werden müssen. \\
+Um diese Worte in die lateinische Sprache zu übersetzen wurde eine mehrstufiges Vorgehen gewählt. Für die meisten englischen Begriffe war es zunächst problemlos möglich, deutsche Entsprechungen zu finden. Bei problematischeren Begriffen wurde ein verbreitetes Onlinewörterbuch\footnote{http://dict.leo.org} zu Rate gezogen. Somit war es für fast alle vorgegebenen Begriffe möglich, eine adequate deutsche Übersetzung zu finden. Die einzige Art von Wörtern, die weiterhin zu Problemen führten, waren Wörter mit ambiger Bedeutung, wie das häufig gezeigte Wort \textit{bank}, das in vielen Sprachen mehrer verschiedene Bedeutungen haben kann, z.B. im Deutschen als Sitzgelegenheit und als Geldinstitut oder im Englischen ebenfalls als Geldinstitut oder als Flussufer. Für diesen und ähnliche Begriffe wurde willkürlich eine Bedeutung gewählt, da keine Hinweise zur gewünschten Bedeutung in der Grammar Library gefunden werden konnte. Die Entscheidung eine einzige Bedeutung zu wählen, und nicht verschiedene Bedeutungen als Varianten des Wortes zu implementieren, wurde getroffen um die Anzahl der möglichen Übersetzungen möglichst gering zu halten. \\
+Nachdem für alle Bezeichner im abstrakten Lexikon eine temporäre deutsche Entsprechung, nach dem obigen Schema, gefunden wurde, wurden diese deutschen Begriffe in die Zielsprache übersetzt. Dies geschah zum größten Teil mit Hilfe eines Deutsch-Lateinischen Wörterbuchs\footnote{Langenscheidt}, soweit ein entsprechender Eintrag im Wörterbuch zu finden war. Zusätzlich zu der im Wörterbuch gefundenen lateinischen Entsprechung wurden weitere Informationen zur Wortbildung auch aus dem Lateinisch-Deutschen Wörterbuchteil übernommen. \\
+Bei vielen, meist moderneren Begriffen, konnte kein Wörterbucheintrag gefunden werden. Deshalb musste ein anderer Weg gefunden werden, um die nötigen Übersetzungen für die Begriffe zu finden.
 \subsection{Morphologie}
 \subsection{Syntax}
 \end{document}
