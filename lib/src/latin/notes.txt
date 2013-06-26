@@ -69,6 +69,17 @@ Changing morphology:
 splitting 3rd declension into consonant and i-declension
 defining rules for each of this classes
 
+Recheck liber, puer, iocur, iecur, vir -> done
 
+Check why the -i- is missing by os, lac, etc.
 
-Recheck liber, puer, iocur, iecur, vir
+14.6.2013:
+----------------------
+Nouns and adjectives seem to be correct
+
+19.6.2013:
+----------------------
+Fixed some issues in adjective declension.
+Going on to verbs
+
+Todo: Replace  ... ** { lock_N =<> } with lin ...
