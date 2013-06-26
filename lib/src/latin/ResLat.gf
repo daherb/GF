@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common:../../prelude
+--# -path=.:../abstract:../common:../prelude
 
 --1 Latlish auxiliary operations.
 
