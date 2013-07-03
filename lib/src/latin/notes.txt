@@ -87,3 +87,12 @@ Todo: Replace  ... ** { lock_N =<> } with lin ...
 26.6.2013
 ----------------------
 Added Adjective comparation: just to be completely tested. But how?
+
+29.6.2013
+----------------------
+Added Infinitive  Active Future
+Next step passive
+
+30.6.2013
+-----------------------
+Need to change implementation of esse_V to prevent circular definition
