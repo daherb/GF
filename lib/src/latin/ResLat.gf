@@ -424,9 +424,9 @@ oper
 
   param 
   VActForm  = VAct VAnter VTense Number Person ;
-  VPassForm = VPass VTense Number Person ;
-  VInfForm  = VInfActPres | VInfActPerf ;
-  VImpForm  = VImpPres Number | VImpFut2 Number | VImpFut3 Number ;
+  VPassForm = VPass VAnter VTense Gender Number Person ;
+  VInfForm  = VInfActPres | VInfActPerf | VInfActFut ;
+  VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
 
@@ -437,9 +437,9 @@ oper
   oper
   Verb : Type = {
     act  : VActForm => Str ;
---    pass : VPassForm => Str ;
-    inf  : VAnter => Str ;
---    imp  : VImpForm => Str ;
+    pass : VPassForm => Str ;
+    inf  : VInfForm => Str ;
+    imp  : VImpForm => Str ;
 --    ger  : VGerund => Str ;
 --    sup  : VSupine => Str ;
 --    partActPres  : Adjective ;
@@ -453,30 +453,60 @@ oper
       -> Verb = 
     \cela,cele,celab,celo,celant,celare,celavi,celatus,celabo,celabunt,celabi -> 
     let
-      celav = init celavi
+      celav = init celavi ;
+      tustatum = table {
+      	Masc =>  table Number [ "tus" ; "ti" ] ;
+      	Fem =>   table Number [ "ta" ; "tae" ] ;
+      	Neutr => table Number [ "tum" ; "ta" ] 
+      	}
     in {
       act = table {
-        VAct VSim (VPres VInd)  Sg P1 => celo ; 
-        VAct VSim (VPres VInd)  Pl P3 => celant ; 
-        VAct VSim (VPres VInd)  n  p  => cela + actPresEnding n p ;
-        VAct VSim (VPres VConj) n  p  => cele + actPresEnding n p ;
-        VAct VSim (VImpf VInd)  n  p  => celab + "ba" + actPresEnding n p ;
-        VAct VSim (VImpf VConj) n  p  => celare + actPresEnding n p ;
-        VAct VSim VFut          Sg P1 => celabo ;
-        VAct VSim VFut          Pl P3 => celabunt ;
-        VAct VSim VFut          n  p  => celabi + actPresEnding n p ;
-        VAct VAnt (VPres VInd)  Pl P3 => celav + "erunt" ; 
-        VAct VAnt (VPres VInd)  n  p  => celavi + actPerfEnding n p ;
-        VAct VAnt (VPres VConj) n  p  => celav + "eri" + actPresEnding n p ;
-        VAct VAnt (VImpf VInd)  n  p  => celav + "era" + actPresEnding n p ;
-        VAct VAnt (VImpf VConj) n  p  => celav + "isse" + actPresEnding n p ;
-        VAct VAnt VFut          Sg P1 => celav + "ero" ;
-        VAct VAnt VFut          n  p  => celav + "eri" + actPresEnding n p
+        VAct VSim (VPres VInd)  Sg P1 => celo ; -- Present Indicative
+        VAct VSim (VPres VInd)  Pl P3 => celant ; -- Present Indicative
+        VAct VSim (VPres VInd)  n  p  => cela + actPresEnding n p ; -- Present Indicative
+        VAct VSim (VPres VConj) n  p  => cele + actPresEnding n p ; -- Present Conjunctive
+        VAct VSim (VImpf VInd)  n  p  => celab + "ba" + actPresEnding n p ; -- Imperfect Indicative
+        VAct VSim (VImpf VConj) n  p  => celare + actPresEnding n p ; -- Imperfect Conjunctive
+        VAct VSim VFut          Sg P1 => celabo ; -- Future I 
+        VAct VSim VFut          Pl P3 => celabunt ; -- Future I
+        VAct VSim VFut          n  p  => celabi + actPresEnding n p ; -- Future I
+        VAct VAnt (VPres VInd)  Pl P3 => celav + "erunt" ;  -- Perfect Indicative
+        VAct VAnt (VPres VInd)  n  p  => celavi + actPerfEnding n p ; -- Prefect Indicative
+        VAct VAnt (VPres VConj) n  p  => celav + "eri" + actPresEnding n p ; -- Prefect Conjunctive
+        VAct VAnt (VImpf VInd)  n  p  => celav + "era" + actPresEnding n p ; -- Plusperfect Indicative
+        VAct VAnt (VImpf VConj) n  p  => celav + "isse" + actPresEnding n p ; -- Plusperfect Conjunctive
+        VAct VAnt VFut          Sg P1 => celav + "ero" ; -- Future II 
+        VAct VAnt VFut          n  p  => celav + "eri" + actPresEnding n p -- Future II
         } ;
+      pass = table {
+	VPass VSim (VPres VInd)  g Sg P1 => celo + passPresEnding Sg P1 ;
+	VPass VSim (VPres VInd)  g n  p  => cela + passPresEnding n p ;
+	VPass VSim (VPres VConj) g n  p  => cele + passPresEnding n p ;
+	VPass VSim (VImpf VInd)  g n  p  => cela + passPresEnding n p ;
+	VPass VSim (VImpf Ind)   g n  p  => cela + "re" + passPresEnding n p ;
+	VPass VSim VFut          g Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
+	VPass VSim VFut          g Sg P2 => cela + "be" + passPresEnding Sg P2 ;
+	VPass VSim VFut          g Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
+	VPass VSim VFut          g n  p  => cela + "bi" + passPresEnding n p ;
+	VPass VAnt (VPres VInd)  g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VPres VInd) n p) ;
+	VPass VAnt (VPres VConj) g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VPres VConj) n p) ;
+	VPass VAnt (VImpf VInd)  g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VImpf VInd) n p) ;
+	VPass VAnt (VImpf VConj) g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VImpf VConj) n p) ;
+	VPass VAnt VFut          g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VAnt VFut n p) 
+	} ;
       inf = table {
-        VSim => celare ;
-        VAnt => celav + "isse"
-        }
+        VInfActPres => celare ;
+        VInfActPerf => celav + "isse" ;
+	VInfActFut => cela + "turum esse"
+        } ;
+      imp = table {
+	VImp1 Sg => cela ;
+	VImp1 Pl => cela + "te" ;
+	VImp2 Sg ( P2 | P3 ) => cela + "to" ;
+	VImp2 Pl P2 => cela + "tote" ;
+	VImp2 Pl P3 => cela + "nto" ;
+	_ => "No imperative form"
+	}
       } ;
 
   actPresEnding : Number -> Person -> Str = 
@@ -484,6 +514,9 @@ oper
 
   actPerfEnding : Number -> Person -> Str = 
     useEndingTable <"", "sti", "t", "mus", "stis", "erunt"> ;
+
+  passPresEnding : Number -> Person -> Str =
+    useEndingTable <"r", "ris", "tur", "mur", "mini", "mur"> ;
 
   useEndingTable : (Str*Str*Str*Str*Str*Str) -> Number -> Person -> Str = 
     \es,n,p -> case n of {
@@ -500,17 +533,55 @@ oper
       } ;
 
   esse_V : Verb = 
-    let
-      esse = mkVerb "es" "si" "era" "sum" "sunt" "esse" "fui" "*futus"
-                    "ero" "erunt" "eri" ;
-    in {
-      act = table {
-        VAct VSim (VPres VInd)  Sg P2 => "es" ; 
-        VAct VSim (VPres VInd)  Pl P1 => "sumus" ; 
-        v => esse.act ! v
+    {
+      act = table VActForm {
+	VAct VSim (VPres VInd)  n  p  => table Number [ table Person [ "sum" ; "es" ; "est" ] ;
+							table Person [ "sumus" ; "estis" ; "sunt" ]
+	  ]! n ! p ;
+       	VAct VSim (VPres VConj) n  p  => "si" + actPresEnding n p ;
+       	VAct VSim (VImpf VInd)  n  p  => "era" + actPresEnding n p ;
+       	VAct VSim (VImpf VConj) n  p  => "esse" + actPresEnding n p ;
+       	VAct VSim VFut          Sg P1 => "ero" ;
+       	VAct VSim VFut          Pl P3 => "erunt" ;
+       	VAct VSim VFut          n  p  => "eri" + actPresEnding n p ;
+      	VAct VAnt (VPres VInd)  Pl P3 => "fu" + actPerfEnding Pl P3 ;
+       	VAct VAnt (VPres VInd)  n  p  => "fui" + actPerfEnding n p ;
+       	VAct VAnt (VPres VConj) n  p  => "fueri" + actPresEnding n p ;
+       	VAct VAnt (VImpf VInd)  n  p  => "fuera" + actPresEnding n p ;
+       	VAct VAnt (VImpf VConj) n  p  => "fuisse" + actPresEnding n p ;
+       	VAct VAnt VFut          Sg P1 => "fuero" ;
+       	VAct VAnt VFut          n  p  => "fueri" + actPresEnding n p 
+       	} ;
+      pass = \\_ => "No passive form" ;
+      inf = table {
+        VInfActPres => "esse" ;
+        VInfActPerf => "fuisse" ;
+       	VInfActFut => "futurum esse"
         } ;
-      inf = esse.inf
-      } ;
+      imp = table {
+	VImp1 Sg => "es" ;
+	VImp1 Pl => "este" ;
+	VImp2 Sg ( P2 | P3 ) => "esto" ;
+	VImp2 Pl P2 => "estote" ;
+	VImp2 Pl P3 => "sunto" ;
+	_ => "No imperative form"
+	  
+	}
+    };
+	  
+    
+    -- esse_V : Verb = 
+    --   let
+    --     esse = mkVerb "es" "si" "era" "sum" "sunt" "esse" "fui" "*futus"
+    --                   "ero" "erunt" "eri" ;
+  --   in {
+  --     act = table {
+  --       VAct VSim (VPres VInd)  Sg P2 => "es" ; 
+  --       VAct VSim (VPres VInd)  Pl P1 => "sumus" ; 
+  --       v => esse.act ! v
+  --       } ;
+  --     inf = esse.inf
+  --     } ;
 
   verb1 : Str -> Verb = \celare ->
     let 
@@ -631,7 +702,7 @@ oper
 
   VP : Type = {
     fin : VActForm => Str ;
-    inf : VAnter => Str ;
+    inf : VInfForm => Str ;
     obj : Str ;
     adj : Gender => Number => Str
   } ;
