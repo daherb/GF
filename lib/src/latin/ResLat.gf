@@ -440,8 +440,8 @@ oper
     pass : VPassForm => Str ;
     inf  : VInfForm => Str ;
     imp  : VImpForm => Str ;
---    ger  : VGerund => Str ;
---    sup  : VSupine => Str ;
+    ger  : VGerund => Str ;
+    sup  : VSupine => Str ;
 --    partActPres  : Adjective ;
 --    partActFut   : Adjective ;
 --    partPassPerf : Adjective ;
@@ -506,7 +506,18 @@ oper
 	VImp2 Pl P2 => cela + "tote" ;
 	VImp2 Pl P3 => cela + "nto" ;
 	_ => "No imperative form"
+	} ;
+      ger = table {
+	VGenAcc => cela + "ndum" ;
+	VGenGen => cela + "ndi" ;
+	VGenDat => cela + "ndo" ;
+	VGenAbl => cela + "ndo" 
+	} ;
+      sup = table {
+	VSupAcc => cela + "tum" ;
+	VSupAbl => cela + "tu" 
 	}
+	
       } ;
 
   actPresEnding : Number -> Person -> Str = 
@@ -564,8 +575,13 @@ oper
 	VImp2 Sg ( P2 | P3 ) => "esto" ;
 	VImp2 Pl P2 => "estote" ;
 	VImp2 Pl P3 => "sunto" ;
-	_ => "No imperative form"
-	  
+	_ => "No such imperative form of esse"	  
+	} ;
+      ger = table {
+	_ => "No gerund form of esse"
+	} ;
+      sup = table {
+	_ => "No supin form of esse"
 	}
     };
 	  
