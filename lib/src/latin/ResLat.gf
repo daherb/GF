@@ -424,7 +424,7 @@ oper
 
   param 
   VActForm  = VAct VAnter VTense Number Person ;
-  VPassForm = VPass VAnter VTense Gender Number Person ;
+  VPassForm = VPass VTense Gender Number Person ; -- No anteriority because perfect forms are built using participle
   VInfForm  = VInfActPres | VInfActPerf | VInfActFut ;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
@@ -436,16 +436,16 @@ oper
 
   oper
   Verb : Type = {
-    act  : VActForm => Str ;
-    pass : VPassForm => Str ;
-    inf  : VInfForm => Str ;
-    imp  : VImpForm => Str ;
-    ger  : VGerund => Str ;
-    sup  : VSupine => Str ;
---    partActPres  : Adjective ;
---    partActFut   : Adjective ;
---    partPassPerf : Adjective ;
---    partPassFut  : Adjective ;
+    act   : VActForm => Str ;
+    pass  : VPassForm => Str ;
+    inf   : VInfForm => Str ;
+    imp   : VImpForm => Str ;
+    ger   : VGerund => Str ;
+    geriv : Gender => Number => Case => Str ; 
+    sup   : VSupine => Str ;
+    partActPres  : Gender => Number => Case => Str ;
+    partActFut   : Gender => Number => Case => Str ;
+    partPassPerf : Gender => Number => Case => Str ;
     } ;
 
   mkVerb : 
@@ -479,25 +479,20 @@ oper
         VAct VAnt VFut          n  p  => celav + "eri" + actPresEnding n p -- Future II
         } ;
       pass = table {
-	VPass VSim (VPres VInd)  g Sg P1 => celo + passPresEnding Sg P1 ;
-	VPass VSim (VPres VInd)  g n  p  => cela + passPresEnding n p ;
-	VPass VSim (VPres VConj) g n  p  => cele + passPresEnding n p ;
-	VPass VSim (VImpf VInd)  g n  p  => cela + passPresEnding n p ;
-	VPass VSim (VImpf Ind)   g n  p  => cela + "re" + passPresEnding n p ;
-	VPass VSim VFut          g Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
-	VPass VSim VFut          g Sg P2 => cela + "be" + passPresEnding Sg P2 ;
-	VPass VSim VFut          g Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
-	VPass VSim VFut          g n  p  => cela + "bi" + passPresEnding n p ;
-	VPass VAnt (VPres VInd)  g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VPres VInd) n p) ;
-	VPass VAnt (VPres VConj) g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VPres VConj) n p) ;
-	VPass VAnt (VImpf VInd)  g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VImpf VInd) n p) ;
-	VPass VAnt (VImpf VConj) g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VSim (VImpf VConj) n p) ;
-	VPass VAnt VFut          g n  p  => cela + (tustatum!g!n) ++ (esse_V.act!VAct VAnt VFut n p) 
+	VPass (VPres VInd)  g Sg P1 => celo + passPresEnding Sg P1 ;
+	VPass (VPres VInd)  g n  p  => cela + passPresEnding n p ;
+	VPass (VPres VConj) g n  p  => cele + passPresEnding n p ;
+	VPass (VImpf VInd)  g n  p  => cela + passPresEnding n p ;
+	VPass (VImpf Ind)   g n  p  => cela + "re" + passPresEnding n p ;
+	VPass VFut          g Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
+	VPass VFut          g Sg P2 => cela + "be" + passPresEnding Sg P2 ;
+	VPass VFut          g Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
+	VPass VFut          g n  p  => cela + "bi" + passPresEnding n p 
 	} ;
       inf = table {
         VInfActPres => celare ;
         VInfActPerf => celav + "isse" ;
-	VInfActFut => cela + "turum esse"
+	VInfActFut => cela + "turum"
         } ;
       imp = table {
 	VImp1 Sg => cela ;
@@ -513,12 +508,15 @@ oper
 	VGenDat => cela + "ndo" ;
 	VGenAbl => cela + "ndo" 
 	} ;
+      geriv = ( adj ( cela + "ndus" ) ).s!Posit ;
       sup = table {
 	VSupAcc => cela + "tum" ;
 	VSupAbl => cela + "tu" 
-	}
-	
-      } ;
+	} ;
+      partActPres = ( adj123 ( cela + "ns" ) ( cela + "ntis" ) ).s!Posit ;
+      partActFut = ( adj ( cela + "turus" ) ).s!Posit ;
+      partPassPerf = ( adj ( cela + "tus" ) ).s!Posit
+    } ;
 
   actPresEnding : Number -> Person -> Str = 
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
@@ -580,9 +578,14 @@ oper
       ger = table {
 	_ => "No gerund form of esse"
 	} ;
+      geriv = \\_,_,_ => "No gerundive form of esse" ;
       sup = table {
 	_ => "No supin form of esse"
-	}
+	} ;
+      partActPres = ( adj123 "ens" "entis" ).s!Posit ; -- only medieval latin cp. http://en.wiktionary.org/wiki/ens#Latin
+      partActFut = \\_,_,_ => "No future active participle of esse" ;
+      partPassPerf = \\_,_,_ => "No prefect passive participle of esse"
+
     };
 	  
     
