@@ -15,6 +15,7 @@ resource ParadigmsLat = open
   (Predef=Predef), 
   Prelude, 
   ResLat,
+  MorphoLat,
   CatLat
   in {
 

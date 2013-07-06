@@ -5,22 +5,13 @@
 resource ResLat = ParamX ** open Prelude in {
 
 param
-  Gender = Masc | Fem | Neutr ;
   Case = Nom | Acc | Gen | Dat | Abl | Voc ;
+  Gender = Masc | Fem | Neutr ;
 --  Degree = DPos | DComp | DSup ;
 
 oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
   Adjective : Type = {s : Degree => Gender => Number => Case => Str} ;
-
-  -- sounds and sound changes
-  vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
-  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "h" );
-  semivowel : pattern Str = #( "j" | "w" );
-  stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
-  fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
-  nasal : pattern Str = #( "m" | "n" );
-  liquid : pattern Str = #( "r" | "l" );
 
 -- To file as a bug :
 --  consonant : pattern Str = stop | fricative;
@@ -32,6 +23,7 @@ oper
 --    };
 -- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
 
+-- nouns
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
       s = table {
@@ -53,8 +45,35 @@ oper
       g = g
     } ;
   
-    
-  -- declensions
+-- to change the default gender
+
+  nounWithGen : Gender -> Noun -> Noun = \g,n ->
+    {s = n.s ; g = g} ;
+
+-- also used for adjectives and so on
+
+  noun12 : Str -> Noun = \verbum -> 
+    case verbum of {
+      _ + "a"  => noun1 verbum ;
+      _ + "us" => noun2us verbum ;
+      _ + "um" => noun2um verbum ;
+      _ + ( "er" | "ir" ) => 
+	let
+	  puer = verbum ; 
+	  pue = Predef.tk 1 puer ; 
+	  e = case puer of {
+	    -- Exception of nouns where e is part of the word stem Bayer-Landauer 27 4.2
+	    "puer" | "socer" | "gener" | "vesper" => "e" ;
+	    -- Exception of adjectives where e is part of the word stem 31 3.2
+	    ("asper" | "miser" | "tener" | "frugifer") + _ => "e";
+	    -- "liber" => ( "e"  | "" ) ; conflicting with noun liber
+	    _ => ""
+	    } ;
+	  pu = Predef.tk 1 pue ;
+	in noun2er verbum ( pu + e + "ri" );
+      _  => Predef.error ("noun12 does not apply to" ++ verbum)
+    } ;
+
 
   noun1 : Str -> Noun = \mensa ->
     let 
@@ -101,175 +120,6 @@ oper
       bellum bellum belli bello bello (bell + "um")
       bella bella (bell + "orum") (bell + "is")
       Neutr ;
-
--- Consonant declension
-  noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
-    let
-      reg : Str = Predef.tk 2 regis ;
-      regemes : Str * Str = case g of {
-	Masc | Fem => < reg + "em" , reg + "es" > ;
-	Neutr => < rex , reg + "a" > 
-	} ;
-    in
-    mkNoun
-      rex regemes.p1 ( reg + "is" ) ( reg + "i" ) ( reg + "e" ) rex
-      regemes.p2 regemes.p2 ( reg + "um" ) ( reg + "ibus" ) 
-      g ;
-
--- i-declension
-  noun3i : Str -> Str -> Gender -> Noun = \ars,artis,g ->
-    let 
-      art : Str = Predef.tk 2 artis ;
-      artemes : Str * Str = case g of {
-	Masc | Fem => < art + "em" , art + "es" > ;
-	Neutr => case art of {
-	  _ + #consonant + #consonant => < ars , art + "a" > ; -- maybe complete fiction but may be working
-	  _ => < ars , art + "ia" > -- Bayer-Landauer 32 4
-	  }
-	} ;
-      arte : Str = case ars of {
-	_ + ( "e" | "al" | "ar" ) => art + "i" ;
-	_ => art + "e"
-	};
-    in
-    mkNoun
-      ars artemes.p1 ( art + "is" ) ( art + "i" ) arte ars
-      artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
-      g ;
-
--- smart paradigm for declensions 1&2
-
-  noun12 : Str -> Noun = \verbum -> 
-    case verbum of {
-      _ + "a"  => noun1 verbum ;
-      _ + "us" => noun2us verbum ;
-      _ + "um" => noun2um verbum ;
-      _ + ( "er" | "ir" ) => 
-	let
-	  puer = verbum ; 
-	  pue = Predef.tk 1 puer ; 
-	  e = case puer of {
-	    -- Exception of nouns where e is part of the word stem Bayer-Landauer 27 4.2
-	    "puer" | "socer" | "gener" | "vesper" => "e" ;
-	    -- Exception of adjectives where e is part of the word stem 31 3.2
-	    ("asper" | "miser" | "tener" | "frugifer") + _ => "e";
-	    -- "liber" => ( "e"  | "" ) ; conflicting with noun liber
-	    _ => ""
-	    } ;
-	  pu = Predef.tk 1 pue ;
-	  in noun2er verbum ( pu + e + "ri" );
-      _  => Predef.error ("noun12 does not apply to" ++ verbum)
-      } ;
-
---  noun3 = overload {
-  noun3 : Str -> Str -> Gender -> Noun = \rex,regis,g ->
-    let
-      reg : Str = Predef.tk 2 regis ;
-    in
-    case <rex,reg> of {
-      -- Bos has to many exceptions to be handled correctly
-      < "bos" , "bov" > => mkNoun "bos" "bovem" "bovis" "bovi" "bove" "bos" "boves" "boves" "boum" "bobus" g;
-      -- Some exceptions with no fitting rules
-      < "nix" , _ > => noun3i rex regis g; -- L...
-      < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Landauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
-      < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Landauer 32 2.3
-      < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Landauer 31 2.2 
-      < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Landauer 32 2.2
-      < _ + ( "is" | "es" ) , _ > => 
-	if_then_else 
-	  Noun 
-	  -- assumption based on Bayer-Landauer 32 2.1
-	  ( pbool2bool ( Predef.eqInt ( Predef.length rex ) ( Predef.length regis ) ) ) 
-	  ( noun3i rex regis g ) 
-	  ( noun3c rex regis g ) ;
-      _ => noun3c rex regis g
-    } ;
-
---   noun3 : Str -> Noun = \labor -> 
---     case labor of {
---       _    + "r"   => noun3c labor (labor + "is")    Masc ;
---       fl   + "os"  => noun3c labor (fl    + "oris")  Masc ;
---       lim  + "es"  => noun3c labor (lim   + "itis")  Masc ;
---       cod  + "ex"  => noun3c labor (cod   + "icis")  Masc ;
---       poem + "a"   => noun3c labor (poem  + "atis")  Neutr ;
---       calc + "ar"  => noun3c labor (calc  + "aris")  Neutr ;
---       mar  + "e"   => noun3c labor (mar   + "is")    Neutr ;
---       car  + "men" => noun3c labor (car   + "minis") Neutr ;
---       rob  + "ur"  => noun3c labor (rob   + "oris")  Neutr ;
---       temp + "us"  => noun3c labor (temp  + "oris")  Neutr ;
---       vers + "io"  => noun3c labor (vers  + "ionis") Fem ;
---       imag + "o"   => noun3c labor (imag  + "inis")  Fem ;
---       ae   + "tas" => noun3c labor (ae    + "tatis") Fem ;
---       vo   + "x"   => noun3c labor (vo    + "cis")   Fem ;
---       pa   + "rs"  => noun3c labor (pa    + "rtis")  Fem ;
---       cut  + "is"  => noun3c labor (cut   + "is")    Fem ;
---       urb  + "s"   => noun3c labor (urb   + "is")    Fem ;
---       _  => Predef.error ("noun3 does not apply to" ++ labor)
---       } ;
--- };
-
-  noun4us : Str -> Noun = \fructus -> 
-    let
-      fructu = init fructus ;
-      fruct  = init fructu
-    in
-    mkNoun
-      fructus (fructu + "m") fructus (fructu + "i") fructu fructus
-      fructus fructus (fructu + "um") (fruct + "ibus")
-      Masc ;
-
-  noun4u : Str -> Noun = \cornu -> 
-    let
-      corn = init cornu ;
-      cornua = cornu + "a"
-    in
-    mkNoun
-      cornu cornu (cornu + "s") cornu cornu cornu
-      cornua cornua (cornu + "um") (corn + "ibus")
-      Neutr ;
-
-  noun5 : Str -> Noun = \res -> 
-    let
-      re = init res ;
-      rei = re + "i"
-    in
-    mkNoun
-      res (re+ "m") rei rei re res
-      res res (re + "rum") (re + "bus")
-      Fem ;
-
--- to change the default gender
-
-    nounWithGen : Gender -> Noun -> Noun = \g,n ->
-      {s = n.s ; g = g} ;
-
--- smart paradigms
-
-  noun_ngg : Str -> Str -> Gender -> Noun = \verbum,verbi,g -> 
-    let s : Noun = case <verbum,verbi> of {
-      <_ + "a",  _ + "ae"> => noun1 verbum ;
-      <_ + "us", _ + "i">  => noun2us verbum ;
-      <_ + "um", _ + "i">  => noun2um verbum ;
-      <_ + ( "er" | "ir" ) , _ + "i">  => noun2er verbum verbi ;
-
-      <_ + "us", _ + "us"> => noun4us verbum ;
-      <_ + "u",  _ + "us"> => noun4u verbum ;
-      <_ + "es", _ + "ei"> => noun5 verbum ;
-      _  => noun3 verbum verbi g
-      }
-    in  
-    nounWithGen g s ;
-
-  noun : Str -> Noun = \verbum -> 
-    case verbum of {
-      _ + "a"  => noun1 verbum ;
-      _ + "us" => noun2us verbum ;
-      _ + "um" => noun2um verbum ;
-      _ + ( "er" | "ir" ) => noun2er verbum ( (Predef.tk 2 verbum) + "ri" ) ;
-      _ + "u"  => noun4u verbum ;
-      _ + "es" => noun5 verbum ;
-      _  => Predef.error ("3rd declinsion cannot be applied to just one noun form " ++ verbum)
-      } ;
 
 -- adjectives
 
