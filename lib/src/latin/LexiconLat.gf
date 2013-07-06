@@ -218,7 +218,7 @@ lin
   thick_A = mkA "crassus" ; -- 3 L...
   thin_A = mkA "tenuis" "tenue" ; -- -e L...
   train_N = mkN "hamaxostichus" ; -- -i m. http://la.wikipedia.org/wiki/Hamaxostichus
-  travel_V = mkV "iter facere" ; -- facio, feci, factum 3
+--  travel_V = mkV "iter facere" ; -- facio, feci, factum 3
   tree_N = mkN "arbor" "arboris" feminine ; -- -oris f.
   -- Not even in English implemented
 ---- trousers_N = mkN "trousers" ;
