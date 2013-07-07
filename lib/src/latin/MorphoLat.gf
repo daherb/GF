@@ -8,7 +8,7 @@
 ---- syntax. To build a lexicon, it is better to use $ParadigmsLat$, which
 ---- gives a higher-level access to this module.
 --
-resource MorphoLat = ParamX ** open ResLat, Prelude in {
+resource MorphoLat = ParamX, ResLat ** open Prelude in {
 --
 --  flags optimize=all ;
 --
@@ -28,6 +28,55 @@ oper
     
 -- declensions
 oper
+
+  -- a-Declension
+  noun1 : Str -> Noun = \mensa ->
+    let 
+      mensae = mensa + "e" ;
+      mensis = init mensa + "is" ;
+    in
+    mkNoun 
+      mensa (mensa +"m") mensae mensae mensa mensa
+      mensae (mensa + "s") (mensa + "rum") mensis
+      Fem ;
+
+  -- o-Declension
+  noun2us : Str -> Noun = \servus ->
+    let
+      serv = Predef.tk 2 servus ;
+      servum = serv + "um" ;
+      servi = serv + "i" ;
+      servo = serv + "o" ;
+    in
+    mkNoun 
+      servus servum servi servo servo (serv + "e")
+      servi (serv + "os") (serv + "orum") (serv + "is")
+      Masc ;
+
+  noun2er : Str -> Str -> Noun = \liber,libri ->
+    let
+      libr : Str = Predef.tk 1 libri;
+      librum = libr + "um" ;
+      libri = libr + "i" ;
+      libro = libr + "o" ;
+    in
+    mkNoun 
+      liber librum libri libro libro liber
+      libri ( libr + "os" ) ( libr + "orum" ) ( libr + "is" )
+      Masc ;
+
+  noun2um : Str -> Noun = \bellum ->
+    let
+      bell = Predef.tk 2 bellum ;
+      belli = bell + "i" ;
+      bello = bell + "o" ;
+      bella = bell + "a" ;
+    in
+    mkNoun 
+      bellum bellum belli bello bello (bell + "um")
+      bella bella (bell + "orum") (bell + "is")
+      Neutr ;
+
   -- Consonant declension
   noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
     let
@@ -63,6 +112,8 @@ oper
       artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
       g ;
 
+  -- u-Declension
+
   noun4us : Str -> Noun = \fructus -> 
     let
       fructu = init fructus ;
@@ -83,6 +134,7 @@ oper
       cornua cornua (cornu + "um") (corn + "ibus")
       Neutr ;
 
+  -- e-Declension
   noun5 : Str -> Noun = \res -> 
     let
       re = init res ;
@@ -121,6 +173,29 @@ oper
       _  => Predef.error ("3rd declinsion cannot be applied to just one noun form " ++ verbum)
       } ;
   
+
+  noun12 : Str -> Noun = \verbum -> 
+    case verbum of {
+      _ + "a"  => noun1 verbum ;
+      _ + "us" => noun2us verbum ;
+      _ + "um" => noun2um verbum ;
+      _ + ( "er" | "ir" ) => 
+	let
+	  puer = verbum ; 
+	  pue = Predef.tk 1 puer ; 
+	  e = case puer of {
+	    -- Exception of nouns where e is part of the word stem Bayer-Landauer 27 4.2
+	    "puer" | "socer" | "gener" | "vesper" => "e" ;
+	    -- Exception of adjectives where e is part of the word stem 31 3.2
+	    ("asper" | "miser" | "tener" | "frugifer") + _ => "e";
+	    -- "liber" => ( "e"  | "" ) ; conflicting with noun liber
+	    _ => ""
+	    } ;
+	  pu = Predef.tk 1 pue ;
+	in noun2er verbum ( pu + e + "ri" );
+      _  => Predef.error ("noun12 does not apply to" ++ verbum)
+    } ;
+
   noun3 : Str -> Str -> Gender -> Noun = \rex,regis,g ->
     let
       reg : Str = Predef.tk 2 regis ;
@@ -144,6 +219,7 @@ oper
       _ => noun3c rex regis g
     } ;
 
+
 ----3 Proper names
 
 ----2 Determiners
@@ -151,6 +227,133 @@ oper
 ----2 Pronouns
 
 ----2 Adjectives
+oper
+  comp_super : Noun -> ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
+    \bonus ->
+    case bonus.s!Sg!Gen of {
+      -- Exception Bayer-Landauer 50 1
+      "boni" => < comp "meli" , table Gender [ (noun1 "optimus").s ; (noun2us "optima").s ; (noun2um "optimum").s ] > ;
+      "mali" => < comp "pei" , super "pessus" > ;
+      "magni" => < comp "mai" , table Gender [ (noun1 "maximus").s; (noun2us "maxima").s ; (noun2um "maximum").s ] > ;
+      "parvi" => < comp "mini" , table Gender [ (noun1 "minimus").s ; (noun2us "minima").s ; (noun2um "minimum").s ] >;
+      --Exception Bayer-Landauer 50.3
+      "novi" => < comp "recenti" , super "recens" > ;
+      "feri" => < comp "feroci" , super "ferox" > ;
+      "sacris" => < comp "sancti" , super "sanctus" >;
+      "frugiferi" => < comp "fertilis" , super "fertilis" > ;
+      "veti" => < comp "vetusti" , super "vetustus" >;
+      "inopis" => < comp "egentis" , super "egens" >;
+      -- Default Case use Singular Genetive to determine comparative
+      sggen => < comp sggen , super (bonus.s!Sg!Nom) >
+    } ;
+  
+  comp : Str -> ( Gender => Number => Case => Str ) = \boni -> -- Bayer-Landauer 46 2
+    case boni of {
+      bon + ( "i" | "is" ) => 
+	table
+	{
+	  Fem | Masc => table {
+	    Sg => table Case [ bon + "ior" ; 
+			       bon + "iorem" ; 
+			       bon + "ioris" ; 
+			       bon + "iori" ; 
+			       bon + "iore"; 
+			       bon + "ior" ] ;
+	    Pl => table Case [ bon + "iores" ; 
+			       bon + "iores" ; 
+			       bon + "iorum" ; 
+			       bon + "ioribus" ; 
+			       bon + "ioribus" ; 
+			       bon + "iores" ]
+	    } ;
+	  Neutr => table {
+	    Sg => table Case [ bon + "ius" ; 
+			       bon + "ius" ; 
+			       bon + "ioris" ; 
+			       bon + "iori" ; 
+			       bon + "iore" ; 
+			       bon + "ius" ] ;
+	    Pl => table Case [ bon + "iora" ; 
+			       bon + "iora" ; 
+			       bon + "iorum" ; 
+			       bon + "ioribus" ; 
+			       bon + "ioribus" ; 
+			       bon + "iora" ] 
+	    }
+	}
+    } ;
+  
+  super : Str -> (Gender => Number => Case => Str) = \bonus ->
+    let
+      prefix : Str = case bonus of {
+	ac + "er" => bonus ; -- Bayer-Landauer 48 2
+	faci + "lis" => faci + "l" ; -- Bayer-Landauer 48 3
+	feli + "x" => feli + "c" ; -- Bayer-Landauer 48 1
+	ege + "ns" => ege + "nt" ; -- Bayer-Landauer 48 1
+	bon + ( "us" | "is") => bon -- Bayer-Landauer 48 1
+	};
+      suffix : Str = case bonus of {
+	ac + "er" => "rim" ; -- Bayer-Landauer 48 2
+	faci + "lis" => "lim" ; -- Bayer-Landauer 48 3
+	_ => "issim" -- Bayer-Landauer 48 1
+	};
+    in
+    table {
+      Fem => (noun1 ( prefix + suffix + "a" )).s ;
+      Masc => (noun2us ( prefix + suffix + "us" )).s ;
+      Neutr => (noun2um ( prefix + suffix + "um" )).s
+    } ;
+
+  adj12 : Str -> Adjective = \bonus ->
+    let
+      bon : Str = case bonus of {
+	-- Exceptions Bayer-Landauer 41 3.2
+	("asper" | "liber" | "miser" | "tener" | "frugifer") => bonus ;
+	-- Usual cases
+	pulch + "er" => pulch + "r" ;
+	bon + "us" => bon ;
+	_ => Predef.error ("adj12 does not apply to" ++ bonus)
+	} ; 
+      nbonus = (noun12 bonus) ;
+      compsup = comp_super nbonus;
+    in
+    mkAdjective nbonus (noun1 (bon + "a")) (noun2um (bon + "um")) compsup.p1 compsup.p2 ;
+
+  adj3x : (_,_ : Str) -> Adjective = \acer,acris ->
+   let
+     ac = Predef.tk 2 acer ;
+     acrise : Str * Str = case acer of {
+       _ + "er" => <ac + "ris", ac + "re"> ; 
+       _ + "is" => <acer      , ac + "e"> ;
+       _        => <acer      , acer> 
+       } ;
+     nacer = (noun3adj acer acris Masc) ;
+     compsuper = comp_super nacer;
+   in
+   mkAdjective 
+     nacer
+     (noun3adj acrise.p1 acris Fem) 
+     (noun3adj acrise.p2 acris Neutr) ;
+    
+-- smart paradigms
+
+  adj123 : Str -> Str -> Adjective = \bonus,boni ->
+    case <bonus,boni> of {
+      <_ + ("us" | "er"), _ + "i" > => adj12 bonus ;
+      <_ + ("us" | "er"), _ + "is"> => adj3x bonus boni ;
+      <_                , _ + "is"> => adj3x bonus boni ;
+      <_ + "is"         , _ + "e" > => adj3x bonus boni ;
+      _ => Predef.error ("adj123: not applicable to" ++ bonus ++ boni)
+    } ;
+
+  adj : Str -> Adjective = \bonus ->
+    case bonus of {
+      _ + ("us" | "er") => adj12 bonus ;
+      facil + "is"      => adj3x bonus bonus ;
+      feli  + "x"       => adj3x bonus (feli + "cis") ;
+      _                 => adj3x bonus (bonus + "is") ---- any example?
+    } ;  
+  
 
 ----3 Verbs
 
