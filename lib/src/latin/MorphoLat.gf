@@ -232,10 +232,10 @@ oper
     \bonus ->
     case bonus.s!Sg!Gen of {
       -- Exception Bayer-Landauer 50 1
-      "boni" => < comp "meli" , table Gender [ (noun1 "optimus").s ; (noun2us "optima").s ; (noun2um "optimum").s ] > ;
+      "boni" => < comp "meli" , table Gender [ (noun2us "optimus").s ; (noun1 "optima").s ; (noun2um "optimum").s ] > ;
       "mali" => < comp "pei" , super "pessus" > ;
-      "magni" => < comp "mai" , table Gender [ (noun1 "maximus").s; (noun2us "maxima").s ; (noun2um "maximum").s ] > ;
-      "parvi" => < comp "mini" , table Gender [ (noun1 "minimus").s ; (noun2us "minima").s ; (noun2um "minimum").s ] >;
+      "magni" => < comp "mai" , table Gender [ (noun2us "maximus").s; (noun1 "maxima").s ; (noun2um "maximum").s ] > ;
+      "parvi" => < comp "mini" , table Gender [ (noun2us "minimus").s ; (noun1 "minima").s ; (noun2um "minimum").s ] >;
       --Exception Bayer-Landauer 50.3
       "novi" => < comp "recenti" , super "recens" > ;
       "feri" => < comp "feroci" , super "ferox" > ;
@@ -331,9 +331,12 @@ oper
      compsuper = comp_super nacer;
    in
    mkAdjective 
-     nacer
-     (noun3adj acrise.p1 acris Fem) 
-     (noun3adj acrise.p2 acris Neutr) ;
+    nacer
+    (noun3adj acrise.p1 acris Fem) 
+    (noun3adj acrise.p2 acris Neutr) 
+    compsuper.p1
+    compsuper.p2
+    ;
     
 -- smart paradigms
 
