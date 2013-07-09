@@ -41,7 +41,9 @@ oper
     mkA : (verbum, verbi : Str) -> A 
       = \x,y -> adj123 x y ** {isPre = False ; lock_A = <>} ;
     mkA : (bonus,bona,bonum : N) -> A 
-      = \x,y,z -> mkAdjective x y z ** {isPre = False ; lock_A = <>} ;
+      = \x,y,z -> 
+      let compsup = comp_super x in
+      mkAdjective x y z compsup.p1 compsup.p2 ** {isPre = False ; lock_A = <>} ;
   } ;
   
 
