@@ -315,9 +315,26 @@ oper
 	_ => Predef.error ("adj12 does not apply to" ++ bonus)
 	} ; 
       nbonus = (noun12 bonus) ;
-      compsup = comp_super nbonus;
+      compsup : ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
+	case bonus of {
+	  (_ + #vowel + "us" ) |
+	    (_ + "r" + "us" ) => 
+	    < table Gender [ ( noun12 bonus ).s ; ( noun12 ( bon + "a" ) ).s ; ( noun12 ( bon + "um" ) ).s ] ,
+	    table Gender [ ( noun12 bonus ).s ; ( noun12 ( bon + "a" ) ).s ; ( noun12 ( bon + "um" ) ).s ] > ;
+	  _ => comp_super nbonus
+	};
+      advs : Str * Str = 
+	case bonus of {
+	  idon + #vowel + "us" => < "magis" , "maxime" > ;
+	  _ => < "" , "" >
+	}
     in
-    mkAdjective nbonus (noun1 (bon + "a")) (noun2um (bon + "um")) compsup.p1 compsup.p2 ;
+    mkAdjective 
+    nbonus 
+    (noun1 (bon + "a")) 
+    (noun2um (bon + "um")) 
+    < compsup.p1 , advs.p1 > 
+    < compsup.p2 , advs.p2 > ;
 
   adj3x : (_,_ : Str) -> Adjective = \acer,acris ->
    let
@@ -334,8 +351,8 @@ oper
     nacer
     (noun3adj acrise.p1 acris Fem) 
     (noun3adj acrise.p2 acris Neutr) 
-    compsuper.p1
-    compsuper.p2
+    < compsuper.p1 , "" >
+    < compsuper.p2 , "" >
     ;
     
 -- smart paradigms
