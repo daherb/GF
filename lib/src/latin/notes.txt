@@ -83,7 +83,7 @@ Fixed some issues in adjective declension.
 Going on to verbs
 
 Todo: Replace  ... ** { lock_N =<> } with lin ...
-
+=> Done 9.7.2013
 26.6.2013
 ----------------------
 Added Adjective comparation: just to be completely tested. But how?
@@ -96,3 +96,9 @@ Next step passive
 30.6.2013
 -----------------------
 Need to change implementation of esse_V to prevent circular definition
+=> done
+
+9.7.2013
+-----------------------
+Checked adjective forms for bonus, niger, asper, acer/acris , fortis, felix and longus.
+Superlative with maxime missing
