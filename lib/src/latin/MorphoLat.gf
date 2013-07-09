@@ -99,7 +99,7 @@ oper
 	Masc | Fem => < art + "em" , art + "es" > ;
 	Neutr => case art of {
 	  _ + #consonant + #consonant => < ars , art + "a" > ; -- maybe complete fiction but may be working
-	  _ => < ars , art + "ia" > -- Bayer-Landauer 32 4
+	  _ => < ars , art + "ia" > -- Bayer-Lindauer 32 4
 	  }
 	} ;
       arte : Str = case ars of {
@@ -184,7 +184,7 @@ oper
 	  puer = verbum ; 
 	  pue = Predef.tk 1 puer ; 
 	  e = case puer of {
-	    -- Exception of nouns where e is part of the word stem Bayer-Landauer 27 4.2
+	    -- Exception of nouns where e is part of the word stem Bayer-Lindauer 27 4.2
 	    "puer" | "socer" | "gener" | "vesper" => "e" ;
 	    -- Exception of adjectives where e is part of the word stem 31 3.2
 	    ("asper" | "miser" | "tener" | "frugifer") + _ => "e";
@@ -205,14 +205,14 @@ oper
       < "bos" , "bov" > => mkNoun "bos" "bovem" "bovis" "bovi" "bove" "bos" "boves" "boves" "boum" "bobus" g;
       -- Some exceptions with no fitting rules
       < "nix" , _ > => noun3i rex regis g; -- L...
-      < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Landauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
-      < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Landauer 32 2.3
-      < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Landauer 31 2.2 
-      < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Landauer 32 2.2
+      < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Lindauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
+      < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Lindauer 32 2.3
+      < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Lindauer 31 2.2 
+      < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Lindauer 32 2.2
       < _ + ( "is" | "es" ) , _ > => 
 	if_then_else 
 	  Noun 
-	  -- assumption based on Bayer-Landauer 32 2.1
+	  -- assumption based on Bayer-Lindauer 32 2.1
 	  ( pbool2bool ( Predef.eqInt ( Predef.length rex ) ( Predef.length regis ) ) ) 
 	  ( noun3i rex regis g ) 
 	  ( noun3c rex regis g ) ;
@@ -231,12 +231,12 @@ oper
   comp_super : Noun -> ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
     \bonus ->
     case bonus.s!Sg!Gen of {
-      -- Exception Bayer-Landauer 50 1
+      -- Exception Bayer-Lindauer 50 1
       "boni" => < comp "meli" , table Gender [ (noun2us "optimus").s ; (noun1 "optima").s ; (noun2um "optimum").s ] > ;
       "mali" => < comp "pei" , super "pessus" > ;
       "magni" => < comp "mai" , table Gender [ (noun2us "maximus").s; (noun1 "maxima").s ; (noun2um "maximum").s ] > ;
       "parvi" => < comp "mini" , table Gender [ (noun2us "minimus").s ; (noun1 "minima").s ; (noun2um "minimum").s ] >;
-      --Exception Bayer-Landauer 50.3
+      --Exception Bayer-Lindauer 50.3
       "novi" => < comp "recenti" , super "recens" > ;
       "feri" => < comp "feroci" , super "ferox" > ;
       "sacris" => < comp "sancti" , super "sanctus" >;
@@ -247,7 +247,7 @@ oper
       sggen => < comp sggen , super (bonus.s!Sg!Nom) >
     } ;
   
-  comp : Str -> ( Gender => Number => Case => Str ) = \boni -> -- Bayer-Landauer 46 2
+  comp : Str -> ( Gender => Number => Case => Str ) = \boni -> -- Bayer-Lindauer 46 2
     case boni of {
       bon + ( "i" | "is" ) => 
 	table
@@ -286,16 +286,16 @@ oper
   super : Str -> (Gender => Number => Case => Str) = \bonus ->
     let
       prefix : Str = case bonus of {
-	ac + "er" => bonus ; -- Bayer-Landauer 48 2
-	faci + "lis" => faci + "l" ; -- Bayer-Landauer 48 3
-	feli + "x" => feli + "c" ; -- Bayer-Landauer 48 1
-	ege + "ns" => ege + "nt" ; -- Bayer-Landauer 48 1
-	bon + ( "us" | "is") => bon -- Bayer-Landauer 48 1
+	ac + "er" => bonus ; -- Bayer-Lindauer 48 2
+	faci + "lis" => faci + "l" ; -- Bayer-Lindauer 48 3
+	feli + "x" => feli + "c" ; -- Bayer-Lindauer 48 1
+	ege + "ns" => ege + "nt" ; -- Bayer-Lindauer 48 1
+	bon + ( "us" | "is") => bon -- Bayer-Lindauer 48 1
 	};
       suffix : Str = case bonus of {
-	ac + "er" => "rim" ; -- Bayer-Landauer 48 2
-	faci + "lis" => "lim" ; -- Bayer-Landauer 48 3
-	_ => "issim" -- Bayer-Landauer 48 1
+	ac + "er" => "rim" ; -- Bayer-Lindauer 48 2
+	faci + "lis" => "lim" ; -- Bayer-Lindauer 48 3
+	_ => "issim" -- Bayer-Lindauer 48 1
 	};
     in
     table {
@@ -307,7 +307,7 @@ oper
   adj12 : Str -> Adjective = \bonus ->
     let
       bon : Str = case bonus of {
-	-- Exceptions Bayer-Landauer 41 3.2
+	-- Exceptions Bayer-Lindauer 41 3.2
 	("asper" | "liber" | "miser" | "tener" | "frugifer") => bonus ;
 	-- Usual cases
 	pulch + "er" => pulch + "r" ;
@@ -316,6 +316,7 @@ oper
 	} ; 
       nbonus = (noun12 bonus) ;
       compsup : ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
+	-- Bayer-Lindauer 50 4
 	case bonus of {
 	  (_ + #vowel + "us" ) |
 	    (_ + "r" + "us" ) => 
@@ -325,6 +326,7 @@ oper
 	};
       advs : Str * Str = 
 	case bonus of {
+	  -- Bayer-Lindauer 50 4
 	  idon + #vowel + "us" => < "magis" , "maxime" > ;
 	  _ => < "" , "" >
 	}
