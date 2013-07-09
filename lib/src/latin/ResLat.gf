@@ -11,7 +11,7 @@ param
 
 oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
-  Adjective : Type = {s : Degree => Gender => Number => Case => Str} ;
+  Adjective : Type = {s : Degree => Gender => Number => Case => Str ; comp_adv : Str ; super_adv : Str } ;
 
 -- To file as a bug :
 --  consonant : pattern Str = stop | fricative;
@@ -54,7 +54,9 @@ oper
 
 -- adjectives
 
-  mkAdjective : (_,_,_ : Noun) -> (Gender => Number => Case => Str) -> (Gender => Number => Case => Str) -> Adjective = 
+  mkAdjective : (_,_,_ : Noun) -> 
+    ( (Gender => Number => Case => Str) * Str ) -> 
+    ( (Gender => Number => Case => Str) * Str ) -> Adjective = 
     \bonus,bona,bonum,melior,optimus ->
     {
       s = table {
@@ -62,10 +64,12 @@ oper
 	  Masc  => bonus.s ;
 	  Fem   => bona.s ;
 	  Neutr => bonum.s 
-	  };
-	Compar => melior ;
-	Superl => optimus 
-	}
+	  } ;
+	Compar => melior.p1 ;
+	Superl => optimus.p1 
+	} ;
+      comp_adv = melior.p2 ;
+      super_adv = optimus.p2
     } ;
 
 
@@ -180,8 +184,8 @@ param
 		      ( cela + "nda" ) ( cela + "ndae" ) ( cela + "ndas" ) (cela +"ndarum" ) ( cela + "ndis" ) Fem )
 		  ( mkNoun ( cela + "ndum" ) ( cela + "ndum" ) ( cela + "ndi" ) ( cela + "ndo" ) ( cela + "ndo" ) 
 		      ( cela + "ndum" ) ( cela + "nda" ) ( cela + "nda" ) ( cela + "ndorum" ) ( cela + "ndis" ) Neutr )
-		  ( \\_,_,_ => "" )
-		  ( \\_,_,_ => "" )
+		  < \\_,_,_ => "" , "" >
+		  < \\_,_,_ => "" , "" >
 	).s!Posit ;
       sup = table {
 	VSupAcc => cela + "tum" ;
@@ -198,8 +202,8 @@ param
 			( mkNoun ( cela + "ns" ) ( cela + "ns" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
 			    ( cela + "ns" ) ( cela + "ntia" ) ( cela + "ntia" ) ( cela + "ntium" ) ( cela + "ntibus" )
 			    Neutr ) 
-			( \\_,_,_ => "" )
-			( \\_,_,_ => "" )
+			< \\_,_,_ => "" , "" >
+			< \\_,_,_ => "" , "" >
 	).s!Posit ;
 --      partActFut = ( adj ( cela + "turus" ) ).s!Posit ;
       partActFut = ( mkAdjective
@@ -212,8 +216,8 @@ param
 		       ( mkNoun ( cela + "turum" ) ( cela + "turum" ) ( cela + "turi" ) ( cela + "turo" ) ( cela + "turo" )
 			   ( cela + "turum" ) ( cela + "tura" ) ( cela + "tura" ) ( cela + "turorum" ) ( cela + "turis" ) 
 			   Neutr )
-		       ( \\_,_,_ => "" )
-		       ( \\_,_,_ => "" )
+		       < \\_,_,_ => "" , "" >
+		       < \\_,_,_ => "" , "" >
 	).s!Posit ;
 --      partPassPerf = ( adj ( cela + "tus" ) ).s!Posit
       partPassPerf = ( mkAdjective
@@ -223,8 +227,8 @@ param
 			     ( cela + "ta" ) ( cela + "tae" ) ( cela + "tas" ) ( cela + "tarum" ) ( cela + "tis" ) Fem )
 			 ( mkNoun ( cela + "tum" ) ( cela + "tum" ) ( cela + "ti" ) ( cela + "to" ) ( cela + "to" ) 
 			     ( cela + "tum" ) ( cela + "ta" ) ( cela + "ta" ) ( cela + "torum" ) ( cela + "tis" ) Neutr ) 
-			 ( \\_,_,_ => "" )
-			 ( \\_,_,_ => "" )
+			 < \\_,_,_ => "" , "" >
+			 < \\_,_,_ => "" , "" >
 	).s!Posit ;
     } ;
 
@@ -300,8 +304,8 @@ param
 			    "entes" "entes" "entium" "entibus" Fem )
 			( mkNoun "ens" "ens" "entis" "enti" "ente" "ens" 
 			    "entia" "entia" "entium" "entibus" Neutr ) 
-			( \\_,_,_ => "" )
-			( \\_,_,_ => "" )
+			< \\_,_,_ => "" , "" >
+			< \\_,_,_ => "" , "" >
 	).s!Posit ;
       partActFut = \\_,_,_ => "No future active participle of esse" ;
       partPassPerf = \\_,_,_ => "No prefect passive participle of esse"
