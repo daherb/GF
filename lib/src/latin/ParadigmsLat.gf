@@ -42,8 +42,15 @@ oper
       = \x,y -> lin A ( adj123 x y ** {isPre = False } ) ;
     mkA : (bonus,bona,bonum : N) -> A 
       = \x,y,z -> 
-      let compsup = comp_super x in
-      lin A ( mkAdjective x y z compsup.p1 compsup.p2 ** {isPre = False } ) ;
+      let compsup = comp_super x ;
+	  advs : Str * Str = 
+	    case x.s!Sg!Nom of {
+	      -- Bayer-Lindauer 50 4
+	      idon + #vowel + "us" => < "magis" , "maxime" > ;
+	      _ => < "" , "" >
+	    };
+      in
+      lin A ( mkAdjective x y z < compsup.p1 , advs.p2 > < compsup.p2 , advs.p2> ** {isPre = False } ) ;
   } ;
   
 
