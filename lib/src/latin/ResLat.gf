@@ -126,10 +126,11 @@ param
       	Fem =>   table Number [ "ta" ; "tae" ] ;
       	Neutr => table Number [ "tum" ; "ta" ] 
       	} ;
-      celai : Str = case cela of {
-	mon + "e" => mon + "i" ;
-	_ => cela 
-	} ;
+      celai : Str = Predef.tk 3 celatus
+--	case cela of {
+--	mon + "e" => mon + "i" ;
+--	_ => cela 
+--	} ;
     in 
     {
       act = table {
