@@ -379,4 +379,29 @@ oper
 
 ----3 Verbs
 
+-- smart paradigms
+
+  verb_pppi : (iacere,iacio,ieci,iactus : Str) -> Verb = 
+    \iacere,iacio,ieci,iactus ->
+    case iacere of {
+    _ + "are" => verb1 iacere ;
+    _ + "ire" => verb4 iacere ieci iactus ;
+    _ + "ere" => case iacio of {
+      _ + #consonant + "o" => verb3 iacere ieci iactus ; -- Bayer-Lindauer 74 1
+      _ + "eo" => verb2 iacere ;
+      _ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
+      _ => verb3 iacere ieci iactus
+      } ;
+    _ => Predef.error ("verb_pppi: illegal infinitive form" ++ iacere) 
+    } ;
+
+  verb : (iacere : Str) -> Verb = 
+    \iacere ->
+    case iacere of {
+    _ + "are" => verb1 iacere ;
+    _ + "ire" => let iaci = Predef.tk 2 iacere 
+                 in verb4 iacere (iaci + "vi") (iaci + "tus") ;
+    _ + "ere" => verb2 iacere ;
+    _ => Predef.error ("verb: illegal infinitive form" ++ iacere) 
+    } ;
 }
