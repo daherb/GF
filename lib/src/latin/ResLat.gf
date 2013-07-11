@@ -230,7 +230,7 @@ param
     useEndingTable <"", "sti", "t", "mus", "stis", "erunt"> ;
 
   passPresEnding : Number -> Person -> Str =
-    useEndingTable <"r", "ris", "tur", "mur", "mini", "mur"> ;
+    useEndingTable <"r", "ris", "tur", "mur", "mini", "ntur"> ;
 
   useEndingTable : (Str*Str*Str*Str*Str*Str) -> Number -> Person -> Str = 
     \es,n,p -> case n of {
