@@ -63,11 +63,11 @@ oper
 
   mkV2 = overload {
     mkV2 : (amare : Str) -> V2
-      = \v -> lin V2 ( verb v ** {c = {s = [] ; c = Acc} } ) ; 
+      = \v -> lin V2 ( verb v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
     mkV2 : (facere : V) -> V2
-      = \v -> lin V2 ( v ** {c = {s = [] ; c = Acc} } ) ; 
+      = \v -> lin V2 ( v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
     } ;
---.
+
   masculine = Masc ;
   feminine = Fem ;
   neuter = Neutr ;
@@ -76,4 +76,7 @@ oper
   mkPN : N -> PN = \n -> lin PN n ;
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 n ;
   mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 n ;
+  mkV2S : V -> Prep -> V2S = \v,p -> lin V2S ( v ** { c = p } ) ;
+  mkV2Q : V -> Prep -> V2Q = \v,p -> lin V2Q ( v ** { c = p } ) ;
+  mkV2V : V -> Str -> Bool -> V2V = \v,s,b -> lin V2V ( v ** { c2 = s ; isAux = b } ) ;
 }
