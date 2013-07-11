@@ -92,7 +92,7 @@ oper
 param 
   VActForm  = VAct VAnter VTense Number Person ;
   VPassForm = VPass VTense Gender Number Person ; -- No anteriority because perfect forms are built using participle
-  VInfForm  = VInfActPres | VInfActPerf | VInfActFut ;
+  VInfForm  = VInfActPres | VInfActPerf | VInfActFut Gender;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
@@ -110,7 +110,7 @@ param
     ger   : VGerund => Str ;
     geriv : Gender => Number => Case => Str ; 
     sup   : VSupine => Str ;
-    partActPres  : Gender => Number => Case => Str ;
+    partActPres  : Number => Case => Str ;
     partActFut   : Gender => Number => Case => Str ;
     partPassPerf : Gender => Number => Case => Str ;
     } ;
@@ -157,9 +157,11 @@ param
 	VPass VFut          g n  p  => cela + "bi" + passPresEnding n p 
 	} ;
       inf = table {
-        VInfActPres => celare ;
-        VInfActPerf => celav + "isse" ;
-	VInfActFut => cela + "turum"
+        VInfActPres      => celare ;
+        VInfActPerf      => celav + "isse" ;
+	VInfActFut Masc  => cela + "turum" ;
+	VInfActFut Fem   => cela + "turam" ; 
+	VInfActFut Neutr => cela + "turum"
         } ;
       imp = table {
 	VImp1 Sg => cela ;
@@ -192,20 +194,9 @@ param
 	VSupAbl => cela + "tu" 
 	} ;
 --      partActPres = ( adj123 ( cela + "ns" ) ( cela + "ntis" ) ).s!Posit ;
-      partActPres = ( mkAdjective 
-			( mkNoun ( cela + "ns" ) ( cela + "ntem" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
-			    ( cela + "ns" ) ( cela + "ntes" ) ( cela + "ntes" ) ( cela + "ntium" ) ( cela + "ntibus" ) 
-			    Masc )
-			( mkNoun ( cela + "ns" ) ( cela + "ntem" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
-			    ( cela + "ns" ) ( cela + "ntes" ) ( cela + "ntes" ) ( cela + "ntium" ) ( cela + "ntibus" )
-			    Fem )
-			( mkNoun ( cela + "ns" ) ( cela + "ns" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
-			    ( cela + "ns" ) ( cela + "ntia" ) ( cela + "ntia" ) ( cela + "ntium" ) ( cela + "ntibus" )
-			    Neutr ) 
-			< \\_,_,_ => "" , "" >
-			< \\_,_,_ => "" , "" >
-	).s!Posit ;
---      partActFut = ( adj ( cela + "turus" ) ).s!Posit ;
+      partActPres = ( mkNoun ( cela + "ns" ) ( cela + "ntem" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
+ 			( cela + "ns" ) ( cela + "ntes" ) ( cela + "ntes" ) ( cela + "ntium" ) ( cela + "ntibus" ) 
+ 			Masc ).s ;
       partActFut = ( mkAdjective
 		       ( mkNoun ( cela + "turus" ) ( cela + "turum" ) ( cela + "turi" ) ( cela + "turo" ) 
 			   ( cela + "turo" ) ( cela + "ture" ) ( cela + "turi" ) ( cela + "turos" ) ( cela + "turorum" ) 
@@ -277,9 +268,11 @@ param
        	} ;
       pass = \\_ => "No passive form" ;
       inf = table {
-        VInfActPres => "esse" ;
-        VInfActPerf => "fuisse" ;
-       	VInfActFut => "futurum esse"
+        VInfActPres      => "esse" ;
+        VInfActPerf      => "fuisse" ;
+       	VInfActFut Masc  => "futurum" ;
+	VInfActFut Fem   => "futuram" ;
+	VInfActFut Neutr => "futurum"
         } ;
       imp = table {
 	VImp1 Sg => "es" ;
@@ -297,16 +290,9 @@ param
 	_ => "No supin form of esse"
 	} ;
 --      partActPres = ( adj123 "ens" "entis" ).s!Posit ; -- only medieval latin cp. http://en.wiktionary.org/wiki/ens#Latin
-      partActPres = ( mkAdjective 
-			( mkNoun "ens" "entem" "entis" "enti" "ente" "ens" 
-			    "entes" "entes" "entium" "entibus" Masc )
-			( mkNoun "ens" "entem" "entis" "enti" "ente" "ens" 
-			    "entes" "entes" "entium" "entibus" Fem )
-			( mkNoun "ens" "ens" "entis" "enti" "ente" "ens" 
-			    "entia" "entia" "entium" "entibus" Neutr ) 
-			< \\_,_,_ => "" , "" >
-			< \\_,_,_ => "" , "" >
-	).s!Posit ;
+      partActPres = ( mkNoun "ens" "entem" "entis" "enti" "ente" "ens" 
+			"entes" "entes" "entium" "entibus" 
+			Masc ).s ;
       partActFut = \\_,_,_ => "No future active participle of esse" ;
       partPassPerf = \\_,_,_ => "No prefect passive participle of esse"
 
