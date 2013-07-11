@@ -157,10 +157,6 @@ param
 	VPass (VPres VConj) n  p  => cele + passPresEnding n p ;
 	VPass (VImpf VInd)  n  p  => celab + "ba" + passPresEnding n p ;
 	VPass (VImpf VConj) n  p  => cela + "re" + passPresEnding n p ;
-	-- VPass VFut          Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
-	-- VPass VFut          Sg P2 => cela + "be" + passPresEnding Sg P2 ;
-	-- VPass VFut          Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
-	-- VPass VFut          n  p  => cela + "bi" + passPresEnding n p 
 	VPass VFut          n  p  => cela + passFutEnding cela n p 
 	} ;
       inf = table {
