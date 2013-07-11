@@ -172,7 +172,13 @@ param
 	VInfActFut Neutr => celai + "turum"
         } ;
       imp = table {
-	VImp1 Sg => cela ;
+	VImp1 Sg => 
+	  if_then_else
+	  Str
+	  (pbool2bool ( Predef.eqStr ( cela + "re" ) celare ) )
+	  cela
+	  celab
+	  ;
 	VImp1 Pl => cela + "te" ;
 	VImp2 Sg ( P2 | P3 ) => cela + "to" ;
 	VImp2 Pl P2 => cela + "tote" ;
@@ -385,32 +391,6 @@ param
       sentie = senti + "e" ;
     in mkVerb senti sentia sentie sentio (senti + "unt") sentire sensi sensus
               (senti + "am") (senti + "ent") sentie ; 
-
-
--- smart paradigms
-
-  verb_pppi : (iacio,ieci,iactus,iacere : Str) -> Verb = 
-    \iacio,ieci,iactus,iacere ->
-    case iacere of {
-    _ + "are" => verb1 iacere ;
-    _ + "ire" => verb4 iacere ieci iactus ;
-    _ + "ere" => case iacio of {
-      _ + "eo" => verb2 iacere ;
-      _ + "io" => verb3i iacere ieci iactus ;
-      _ => verb3 iacere ieci iactus
-      } ;
-    _ => Predef.error ("verb_pppi: illegal infinitive form" ++ iacere) 
-    } ;
-
-  verb : (iacere : Str) -> Verb = 
-    \iacere ->
-    case iacere of {
-    _ + "are" => verb1 iacere ;
-    _ + "ire" => let iaci = Predef.tk 2 iacere 
-                 in verb4 iacere (iaci + "vi") (iaci + "tus") ;
-    _ + "ere" => verb2 iacere ;
-    _ => Predef.error ("verb: illegal infinitive form" ++ iacere) 
-    } ;
 
 -- pronouns
 
