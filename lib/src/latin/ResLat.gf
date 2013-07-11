@@ -125,8 +125,13 @@ param
       	Masc =>  table Number [ "tus" ; "ti" ] ;
       	Fem =>   table Number [ "ta" ; "tae" ] ;
       	Neutr => table Number [ "tum" ; "ta" ] 
-      	}
-    in {
+      	} ;
+      celai : Str = case cela of {
+	mon + "e" => mon + "i" ;
+	_ => cela 
+	} ;
+    in 
+    {
       act = table {
         VAct VSim (VPres VInd)  Sg P1 => celo ; -- Present Indicative
         VAct VSim (VPres VInd)  Pl P3 => celant ; -- Present Indicative
@@ -147,77 +152,85 @@ param
         } ;
       pass = table {
 	VPass (VPres VInd)  Sg P1 => celo + passPresEnding Sg P1 ;
+	VPass (VPres VInd)  Pl P3 => cela + "u" + passPresEnding Pl P3 ;
 	VPass (VPres VInd)  n  p  => cela + passPresEnding n p ;
 	VPass (VPres VConj) n  p  => cele + passPresEnding n p ;
-	VPass (VImpf VInd)  n  p  => cela + "ba" + passPresEnding n p ;
+	VPass (VImpf VInd)  n  p  => celab + "ba" + passPresEnding n p ;
 	VPass (VImpf VConj) n  p  => cela + "re" + passPresEnding n p ;
-	VPass VFut          Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
-	VPass VFut          Sg P2 => cela + "be" + passPresEnding Sg P2 ;
-	VPass VFut          Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
-	VPass VFut          n  p  => cela + "bi" + passPresEnding n p 
+	-- VPass VFut          Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
+	-- VPass VFut          Sg P2 => cela + "be" + passPresEnding Sg P2 ;
+	-- VPass VFut          Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
+	-- VPass VFut          n  p  => cela + "bi" + passPresEnding n p 
+	VPass VFut          n  p  => cela + passFutEnding cela n p 
 	} ;
       inf = table {
         VInfActPres      => celare ;
         VInfActPerf      => celav + "isse" ;
-	VInfActFut Masc  => cela + "turum" ;
-	VInfActFut Fem   => cela + "turam" ; 
-	VInfActFut Neutr => cela + "turum"
+	VInfActFut Masc  => celai + "turum" ;
+	  
+	VInfActFut Fem   => celai + "turam" ; 
+	VInfActFut Neutr => celai + "turum"
         } ;
       imp = table {
 	VImp1 Sg => cela ;
 	VImp1 Pl => cela + "te" ;
 	VImp2 Sg ( P2 | P3 ) => cela + "to" ;
 	VImp2 Pl P2 => cela + "tote" ;
-	VImp2 Pl P3 => cela + "nto" ;
+	VImp2 Pl P3 => celant + "o" ;
 	_ => "No imperative form"
 	} ;
       ger = table {
-	VGenAcc => cela + "ndum" ;
-	VGenGen => cela + "ndi" ;
-	VGenDat => cela + "ndo" ;
-	VGenAbl => cela + "ndo" 
+	VGenAcc => celab + "ndum" ;
+	VGenGen => celab + "ndi" ;
+	VGenDat => celab + "ndo" ;
+	VGenAbl => celab + "ndo" 
 	} ;
 --      geriv = ( adj ( cela + "ndus" ) ).s!Posit ;
       geriv = ( mkAdjective
-		  ( mkNoun ( cela + "ndus" ) ( cela + "ndum" ) ( cela + "ndi" ) ( cela + "ndo" ) ( cela + "ndo" ) 
-		      ( cela + "nde" ) ( cela + "ndi" ) ( cela + "ndos" ) ( cela + "ndorum" ) ( cela + "ndis" ) 
+		  ( mkNoun ( celab + "ndus" ) ( celab + "ndum" ) ( celab + "ndi" ) ( celab + "ndo" ) ( celab + "ndo" ) 
+		      ( celab + "nde" ) ( celab + "ndi" ) ( celab + "ndos" ) ( celab + "ndorum" ) ( celab + "ndis" ) 
 		       Masc )
-		  ( mkNoun ( cela + "nda" ) ( cela + "ndam" ) ( cela + "ndae" ) ( cela + "ndae" ) ( cela + "nda" ) 
-		      ( cela + "nda" ) ( cela + "ndae" ) ( cela + "ndas" ) (cela +"ndarum" ) ( cela + "ndis" ) Fem )
-		  ( mkNoun ( cela + "ndum" ) ( cela + "ndum" ) ( cela + "ndi" ) ( cela + "ndo" ) ( cela + "ndo" ) 
-		      ( cela + "ndum" ) ( cela + "nda" ) ( cela + "nda" ) ( cela + "ndorum" ) ( cela + "ndis" ) Neutr )
+		  ( mkNoun ( celab + "nda" ) ( celab + "ndam" ) ( celab + "ndae" ) ( celab + "ndae" ) ( celab + "nda" ) 
+		      ( celab + "nda" ) ( celab + "ndae" ) ( celab + "ndas" ) (celab +"ndarum" ) ( celab + "ndis" ) 
+		      Fem )
+		  ( mkNoun ( celab + "ndum" ) ( celab + "ndum" ) ( celab + "ndi" ) ( celab + "ndo" ) ( celab + "ndo" ) 
+		      ( celab + "ndum" ) ( celab + "nda" ) ( celab + "nda" ) ( celab + "ndorum" ) ( celab + "ndis" ) 
+		      Neutr )
 		  < \\_,_,_ => "" , "" >
 		  < \\_,_,_ => "" , "" >
 	).s!Posit ;
       sup = table {
-	VSupAcc => cela + "tum" ;
-	VSupAbl => cela + "tu" 
+	VSupAcc => celai + "tum" ;
+	VSupAbl => celai + "tu" 
 	} ;
 --      partActPres = ( adj123 ( cela + "ns" ) ( cela + "ntis" ) ).s!Posit ;
-      partActPres = ( mkNoun ( cela + "ns" ) ( cela + "ntem" ) ( cela + "ntis" ) ( cela + "nti" ) ( cela + "nte" ) 
- 			( cela + "ns" ) ( cela + "ntes" ) ( cela + "ntes" ) ( cela + "ntium" ) ( cela + "ntibus" ) 
+      partActPres = ( mkNoun ( celab + "ns" ) ( celab + "ntem" ) ( celab + "ntis" ) ( celab + "nti" ) ( celab + "nte" ) 
+ 			( celab + "ns" ) ( celab + "ntes" ) ( celab + "ntes" ) ( celab + "ntium" ) ( celab + "ntibus" ) 
  			Masc ).s ;
       partActFut = ( mkAdjective
-		       ( mkNoun ( cela + "turus" ) ( cela + "turum" ) ( cela + "turi" ) ( cela + "turo" ) 
-			   ( cela + "turo" ) ( cela + "ture" ) ( cela + "turi" ) ( cela + "turos" ) ( cela + "turorum" ) 
-			   ( cela + "turis" ) Masc )
-		       ( mkNoun ( cela + "tura" ) ( cela + "turam" ) ( cela + "turae" ) ( cela + "turae" ) 
-			   ( cela + "tura" ) ( cela + "tura" )( cela + "turae" ) ( cela + "turas" ) ( cela +"turarum" ) 
-			   ( cela + "turis" ) Fem )
-		       ( mkNoun ( cela + "turum" ) ( cela + "turum" ) ( cela + "turi" ) ( cela + "turo" ) ( cela + "turo" )
-			   ( cela + "turum" ) ( cela + "tura" ) ( cela + "tura" ) ( cela + "turorum" ) ( cela + "turis" ) 
-			   Neutr )
+		       ( mkNoun ( celai + "turus" ) ( celai + "turum" ) ( celai + "turi" ) ( celai + "turo" ) 
+			   ( celai + "turo" ) ( celai + "ture" ) ( celai + "turi" ) ( celai + "turos" ) 
+			   ( celai + "turorum" ) ( celai + "turis" ) Masc )
+		       ( mkNoun ( celai + "tura" ) ( celai + "turam" ) ( celai + "turae" ) ( celai + "turae" ) 
+			   ( celai + "tura" ) ( celai + "tura" )( celai + "turae" ) ( celai + "turas" ) 
+			   ( celai +"turarum" ) ( celai + "turis" ) Fem )
+		       ( mkNoun ( celai + "turum" ) ( celai + "turum" ) ( celai + "turi" ) ( celai + "turo" ) 
+			   ( celai + "turo" ) ( celai + "turum" ) ( celai + "tura" ) ( celai + "tura" ) 
+			   ( celai + "turorum" ) ( celai + "turis" ) Neutr )
 		       < \\_,_,_ => "" , "" >
 		       < \\_,_,_ => "" , "" >
 	).s!Posit ;
 --      partPassPerf = ( adj ( cela + "tus" ) ).s!Posit
       partPassPerf = ( mkAdjective
-			 ( mkNoun ( cela + "tus" ) ( cela + "tum" ) ( cela + "ti" ) ( cela + "to" ) ( cela + "to" ) ( cela + "te" ) 
-			     ( cela + "ti" ) ( cela + "tos" ) ( cela + "torum" ) ( cela + "tis" ) Masc )
-			 ( mkNoun ( cela + "ta" ) ( cela + "tam" ) ( cela + "tae" ) ( cela + "tae" ) ( cela + "ta" ) 
-			     ( cela + "ta" ) ( cela + "tae" ) ( cela + "tas" ) ( cela + "tarum" ) ( cela + "tis" ) Fem )
-			 ( mkNoun ( cela + "tum" ) ( cela + "tum" ) ( cela + "ti" ) ( cela + "to" ) ( cela + "to" ) 
-			     ( cela + "tum" ) ( cela + "ta" ) ( cela + "ta" ) ( cela + "torum" ) ( cela + "tis" ) Neutr ) 
+			 ( mkNoun ( celai + "tus" ) ( celai + "tum" ) ( celai + "ti" ) ( celai + "to" ) ( celai + "to" ) 
+			     ( celai + "te" ) ( celai + "ti" ) ( celai + "tos" ) ( celai + "torum" ) ( celai + "tis" ) 
+			     Masc )
+			 ( mkNoun ( celai + "ta" ) ( celai + "tam" ) ( celai + "tae" ) ( celai + "tae" ) ( celai + "ta" ) 
+			     ( celai + "ta" ) ( celai + "tae" ) ( celai + "tas" ) ( celai + "tarum" ) ( celai + "tis" ) 
+			     Fem )
+			 ( mkNoun ( celai + "tum" ) ( celai + "tum" ) ( celai + "ti" ) ( celai + "to" ) ( celai + "to" ) 
+			     ( celai + "tum" ) ( celai + "ta" ) ( celai + "ta" ) ( celai + "torum" ) ( celai + "tis" ) 
+			     Neutr ) 
 			 < \\_,_,_ => "" , "" >
 			 < \\_,_,_ => "" , "" >
 	).s!Posit ;
@@ -232,6 +245,16 @@ param
   passPresEnding : Number -> Person -> Str =
     useEndingTable <"r", "ris", "tur", "mur", "mini", "ntur"> ;
 
+  passFutEnding : Str -> Number -> Person -> Str = 
+    \lauda,n,p ->
+    let endings : Str * Str * Str * Str * Str * Str = case lauda of {
+	  ( _ + "a" ) | 
+	    ( _ + "e" ) => < "bo" , "be" , "bi" , "bi" , "bi" , "bu" > ;
+	  _             => < "a"  , "e"  , "e"  , "e"  , "e"  , "e"  >
+	  }
+    in
+    (useEndingTable endings n p) + passPresEnding n p ;
+    
   useEndingTable : (Str*Str*Str*Str*Str*Str) -> Number -> Person -> Str = 
     \es,n,p -> case n of {
       Sg => case p of {
