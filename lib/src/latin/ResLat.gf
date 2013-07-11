@@ -91,7 +91,7 @@ oper
 
 param 
   VActForm  = VAct VAnter VTense Number Person ;
-  VPassForm = VPass VTense Gender Number Person ; -- No anteriority because perfect forms are built using participle
+  VPassForm = VPass VTense Number Person ; -- No anteriority because perfect forms are built using participle
   VInfForm  = VInfActPres | VInfActPerf | VInfActFut Gender;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
@@ -146,15 +146,15 @@ param
         VAct VAnt VFut          n  p  => celav + "eri" + actPresEnding n p -- Future II
         } ;
       pass = table {
-	VPass (VPres VInd)  g Sg P1 => celo + passPresEnding Sg P1 ;
-	VPass (VPres VInd)  g n  p  => cela + passPresEnding n p ;
-	VPass (VPres VConj) g n  p  => cele + passPresEnding n p ;
-	VPass (VImpf VInd)  g n  p  => cela + passPresEnding n p ;
-	VPass (VImpf Ind)   g n  p  => cela + "re" + passPresEnding n p ;
-	VPass VFut          g Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
-	VPass VFut          g Sg P2 => cela + "be" + passPresEnding Sg P2 ;
-	VPass VFut          g Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
-	VPass VFut          g n  p  => cela + "bi" + passPresEnding n p 
+	VPass (VPres VInd)  Sg P1 => celo + passPresEnding Sg P1 ;
+	VPass (VPres VInd)  n  p  => cela + passPresEnding n p ;
+	VPass (VPres VConj) n  p  => cele + passPresEnding n p ;
+	VPass (VImpf VInd)  n  p  => cela + passPresEnding n p ;
+	VPass (VImpf Ind)   n  p  => cela + "re" + passPresEnding n p ;
+	VPass VFut          Sg P1 => cela + "bo" + passPresEnding Sg P1 ;
+	VPass VFut          Sg P2 => cela + "be" + passPresEnding Sg P2 ;
+	VPass VFut          Pl P3 => cela + "bu" + passPresEnding Pl P3 ;
+	VPass VFut          n  p  => cela + "bi" + passPresEnding n p 
 	} ;
       inf = table {
         VInfActPres      => celare ;
