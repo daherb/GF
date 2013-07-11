@@ -79,4 +79,5 @@ oper
   mkV2S : V -> Prep -> V2S = \v,p -> lin V2S ( v ** { c = p } ) ;
   mkV2Q : V -> Prep -> V2Q = \v,p -> lin V2Q ( v ** { c = p } ) ;
   mkV2V : V -> Str -> Bool -> V2V = \v,s,b -> lin V2V ( v ** { c2 = s ; isAux = b } ) ;
+  mkVA : V -> VA = \v -> lin VA v ;
 }
