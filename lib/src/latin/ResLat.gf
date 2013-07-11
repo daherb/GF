@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../prelude
 
---1 Latlish auxiliary operations.
+--1 Latin auxiliary operations.
 
 resource ResLat = ParamX ** open Prelude in {
 
@@ -519,7 +519,7 @@ param
        "illa" "illorum" "illis")
     ;
 
-  mkPrep : Str -> Case -> {s : Str ; c : Case} = \s,c -> {s = s ; c = c} ;
+  mkPrep : Str -> Case -> Preposition  = \s,c -> lin Preposition {s = s ; c = c} ;
 
   mkAdv : Str -> { s: Str } = \adv -> { s = adv } ;
 
