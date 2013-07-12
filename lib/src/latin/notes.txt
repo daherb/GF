@@ -102,3 +102,7 @@ Need to change implementation of esse_V to prevent circular definition
 -----------------------
 Checked adjective forms for bonus, niger, asper, acer/acris , fortis, felix and longus.
 Superlative with maxime missing
+
+13.7.2013
+-----------------------
+Introduced ###### as a ign for an invalid string
