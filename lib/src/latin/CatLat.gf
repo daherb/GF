@@ -73,7 +73,7 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
     V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
     V2, V2A, V2Q, V2S = Verb ** {c : Prep } ;
 --    V2, V2A, V2Q, V2S = Verb ** {c2 : Str} ;
-    V3 = Verb ** {c2, c3 : Str} ;
+    V3 = Verb ** {c2, c3 : Prep} ;
 --    VV = {s : VVForm => Str ; isAux : Bool} ;
     V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 --
