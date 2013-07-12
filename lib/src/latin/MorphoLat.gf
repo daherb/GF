@@ -381,7 +381,7 @@ oper
 
 -- smart paradigms
 
-  verb_pppi : (iacere,iacio,ieci,iactus : Str) -> Verb = 
+  verb_ippp : (iacere,iacio,ieci,iactus : Str) -> Verb = 
     \iacere,iacio,ieci,iactus ->
     case iacere of {
     _ + "are" => verb1 iacere ;
@@ -392,7 +392,7 @@ oper
       _ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
       _ => verb3 iacere ieci iactus
       } ;
-    _ => Predef.error ("verb_pppi: illegal infinitive form" ++ iacere) 
+    _ => Predef.error ("verb_ippp: illegal infinitive form" ++ iacere) 
     } ;
 
   verb : (iacere : Str) -> Verb = 
