@@ -272,7 +272,7 @@ param
         }
       } ;
 
-  esse_V : Verb = 
+  be_Aux : Verb = 
     {
       act = table VActForm {
 	VAct VSim (VPres VInd)  n  p  => table Number [ table Person [ "sum" ; "es" ; "est" ] ;
@@ -338,6 +338,40 @@ param
   --     inf = esse.inf
   --     } ;
 
+  want_V : Verb = 
+    {
+      act = table {
+	VAct VSim (VPres VInd)  n  p  => table Number [ table Person [ "volo" ; "vis" ; "vult" ] ;
+							table Person [ "volumus" ; "vultis" ; "volunt" ]
+	  ]! n ! p ;
+	VAct VSim (VPres VConj) n  p  => "veli" + actPresEnding n p ;
+       	VAct VSim (VImpf VInd)  n  p  => "voleba" + actPresEnding n p ;
+       	VAct VSim (VImpf VConj) n  p  => "velle" + actPresEnding n p ;
+       	VAct VSim VFut          Sg P1 => "volam" ;
+       	VAct VSim VFut          n  p  => "vole" + actPresEnding n p ;
+       	VAct VAnt (VPres VInd)  n  p  => "volu" + actPerfEnding n p ;
+       	VAct VAnt (VPres VConj) n  p  => "volueri" + actPresEnding n p ;
+       	VAct VAnt (VImpf VInd)  n  p  => "voluera" + actPresEnding n p ;
+       	VAct VAnt (VImpf VConj) n  p  => "voluisse" + actPresEnding n p ;
+       	VAct VAnt VFut          Sg P1 => "voluero" ;
+       	VAct VAnt VFut          n  p  => "volueri" + actPresEnding n p 
+       	} ;
+      ger = \\_ => "######" ; -- no gerund form for velle
+      geriv = \\_,_,_ => "######" ; -- no gerundive form for velle
+      imp = \\_ =>  "######" ; -- no imperative form for velle
+      inf = table {
+	VInfActPres => "velle" ;
+	VInfActPerf => "voluisse" ;
+	_           => "######" -- No infinitive future
+	} ;
+      partActFut = \\_,_,_ => "######" ; -- no participle future active
+      partActPres = ( mkNoun "volens" "volentem" "volentis" "volenti" "volente" "volens"
+			"volentes" "volentes" "volentium" "volentibus" 
+			Masc ).s ;
+      partPassPerf = \\_,_,_ => "######" ; -- no participle perfect passive
+      pass = \\_ => "######" ; -- no passive forms
+      sup = \\_ => "######" -- no supin forms
+    } ;
   verb1 : Str -> Verb = \celare ->
     let 
       cela = Predef.tk 2 celare ;
