@@ -127,10 +127,6 @@ param
       	Neutr => table Number [ "tum" ; "ta" ] 
       	} ;
       celai : Str = Predef.tk 3 celatus
---	case cela of {
---	mon + "e" => mon + "i" ;
---	_ => cela 
---	} ;
     in 
     {
       act = table {
@@ -341,10 +337,10 @@ param
   want_V : Verb = 
     {
       act = table {
-	VAct VSim (VPres VInd)  n  p  => table Number [ table Person [ "volo" ; "vis" ; "vult" ] ;
-							table Person [ "volumus" ; "vultis" ; "volunt" ]
-	  ]! n ! p ;
-	VAct VSim (VPres VConj) n  p  => "veli" + actPresEnding n p ;
+  	VAct VSim (VPres VInd)  n  p  => table Number [ table Person [ "volo" ; "vis" ; "vult" ] ;
+  							table Person [ "volumus" ; "vultis" ; "volunt" ]
+  	  ]! n ! p ;
+  	VAct VSim (VPres VConj) n  p  => "veli" + actPresEnding n p ;
        	VAct VSim (VImpf VInd)  n  p  => "voleba" + actPresEnding n p ;
        	VAct VSim (VImpf VConj) n  p  => "velle" + actPresEnding n p ;
        	VAct VSim VFut          Sg P1 => "volam" ;
@@ -360,18 +356,19 @@ param
       geriv = \\_,_,_ => "######" ; -- no gerundive form for velle
       imp = \\_ =>  "######" ; -- no imperative form for velle
       inf = table {
-	VInfActPres => "velle" ;
-	VInfActPerf => "voluisse" ;
-	_           => "######" -- No infinitive future
-	} ;
+  	VInfActPres => "velle" ;
+  	VInfActPerf => "voluisse" ;
+  	_           => "######" -- No infinitive future
+  	} ;
       partActFut = \\_,_,_ => "######" ; -- no participle future active
       partActPres = ( mkNoun "volens" "volentem" "volentis" "volenti" "volente" "volens"
-			"volentes" "volentes" "volentium" "volentibus" 
-			Masc ).s ;
+  			"volentes" "volentes" "volentium" "volentibus" 
+  			Masc ).s ;
       partPassPerf = \\_,_,_ => "######" ; -- no participle perfect passive
       pass = \\_ => "######" ; -- no passive forms
       sup = \\_ => "######" -- no supin forms
     } ;
+
   verb1 : Str -> Verb = \celare ->
     let 
       cela = Predef.tk 2 celare ;
