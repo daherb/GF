@@ -68,6 +68,8 @@ oper
       = \v -> lin V2 ( verb v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
     mkV2 : (facere : V) -> V2
       = \v -> lin V2 ( v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
+    mkV2 : V -> Prep -> V2
+      = \v,p -> lin V2 ( v ** { c = p } ) ; 
     } ;
 
   masculine = Masc ;
