@@ -379,6 +379,62 @@ oper
 
 ----3 Verbs
 
+-- 1./a-conjugation
+  verb1 : Str -> Verb = \celare ->
+    let 
+      cela = Predef.tk 2 celare ;
+      cel  = init cela ;
+      celo = cel + "o" ;
+      cele = cel + "e" ;
+      celavi = cela + "vi" ;
+      celatus = cela + "tus" ;
+    in mkVerb cela cela cele cela celo (cela + "nt") celare celavi celatus 
+              (cela + "bo") (cela + "bunt") (cela + "bi") ( cela ) ( cela + "ntur" ) cela;
+
+-- 2./e-conjugation
+  verb2 : Str -> Verb = \habere ->
+    let 
+      habe = Predef.tk 2 habere ;
+      hab  = init habe ;
+      habeo = habe + "o" ;
+      habea = habe + "a" ;
+      habui = hab + "ui" ;
+      habitus = hab + "itus" ;
+    in mkVerb habe habe habea habe habeo (habe + "nt") habere habui habitus
+              (habe + "bo") (habe + "bunt") (habe + "bi") ( habe ) ( habe + "ntur" ) habe ;
+
+-- 3./Consonant conjugation
+  verb3 : (_,_,_ : Str) -> Verb = \gerere,gessi,gestus ->
+    let 
+      gere = Predef.tk 2 gerere ;
+      ger  = init gere ;
+      gero = ger + "o" ;
+      geri = ger + "i" ;
+      gera = ger + "a" ;
+    in mkVerb ger geri gera gere gero (ger + "unt") gerere gessi gestus
+              (ger + "am") (ger + "ent") gere ( ger + "e" ) ( ger + " untur") ( ger + "e" ) ; 
+
+-- 3./i-conjugation
+  verb3i : (_,_,_ : Str) -> Verb = \iacere,ieci,iactus ->
+    let 
+      iac   = Predef.tk 3 iacere ;
+      iaco  = iac + "io" ;
+      iaci  = iac + "i" ;
+      iacie = iac + "ie" ;
+      iacia = iac + "ia" ;
+    in mkVerb iaci iaci iacia iacie iaco (iaci + "unt") iacere ieci iactus
+              (iac + "iam") (iac + "ient") iacie ( iac + "e" ) ( iaci + "untur" ) ( iac + "e" ) ; 
+
+-- 4./ i-conjugation
+  verb4 : (_,_,_ : Str) -> Verb = \sentire,sensi,sensus ->
+    let 
+      senti  = Predef.tk 2 sentire ;
+      sentio = senti + "o" ;
+      sentia = senti + "a" ;
+      sentie = senti + "e" ;
+    in mkVerb senti senti sentia sentie sentio (senti + "unt") sentire sensi sensus
+              (senti + "am") (senti + "ent") sentie ( senti ) ( senti + "untur" ) senti ; 
+
 -- smart paradigms
 
   verb_ippp : (iacere,iacio,ieci,iactus : Str) -> Verb = 
