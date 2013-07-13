@@ -324,20 +324,6 @@ param
       partPassPerf = \\_,_,_ => "######" -- No prefect passive participle of esse
 
     };
-	  
-    
-    -- esse_V : Verb = 
-    --   let
-    --     esse = mkVerb "es" "si" "era" "sum" "sunt" "esse" "fui" "*futus"
-    --                   "ero" "erunt" "eri" ;
-  --   in {
-  --     act = table {
-  --       VAct VSim (VPres VInd)  Sg P2 => "es" ; 
-  --       VAct VSim (VPres VInd)  Pl P1 => "sumus" ; 
-  --       v => esse.act ! v
-  --       } ;
-  --     inf = esse.inf
-  --     } ;
 
   want_V : Verb = 
     {
