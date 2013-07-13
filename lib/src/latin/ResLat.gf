@@ -170,7 +170,7 @@ param
 	VImp2 Sg ( P2 | P3 ) => pres_ind + "to" ;
 	VImp2 Pl P2 => pres_ind + "tote" ;
 	VImp2 Pl P3 => pres_ind_pl_p3 + "o" ;
-	_ => "No imperative form"
+	_ => "######" -- No imperative form
 	} ;
       ger = table {
 	VGenAcc => impf_ind_stem + "ndum" ;
@@ -293,7 +293,7 @@ param
        	VAct VAnt VFut          Sg P1 => "fuero" ;
        	VAct VAnt VFut          n  p  => "fueri" + actPresEnding n p 
        	} ;
-      pass = \\_ => "No passive form" ;
+      pass = \\_ => "######" ; -- No passive form
       inf = table {
         VInfActPres      => "esse" ;
         VInfActPerf      => "fuisse" ;
@@ -307,21 +307,21 @@ param
 	VImp2 Sg ( P2 | P3 ) => "esto" ;
 	VImp2 Pl P2 => "estote" ;
 	VImp2 Pl P3 => "sunto" ;
-	_ => "No such imperative form of esse"	  
+	_ => "######" -- No such imperative form of esse
 	} ;
       ger = table {
-	_ => "No gerund form of esse"
+	_ => "######" -- No gerund form of esse
 	} ;
-      geriv = \\_,_,_ => "No gerundive form of esse" ;
+      geriv = \\_,_,_ => "######" -- No gerundive form of esse
       sup = table {
-	_ => "No supin form of esse"
+	_ => "######" -- No supin form of esse
 	} ;
 --      partActPres = ( adj123 "ens" "entis" ).s!Posit ; -- only medieval latin cp. http://en.wiktionary.org/wiki/ens#Latin
       partActPres = ( mkNoun "ens" "entem" "entis" "enti" "ente" "ens" 
 			"entes" "entes" "entium" "entibus" 
 			Masc ).s ;
-      partActFut = \\_,_,_ => "No future active participle of esse" ;
-      partPassPerf = \\_,_,_ => "No prefect passive participle of esse"
+      partActFut = \\_,_,_ => "######" ; -- No future active participle of esse
+      partPassPerf = \\_,_,_ => "######" -- No prefect passive participle of esse
 
     };
 	  
