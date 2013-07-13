@@ -106,3 +106,32 @@ Superlative with maxime missing
 13.7.2013
 -----------------------
 Introduced ###### as a ign for an invalid string
+
+Values in mkV
+for laudare
+"cela" ++ "lauda" ++ "cele" ++ "laude" ++ "celab" ++ "lauda" ++ "celo" ++ "laudo" ++ "celant" ++ "laudant" ++ "celare" ++ "laudare" ++ "celavi" ++ "laudavi" ++ "celatus" ++ "laudatus" ++ "celabo" ++ "laudabo" ++ "celabunt" ++ "laudabunt" ++ "celabi" ++ "laudabi"
+
+for monere
+"cela" ++ "mone" ++ "cele" ++ "monea" ++ "celab" ++ "mone" ++ "celo" ++ "moneo" ++ "celant" ++ "monent" ++ "celare" ++ "monere" ++ "celavi" ++ "monui" ++ "celatus" ++ "monitus" ++ "celabo" ++ "monebo" ++ "celabunt" ++ "monebunt" ++ "celabi" ++ "monebi"
+
+for audire
+"cela" ++ "audi" ++ "cele" ++ "audia" ++ "celab" ++ "audie" ++ "celo" ++ "audio" ++ "celant" ++ "audiunt" ++ "celare" ++ "audire" ++ "celavi" ++ "audivi" ++ "celatus" ++ "auditus" ++ "celabo" ++ "audiam" ++ "celabunt" ++ "audient" ++ "celabi" ++ "audie"
+
+for regere
+"cela" ++ "regi" ++ "cele" ++ "rega" ++ "celab" ++ "rege" ++ "celo" ++ "rego" ++ "celant" ++ "regunt" ++ "celare" ++ "regere" ++ "celavi" ++ "rexi" ++ "celatus" ++ "rectum" ++ "celabo" ++ "regam" ++ "celabunt" ++ "regent" ++ "celabi" ++ "rege"
+
+for capere
+"cela" ++ "capi" ++ "cele" ++ "capia" ++ "celab" ++ "capie" ++ "celo" ++ "capio" ++ "celant" ++ "capiunt" ++ "celare" ++ "capere" ++ "celavi" ++ "cepii" ++ "celatus" ++ "captum" ++ "celabo" ++ "capiam" ++ "celabunt" ++ "capient" ++ "celabi" ++ "capie"
+
+          laudare   monere    audire    regere	   capere
+cela      lauda	    mone      audi	regi	   capi		pres_ind
+cele   	  laude	    monea     audia     rega	   capia	pres_conj_stem
+celab  	  lauda	    mone      audie	rege	   capie	impf_ind_stem
+celo   	  laudo	    moneo     audio	rego	   capio	pres_ind_sg_p1
+celant    laudant   monent    audiunt	regunt	   capiunt	pres_ind_pl_p3
+celare	  laudare   monere    audire	regere	   capere	inf_pres_act
+celavi    laudavi   monui     audivi	rexi	   cepii	perf_ind_sg_p1
+celatus   laudatus  monitus   auditus	rectum	   captum	inf_perf_pass
+celabo	  laudabo   monebo    audiam	regam	   capiam	fut_I_sg_p1
+celabunt  laudabunt monebunt  audient   regent	   capient	fut_I_pl_p3
+celabi	  laudabi   monebi    audie	rege	   capie	fut_I_stem
