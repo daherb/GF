@@ -116,119 +116,124 @@ param
     } ;
 
   mkVerb : 
-    (cela,cele,celab,celo,celant,celare,celavi,celatus,celabo,celabunt,celabi : Str) 
+    (cela,cela,cele,celab,celo,celant,celare,celavi,celatus,celabo,celabunt,celabi,celaris,celantur,cela : Str) 
       -> Verb = 
-    \cela,cele,celab,celo,celant,celare,celavi,celatus,celabo,celabunt,celabi -> 
+    \pres_ind_stem,pres_ind,pres_conj_stem,impf_ind_stem,pres_ind_sg_p1,pres_ind_pl_p3,inf_pres_act,perf_ind_sg_p1,inf_perf_pass,fut_I_sg_p1,fut_I_pl_p3,fut_I_stem,impf_conj_pass_stem,pres_ind_pass_pl_p3,imp_I_sg -> 
     let
-      celav = init celavi ;
+      perf_stem = init perf_ind_sg_p1 ;
       tustatum = table {
       	Masc =>  table Number [ "tus" ; "ti" ] ;
       	Fem =>   table Number [ "ta" ; "tae" ] ;
       	Neutr => table Number [ "tum" ; "ta" ] 
       	} ;
-      celai : Str = Predef.tk 3 celatus
+      part_stem : Str = Predef.tk 3 inf_perf_pass
     in 
     {
       act = table {
-        VAct VSim (VPres VInd)  Sg P1 => celo ; -- Present Indicative
-        VAct VSim (VPres VInd)  Pl P3 => celant ; -- Present Indicative
-        VAct VSim (VPres VInd)  n  p  => cela + actPresEnding n p ; -- Present Indicative
-        VAct VSim (VPres VConj) n  p  => cele + actPresEnding n p ; -- Present Conjunctive
-        VAct VSim (VImpf VInd)  n  p  => celab + "ba" + actPresEnding n p ; -- Imperfect Indicative
-        VAct VSim (VImpf VConj) n  p  => celare + actPresEnding n p ; -- Imperfect Conjunctive
-        VAct VSim VFut          Sg P1 => celabo ; -- Future I 
-	VAct VSim VFut          Pl P3 => celabunt ; -- Future I
-        VAct VSim VFut          n  p  => celabi + actPresEnding n p ; -- Future I
-        VAct VAnt (VPres VInd)  Pl P3 => celav + "erunt" ;  -- Perfect Indicative
-        VAct VAnt (VPres VInd)  n  p  => celavi + actPerfEnding n p ; -- Prefect Indicative
-        VAct VAnt (VPres VConj) n  p  => celav + "eri" + actPresEnding n p ; -- Prefect Conjunctive
-        VAct VAnt (VImpf VInd)  n  p  => celav + "era" + actPresEnding n p ; -- Plusperfect Indicative
-        VAct VAnt (VImpf VConj) n  p  => celav + "isse" + actPresEnding n p ; -- Plusperfect Conjunctive
-        VAct VAnt VFut          Sg P1 => celav + "ero" ; -- Future II 
-        VAct VAnt VFut          n  p  => celav + "eri" + actPresEnding n p -- Future II
+        VAct VSim (VPres VInd)  Sg P1 => pres_ind_sg_p1 ; -- Present Indicative
+        VAct VSim (VPres VInd)  Pl P3 => pres_ind_pl_p3 ; -- Present Indicative
+        VAct VSim (VPres VInd)  n  p  => pres_ind + actPresEnding n p ; -- Present Indicative
+        VAct VSim (VPres VConj) n  p  => pres_conj_stem + actPresEnding n p ; -- Present Conjunctive
+        VAct VSim (VImpf VInd)  n  p  => impf_ind_stem + "ba" + actPresEnding n p ; -- Imperfect Indicative
+        VAct VSim (VImpf VConj) n  p  => inf_pres_act + actPresEnding n p ; -- Imperfect Conjunctive
+        VAct VSim VFut          Sg P1 => fut_I_sg_p1 ; -- Future I 
+	VAct VSim VFut          Pl P3 => fut_I_pl_p3 ; -- Future I
+        VAct VSim VFut          n  p  => fut_I_stem + actPresEnding n p ; -- Future I
+        VAct VAnt (VPres VInd)  n  p  => perf_stem + actPerfEnding n p ; -- Prefect Indicative
+        VAct VAnt (VPres VConj) n  p  => perf_stem + "eri" + actPresEnding n p ; -- Prefect Conjunctive
+        VAct VAnt (VImpf VInd)  n  p  => perf_stem + "era" + actPresEnding n p ; -- Plusperfect Indicative
+        VAct VAnt (VImpf VConj) n  p  => perf_stem + "isse" + actPresEnding n p ; -- Plusperfect Conjunctive
+        VAct VAnt VFut          Sg P1 => perf_stem + "ero" ; -- Future II 
+        VAct VAnt VFut          n  p  => perf_stem + "eri" + actPresEnding n p -- Future II
         } ;
       pass = table {
-	VPass (VPres VInd)  Sg P1 => celo + passPresEnding Sg P1 ;
-	VPass (VPres VInd)  Pl P3 => cela + "u" + passPresEnding Pl P3 ;
-	VPass (VPres VInd)  n  p  => cela + passPresEnding n p ;
-	VPass (VPres VConj) n  p  => cele + passPresEnding n p ;
-	VPass (VImpf VInd)  n  p  => celab + "ba" + passPresEnding n p ;
-	VPass (VImpf VConj) n  p  => cela + "re" + passPresEnding n p ;
-	VPass VFut          n  p  => cela + passFutEnding cela n p 
+	VPass (VPres VInd)  Sg P1 => pres_ind_sg_p1 + passPresEnding Sg P1 ;
+	VPass (VPres VInd)  Sg P2 => impf_conj_pass_stem + passPresEnding Sg P2 ;
+	VPass (VPres VInd)  Pl P3 => pres_ind_pass_pl_p3 ;
+	VPass (VPres VInd)  n  p  => pres_ind + passPresEnding n p ;
+	VPass (VPres VConj) n  p  => pres_conj_stem + passPresEnding n p ;
+	VPass (VImpf VInd)  n  p  => impf_ind_stem + "ba" + passPresEnding n p ;
+	VPass (VImpf VConj) n  p  => impf_conj_pass_stem + "re" + passPresEnding n p ;
+	VPass VFut          n  p  => pres_ind_stem + passFutEnding pres_ind n p 
 	} ;
       inf = table {
-        VInfActPres      => celare ;
-        VInfActPerf      => celav + "isse" ;
-	VInfActFut Masc  => celai + "turum" ;
+        VInfActPres      => inf_pres_act ;
+        VInfActPerf      => perf_stem + "isse" ;
+	VInfActFut Masc  => part_stem + "turum" ;
 	  
-	VInfActFut Fem   => celai + "turam" ; 
-	VInfActFut Neutr => celai + "turum"
+	VInfActFut Fem   => part_stem + "turam" ; 
+	VInfActFut Neutr => part_stem + "turum"
         } ;
       imp = table {
-	VImp1 Sg => 
-	  if_then_else
-	  Str
-	  (pbool2bool ( Predef.eqStr ( cela + "re" ) celare ) )
-	  cela
-	  celab
-	  ;
-	VImp1 Pl => cela + "te" ;
-	VImp2 Sg ( P2 | P3 ) => cela + "to" ;
-	VImp2 Pl P2 => cela + "tote" ;
-	VImp2 Pl P3 => celant + "o" ;
+	VImp1 Sg => imp_I_sg ;
+	VImp1 Pl => pres_ind + "te" ;
+	VImp2 Sg ( P2 | P3 ) => pres_ind + "to" ;
+	VImp2 Pl P2 => pres_ind + "tote" ;
+	VImp2 Pl P3 => pres_ind_pl_p3 + "o" ;
 	_ => "No imperative form"
 	} ;
       ger = table {
-	VGenAcc => celab + "ndum" ;
-	VGenGen => celab + "ndi" ;
-	VGenDat => celab + "ndo" ;
-	VGenAbl => celab + "ndo" 
+	VGenAcc => impf_ind_stem + "ndum" ;
+	VGenGen => impf_ind_stem + "ndi" ;
+	VGenDat => impf_ind_stem + "ndo" ;
+	VGenAbl => impf_ind_stem + "ndo" 
 	} ;
 --      geriv = ( adj ( cela + "ndus" ) ).s!Posit ;
       geriv = ( mkAdjective
-		  ( mkNoun ( celab + "ndus" ) ( celab + "ndum" ) ( celab + "ndi" ) ( celab + "ndo" ) ( celab + "ndo" ) 
-		      ( celab + "nde" ) ( celab + "ndi" ) ( celab + "ndos" ) ( celab + "ndorum" ) ( celab + "ndis" ) 
+		  ( mkNoun ( impf_ind_stem + "ndus" ) ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndi" ) 
+		      ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "nde" ) 
+		      ( impf_ind_stem + "ndi" ) ( impf_ind_stem + "ndos" ) ( impf_ind_stem + "ndorum" ) 
+		      ( impf_ind_stem + "ndis" ) 
 		       Masc )
-		  ( mkNoun ( celab + "nda" ) ( celab + "ndam" ) ( celab + "ndae" ) ( celab + "ndae" ) ( celab + "nda" ) 
-		      ( celab + "nda" ) ( celab + "ndae" ) ( celab + "ndas" ) (celab +"ndarum" ) ( celab + "ndis" ) 
+		  ( mkNoun ( impf_ind_stem + "nda" ) ( impf_ind_stem + "ndam" ) ( impf_ind_stem + "ndae" ) 
+		      ( impf_ind_stem + "ndae" ) ( impf_ind_stem + "nda" ) ( impf_ind_stem + "nda" ) 
+		      ( impf_ind_stem + "ndae" ) ( impf_ind_stem + "ndas" ) (impf_ind_stem +"ndarum" ) 
+		      ( impf_ind_stem + "ndis" ) 
 		      Fem )
-		  ( mkNoun ( celab + "ndum" ) ( celab + "ndum" ) ( celab + "ndi" ) ( celab + "ndo" ) ( celab + "ndo" ) 
-		      ( celab + "ndum" ) ( celab + "nda" ) ( celab + "nda" ) ( celab + "ndorum" ) ( celab + "ndis" ) 
+		  ( mkNoun ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndi" ) 
+		      ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndum" ) 
+		      ( impf_ind_stem + "nda" ) ( impf_ind_stem + "nda" ) ( impf_ind_stem + "ndorum" ) 
+		      ( impf_ind_stem + "ndis" ) 
 		      Neutr )
 		  < \\_,_,_ => "" , "" >
 		  < \\_,_,_ => "" , "" >
 	).s!Posit ;
       sup = table {
-	VSupAcc => celai + "tum" ;
-	VSupAbl => celai + "tu" 
+	VSupAcc => part_stem + "tum" ;
+	VSupAbl => part_stem + "tu" 
 	} ;
 --      partActPres = ( adj123 ( cela + "ns" ) ( cela + "ntis" ) ).s!Posit ;
-      partActPres = ( mkNoun ( celab + "ns" ) ( celab + "ntem" ) ( celab + "ntis" ) ( celab + "nti" ) ( celab + "nte" ) 
- 			( celab + "ns" ) ( celab + "ntes" ) ( celab + "ntes" ) ( celab + "ntium" ) ( celab + "ntibus" ) 
+      partActPres = ( mkNoun ( impf_ind_stem + "ns" ) ( impf_ind_stem + "ntem" ) ( impf_ind_stem + "ntis" ) 
+			( impf_ind_stem + "nti" ) ( impf_ind_stem + "nte" ) ( impf_ind_stem + "ns" ) 
+			( impf_ind_stem + "ntes" ) ( impf_ind_stem + "ntes" ) ( impf_ind_stem + "ntium" ) 
+			( impf_ind_stem + "ntibus" ) 
  			Masc ).s ;
       partActFut = ( mkAdjective
-		       ( mkNoun ( celai + "turus" ) ( celai + "turum" ) ( celai + "turi" ) ( celai + "turo" ) 
-			   ( celai + "turo" ) ( celai + "ture" ) ( celai + "turi" ) ( celai + "turos" ) 
-			   ( celai + "turorum" ) ( celai + "turis" ) Masc )
-		       ( mkNoun ( celai + "tura" ) ( celai + "turam" ) ( celai + "turae" ) ( celai + "turae" ) 
-			   ( celai + "tura" ) ( celai + "tura" )( celai + "turae" ) ( celai + "turas" ) 
-			   ( celai +"turarum" ) ( celai + "turis" ) Fem )
-		       ( mkNoun ( celai + "turum" ) ( celai + "turum" ) ( celai + "turi" ) ( celai + "turo" ) 
-			   ( celai + "turo" ) ( celai + "turum" ) ( celai + "tura" ) ( celai + "tura" ) 
-			   ( celai + "turorum" ) ( celai + "turis" ) Neutr )
+		       ( mkNoun ( part_stem + "turus" ) ( part_stem + "turum" ) ( part_stem + "turi" ) ( part_stem + "turo" ) 
+			   ( part_stem + "turo" ) ( part_stem + "ture" ) ( part_stem + "turi" ) ( part_stem + "turos" ) 
+			   ( part_stem + "turorum" ) ( part_stem + "turis" ) Masc )
+		       ( mkNoun ( part_stem + "tura" ) ( part_stem + "turam" ) ( part_stem + "turae" ) ( part_stem + "turae" ) 
+			   ( part_stem + "tura" ) ( part_stem + "tura" )( part_stem + "turae" ) ( part_stem + "turas" ) 
+			   ( part_stem +"turarum" ) ( part_stem + "turis" ) Fem )
+		       ( mkNoun ( part_stem + "turum" ) ( part_stem + "turum" ) ( part_stem + "turi" ) ( part_stem + "turo" ) 
+			   ( part_stem + "turo" ) ( part_stem + "turum" ) ( part_stem + "tura" ) ( part_stem + "tura" ) 
+			   ( part_stem + "turorum" ) ( part_stem + "turis" ) Neutr )
 		       < \\_,_,_ => "" , "" >
 		       < \\_,_,_ => "" , "" >
 	).s!Posit ;
 --      partPassPerf = ( adj ( cela + "tus" ) ).s!Posit
       partPassPerf = ( mkAdjective
-			 ( mkNoun ( celai + "tus" ) ( celai + "tum" ) ( celai + "ti" ) ( celai + "to" ) ( celai + "to" ) 
-			     ( celai + "te" ) ( celai + "ti" ) ( celai + "tos" ) ( celai + "torum" ) ( celai + "tis" ) 
+			 ( mkNoun ( part_stem + "tus" ) ( part_stem + "tum" ) ( part_stem + "ti" ) ( part_stem + "to" ) 
+			     ( part_stem + "to" ) ( part_stem + "te" ) ( part_stem + "ti" ) ( part_stem + "tos" ) 
+			     ( part_stem + "torum" ) ( part_stem + "tis" ) 
 			     Masc )
-			 ( mkNoun ( celai + "ta" ) ( celai + "tam" ) ( celai + "tae" ) ( celai + "tae" ) ( celai + "ta" ) 
-			     ( celai + "ta" ) ( celai + "tae" ) ( celai + "tas" ) ( celai + "tarum" ) ( celai + "tis" ) 
+			 ( mkNoun ( part_stem + "ta" ) ( part_stem + "tam" ) ( part_stem + "tae" ) ( part_stem + "tae" ) 
+			     ( part_stem + "ta" ) ( part_stem + "ta" ) ( part_stem + "tae" ) ( part_stem + "tas" ) 
+			     ( part_stem + "tarum" ) ( part_stem + "tis" ) 
 			     Fem )
-			 ( mkNoun ( celai + "tum" ) ( celai + "tum" ) ( celai + "ti" ) ( celai + "to" ) ( celai + "to" ) 
-			     ( celai + "tum" ) ( celai + "ta" ) ( celai + "ta" ) ( celai + "torum" ) ( celai + "tis" ) 
+			 ( mkNoun ( part_stem + "tum" ) ( part_stem + "tum" ) ( part_stem + "ti" ) ( part_stem + "to" ) 
+			     ( part_stem + "to" ) ( part_stem + "tum" ) ( part_stem + "ta" ) ( part_stem + "ta" ) 
+			     ( part_stem + "torum" ) ( part_stem + "tis" ) 
 			     Neutr ) 
 			 < \\_,_,_ => "" , "" >
 			 < \\_,_,_ => "" , "" >
@@ -239,7 +244,7 @@ param
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
 
   actPerfEnding : Number -> Person -> Str = 
-    useEndingTable <"", "sti", "t", "mus", "stis", "erunt"> ;
+    useEndingTable <"i", "isti", "it", "imus", "istis", "erunt"> ;
 
   passPresEnding : Number -> Person -> Str =
     useEndingTable <"r", "ris", "tur", "mur", "mini", "ntur"> ;
@@ -377,8 +382,8 @@ param
       cele = cel + "e" ;
       celavi = cela + "vi" ;
       celatus = cela + "tus" ;
-    in mkVerb cela cele cela celo (cela + "nt") celare celavi celatus 
-              (cela + "bo") (cela + "bunt") (cela + "bi") ;
+    in mkVerb cela cela cele cela celo (cela + "nt") celare celavi celatus 
+              (cela + "bo") (cela + "bunt") (cela + "bi") ( cela ) ( cela + "ntur" ) cela;
 
   verb2 : Str -> Verb = \habere ->
     let 
@@ -388,8 +393,8 @@ param
       habea = habe + "a" ;
       habui = hab + "ui" ;
       habitus = hab + "itus" ;
-    in mkVerb habe habea habe habeo (habe + "nt") habere habui habitus
-              (habe + "bo") (habe + "bunt") (habe + "bi") ;
+    in mkVerb habe habe habea habe habeo (habe + "nt") habere habui habitus
+              (habe + "bo") (habe + "bunt") (habe + "bi") ( habe ) ( habe + "ntur" ) habe ;
 
   verb3 : (_,_,_ : Str) -> Verb = \gerere,gessi,gestus ->
     let 
@@ -398,8 +403,8 @@ param
       gero = ger + "o" ;
       geri = ger + "i" ;
       gera = ger + "a" ;
-    in mkVerb geri gera gere gero (ger + "unt") gerere gessi gestus
-              (ger + "am") (ger + "ent") gere ; 
+    in mkVerb ger geri gera gere gero (ger + "unt") gerere gessi gestus
+              (ger + "am") (ger + "ent") gere ( ger + "e" ) ( ger + " untur") ( ger + "e" ) ; 
 
   verb3i : (_,_,_ : Str) -> Verb = \iacere,ieci,iactus ->
     let 
@@ -408,8 +413,8 @@ param
       iaci  = iac + "i" ;
       iacie = iac + "ie" ;
       iacia = iac + "ia" ;
-    in mkVerb iaci iacia iacie iaco (iaci + "unt") iacere ieci iactus
-              (iac + "iam") (iac + "ient") iacie ; 
+    in mkVerb iaci iaci iacia iacie iaco (iaci + "unt") iacere ieci iactus
+              (iac + "iam") (iac + "ient") iacie ( iac + "e" ) ( iaci + "untur" ) ( iac + "e" ) ; 
 
   verb4 : (_,_,_ : Str) -> Verb = \sentire,sensi,sensus ->
     let 
@@ -417,8 +422,8 @@ param
       sentio = senti + "o" ;
       sentia = senti + "a" ;
       sentie = senti + "e" ;
-    in mkVerb senti sentia sentie sentio (senti + "unt") sentire sensi sensus
-              (senti + "am") (senti + "ent") sentie ; 
+    in mkVerb senti senti sentia sentie sentio (senti + "unt") sentire sensi sensus
+              (senti + "am") (senti + "ent") sentie ( senti ) ( senti + "untur" ) senti ; 
 
 -- pronouns
 
