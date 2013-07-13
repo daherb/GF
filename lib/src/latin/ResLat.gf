@@ -312,7 +312,7 @@ param
       ger = table {
 	_ => "######" -- No gerund form of esse
 	} ;
-      geriv = \\_,_,_ => "######" -- No gerundive form of esse
+      geriv = \\_,_,_ => "######" ; -- No gerundive form of esse
       sup = table {
 	_ => "######" -- No supin form of esse
 	} ;
