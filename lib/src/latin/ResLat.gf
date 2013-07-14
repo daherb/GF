@@ -92,7 +92,7 @@ oper
 param 
   VActForm  = VAct VAnter VTense Number Person ;
   VPassForm = VPass VTense Number Person ; -- No anteriority because perfect forms are built using participle
-  VInfForm  = VInfActPres | VInfActPerf | VInfActFut Gender;
+  VInfForm  = VInfActPres | VInfActPerf Gender | VInfActFut Gender;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
@@ -135,7 +135,7 @@ param
         VAct VSim (VPres VInd)  n  p  => pres_ind + actPresEnding n p ; -- Present Indicative
         VAct VSim (VPres VConj) n  p  => pres_conj_stem + actPresEnding n p ; -- Present Conjunctive
         VAct VSim (VImpf VInd)  n  p  => impf_ind_stem + "ba" + actPresEnding n p ; -- Imperfect Indicative
-        VAct VSim (VImpf VConj) n  p  => inf_pres_act + actPresEnding n p ; -- Imperfect Conjunctive
+        VAct VSim (VImpf VConj) n  p  => inf_pres_act + "re" + actPresEnding n p ; -- Imperfect Conjunctive
         VAct VSim VFut          Sg P1 => fut_I_sg_p1 ; -- Future I 
 	VAct VSim VFut          Pl P3 => fut_I_pl_p3 ; -- Future I
         VAct VSim VFut          n  p  => fut_I_stem + actPresEnding n p ; -- Future I
@@ -158,9 +158,8 @@ param
 	} ;
       inf = table {
         VInfActPres      => inf_pres_act ;
-        VInfActPerf      => perf_stem + "isse" ;
+        VInfActPerf _    => perf_stem + "isse" ;
 	VInfActFut Masc  => part_stem + "turum" ;
-	  
 	VInfActFut Fem   => part_stem + "turam" ; 
 	VInfActFut Neutr => part_stem + "turum"
         } ;
@@ -243,6 +242,113 @@ param
 	).s!Posit ;
     } ;
 
+  mkDeponens : ( sequ,sequi,sequa,seque,seque,sequor,sequuntur,sequi,sequar,sequa,secu,sequere : Str ) -> Verb =
+    \pres_ind_stem,pres_ind,pres_conj_stem,impf_ind_stem,impf_conj_stem,pres_ind_sg_p1,pres_ind_pl_p3,inf_pres,fut_I_sg_p1,fut_I_stem,perf_stem,imp_I_sg ->
+    {
+      act = table {
+        VAct VSim (VPres VInd)  Sg P1 => pres_ind_sg_p1 ; -- Present Indicative
+        VAct VSim (VPres VInd)  Pl P3 => pres_ind_pl_p3 ; -- Present Indicative
+        VAct VSim (VPres VInd)  n  p  => pres_ind + passPresEnding n p ; -- Present Indicative
+        VAct VSim (VPres VConj) n  p  => pres_conj_stem + passPresEnding n p ; -- Present Conjunctive
+        VAct VSim (VImpf VInd)  n  p  => impf_ind_stem + "ba" + passPresEnding n p ; -- Imperfect Indicative
+        VAct VSim (VImpf VConj) n  p  => inf_pres + "re" + passPresEnding n p ; -- Imperfect Conjunctive
+        VAct VSim VFut          Sg P1 => fut_I_sg_p1 ; -- Future I
+        VAct VSim VFut          n  p  => fut_I_stem + passPresEnding n p ; -- Future I
+        VAct VAnt (VPres VInd)  n  p  => "######" ; -- Prefect Indicative
+        VAct VAnt (VPres VConj) n  p  => "######" ; -- Prefect Conjunctive
+        VAct VAnt (VImpf VInd)  n  p  => "######" ; -- Plusperfect Indicative
+        VAct VAnt (VImpf VConj) n  p  => "######" ; -- Plusperfect Conjunctive
+        VAct VAnt VFut          n  p  => "######" -- Future II 
+        } ; 
+      pass = \\_ => "######" ; -- no passive forms
+      inf = table {
+        VInfActPres       => inf_pres ;
+        VInfActPerf Masc  => perf_stem + "tum" ;
+	VInfActPerf Fem   => perf_stem + "tam" ;
+	VInfActPerf Neutr => perf_stem + "tum" ;
+	VInfActFut Masc   => perf_stem + "turum" ;
+	VInfActFut Fem    => perf_stem + "turam" ; 
+	VInfActFut Neutr  => perf_stem + "turum"
+        } ;
+      imp = table {
+	VImp1 Sg => imp_I_sg ;
+	VImp1 Pl => pres_ind + "mini" ;
+	VImp2 Sg ( P2 | P3 ) => pres_ind + "tor" ;
+	VImp2 Pl P2 => "######" ; -- really no such form?
+	VImp2 Pl P3 => pres_ind + "ntor" ;
+	_ => "######" -- No imperative form
+	} ;
+      ger = table {
+	VGenAcc => impf_ind_stem + "ndum" ;
+	VGenGen => impf_ind_stem + "ndi" ;
+	VGenDat => impf_ind_stem + "ndo" ;
+	VGenAbl => impf_ind_stem + "ndo" 
+	} ;
+      geriv = ( mkAdjective
+		  ( mkNoun ( impf_ind_stem + "ndus" ) ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndi" ) 
+		      ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "nde" ) 
+		      ( impf_ind_stem + "ndi" ) ( impf_ind_stem + "ndos" ) ( impf_ind_stem + "ndorum" ) 
+		      ( impf_ind_stem + "ndis" ) 
+		      Masc )
+		  ( mkNoun ( impf_ind_stem + "nda" ) ( impf_ind_stem + "ndam" ) ( impf_ind_stem + "ndae" ) 
+		      ( impf_ind_stem + "ndae" ) ( impf_ind_stem + "nda" ) ( impf_ind_stem + "nda" ) 
+		      ( impf_ind_stem + "ndae" ) ( impf_ind_stem + "ndas" ) (impf_ind_stem +"ndarum" ) 
+		      ( impf_ind_stem + "ndis" ) 
+		      Fem )
+		  ( mkNoun ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndum" ) ( impf_ind_stem + "ndi" ) 
+		      ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndo" ) ( impf_ind_stem + "ndum" ) 
+		      ( impf_ind_stem + "nda" ) ( impf_ind_stem + "nda" ) ( impf_ind_stem + "ndorum" ) 
+		      ( impf_ind_stem + "ndis" ) 
+		      Neutr )
+		  < \\_,_,_ => "" , "" >
+		  < \\_,_,_ => "" , "" >
+	).s!Posit ;
+      sup = table {
+	VSupAcc => impf_ind_stem + "tum" ;
+	VSupAbl => impf_ind_stem + "tu" 
+	} ;
+      partActPres = ( mkNoun ( impf_ind_stem + "ns" ) ( impf_ind_stem + "ntem" ) ( impf_ind_stem + "ntis" ) 
+			( impf_ind_stem + "nti" ) ( impf_ind_stem + "nte" ) ( impf_ind_stem + "ns" ) 
+			( impf_ind_stem + "ntes" ) ( impf_ind_stem + "ntes" ) ( impf_ind_stem + "ntium" ) 
+			( impf_ind_stem + "ntibus" ) 
+ 			Masc ).s ;
+      partActFut = ( mkAdjective
+		       ( mkNoun ( impf_ind_stem + "turus" ) ( impf_ind_stem + "turum" ) ( impf_ind_stem + "turi" ) 
+			   ( impf_ind_stem + "turo" ) ( impf_ind_stem + "turo" ) ( impf_ind_stem + "ture" ) ( impf_ind_stem + "turi" ) 
+			   ( impf_ind_stem + "turos" ) ( impf_ind_stem + "turorum" ) ( impf_ind_stem + "turis" ) 
+			   Masc )
+		       ( mkNoun ( impf_ind_stem + "tura" ) ( impf_ind_stem + "turam" ) ( impf_ind_stem + "turae" ) 
+			   ( impf_ind_stem + "turae" ) ( impf_ind_stem + "tura" ) ( impf_ind_stem + "tura" )( impf_ind_stem + "turae" ) 
+			   ( impf_ind_stem + "turas" ) ( impf_ind_stem +"turarum" ) ( impf_ind_stem + "turis" ) 
+			   Fem )
+		       ( mkNoun ( impf_ind_stem + "turum" ) ( impf_ind_stem + "turum" ) ( impf_ind_stem + "turi" ) 
+			   ( impf_ind_stem + "turo" ) ( impf_ind_stem + "turo" ) ( impf_ind_stem + "turum" ) ( impf_ind_stem + "tura" ) 
+			   ( impf_ind_stem + "tura" ) ( impf_ind_stem + "turorum" ) ( impf_ind_stem + "turis" ) 
+			   Neutr )
+		       < \\_,_,_ => "" , "" >
+		       < \\_,_,_ => "" , "" >
+	).s!Posit ;
+      partPassPerf = ( mkAdjective
+			 ( mkNoun ( impf_ind_stem + "tus" ) ( impf_ind_stem + "tum" ) ( impf_ind_stem + "ti" ) 
+			     ( impf_ind_stem + "to" ) ( impf_ind_stem + "to" ) ( impf_ind_stem + "te" ) 
+			     ( impf_ind_stem + "ti" ) ( impf_ind_stem + "tos" ) ( impf_ind_stem + "torum" ) 
+			     ( impf_ind_stem + "tis" ) 
+			     Masc )
+			 ( mkNoun ( impf_ind_stem + "ta" ) ( impf_ind_stem + "tam" ) ( impf_ind_stem + "tae" ) 
+			     ( impf_ind_stem + "tae" ) ( impf_ind_stem + "ta" ) ( impf_ind_stem + "ta" ) 
+			     ( impf_ind_stem + "tae" ) ( impf_ind_stem + "tas" ) ( impf_ind_stem + "tarum" ) 
+			     ( impf_ind_stem + "tis" ) 
+			     Fem )
+			 ( mkNoun ( impf_ind_stem + "tum" ) ( impf_ind_stem + "tum" ) ( impf_ind_stem + "ti" ) 
+			     ( impf_ind_stem + "to" ) ( impf_ind_stem + "to" ) ( impf_ind_stem + "tum" ) 
+			     ( impf_ind_stem + "ta" ) ( impf_ind_stem + "ta" ) ( impf_ind_stem + "torum" ) 
+			     ( impf_ind_stem + "tis" ) 
+			     Neutr ) 
+			 < \\_,_,_ => "" , "" >
+			 < \\_,_,_ => "" , "" >
+	).s!Posit ;
+    } ;
+
   actPresEnding : Number -> Person -> Str = 
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
 
@@ -299,7 +405,7 @@ param
       pass = \\_ => "######" ; -- No passive form
       inf = table {
         VInfActPres      => "esse" ;
-        VInfActPerf      => "fuisse" ;
+        VInfActPerf _    => "fuisse" ;
        	VInfActFut Masc  => "futurum" ;
 	VInfActFut Fem   => "futuram" ;
 	VInfActFut Neutr => "futurum"
@@ -350,9 +456,9 @@ param
       geriv = \\_,_,_ => "######" ; -- no gerundive form for velle
       imp = \\_ =>  "######" ; -- no imperative form for velle
       inf = table {
-  	VInfActPres => "velle" ;
-  	VInfActPerf => "voluisse" ;
-  	_           => "######" -- No infinitive future
+  	VInfActPres   => "velle" ;
+  	VInfActPerf _ => "voluisse" ;
+  	_             => "######" -- No infinitive future
   	} ;
       partActFut = \\_,_,_ => "######" ; -- no participle future active
       partActPres = ( mkNoun "volens" "volentem" "volentis" "volenti" "volente" "volens"

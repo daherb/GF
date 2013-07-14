@@ -1,4 +1,4 @@
-# -path=.:../prelude
+--# -path=.:../prelude
 
 --1 A Simple Latin Resource Morphology.
 
@@ -433,22 +433,66 @@ oper
       sentia = senti + "a" ;
       sentie = senti + "e" ;
     in mkVerb senti senti sentia sentie sentio (senti + "unt") sentire sensi sensus
-              (senti + "am") (senti + "ent") sentie ( senti ) ( senti + "untur" ) senti ; 
+              (senti + "am") (senti + "ent") sentie senti ( senti + "untur" ) senti ; 
+
+-- deponent verb
+  deponens1 : Str -> Verb = \hortari ->
+    let
+      horta = Predef.tk 2 hortari ;
+      hort = init horta ;
+    in
+    mkDeponens horta horta ( hort + "e" ) horta horta ( hort + "or" ) ( horta + "ntur" ) hortari ( horta + "bor" ) 
+    ( horta + "be" ) horta horta ;
+ 
+  deponens2 : Str -> Verb = \vereri ->
+    let
+      vere = Predef.tk 2 vereri ;
+      ver = init vere ;
+    in
+    mkDeponens vere vere ( vere + "a" ) vere vere ( vere + "or" ) ( vere + "ntur" ) vereri (vere + "bor" ) ( vere + "be" )
+    ( ver + "i" ) vere ;
+
+  deponens3 : ( sequi, secutus : Str ) -> Verb = \sequi,secutus ->
+    let sequ = init sequi ;
+	secu = Predef.tk 3 secutus ;
+    in
+    mkDeponens sequ sequi ( sequi + "a" ) ( sequ + "e" ) ( sequ + "e" ) ( sequ + "uor" ) ( sequ + "untur" ) sequi 
+    (sequ + "ar" ) ( sequ + "e" ) secu ( sequ + "ere" ) ;
+
+  deponens3i : ( pati, passus : Str ) -> Verb = \pati,passus ->
+    let pat = init pati ;
+	pas = Predef.tk 3 passus ;
+    in
+    mkDeponens pati pati ( pati + "a" ) ( pat + "e" ) (pat + "e" ) ( pati + "or" ) ( pati + "untur" ) pati ( pati + "ar" )
+    ( pati + "e" ) pas ( pat + "ere" ) ;
+
+  deponens4 : Str -> Verb = \largiri ->
+    let largi = Predef.tk 2 largiri ;
+    in
+    mkDeponens largi largi ( largi + "a" ) ( largi + "e" ) largi ( largi + "or" ) ( largi + "untur" ) largiri 
+    ( largi + "ar" ) ( largi + "e" ) largi ( largi + "re" ) ;
 
 -- smart paradigms
 
   verb_ippp : (iacere,iacio,ieci,iactus : Str) -> Verb = 
     \iacere,iacio,ieci,iactus ->
     case iacere of {
-    _ + "are" => verb1 iacere ;
-    _ + "ire" => verb4 iacere ieci iactus ;
-    _ + "ere" => case iacio of {
-      _ + #consonant + "o" => verb3 iacere ieci iactus ; -- Bayer-Lindauer 74 1
-      _ + "eo" => verb2 iacere ;
-      _ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
-      _ => verb3 iacere ieci iactus
-      } ;
-    _ => Predef.error ("verb_ippp: illegal infinitive form" ++ iacere) 
+      _ + "ari" => deponens1 iacere ;
+      _ + "eri" => deponens2 iacere ;
+      _ + "iri" => deponens4 iacere ;
+      _ + "i" => case iacio of {
+	_ + "ior" => deponens3i iacere iactus ;
+	_ => deponens3 iacere iactus
+	} ;
+      _ + "are" => verb1 iacere ;
+      _ + "ire" => verb4 iacere ieci iactus ;
+      _ + "ere" => case iacio of {
+	_ + #consonant + "o" => verb3 iacere ieci iactus ; -- Bayer-Lindauer 74 1
+	_ + "eo" => verb2 iacere ;
+	_ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
+	_ => verb3 iacere ieci iactus
+	} ;
+      _ => Predef.error ("verb_ippp: illegal infinitive form" ++ iacere) 
     } ;
 
   verb : (iacere : Str) -> Verb = 
