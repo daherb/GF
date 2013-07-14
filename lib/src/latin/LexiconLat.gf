@@ -10,6 +10,7 @@
 -- Langescheidts Schulwörterbuch Lateinisch 17. Edition 1984 (shorter:
 -- Langenscheidts) and Der kleine Stowasser 3. Edition 1991 (shorter:
 -- Stowasser)
+
 concrete LexiconLat of Lexicon = CatLat ** open 
   ParadigmsLat, 
 --  IrregLat,
@@ -21,18 +22,18 @@ flags
   coding = utf8;
 lin
   airplane_N = mkN "aëroplanum" ; -- -i n. (http://la.wikipedia.org/wiki/A%C3%ABroplanum)
-  answer_V2S = mkV2S ( mkV "respondere" ) Dat_Prep ; -- -spondeo, -spondi, -sponsum 2 (Langenscheidts) / alicui; ad, contra, adversus aliquid (Stowasser)
+  answer_V2S = mkV2S ( mkV "respondere" ) Dat_Prep ; -- -spondeo, -spondi, -sponsum 2 (Langenscheidts) alicui; ad, contra, adversus aliquid (Stowasser)
   apartment_N = mkN "domicilium" ; -- -i n. (Langenscheidts)
   apple_N = mkN "malum" ; -- -i n. (Langenscheidts)
   art_N = mkN "ars" "artis" feminine ; -- Ranta; artis f. (Langenscheidts)
-  ask_V2Q = mkV2Q ( mkV "rogare" ) Acc_Prep ; -- rogo 1 (Langenscheidts)
+  ask_V2Q = mkV2Q ( mkV "rogare" ) Acc_Prep ; -- rogo 1 (Langenscheidts) aliquem aliquid (Stowasser)
   baby_N = mkN "infans" "infantis" ( variants { feminine ; masculine } );  -- Ranta; -antis m./f. (Langenscheidts)
   bad_A = mkA "malus" ; -- Ranta; peior, pessimus 3 (Langenscheidts)
   bank_N = mkN "argentaria" ; -- -ae f. (http://la.wikipedia.org/wiki/Argentaria)
   beautiful_A = mkA "pulcher" ; -- -chra, -chrum (Langenscheidts)
   become_VA = mkVA (mkV "fieri")  ; -- fio, factus (Langenscheidts)
   beer_N = mkN ( variants { "cerevisia" ; "cervisia"} ) ; -- Ranta; -ae f. (http://la.wikipedia.org/wiki/Cervisia)
-  beg_V2V = mkV2V ( mkV "petere" "peto" "petivi" "petitum" ) "ab" False ; -- peto, -tivi/tii, -titum 3 (Langenscheidts)
+  beg_V2V = mkV2V ( mkV "petere" "peto" "petivi" "petitum" ) "ab" False ; -- peto, -tivi/tii, -titum 3 (Langenscheidts) ab aliquo (Stowasser)
   big_A = mkA "magnus" ; -- Ranta; maior, maximus 3 (Langenscheidts)
   bike_N = mkN "birota" ; -- -ae f. (http://la.wikipedia.org/wiki/Birota)
   bird_N = mkN "avis" "avis" feminine ; -- Ranta; -is f. (Langenscheidts)
@@ -44,12 +45,12 @@ lin
   boss_N = mkN "dux" "ducis" ( variants { feminine ; masculine } ) ; -- ducis m./f. (Langenscheidts)
   boy_N = mkN "puer" "pueri" masculine ; -- -eri m. (Langenscheidts)
   bread_N = variants { (mkN "panis" "panis" masculine ) ; (mkN "pane" "panis" neuter ) } ; -- -is m./n. (Langenscheidts)
-  break_V2 = mkV2 ( mkV "rumpere" "rumpo" "rupi" "ruptum" ) ; -- Ranta; 3 (Langenscheidts)
+  break_V2 = mkV2 ( mkV "rumpere" "rumpo" "rupi" "ruptum" ) ; -- Ranta; 3 (Langenscheidts) aliquem (Bayer-Lindauer 110)
   broad_A = mkA "latus" ; -- 3 (Langenscheidts)
-  brother_N2 = mkN2 ( mkN "frater" "fratris" masculine ) noPrep; -- -tris m. (Langenscheidts)
+  brother_N2 = mkN2 ( mkN "frater" "fratris" masculine ) Gen_Prep; -- -tris m. (Langenscheidts) alicuius (Bayer-Lindauer 125.2)
   brown_A = mkA "fulvus" ; -- 3 (Langenscheidts)
   butter_N = mkN "butyrum" ; -- -i n. (http://la.wikipedia.org/wiki/Butyrum)
-  buy_V2 = mkV2 (mkV "emere") ; -- emo, emi, emptum 3 (Langenscheidts)
+  buy_V2 = mkV2 (mkV "emere") ; -- emo, emi, emptum 3 (Langenscheidts) (Stowasser) ab, de aliquo (Stowasser)
   -- Trying to work with Machina ++ photographica
 --  camera_N = mkN "Machina" ++ "photographica" ; -- (http://la.wikipedia.org/wiki/Machina_photographica)
   cap_N = mkN "galerus" ; -- -i m. (Langenscheidts)
@@ -64,7 +65,7 @@ lin
   city_N = mkN "urbs" "urbis" feminine; -- Ranta; urbis f. (Langenscheidts)
   clean_A = mkA "lautus" ; -- 3 (Langenscheidts)
   clever_A = mkA "callidus" ; -- 3 (Langenscheidts)
-  close_V2 = mkV2 (mkV "claudere") ; -- claudo, clasi, clausum 3 (Langenscheidts)
+  close_V2 = mkV2 (mkV "claudere") ; -- claudo, clasi, clausum 3 (Langenscheidts) aliquem (Bayer-Lindauer 110)
   coat_N = mkN "pallium" ; -- -i n. (Langenscheidts)
   cold_A = mkA "frigidus" ; -- 3 (Langenscheidts)
   come_V = mkV "venire" ; -- veno, veni, ventum 4 (Langenscheidts)
@@ -75,20 +76,20 @@ lin
   die_V = mkV "mori" ; -- morior, mortuus sum, morturus (Langenscheidts)
   dirty_A = mkA "sordidus" ; -- 3 (Langenscheidts)
 
-  distance_N3 = mkN3 (mkN "distantia") fromP toP ; -- -ae f. (Langenscheidts)
+  distance_N3 = mkN3 (mkN "distantia") from_P to_P ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
   doctor_N = mkN "medicus" ; -- -i m. (Langenscheidts)
   dog_N = mkN "canis" "canis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
   door_N = mkN "porta" ; -- -ae f. (Langenscheidts)
-  drink_V2 = mkV2 (mkV "bibere") ; -- bibo, potum 3 (Langenscheidts)
+  drink_V2 = mkV2 (mkV "bibere") ; -- bibo, potum 3 (Langenscheidts) aliquem (Bayer-Lindauer 110)
   -- Category not yet implemented
 --  easy_A2V = mkA2V (mkA "facilis" "facile" ) forP ; -- -e sup -illimus (Langenscheidts)
-  eat_V2 = mkV2 (mkV "cenare") ; -- ceno 1 (Langenscheidts)
+  eat_V2 = mkV2 (mkV "cenare") ; -- ceno 1 (Langenscheidts) aliquem (Bayer-Lindauer 110)
   empty_A = mkA "vacuus" ; -- 3 (Langenscheidts)
   enemy_N = mkN "hostis" "hostis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
   factory_N = mkN "officina" ; -- -ae f. (Langenscheidts)
-  father_N2 = mkN2 (mkN "pater" "patris" masculine ) noPrep ; -- -tris m. gen pl -um (Langenscheidts)
+  father_N2 = mkN2 (mkN "pater" "patris" masculine ) Gen_Prep ; -- -tris m. gen pl -um (Langenscheidts) alicuius (Bayer-Lindauer 125.2)
   fear_VS = mkVS (mkV "timere") ; -- timeo, timui, --- 2 (Langenscheidts)
-  find_V2 = mkV2 (mkV "reperire") ; -- reperio, repperi, repertum 4 (Langenscheidts)
+  find_V2 = mkV2 (mkV "reperire") ; -- reperio, repperi, repertum 4 (Langenscheidts) aliquem
   fish_N = mkN "piscis" "piscis" masculine ; -- -is m. (Langenscheidts)
   floor_N = mkN "pavimentum" ; -- -i n. (Langenscheidts)
   forget_V2 = mkV2 (mkV "oblivisci") ; -- obliscor, oblitus sum 3 (Langenscheidts)
@@ -125,7 +126,7 @@ lin
   learn_V2 = mkV2 (mkV "discere" "disco" "didici") ; -- disco, didici, - 3 (-isc-?) (Langenscheidts)
   leather_N = mkN "scortum" ; -- -i n. (Langenscheidts)
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
-  like_V2 = mkV2 ( lin V ResLat.want_V ) noPrep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
+  like_V2 = mkV2 ( lin V ResLat.want_V ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
   live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
@@ -138,7 +139,7 @@ lin
   meat_N = mkN "carnis" "carnis" feminine ; -- -is f. (Langenscheidts)
   milk_N = mkN "lac" "lactis" neuter ; -- -- lactis n. (Langenscheidts)
   moon_N = mkN "luna" ; -- -ae f. (Langenscheidts)
-  mother_N2 = mkN2 ( mkN "mater" "matris" feminine ) noPrep ; -- matris f. (Langenscheidts)
+  mother_N2 = mkN2 ( mkN "mater" "matris" feminine ) Gen_Prep ; -- matris f. (Langenscheidts)
   mountain_N = mkN "mons" "montis" masculine ; -- montis m. (Langenscheidts)
   music_N = mkN "musica" ; -- -ae f. L..
   narrow_A = mkA "angustus" ; -- 3 (Langenscheidts)
@@ -147,7 +148,7 @@ lin
   oil_N = mkN "oleum" ; -- -i n. (Langenscheidts)
   old_A = mkA "antiquus" ; -- 3 (Langenscheidts)
   open_V2 = mkV2 (mkV "aperire") ; -- aperio, aperui, apertum 4 (Langenscheidts)
-  paint_V2A = mkV2A (mkV "pingere" "pingo" "pinxi" "pictum" ) noPrep ; -- pingo, pinxi, pictum 3 (Langenscheidts)
+  paint_V2A = mkV2A (mkV "pingere" "pingo" "pinxi" "pictum" ) Acc_Prep ; -- pingo, pinxi, pictum 3 (Langenscheidts)
   paper_N = mkN "charta" ; -- -ae f. (http://la.wikipedia.org/wiki/Charta)
   paris_PN = mkPN (mkN "Lutetia") ; -- -ae f. (http://la.wikipedia.org/wiki/Lutetia)
   peace_N = mkN "pax" "pacis" feminine ; -- pacis f. (Langenscheidts)
@@ -179,8 +180,8 @@ lin
   sea_N = mkN "mare" "maris" neuter ; -- -is n. (Langenscheidts)
   seek_V2 = mkV2 (mkV "quaerere" "quaero" "quaesivi" "quaesitum" ) ; -- quaero, quaesivi, quaesitum 3 (Langenscheidts)
   see_V2 = mkV2 (mkV "videre") ; -- video, vidi, visum 2 (Langenscheidts)
-  sell_V3 = mkV3 ( mkV "vendere" "vendo" "vendidi" "venditum" ) noPrep toP ; -- vendo, vendidi, venditum 3 (Langenscheidts)
-  send_V3 = mkV3 ( mkV "mittere" "mitto" "misi" "missum" ) noPrep toP ; -- mitto, misi, missum 3 (Langenscheidts)
+  sell_V3 = mkV3 ( mkV "vendere" "vendo" "vendidi" "venditum" ) Acc_Prep Dat_Prep ; -- vendo, vendidi, venditum 3 (Langenscheidts)
+  send_V3 = mkV3 ( mkV "mittere" "mitto" "misi" "missum" ) Acc_Prep Dat_Prep ; -- mitto, misi, missum 3 (Langenscheidts)
   sheep_N = mkN "ovis" "ovis" feminine ; -- -is f. (Langenscheidts)
   ship_N = mkN "navis" "navis" feminine ; -- -is f. acc. -em (-im) abl meist -i (Langenscheidts)
   shirt_N = mkN "tunica" ; -- -ae f. (Langenscheidts)
@@ -205,7 +206,7 @@ lin
   switch8off_V2 = mkV2 (mkV "accendere") ; -- -cendo, -cendi, -censum 3 (Langenscheidts)
   switch8on_V2 = mkV2 (mkV ( variants { "exstinguere" ; "extinguere" } ) ); -- -ingo, -inxi, -inctum 3 (Langenscheidts)
   table_N = mkN "mensa" ; -- -ae f. (Langenscheidts)
-  talk_V3 = mkV3 ( lin V speak_V2 ) noPrep noPrep ;
+  talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
   teacher_N = mkN "magister" "magistri" masculine ; -- -tri m. (Langenscheidts)
   teach_V2 = mkV2 (mkV "docere") ; -- doceo, docui, doctum 2 (Langenscheidts)
   television_N = mkN "televisio" "televisionis" feminine ; -- -onis f. (http://la.wikipedia.org/wiki/Televisio) and visio in (Langenscheidts)
@@ -241,7 +242,7 @@ lin
   now_Adv = mkAdv "nunc" ; -- (Langenscheidts)
   already_Adv = mkAdv "iam" ; -- (Langenscheidts)
   song_N = mkN "carmen" "carminis" neuter ; -- -inis n. (Langenscheidts)
-  add_V3 = mkV3 ( mkV "addere" "addo" "addidi" "additum" ) noPrep toP ; -- addo, addidi, additum 3 (Langenscheidts)
+  add_V3 = mkV3 ( mkV "addere" "addo" "addidi" "additum" ) Acc_Prep to_P ; -- addo, addidi, additum 3 (Langenscheidts)
   number_N = mkN "numerus" ; -- -i m.
   put_V2 = mkV2 (mkV "ponere" "pono" "posui" "positum" ) ; -- pono, posui, positum 3 (Langenscheidts)
   stop_V = mkV "sistere" "sisto" "steti" "statum" ; -- sisto, stiti/steti, statum 3 (Langenscheidts)
