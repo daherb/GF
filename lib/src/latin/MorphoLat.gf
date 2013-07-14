@@ -1,13 +1,13 @@
-----# -path=.:../prelude
---
-----1 A Simple Latin Resource Morphology
-----
----- Herbert Lange 2013
-----
----- This resource morphology contains definitions needed in the resource
----- syntax. To build a lexicon, it is better to use $ParadigmsLat$, which
----- gives a higher-level access to this module.
---
+# -path=.:../prelude
+
+--1 A Simple Latin Resource Morphology.
+
+-- Herbert Lange 2013
+
+-- This resource morphology contains definitions needed in the resource
+-- syntax. To build a lexicon, it is better to use $ParadigmsLat$, which
+-- gives a higher-level access to this module.
+
 resource MorphoLat = ParamX, ResLat ** open Prelude in {
 --
 --  flags optimize=all ;
