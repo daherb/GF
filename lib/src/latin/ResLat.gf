@@ -209,15 +209,18 @@ param
 			( impf_ind_stem + "ntibus" ) 
  			Masc ).s ;
       partActFut = ( mkAdjective
-		       ( mkNoun ( part_stem + "turus" ) ( part_stem + "turum" ) ( part_stem + "turi" ) ( part_stem + "turo" ) 
-			   ( part_stem + "turo" ) ( part_stem + "ture" ) ( part_stem + "turi" ) ( part_stem + "turos" ) 
-			   ( part_stem + "turorum" ) ( part_stem + "turis" ) Masc )
-		       ( mkNoun ( part_stem + "tura" ) ( part_stem + "turam" ) ( part_stem + "turae" ) ( part_stem + "turae" ) 
-			   ( part_stem + "tura" ) ( part_stem + "tura" )( part_stem + "turae" ) ( part_stem + "turas" ) 
-			   ( part_stem +"turarum" ) ( part_stem + "turis" ) Fem )
-		       ( mkNoun ( part_stem + "turum" ) ( part_stem + "turum" ) ( part_stem + "turi" ) ( part_stem + "turo" ) 
-			   ( part_stem + "turo" ) ( part_stem + "turum" ) ( part_stem + "tura" ) ( part_stem + "tura" ) 
-			   ( part_stem + "turorum" ) ( part_stem + "turis" ) Neutr )
+		       ( mkNoun ( part_stem + "turus" ) ( part_stem + "turum" ) ( part_stem + "turi" ) 
+			   ( part_stem + "turo" ) ( part_stem + "turo" ) ( part_stem + "ture" ) ( part_stem + "turi" ) 
+			   ( part_stem + "turos" ) ( part_stem + "turorum" ) ( part_stem + "turis" ) 
+			   Masc )
+		       ( mkNoun ( part_stem + "tura" ) ( part_stem + "turam" ) ( part_stem + "turae" ) 
+			   ( part_stem + "turae" ) ( part_stem + "tura" ) ( part_stem + "tura" )( part_stem + "turae" ) 
+			   ( part_stem + "turas" ) ( part_stem +"turarum" ) ( part_stem + "turis" ) 
+			   Fem )
+		       ( mkNoun ( part_stem + "turum" ) ( part_stem + "turum" ) ( part_stem + "turi" ) 
+			   ( part_stem + "turo" ) ( part_stem + "turo" ) ( part_stem + "turum" ) ( part_stem + "tura" ) 
+			   ( part_stem + "tura" ) ( part_stem + "turorum" ) ( part_stem + "turis" ) 
+			   Neutr )
 		       < \\_,_,_ => "" , "" >
 		       < \\_,_,_ => "" , "" >
 	).s!Posit ;
