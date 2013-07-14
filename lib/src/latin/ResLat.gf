@@ -412,6 +412,7 @@ param
   to_P = lin Prep ( mkPrep "ad" Acc ) ; -- L...
   Gen_Prep = lin Prep ( mkPrep "" Gen ) ;
   Acc_Prep = lin Prep ( mkPrep "" Acc ) ;
+  Dat_Prep = lin Prep ( mkPrep "" Dat ) ;
 
   VP : Type = {
     fin : VActForm => Str ;
