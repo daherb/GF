@@ -135,3 +135,28 @@ celatus   laudatus  monitus   auditus	rectum	   captum	inf_perf_pass
 celabo	  laudabo   monebo    audiam	regam	   capiam	fut_I_sg_p1
 celabunt  laudabunt monebunt  audient   regent	   capient	fut_I_pl_p3
 celabi	  laudabi   monebi    audie	rege	   capie	fut_I_stem
+
+14.7.2013
+---------------
+Starting with deponent verbs
+
+15.7.2013
+---------------
+Retry to find minimum number of parameters for verb creation
+
+inf_act_pres       laudare     monere    audire     regere   capere
+pres_stem  	   lauda       mone      audi       reg	     capi
+pres_ind_base  	   lauda       mone      audi       regi     capi
+pres_conj_base 	   laude       monea     audia      rega     capia
+impf_ind_base  	   laudaba     moneba    audieba    regeba   capieba
+impf_conj_base 	   laudare     monere    audire     regere   capere	(=imf_act_pres)
+fut_I_base     	   laudabi     monebi    audie      rege     capie
+imp_base       	   lauda       mone      audi       regi     capi
+perf_stem      	   laudav      monu      audiv      rex	     cep
+perf_ind_base  	   laudav      monu      audiv      rex	     cep	(=perf_stem)
+perf_conj_base	   laudaveri   monueri   audiveri   rexeri   ceperi
+pqperf_ind_base	   laudavera   monuera   audivera   rexera   cepera
+pqperf_conj_base   laudavisse  monuisse	 audivisse  rexisse  cepisse
+fut_II_base	   laudaveri   monueri	 audiveri   rexeri   ceperi	(=perf_conj_base)  
+part_stem      	   laudat(u)   monit(u)  audit(u)   rect(u)  capt(u)
+
