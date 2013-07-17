@@ -18,7 +18,7 @@ oper
   -- sounds and sound changes
   vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
   semivowel : pattern Str = #( "j" | "w" );
-  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "h" );
+  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
   stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
   fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
   nasal : pattern Str = #( "m" | "n" );
@@ -482,7 +482,7 @@ oper
     mkVerb capere pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
 
--- 4./ i-conjugation
+-- 4./i-conjugation
 
   verb4 : Str -> Verb = \audire ->
     let
@@ -508,53 +508,96 @@ oper
 
 -- deponent verb
 
-  deponens1 : Str -> Verb = \hortari ->
+-- 1./a-conjugation
+  deponent1 : Str -> Verb = \hortari ->
     let
       horta = Predef.tk 2 hortari ;
       hort = init horta ;
+      pres_stem = horta ;
+      pres_ind_base = horta ;
+      pres_conj_base = hort + "e" ;
+      impf_ind_base = horta + "ba" ;
+      impf_conj_base = horta + "re" ;
+      fut_I_base = horta + "bi" ;
+      imp_base = horta ;
+      part_stem = horta + "t" ;
     in
-    mkDeponens horta horta ( hort + "e" ) horta horta ( hort + "or" ) ( horta + "ntur" ) hortari ( horta + "bor" ) 
-    ( horta + "be" ) horta ( horta + "re" ) ( horta + "ntor" ) ;
- 
-  deponens2 : Str -> Verb = \vereri ->
+    mkDeponent hortari pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
+
+-- 2./e-conjugation
+  deponent2 : Str -> Verb = \vereri ->
     let
       vere = Predef.tk 2 vereri ;
       ver = init vere ;
+      pres_stem = vere ;
+      pres_ind_base = vere ;
+      pres_conj_base = vere + "a" ;
+      impf_ind_base = vere + "ba" ;
+      impf_conj_base = vere + "re" ;
+      fut_I_base = vere + "bi" ;
+      imp_base = vere ;
+      part_stem = ver + "it" ;
     in
-    mkDeponens vere vere ( vere + "a" ) vere vere ( vere + "or" ) ( vere + "ntur" ) vereri (vere + "bor" ) ( vere + "be" )
-    ( ver + "i" ) ( vere + "re" ) ( vere + "ntor" ) ;
+    mkDeponent vereri pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
 
-  deponens3 : ( sequi, secutus : Str ) -> Verb = \sequi,secutus ->
-    let sequ = init sequi ;
-	secu = Predef.tk 3 secutus ;
+-- 3./Consonant conjugation
+  deponent3c : ( sequi,sequor,secutus : Str ) -> Verb = \sequi,sequor,secutus ->
+    let
+      sequ = Predef.tk 2 sequor ;
+      secu = Predef.tk 3 secutus ; 
+      pres_stem = sequ ;
+      pres_ind_base = sequ ;
+      pres_conj_base = sequ + "a" ;
+      impf_ind_base = sequ + "eba" ;
+      impf_conj_base = sequ + "ere" ;
+      fut_I_base = sequ + "e" ;
+      imp_base = sequi ;
+      part_stem = secu + "t" ;
     in
-    mkDeponens sequ sequi ( sequi + "a" ) ( sequ + "e" ) ( sequ + "e" ) ( sequ + "or" ) ( sequ + "untur" ) sequi 
-    (sequ + "ar" ) ( sequ + "e" ) secu ( sequ + "ere" ) (sequ + "untor");
+    mkDeponent sequi pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
 
-  deponens3i : ( pati, passus : Str ) -> Verb = \pati,passus ->
-    let pat = init pati ;
-	pas = Predef.tk 3 passus ;
+-- 3./i-conjugation
+  deponent3i : ( pati,patior,passus : Str ) -> Verb = \pati,patior,passus ->
+    let
+      pat = init pati ;
+      pass = Predef.tk 2 passus ; 
+      pres_stem = pati ;
+      pres_ind_base = pati ;
+      pres_conj_base = pati + "a" ;
+      impf_ind_base = pati + "eba" ;
+      impf_conj_base = pat + "ere" ;
+      fut_I_base = pati + "e" ;
+      imp_base = pati ;
+      part_stem = pass ;
     in
-    mkDeponens pati pati ( pati + "a" ) ( pat + "e" ) (pat + "e" ) ( pati + "or" ) ( pati + "untur" ) pati ( pati + "ar" )
-    ( pati + "e" ) pas ( pat + "ere" ) ( pati + "untor" ) ;
+    mkDeponent pati pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
 
-  deponens4 : Str -> Verb = \largiri ->
-    let largi = Predef.tk 2 largiri ;
+-- 4./i-conjugation
+  deponent4 : Str -> Verb = \largiri ->
+    let
+      largi = Predef.tk 2 largiri ; 
+      pres_stem = largi ;
+      pres_ind_base = largi ;
+      pres_conj_base = largi + "a" ;
+      impf_ind_base = largi + "eba" ;
+      impf_conj_base = largi + "re" ;
+      fut_I_base = largi + "e" ;
+      imp_base = largi ;
+      part_stem = largi + "t" ;
     in
-    mkDeponens largi largi ( largi + "a" ) ( largi + "e" ) largi ( largi + "or" ) ( largi + "untur" ) largiri 
-    ( largi + "ar" ) ( largi + "e" ) largi ( largi + "re" ) ( largi + "untor" ) ;
+    mkDeponent largiri pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
 
 -- smart paradigms
 
   verb_ippp : (iacere,iacio,ieci,iactus : Str) -> Verb = 
     \iacere,iacio,ieci,iactus ->
     case iacere of {
-      _ + "ari" => deponens1 iacere ;
-      _ + "eri" => deponens2 iacere ;
-      _ + "iri" => deponens4 iacere ;
+      _ + "ari" => deponent1 iacere ;
+      _ + "eri" => deponent2 iacere ;
+      _ + "iri" => deponent4 iacere ;
       _ + "i" => case iacio of {
-  	_ + "ior" => deponens3i iacere iactus ;
-  	_ => deponens3 iacere iactus
+  	_ + "ior" => deponent3i iacere iacio iactus ;
+  	_ => deponent3c iacere iacio iactus
   	} ;
       _ + "are" => verb1 iacere ;
       _ + "ire" => verb4 iacere ; -- ieci iactus ;
@@ -562,7 +605,7 @@ oper
   	_ + #consonant + "o" => verb3c iacere ieci iactus ; -- Bayer-Lindauer 74 1
   	_ + "eo" => verb2 iacere ;
   	_ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
-  	_ => verb3 iacere ieci iactus
+  	_ => verb3c iacere ieci iactus
   	} ;
       _ => Predef.error ("verb_ippp: illegal infinitive form" ++ iacere) 
     } ;
@@ -570,9 +613,9 @@ oper
   verb : (iacere : Str) -> Verb = 
     \iacere ->
     case iacere of {
-      _ + "ari" => deponens1 iacere ;
-      _ + "eri" => deponens2 iacere ;
-      _ + "iri" => deponens4 iacere ;
+      _ + "ari" => deponent1 iacere ;
+      _ + "eri" => deponent2 iacere ;
+      _ + "iri" => deponent4 iacere ;
       _ + "are" => verb1 iacere ;
       _ + "ire" => let iaci = Predef.tk 2 iacere 
         in verb4 iacere ; -- (iaci + "vi") (iaci + "tus") ;
