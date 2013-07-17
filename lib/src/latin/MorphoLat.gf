@@ -380,60 +380,6 @@ oper
 ----3 Verbs
 
 -- 1./a-conjugation
---   verb1 : Str -> Verb = \celare ->
---     let 
---       cela = Predef.tk 2 celare ;
---       cel  = init cela ;
---       celo = cel + "o" ;
---       cele = cel + "e" ;
---       celavi = cela + "vi" ;
---       celatus = cela + "tus" ;
---     in mkVerb cela cela cele cela celo (cela + "nt") celare celavi celatus 
---               (cela + "bo") (cela + "bunt") (cela + "bi") ( cela ) ( cela + "ntur" ) cela;
-
--- -- 2./e-conjugation
---   verb2 : Str -> Verb = \habere ->
---     let 
---       habe = Predef.tk 2 habere ;
---       hab  = init habe ;
---       habeo = habe + "o" ;
---       habea = habe + "a" ;
---       habui = hab + "ui" ;
---       habitus = hab + "itus" ;
---     in mkVerb habe habe habea habe habeo (habe + "nt") habere habui habitus
---               (habe + "bo") (habe + "bunt") (habe + "bi") ( habe ) ( habe + "ntur" ) habe ;
-
--- -- 3./Consonant conjugation
---   verb3 : (_,_,_ : Str) -> Verb = \gerere,gessi,gestus ->
---     let 
---       gere = Predef.tk 2 gerere ;
---       ger  = init gere ;
---       gero = ger + "o" ;
---       geri = ger + "i" ;
---       gera = ger + "a" ;
---     in mkVerb ger geri gera gere gero (ger + "unt") gerere gessi gestus
---               (ger + "am") (ger + "ent") gere ( ger + "e" ) ( ger + " untur") ( ger + "e" ) ; 
-
--- -- 3./i-conjugation
---   verb3i : (_,_,_ : Str) -> Verb = \iacere,ieci,iactus ->
---     let 
---       iac   = Predef.tk 3 iacere ;
---       iaco  = iac + "io" ;
---       iaci  = iac + "i" ;
---       iacie = iac + "ie" ;
---       iacia = iac + "ia" ;
---     in mkVerb iaci iaci iacia iacie iaco (iaci + "unt") iacere ieci iactus
---               (iac + "iam") (iac + "ient") iacie ( iac + "e" ) ( iaci + "untur" ) ( iac + "e" ) ; 
-
--- -- 4./ i-conjugation
---   verb4 : (_,_,_ : Str) -> Verb = \sentire,sensi,sensus ->
---     let 
---       senti  = Predef.tk 2 sentire ;
---       sentio = senti + "o" ;
---       sentia = senti + "a" ;
---       sentie = senti + "e" ;
---     in mkVerb senti senti sentia sentie sentio (senti + "unt") sentire sensi sensus
---               (senti + "am") (senti + "ent") sentie senti ( senti + "untur" ) senti ; 
 
   verb1 : Str -> Verb = \laudare ->
     let
@@ -458,6 +404,8 @@ oper
     mkVerb laudare pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
 
+-- 2./e-conjugation
+
   verb2 : Str -> Verb = \monere ->
     let
       mone = Predef.tk 2 monere ;
@@ -481,29 +429,9 @@ oper
     mkVerb monere pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
 
-  verb4 : Str -> Verb = \audire ->
-    let
-      audi = Predef.tk 2 audire ;
-      audiv = audi + "v" ;
-      pres_stem = audi ;
-      pres_ind_base = audi ;
-      pres_conj_base = audi + "a" ;
-      impf_ind_base = audi + "eba" ;
-      impf_conj_base = audi + "re" ;
-      fut_I_base = audi +"e" ;
-      imp_base = audi ;
-      perf_stem = audiv ;
-      perf_ind_base = audiv ;
-      perf_conj_base = audiv + "eri" ;
-      pqperf_ind_base = audiv + "era" ;
-      pqperf_conj_base = audiv + "isse" ;
-      fut_II_base = audiv + "eri" ;
-      part_stem = audi + "t" ;
-    in
-    mkVerb audire pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
-    perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+-- 3./Consonant conjugation
 
-  verb3 : ( regere,rexi,rectus : Str ) -> Verb = \regere,rexi,rectus ->
+  verb3c : ( regere,rexi,rectus : Str ) -> Verb = \regere,rexi,rectus ->
     let
       rege = Predef.tk 2 regere ;
       reg = init rege ;
@@ -526,6 +454,8 @@ oper
     in
     mkVerb regere pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+
+-- 3./i-conjugation
 
   verb3i : ( capere,cepi,captus : Str ) -> Verb = \capere,cepi,captus ->
     let
@@ -552,7 +482,32 @@ oper
     mkVerb capere pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
 
+-- 4./ i-conjugation
+
+  verb4 : Str -> Verb = \audire ->
+    let
+      audi = Predef.tk 2 audire ;
+      audiv = audi + "v" ;
+      pres_stem = audi ;
+      pres_ind_base = audi ;
+      pres_conj_base = audi + "a" ;
+      impf_ind_base = audi + "eba" ;
+      impf_conj_base = audi + "re" ;
+      fut_I_base = audi +"e" ;
+      imp_base = audi ;
+      perf_stem = audiv ;
+      perf_ind_base = audiv ;
+      perf_conj_base = audiv + "eri" ;
+      pqperf_ind_base = audiv + "era" ;
+      pqperf_conj_base = audiv + "isse" ;
+      fut_II_base = audiv + "eri" ;
+      part_stem = audi + "t" ;
+    in
+    mkVerb audire pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
+    perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+
 -- deponent verb
+
   deponens1 : Str -> Verb = \hortari ->
     let
       horta = Predef.tk 2 hortari ;
@@ -604,7 +559,7 @@ oper
       _ + "are" => verb1 iacere ;
       _ + "ire" => verb4 iacere ; -- ieci iactus ;
       _ + "ere" => case iacio of {
-  	_ + #consonant + "o" => verb3 iacere ieci iactus ; -- Bayer-Lindauer 74 1
+  	_ + #consonant + "o" => verb3c iacere ieci iactus ; -- Bayer-Lindauer 74 1
   	_ + "eo" => verb2 iacere ;
   	_ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; -- Bayer-Linduaer 74 1
   	_ => verb3 iacere ieci iactus

@@ -281,10 +281,11 @@ param
 	    _  => ( init fut_I_base ) + "a" + actPresEnding Sg P1 
 	  } ;
 	VAct VSim VFut          Pl P3 => -- Future I
-	  case fut_I_base of {
-	    _ + "bi" => ( init fut_I_base ) + "u" + actPresEnding Pl P3 ;
-	    _ => fut_I_base + actPresEnding Pl P3
-	  } ;
+	  ( case fut_I_base of {
+	      _ + "bi" => ( init fut_I_base ) + "u";
+	      _ => fut_I_base
+	      } 
+	  ) + actPresEnding Pl P3 ;
         VAct VSim VFut          n  p  => -- Future I
 	  fut_I_base + actPresEnding n p ; 
         VAct VAnt (VPres VInd)  n  p  => -- Prefect Indicative
@@ -302,11 +303,23 @@ param
         } ;
       pass = table {
 	VPass (VPres VInd)  Sg P1 => -- Present Indicative
-	  case pres_ind_base of
-	  {
-	    _ + "a" => (init pres_ind_base ) + "o" + passPresEnding Sg P1 ;
-	    _ => pres_ind_base + "o" + passPresEnding Sg P1
-	  } ;
+	  ( case pres_ind_base of
+	      {
+		_ + "a" => (init pres_ind_base ) ;
+		_ => pres_ind_base
+	      }
+	  )  + "o" + passPresEnding Sg P1 ;
+	VPass (VPres VInd)  Sg P2 =>
+	  ( case imp_base of {
+	      _ + #consonant => 
+		( case pres_ind_base of {
+		    _ + "i" => ( init pres_ind_base ) ;
+		    _ => pres_ind_base 
+		    }
+		) + "e" ;
+	      _ => pres_ind_base 
+	      }
+	  ) + passPresEnding Sg P2 ;
 	VPass (VPres VInd)  Pl P3 => -- Present Indicative
 	  pres_ind_base + fill.p2 + passPresEnding Pl P3 ;
 	VPass (VPres VInd)  n  p  => -- Present Indicative
@@ -318,17 +331,19 @@ param
 	VPass (VImpf VConj) n  p  => -- Imperfect Conjunctive
 	  impf_conj_base + passPresEnding n p ;
 	VPass VFut          Sg P1 => -- Future I
-	  case fut_I_base of {
-	    _ + "bi" => ( init fut_I_base ) + "o" + passPresEnding Sg P1 ;
-	    _ => ( init fut_I_base ) + "a" + passPresEnding Sg P1
-	  } ;
+	  ( case fut_I_base of {
+	      _ + "bi" => ( init fut_I_base ) + "o" ;
+	      _ => ( init fut_I_base ) + "a"
+	      }
+	  ) + passPresEnding Sg P1 ;
 	VPass VFut          Sg P2 => -- Future I
 	  ( init fut_I_base ) + "e" + passPresEnding Sg P2 ;
 	VPass VFut          Pl P3 => -- Future I
-	  case fut_I_base of {
-	    _ + "bi" => ( init fut_I_base ) + "u" + passPresEnding Pl P3 ;
-	    _ => fut_I_base + passPresEnding Pl P3 
-	  } ;
+	  ( case fut_I_base of {
+	      _ + "bi" => ( init fut_I_base ) + "u" ;
+	      _ => fut_I_base
+	      }
+	  ) + passPresEnding Pl P3 ;
 	VPass VFut          n  p  => -- Future I
 	  fut_I_base + passPresEnding n p
 	} ;
@@ -344,20 +359,30 @@ param
 	VInfActFut Neutr => -- Infinitive Active Future
 	  part_stem + "urum"
         } ;
-      imp = table {
-	VImp1 Sg             => -- Imperative I
-	  case imp_base of {
-	    _ + #consonant => imp_base + "e" ;
-	    _ => imp_base
-	  } ;
-	VImp1 Pl             => -- Imperative I
-	  imp_base + fill.p3 + "te" ;
+      imp = 
+	let 
+	  imp_fill : Str * Str =
+	    case imp_base of {
+	      _ + #consonant => < "e" , "i" > ;
+	      _ => < "" , "" >
+	    };
+	  in
+	table {
+	  VImp1 Sg             => -- Imperative I
+	    imp_base + imp_fill.p1 ;
+	  VImp1 Pl             => -- Imperative I
+	    imp_base + imp_fill.p2 + "te" ;
 	VImp2 Sg ( P2 | P3 ) => -- Imperative II
-	  imp_base + fill.p3 + "to" ;
-	VImp2 Pl P2          => -- Imperative II
-	  imp_base + fill.p3 + "tote" ;
+	  imp_base + imp_fill.p2 + "to" ;
+	VImp2 Pl P2 => -- Imperative II
+	  imp_base +
+	  ( case imp_base of {
+	      _ + #consonant => "i" ;
+	      _ => fill.p3
+	      }
+	  ) + "tote" ;
 	VImp2 Pl P3          => -- Imperative II 
-	  imp_base + fill.p2 + "nto" ;
+	  pres_stem + fill.p2 + "nto" ;
 	_ => "######" -- No imperative form
 	} ;
       ger = 
