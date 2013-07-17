@@ -13,7 +13,7 @@
 
 concrete LexiconLat of Lexicon = CatLat ** open 
   ParadigmsLat, 
---  IrregLat,
+  IrregLat,
   ResLat,
   Prelude in {
 
@@ -126,7 +126,7 @@ lin
   learn_V2 = mkV2 (mkV "discere" "disco" "didici") ; -- disco, didici, - 3 (-isc-?) (Langenscheidts)
   leather_N = mkN "scortum" ; -- -i n. (Langenscheidts)
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
-  like_V2 = mkV2 ( lin V ResLat.want_V ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
+  like_V2 = mkV2 ( lin V IrregLat.want_V ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
   live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
