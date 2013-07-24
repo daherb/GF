@@ -112,7 +112,7 @@ param
     ger   : VGerund => Str ;
     geriv : Gender => Number => Case => Str ; 
     sup   : VSupine => Str ;
-    partActPres  : Number => Case => Str ;
+    partActPres  : Gender => Number => Case => Str ;
     partActFut   : Gender => Number => Case => Str ;
     partPassPerf : Gender => Number => Case => Str ;
     } ;
@@ -300,11 +300,20 @@ param
 	    part_stem + "u" 
 	} ;
       partActPres =
-	( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntem" ) ( pres_stem + fill.p1 + "ntis" ) 
-	    ( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
-	    ( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntium" ) 
-	    ( pres_stem + fill.p1 + "ntibus" ) 
- 	    Masc ).s ;
+	table {
+	  Fem | Masc => 
+	    ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntem" ) ( pres_stem + fill.p1 + "ntis" ) 
+		( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
+		( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntium" ) 
+		( pres_stem + fill.p1 + "ntibus" ) 
+ 		Masc ).s ;
+	  Neutr =>
+	    ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntis" ) 
+		( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
+		( pres_stem + fill.p1 + "ntia" ) ( pres_stem + fill.p1 + "ntia" ) ( pres_stem + fill.p1 + "ntium" ) 
+		( pres_stem + fill.p1 + "ntibus" ) 
+ 		Masc ).s 
+	} ;
       partActFut = 
 	( mkAdjective
 	    ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
@@ -493,12 +502,22 @@ param
 	  VSupAbl => -- Supin
 	    part_stem + "u" 
 	} ;
-      partActPres = 
-	( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
-	    ( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
-	    ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
-	    ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
- 	    Masc ).s ;
+      -- Bayer-Lindauer 44 1
+      partActPres =
+	table {
+	  Fem | Masc =>
+	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
+		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
+		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
+		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+ 		Masc ).s ;
+	  Neutr => 
+	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ns" ) 
+		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
+		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntia" ) ( pres_stem + fill.p2 + "ntia" ) 
+		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+ 		Masc ).s 
+	} ;
       partActFut = 
 	( mkAdjective
 	    ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
