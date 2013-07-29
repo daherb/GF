@@ -78,13 +78,14 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
     V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 --
     A = Adjective ** {isPre : Bool} ;
---    A2 = {s : AForm => Str ; c2 : Str} ;
+
 --
     N = Noun ;
 -- To be really implemented
     N2 = Noun ;
     N3 = Noun ;
     PN = Noun ;
+    A2 = Adjective ** { c2 : Prep} ;
 --    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
 --    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
 --    PN = {s : Case => Str ; g : Gender} ;

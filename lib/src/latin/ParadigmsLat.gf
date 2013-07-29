@@ -88,4 +88,6 @@ oper
   mkVQ : V -> VQ = \v -> lin VQ v ;
   mkVS : V -> VS = \v -> lin VS v ;
   mkV2A : V -> Prep -> V2A = \v,p -> lin V2A (v ** { c = p } ) ;
+  mkA2 : (verbum : Str) -> Prep -> A2  = \a,p -> 
+    let adj = mkA a in lin A2 ( adj ** { c2 = p } ) ;
 }
