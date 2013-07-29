@@ -612,7 +612,12 @@ param
 
 param
   PronReflForm = PronRefl | PronNonRefl ;
-  PronType = PronPers PronReflForm | PronPoss PronReflForm | PronDemo | PronRelat | PronInterrog | PronIndef ;
+  PronIndefUsage = PronSubst | PronAdj ;
+  PronIndefPol = PronPos | PronNeg ;
+  PronIndefMeaning = PronSomeone | PronCertainOne | PronEvery ;
+  PronType = PronPers PronReflForm | PronPoss PronReflForm | PronDemo | PronRelat | PronInterrog | 
+    PronIndef PronIndefUsage PronIndefPol PronIndefMeaning ;
+
 oper
   
   Pronoun : Type = {
@@ -733,7 +738,23 @@ oper
       p = p
     } ;
 
-
+  -- indefinitePronoun : PronIndefUsage -> PronIndefPol -> PronIndefMeaning -> Gender -> Number -> Pronoun =
+  --   \use,pol,mean,gen,num ->
+  --   {
+  --     s = case <use,pol,mean,gen,num> of {
+  -- 	<PronSubst,PronPos,PronSomeone,Masc,Sg> => 
+  -- 	  \\_ => pronForms "aliquis" "aliquem" "alicuius" "alicui" "aliquo" ;
+  -- 	<PronSubst,PronPos,PronSomeone,_,   Sg> =>
+  -- 	  \\_ => pronForms "aliquid" "aliquid" 
+  -- 	  ( "alicuius" ++ "rei" ) ( "alicui" ++ "rei" ) -- Usefull ?
+	  
+  -- 	_ => \\_,_ => ""
+  -- 	} ;
+  --     t = PronIndef use pol mean ;
+  --     g = gen ;
+  --     n = num ;
+  --     p = P1 -- Some default !?!
+  --   } ;
 
 -- prepositions
 
