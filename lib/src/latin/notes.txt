@@ -160,3 +160,19 @@ pqperf_conj_base   laudavisse  monuisse	 audivisse  rexisse  cepisse
 fut_II_base	   laudaveri   monueri	 audiveri   rexeri   ceperi	(=perf_conj_base)  
 part_stem      	   laudat(u)   monit(u)  audit(u)   rect(u)  capt(u)
 
+18.7.2013
+----------------------
+Project Goalss:
+possibly ommited:
+Numerals
+Embedded Clauses
+
+neccessary:
+Simple NPs, simple VPs, basic declarative clauses, basic interrogative clauses
+PredVP
+UseCl/UseQCL
+
+29.7.2013
+-----------------------
+Ommited for the moment:
+Indefinite pronouns, interrogative pronouns, numerals
