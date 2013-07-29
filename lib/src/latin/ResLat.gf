@@ -96,7 +96,7 @@ oper
 param 
   VActForm  = VAct VAnter VTense Number Person ;
   VPassForm = VPass VTense Number Person ; -- No anteriority because perfect forms are built using participle
-  VInfForm  = VInfActPres | VInfActPerf Gender | VInfActFut Gender;
+  VInfForm  = VInfActPres | VInfActPerf Gender | VInfActFut Gender | VInfPassPres | VInfPassPerf Gender | VinfPassFut ;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
@@ -235,7 +235,17 @@ param
 	  VInfActFut Fem   => -- Infinitive Active Future
 	    part_stem + "uram" ; 
 	  VInfActFut Neutr => -- Infinitive Active Future
-	    part_stem + "urum"
+	    part_stem + "urum" ;
+	  VInfPassPres       => -- Infinitive Present Passive
+	    ( init inf_act_pres ) + "i" ;
+	  VInfPassPerf Masc  => -- Infinitive Perfect Passive
+	    part_stem + "um" ;
+	  VInfPassPerf Fem   => -- Infinitive Perfect Passive
+	    part_stem + "am" ;
+	  VInfPassPerf Neutr => -- Infinitive Perfect Passive
+	    part_stem + "um" ;
+	  VInfPassFut        => -- Infinitive Future Passive
+	    part_stem + "um"
         } ;
       imp = 
 	let 
@@ -433,20 +443,26 @@ param
 	\\_ => "######" ; -- no passive forms
       inf = 
 	table {
-          VInfActPres       => -- Infinitive Present
+          VInfActPres        => -- Infinitive Present Active
 	    inf_pres ;
-          VInfActPerf Masc  => -- Infinitive Perfect
+          VInfActPerf Masc   => -- Infinitive Perfect Active
 	    part_stem + "um" ;
-	  VInfActPerf Fem   => -- Infinitive Perfect
+	  VInfActPerf Fem    => -- Infinitive Perfect Active
 	    part_stem + "am" ;
-	  VInfActPerf Neutr => -- Infinitive Perfect
+	  VInfActPerf Neutr  => -- Infinitive Perfect Active
 	    part_stem + "um" ;
-	  VInfActFut Masc   => -- Infinitive Future
+	  VInfActFut Masc    => -- Infinitive Future Active
 	    part_stem + "urum" ;
-	  VInfActFut Fem    => -- Infinitive Perfect
+	  VInfActFut Fem     => -- Infinitive Perfect Active
 	    part_stem + "uram" ; 
-	  VInfActFut Neutr  => -- Infinitive Perfect
-	    part_stem + "urum"
+	  VInfActFut Neutr   => -- Infinitive Perfect Active
+	    part_stem + "urum" ;
+	  VInfPassPres       => -- Infinitive Present Passive
+	    "######" ; -- no passive form
+	  VInfPassPerf _     => -- Infinitive Perfect Passive
+	    "######" ; -- no passive form
+	  VInfPassFut        => -- Infinitive Future Passive
+	    "######"  -- no passive form
         } ;
       imp = 
 	table {
@@ -716,6 +732,9 @@ oper
       n = n ;
       p = p
     } ;
+
+
+
 -- prepositions
 
   Preposition : Type = {s : Str ; c : Case} ;
