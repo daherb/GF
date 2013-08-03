@@ -6,6 +6,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 --
 
   lin
+    -- Bayer-Lindauer 93 1
     be_V =
       let
 	pres_stem = "s" ;
@@ -59,6 +60,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_,_,_ => "######" -- no such participle
       } ;
 
+    -- Bayer-Lindauer 93 2.2
     can_VV = 
       let
     	pres_stem = "pos" ;
@@ -110,7 +112,8 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
     	  \\_,_,_ => "######" ; -- no such participle
     	isAux = False
       };
-	
+
+    -- Bayer-Lindauer 94
     carry_V = 
       let
     	pres_stem = "fer" ;
@@ -169,7 +172,8 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
     	partPassPerf =
 	  verb.partPassPerf
       };
-  
+
+    -- Bayer-Lindauer 95
     want_VV = 
       let
 	pres_stem = "vel" ;
@@ -219,6 +223,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  isAux = False ;
       } ;
 
+    -- Bayer-Lindauer 96 1
     go_V = 
       let
 	pres_stem = "i" ;
@@ -288,6 +293,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" -- really no such form?
       } ;
 
+    -- Bayer-Lindauer 97
     become_V = 
       let
 	pres_stem = "fi" ;
