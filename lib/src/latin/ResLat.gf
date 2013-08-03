@@ -828,8 +828,24 @@ oper
 -- determiners
 
   Determiner : Type = {
-    s,sp : Gender => Case => Str ;
+    s,sp : Gender => Case => Str ; -- singular and plural strings
     n : Number
+    } ;
+
+  mkDeterminer : Str -> Number -> Determiner = \d,n ->
+    case n of {
+      Sg => 
+	{
+	  s = \\_,_ => d ;
+	  sp = \\_,_ => "######" ;
+	  n = n
+	} ;
+      Pl => 
+	{
+	  s = \\_,_ => "######" ;
+	  sp = \\_,_ => d ;
+	  n = n
+	}
     } ;
 
   Quantifier : Type = {
