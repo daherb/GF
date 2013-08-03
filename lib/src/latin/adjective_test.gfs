@@ -1,0 +1,9 @@
+i -src -retain MorphoLat.gf
+cc -table adj "bonus"
+cc -table adj "niger"
+cc -table adj "asper"
+cc -table adj123 "acer" "acris"
+cc -table adj "fortis"
+cc -table adj "felix"
+cc -table adj "longus"
+
