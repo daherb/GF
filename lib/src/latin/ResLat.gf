@@ -646,18 +646,24 @@ oper
 
   personalPronoun : PronReflForm -> Gender -> Number -> Person -> Pronoun = \r,g,n,p -> {
     s = case <r,g,n,p> of {
-      <_,_,Sg,P1> => table { _ => pronForms "ego" "me" "mei" "mihi" "me" "me" } ;
-      <_,_,Sg,P2> => table { _ => pronForms "tu"  "te" "tui" "tibi" "te" "te" } ;
-      <_,_,Pl,P1> => table { _ => pronForms "nos" "nos" "nostri" "nobis" "nobis" } ; --- nostrum
-      <_,_,Pl,P2> => table { _ => pronForms "vos" "vos" "vestri" "vobis" "vobis" } ; --- vestrum
-      <PronNonRefl,Masc, Sg,P3> => table { _ => pronForms "is" "eum" "eius" "ei" "eo" } ;
-      <PronNonRefl,Fem,  Sg,P3> => table { _ => pronForms "ea" "eam" "eius" "ei" "ea" } ;
-      <PronNonRefl,Neutr,Sg,P3> => table { _ => pronForms "id" "id"  "eius" "ei" "eo" } ;
-      <PronNonRefl,Masc, Pl,P3> => table { _ => pronForms "ii" "eos" "eorum" "iis" "iis" } ;
-      <PronNonRefl,Fem,  Pl,P3> => table { _ => pronForms "ii" "eas" "earum" "iis" "iis" } ;
-      <PronNonRefl,Neutr,Pl,P3> => table { _ => pronForms "ea" "ea"  "eorum" "iis" "iis" } ;
-      <PronRefl,   _,    _ ,P3> => table { _ => pronForms "######" "se" "sui" "sibi" "se" } 
-      } ;
+      <_,_,Sg,P1> => \\_ => pronForms "ego" "me" "mei" "mihi" "me" "me" ;
+
+      <_,          _,    Sg,P2> => \\_ => pronForms "tu"  "te" "tui" "tibi" "te" "te" ;
+      <_,          _,    Pl,P1> => \\_ => pronForms "nos" "nos" "nostri" "nobis" "nobis" ; --- nostrum
+      <_,          _,    Pl,P2> => \\_ => pronForms "vos" "vos" "vestri" "vobis" "vobis" ; --- vestrum
+      <PronNonRefl,Masc, Sg,P3> => \\_ => pronForms "is" "eum" "eius" "ei" "eo" ;
+      <PronRefl,   Masc, Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
+      <PronNonRefl,Fem,  Sg,P3> => \\_ => pronForms "ea" "eam" "eius" "ei" "ea" ;
+      <PronRefl,   Fem,  Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
+      <PronNonRefl,Neutr,Sg,P3> => \\_ => pronForms "id" "id"  "eius" "ei" "eo" ;
+      <PronRefl,   Neutr,Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
+      <PronNonRefl,Masc, Pl,P3> => \\_ => pronForms "ii" "eos" "eorum" "iis" "iis" ;
+      <PronRefl,   Masc, Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
+      <PronNonRefl,Fem,  Pl,P3> => \\_ => pronForms "ii" "eas" "earum" "iis" "iis" ;
+      <PronRefl,   Fem,  Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
+      <PronNonRefl,Neutr,Pl,P3> => \\_ => pronForms "ea" "ea"  "eorum" "iis" "iis" ;
+      <PronRefl,   Neutr,Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se"
+} ;
     t = PronPers r ;
     g = g ;
     n = n ;
