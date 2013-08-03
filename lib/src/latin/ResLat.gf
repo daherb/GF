@@ -777,6 +777,7 @@ oper
   Gen_Prep = lin Prep ( mkPrep "" Gen ) ;
   Acc_Prep = lin Prep ( mkPrep "" Acc ) ;
   Dat_Prep = lin Prep ( mkPrep "" Dat ) ;
+  Abl_Prep = lin Prep ( mkPrep "" Abl ) ;
 
   VP : Type = {
     fin : VActForm => Str ;
