@@ -114,7 +114,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       };
 
     -- Bayer-Lindauer 94
-    carry_V = 
+    bring_V = 
       let
     	pres_stem = "fer" ;
     	pres_ind_base = "fer" ;
