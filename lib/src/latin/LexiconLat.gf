@@ -15,6 +15,7 @@ concrete LexiconLat of Lexicon = CatLat ** open
   ParadigmsLat, 
   IrregLat,
   ResLat,
+  Structural,
   Prelude in {
 
 flags 
@@ -73,10 +74,10 @@ lin
   country_N = mkN "terra" ; -- -ae f. (Langenscheidts)
   cousin_N = mkN ( variants {"consobrinus" ; "consobrina" } ) ; -- -i/-ae m./f. (Langenscheidts)
   cow_N = mkN "bos" "bovis" ( variants { feminine ; masculine } ) ; -- bovis (gen. pl. boum, dat./abl. pl. bobus/bubus) m./f. (Langenscheidts)
-  die_V = mkV "mori" ; -- morior, mortuus sum, morturus (Langenscheidts)
+--  die_V = mkV "mori" ; -- morior, mortuus sum, morturus (Langenscheidts)
   dirty_A = mkA "sordidus" ; -- 3 (Langenscheidts)
 
-  distance_N3 = mkN3 (mkN "distantia") from_P to_P ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
+--  distance_N3 = mkN3 (mkN "distantia") from_Prep to_Prep ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
   doctor_N = mkN "medicus" ; -- -i m. (Langenscheidts)
   dog_N = mkN "canis" "canis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
   door_N = mkN "porta" ; -- -ae f. (Langenscheidts)
@@ -92,7 +93,7 @@ lin
   find_V2 = mkV2 (mkV "reperire") ; -- reperio, repperi, repertum 4 (Langenscheidts) aliquem
   fish_N = mkN "piscis" "piscis" masculine ; -- -is m. (Langenscheidts)
   floor_N = mkN "pavimentum" ; -- -i n. (Langenscheidts)
-  forget_V2 = mkV2 (mkV "oblivisci") ; -- obliscor, oblitus sum 3 (Langenscheidts)
+--  forget_V2 = mkV2 (mkV "oblivisci") ; -- obliscor, oblitus sum 3 (Langenscheidts)
   fridge_N = mkN "frigidarium" ; -- --i n. (Pons / http://la.wikipedia.org/wiki/Armarium_frigidarium)
   friend_N = mkN ( variants { "amicus" ; "amica" } ) ; -- -i/-ae m./f. (Langenscheidts)
   fruit_N = mkN "fructus" "fructus" masculine; -- -us m. (Langenscheidts)
@@ -103,10 +104,10 @@ lin
   glove_N = mkN "caestus" "caestus" masculine ; --us m. (Langenscheidts)
   gold_N = mkN "aurum" ; -- Ranta; -i n. (Langenscheidts)
   good_A = mkA "bonus" ; -- Ranta; 3 comp melior, -us; sup optimus 3; adv bene
-  go_V = mkV "ire" ; -- eo, i(v)i, itum (Langenscheidts)
+  go_V = IrregLat.go_V ; -- eo, i(v)i, itum (Langenscheidts)
   green_A = mkA "viridis" "viride"; -- -e (Langenscheidts)
   harbour_N = mkN "portus" "portus" masculine ; -- -us m. (Langenscheidts)
-  hate_V2 = mkV2 (mkV "odisse" "odi" "osurus") ; -- odi, osurus/odivi (Langenscheidts)
+--  hate_V2 = mkV2 (mkV "odisse" "odi" "osurus") ; -- odi, osurus/odivi (Langenscheidts)
   hat_N = mkN "petasus" ; -- -i m. (Langenscheidts)
 -- Not in abstract - don't know where it came from
 --  have_V2 = mkV2 (mkV "habere") ; -- habeo, -ui, -itum 2 (Langenscheidts)
@@ -126,7 +127,7 @@ lin
   learn_V2 = mkV2 (mkV "discere" "disco" "didici") ; -- disco, didici, - 3 (-isc-?) (Langenscheidts)
   leather_N = mkN "scortum" ; -- -i n. (Langenscheidts)
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
-  like_V2 = mkV2 ( lin V IrregLat.want_VV ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
+--  like_V2 = mkV2 ( lin V IrregLat.want_VV ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
   live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
@@ -135,7 +136,7 @@ lin
   love_V2 = mkV2 "amare" ; -- Ranta; amo 1 (Langenscheidts)
   man_N = mkN "vir" "viri" masculine ; -- viri m. (Langenscheidts)
   -- Category not yet implemented
-  married_A2 = mkA2 (mkA "coniunctus") to_Prep; -- 3 (http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.04.0060:entry=coniunctus&highlight=married)
+--  married_A2 = mkA2 (mkA "coniunctus") to_Prep; -- 3 (http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.04.0060:entry=coniunctus&highlight=married)
   meat_N = mkN "carnis" "carnis" feminine ; -- -is f. (Langenscheidts)
   milk_N = mkN "lac" "lactis" neuter ; -- -- lactis n. (Langenscheidts)
   moon_N = mkN "luna" ; -- -ae f. (Langenscheidts)
@@ -195,7 +196,7 @@ lin
   small_A = mkA "parvus" ; -- 3 (Langenscheidts)
   snake_N = mkN "serpens" "serpentis" ( variants { masculine ; feminine } ) ; -- -entis m./f. (Langenscheidts)
   sock_N = mkN "impile" "impilis" masculine ; -- -is n. (Pons)
-  speak_V2 = mkV2 (mkV "loqui") ; -- loquor, locutus sum 3 (Langenscheidts)
+--  speak_V2 = mkV2 (mkV "loqui") ; -- loquor, locutus sum 3 (Langenscheidts)
   star_N = mkN "stella" ; -- -ae f. (Langenscheidts)
   steel_N = mkN "chalybs" "chalybis" masculine ; -- chalybis m. (Langenscheidts)
   stone_N = mkN "lapis" "lapidis" masculine ; -- -idis m. (Langenscheidts)
@@ -206,7 +207,7 @@ lin
   switch8off_V2 = mkV2 (mkV "accendere") ; -- -cendo, -cendi, -censum 3 (Langenscheidts)
   switch8on_V2 = mkV2 (mkV ( variants { "exstinguere" ; "extinguere" } ) ); -- -ingo, -inxi, -inctum 3 (Langenscheidts)
   table_N = mkN "mensa" ; -- -ae f. (Langenscheidts)
-  talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
+--  talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
   teacher_N = mkN "magister" "magistri" masculine ; -- -tri m. (Langenscheidts)
   teach_V2 = mkV2 (mkV "docere") ; -- doceo, docui, doctum 2 (Langenscheidts)
   television_N = mkN "televisio" "televisionis" feminine ; -- -onis f. (Pons)
