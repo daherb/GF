@@ -3,7 +3,11 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
 
   lin
 
-    PositA  a = a ;
+    PositA  a = -- A -> AP
+      { 
+	s = a.s ! Posit ;
+	isPre = False | True ; -- adjectives can be before and after nouns
+      };
 
 {-
     ComparA a np = {
@@ -29,10 +33,10 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
       } ;
 -}
 
-    AdAP ada ap = {
-      s = \\g,n,c => ada.s ++ ap.s ! g ! n ! c ;
-      isPre = ap.isPre
-      } ;
+    -- AdAP ada ap = {
+    --   s = \\g,n,c => ada.s ++ ap.s ! g ! n ! c ;
+    --   isPre = ap.isPre
+    --   } ;
 
 --    UseA2 a = a ;
 
