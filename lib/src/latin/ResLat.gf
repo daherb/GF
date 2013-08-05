@@ -90,6 +90,8 @@ oper
       g ;
 
 
+  emptyAdj : Adjective = 
+    { s = \\_,_,_,_ => "" ; comp_adv = "" ; super_adv = "" } ; 
 
 -- verbs
 
@@ -762,6 +764,14 @@ oper
   --     p = P1 -- Some default !?!
   --   } ;
 
+  emptyPersonalPronoun : Gender -> Number -> Person -> Pronoun = \g,n,p ->
+    {
+      s = \\_,_ => "" ;
+      t = PronPers ( PronNonRefl | PronRefl ) ;
+      g = g ;
+      n = n ;
+      p = p ;
+    }; 
 -- prepositions
 
   Preposition : Type = {s : Str ; c : Case} ;
@@ -769,9 +779,6 @@ oper
 -- Bayer-Lindauer $149ff.
   about_P = lin Prep (mkPrep "de" Gen ) ; -- L...
   at_P = lin Prep (mkPrep "ad" Acc ) ; -- L...
-  for_P = lin Prep (mkPrep "pro" Abl ) ; -- L...
-  from_P = lin Prep ( mkPrep "ab" Abl ) ; -- L...
-  in_P = lin Prep ( mkPrep "in" ( variants { Abl ; Acc } ) ) ; -- L...
   on_P = lin Prep ( mkPrep "ad" Gen ) ; -- L...
   to_P = lin Prep ( mkPrep "ad" Acc ) ; -- L...
   Gen_Prep = lin Prep ( mkPrep "" Gen ) ;
@@ -783,7 +790,7 @@ oper
     fin : VActForm => Str ;
     inf : VInfForm => Str ;
     obj : Str ;
-    adj : Gender => Number => Str
+--    adj : Gender => Number => Str
   } ;
 
   VPSlash = VP ** {c2 : Preposition} ;
@@ -792,7 +799,7 @@ oper
     fin = v.act ;
     inf = v.inf ;
     obj = [] ;
-    adj = \\_,_ => []
+--    adj = \\_,_ => []
   } ;
 
   predV2 : (Verb ** {c : Preposition}) -> VPSlash = \v -> predV v ** {c2 = v.c} ;
@@ -817,8 +824,8 @@ oper
 
   -- mkClause : Pronoun -> VP -> Clause = \np,vp -> {
   --   s = \\a,t,p => np.s ! Nom ++ vp.obj ++ vp.adj ! np.g ! np.n ++ negation p ++ 
-  --       vp.fin ! VAct a t np.n np.p
-  -- } ;
+  --     vp.fin ! VAct a t np.n np.p
+  --   } ;
     
   negation : Polarity -> Str = \p -> case p of {
     Pos => [] ;   
