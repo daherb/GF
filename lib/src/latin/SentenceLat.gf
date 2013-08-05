@@ -4,7 +4,10 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 
   lin
 
-    PredVP = mkClause ;
+    PredVP np vp = -- NP -> VP -> Cl
+      {
+	s = \\anter,tense,pol => np.s ! Nom ++ vp.obj ++ negation pol ++ vp.fin ! VAct anter tense np.n np.p ;
+      } ;
 --
 --    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 --
