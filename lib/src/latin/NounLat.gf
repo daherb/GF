@@ -5,12 +5,19 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
   lin
     DetCN det cn = {
       s = \\c => det.s ! cn.g ! c ++ cn.s ! det.n ! c ; 
-      n = det.n ; g = cn.g ; p = P3
+      n = det.n ; g = cn.g ; p = P3 ;
+      preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
       } ;
 
 --    UsePN pn = pn ** {a = agrgP3 Sg pn.g} ;
-    UsePron p = p ;
-
+    UsePron p =
+      { 
+	g = p.g ;
+	n = p.n ;
+	p = p.p ;
+	s = p.s ! Sg ;
+	preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
+      } ;
 --    PredetNP pred np = {
 --      s = \\c => pred.s ++ np.s ! c ;
 --      a = np.a
@@ -43,10 +50,10 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
       n  = num.n
       } ;
 
-    DetNP det = {
-      s = det.sp ! Neutr ;
-      g = Neutr ; n = det.n ; p = P3
-      } ;
+    -- DetNP det = {
+    --   s = det.sp ! Neutr ;
+    --   g = Neutr ; n = det.n ; p = P3
+    --   } ;
 
 --    PossPron p = {
 --      s = \\_,_ => p.s ! Gen ;
@@ -70,7 +77,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 
     DefArt = {
       s = \\_,_,_ => [] ;
-      sp = \\n,g => (personalPronoun g n P3).s 
+--      sp = \\n,g => (personalPronoun PronRefl g n P3).s 
+      sp = \\_,_,_ => [] ;
       } ;
 
 --    IndefArt = {
@@ -90,7 +98,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 --      a = agrP3 Sg
 --      } ;
 --
-    UseN n = n ;
+    UseN n = lin CN n ; -- N -> CN
+
 --    UseN2 n = n ;
 -----b    UseN3 n = n ;
 --
@@ -113,9 +122,10 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 --      c2 = f.c3
 --      } ;
 
-    AdjCN ap cn = {
-      s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
-      g = cn.g
+    AdjCN ap cn =  -- AP -> CN -> CN
+      {
+	s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
+	g = cn.g
       } ;
 
 --    RelCN cn rs = {
@@ -123,7 +133,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 --      g = cn.g
 --      } ;
 
-    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s ; g = cn.g} ;
+--    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s ; g = cn.g} ;
 
 --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s ; g = cn.g} ;
 --
