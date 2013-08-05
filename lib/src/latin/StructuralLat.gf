@@ -1,60 +1,49 @@
 concrete StructuralLat of Structural = CatLat ** 
-  open ResLat, (P = ParadigmsLat), Prelude in 
+  open ResLat, (P = ParadigmsLat), Prelude, IrregLat in 
   {
 
   flags optimize=all ;
 
   lin
-  above_Prep = mkPrep "super" Acc ;
-  after_Prep = mkPrep "post" Acc ;
---  all_Predet = ss "all" ;
-  almost_AdA, almost_AdN = ss "quasi" ;
---  although_Subj = ss "although" ;
-  always_AdV = ss "semper" ;
---  and_Conj = sd2 [] "and" ** {n = Pl} ;
+  above_Prep = mkPrep "super" Abl ; -- abl. L...
+  after_Prep = mkPrep "post" Acc ; -- acc. L...
+  all_Predet = ss "cuncti" ; -- L...
+  almost_AdA, almost_AdN = ss "quasi" ; -- L...
+  although_Subj = ss "quamquam" ; -- L...
+  always_AdV = ss "semper" ; -- L...
+  and_Conj = sd2 [] "et" ** {n = Pl} ;
 -----b  and_Conj = ss "and" ** {n = Pl} ;
---  because_Subj = ss "because" ;
-  before_Prep = mkPrep "ante" Acc ;
---  behind_Prep = ss "behind" ;
-  between_Prep = mkPrep "inter" Acc ;
---  both7and_DConj = sd2 "both" "and" ** {n = Pl} ;
-  but_PConj = ss "sed" ;
-  by8agent_Prep = mkPrep "a" Abl ;
-  by8means_Prep = mkPrep "per" Acc ;
---  can8know_VV, can_VV = {
---    s = table { 
---      VVF VInf => ["be able to"] ;
---      VVF VPres => "can" ;
---      VVF VPPart => ["been able to"] ;
---      VVF VPresPart => ["being able to"] ;
---      VVF VPast => "could" ;      --# notpresent
---      VVPastNeg => "couldn't" ;   --# notpresent
---      VVPresNeg => "can't"
---      } ;
---    isAux = True
---    } ;
---  during_Prep = ss "during" ;
---  either7or_DConj = sd2 "either" "or" ** {n = Sg} ;
---  everybody_NP = regNP "everybody" Sg ;
---  every_Det = mkDeterminer Sg "every" ;
---  everything_NP = regNP "everything" Sg ;
---  everywhere_Adv = ss "everywhere" ;
---  few_Det = mkDeterminer Pl "few" ;
+  because_Subj = ss "cum" ; -- L...
+  before_Prep = mkPrep "ante" Acc ; -- acc. L...
+  behind_Prep = mkPrep "behind" Acc ; -- acc. L...
+  between_Prep = mkPrep "inter" Acc ; -- acc. L...
+  both7and_DConj = sd2 "et" "et" ** {n = Pl} ; --L...
+  but_PConj = ss "sed" ; -- L...
+  by8agent_Prep = mkPrep "per" Abl ; -- L...
+  by8means_Prep = Abl_Prep ; -- L...
+  can8know_VV, can_VV = IrregLat.can_VV ; --L...
+  during_Prep = mkPrep "inter" Acc ; -- L...
+  either7or_DConj = sd2 "aut" "aut" ** {n = Sg} ; -- L...
+--  everybody_NP = regNP "quisquae" Sg ; -- L...
+--  every_Det = mkDeterminer Sg "omnis" ; -- Pons
+--  everything_NP = regNP "omnia" Pl ; -- L...
+  everywhere_Adv = ss "ubique" ; -- L...
+--  few_Det = mkDeterminer Pl "paulum" ; -- L...
 -----  first_Ord = ss "first" ; DEPRECATED
-  for_Prep = mkPrep "pro" Abl ;
-  from_Prep = mkPrep "de" Abl ;
-  he_Pron = personalPronoun Masc Sg P3 ;
-  here_Adv = ss "hic" ;
---  here7to_Adv = ss ["to here"] ;
---  here7from_Adv = ss ["from here"] ;
---  how_IAdv = ss "how" ;
---  how8many_IDet = mkDeterminer Pl ["how many"] ;
---  if_Subj = ss "if" ;
+  for_Prep = mkPrep "pro" Abl ; -- abl. L...
+  from_Prep = mkPrep "de" Abl ; -- abl. L...
+  he_Pron = personalPronoun PronNonRefl Masc Sg P3 ;
+  here_Adv = ss "hic" ; -- L...
+  here7to_Adv = ss "huc" ; -- L...
+  here7from_Adv = ss "hinc" ; -- L...
+  how_IAdv = ss "qui" ; -- L...
+--  how8many_IDet = mkDeterminer Pl "quantus" ; -- L...
+  if_Subj = ss "si" ; -- L...
   in8front_Prep = mkPrep "coram" Abl ;
-  i_Pron = personalPronoun Masc Sg P1 ;
-  in_Prep = mkPrep "in" Abl ;
-  it_Pron = personalPronoun Neutr Sg P3 ;
---  less_CAdv = ss "less" ;
+  i_Pron = variants { personalPronoun PronNonRefl Masc Sg P1 ; emptyPersonalPronoun Masc Sg P1 } ;
+  in_Prep = mkPrep "in" ( variants { Abl ; Acc } ) ; -- L...
+  it_Pron = personalPronoun PronNonRefl Neutr Sg P3 ;
+  less_CAdv =  { s = "minus" ; p = "" } ; -- L...
 --  many_Det = mkDeterminer Pl "many" ;
 --  more_CAdv = ss "more" ;
 --  most_Predet = ss "most" ;
@@ -82,7 +71,7 @@ concrete StructuralLat of Structural = CatLat **
 --  please_Voc = ss "please" ;
   possess_Prep = mkPrep [] Gen ;
 --  quite_Adv = ss "quite" ;
-  she_Pron = personalPronoun Fem Sg P3 ;
+  she_Pron = personalPronoun PronNonRefl Fem Sg P3 ;
   so_AdA = ss "sic" ;
 --  somebody_NP = regNP "somebody" Sg ;
 --  someSg_Det = mkDeterminer Sg "some" ;
@@ -94,15 +83,15 @@ concrete StructuralLat of Structural = CatLat **
 --  there7to_Adv = ss "there" ;
 --  there7from_Adv = ss ["from there"] ;
 --  therefore_PConj = ss "therefore" ;
-  they_Pron = personalPronoun Masc Pl P3 ;
+  they_Pron = personalPronoun PronNonRefl Masc Pl P3 ;
   this_Quant = hic_Quantifier ;
 --  through_Prep = ss "through" ;
 --  too_AdA = ss "too" ;
 --  to_Prep = ss "to" ;
   under_Prep = mkPrep "sub" Acc ;
   very_AdA = ss "valde" ;
---  want_VV = P.mkVV (P.regV "want") ;
-  we_Pron = personalPronoun Masc Pl P1 ;
+  want_VV = IrregLat.want_VV ;
+  we_Pron = personalPronoun PronNonRefl Masc Pl P1 ;
 --  whatPl_IP = mkIP "what" "what" "what's" Pl ;
 --  whatSg_IP = mkIP "what" "what" "what's" Sg ;
 --  when_IAdv = ss "when" ;
@@ -113,13 +102,13 @@ concrete StructuralLat of Structural = CatLat **
 -----b  whichSg_IDet = mkDeterminer Sg ["which"] ;
 --  whoPl_IP = mkIP "who" "whom" "whose" Pl ;
 --  whoSg_IP = mkIP "who" "whom" "whose" Sg ;
---  why_IAdv = ss "why" ;
-  without_Prep = mkPrep "sine" Abl ;
-  with_Prep = mkPrep "cum" Abl ;
-  yes_Utt = ss "sic" ;
-  youSg_Pron = personalPronoun Masc Sg P2 ;
-  youPl_Pron = personalPronoun Masc Pl P2 ;
-  youPol_Pron = personalPronoun Masc Sg P2 ;
+  why_IAdv = ss "cur" ; -- L...
+  without_Prep = mkPrep "sine" Abl ; -- abl. L..
+  with_Prep = mkPrep "cum" Abl ; -- abl. L..
+  yes_Utt = ss "sane" ; -- L...
+  youSg_Pron = personalPronoun PronNonRefl Masc Sg P2 ;
+  youPl_Pron = personalPronoun PronNonRefl Masc Pl P2 ;
+  youPol_Pron = personalPronoun PronNonRefl Masc Sg P2 ;
 
   lin language_title_Utt = ss "latina" ;
 
