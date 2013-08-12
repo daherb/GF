@@ -5,7 +5,7 @@ concrete VerbLat of Verb = CatLat ** open ResLat,IrregLat in {
   lin
     UseV = predV ;
 
---    SlashV2a v = predV2 v ;
+    SlashV2a v = predV2 v ;
 --    Slash2V3 v np = 
 --      insertObjc (\\_ => v.c2 ++ np.s ! Acc) (predV v ** {c2 = v.c3}) ;
 --    Slash3V3 v np = 
@@ -21,7 +21,7 @@ concrete VerbLat of Verb = CatLat ** open ResLat,IrregLat in {
 --    SlashV2Q v q  = insertObjc (\\_ => q.s ! QIndir) (predVc v) ;
 --    SlashV2A v ap = insertObjc (\\a => ap.s ! a) (predVc v) ; ----
 --
---    ComplSlash vp np = insertObj (appPrep vp.c2 np.s) vp ;
+    ComplSlash vp np = insertObj (appPrep vp.c2 np.s) vp ;
 --
 --    SlashVV vv vp = 
 --      insertObj (\\a => infVP vv.isAux vp a) (predVV vv) **
