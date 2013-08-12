@@ -15,18 +15,6 @@ oper
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
   Adjective : Type = {s : Degree => Gender => Number => Case => Str ; comp_adv : Str ; super_adv : Str } ;
 
--- To file as a bug :
---  stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
---  fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
---  test_consonant : pattern Str = (#stop | #fricative) ;
-  -- test : Str -> Str =
-  --   \n ->
-  --   case n of {
-  --     #test_consonant + rest => "Got it";
-  --     full => "Nope"
-  --   };
--- Results in src/compiler/GF/Compile/Compute/ConcreteLazy.hs:(320,16)-(321,51): Non-exhaustive patterns in case
-
 -- nouns
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
