@@ -614,30 +614,22 @@ param
 
 param
   PronReflForm = PronRefl | PronNonRefl ;
-  PronIndefUsage = PronSubst | PronAdj ;
-  PronIndefPol = PronPos | PronNeg ;
-  PronIndefMeaning = PronSomeone | PronCertainOne | PronEvery ;
-  PronType = PronPers PronReflForm | PronPoss PronReflForm | PronDemo | PronRelat | PronInterrog | 
-    PronIndef PronIndefUsage PronIndefPol PronIndefMeaning ;
+  PronDropForm = PronDrop | PronNonDrop;
+--  PronIndefUsage = PronSubst | PronAdj ;
+--  PronIndefPol = PronPos | PronNeg ;
+--  PronIndefMeaning = PronSomeone | PronCertainOne | PronEvery ;
+--  PronType = PronPers PronReflForm | PronPoss PronReflForm | PronDemo | PronRelat | PronInterrog | 
+--    PronIndef PronIndefUsage PronIndefPol PronIndefMeaning ;
 
 oper
   
   Pronoun : Type = {
-    t : PronType ;
-    s : Number => Case => Str ;
+    pers : PronDropForm => PronReflForm => Case => Str ;
+    poss : PronReflForm => Gender => Number => Case => Str ;
     g : Gender ;
     n : Number ;
     p : Person ;
     } ;
-
-  mkPronoun : (_,_,_,_,_ : Str) -> PronType -> Gender -> Number -> Person -> Pronoun = 
-    \ego,me,mei,mihi,mee,t,g,n,p -> {
-      t = t ;
-      s = table { _ => pronForms ego me mei mihi mee } ;
-      g = g ;
-      n = n ;
-      p = p
-      } ;
 
   pronForms = overload {
     pronForms : (_,_,_,_,_ : Str) -> Case => Str = 
@@ -645,133 +637,150 @@ oper
     pronForms : (_,_,_,_,_,_ : Str) -> Case => Str = 
       \meus,meum,mei,meo,meoo,mi -> table Case [meus ; meum ; mei ; meo ; meoo ; mi] ;
     };
-
-  personalPronoun : PronReflForm -> Gender -> Number -> Person -> Pronoun = \r,g,n,p -> {
-    s = case <r,g,n,p> of {
-      <_,_,Sg,P1> => \\_ => pronForms "ego" "me" "mei" "mihi" "me" "me" ;
-
-      <_,          _,    Sg,P2> => \\_ => pronForms "tu"  "te" "tui" "tibi" "te" "te" ;
-      <_,          _,    Pl,P1> => \\_ => pronForms "nos" "nos" "nostri" "nobis" "nobis" ; --- nostrum
-      <_,          _,    Pl,P2> => \\_ => pronForms "vos" "vos" "vestri" "vobis" "vobis" ; --- vestrum
-      <PronNonRefl,Masc, Sg,P3> => \\_ => pronForms "is" "eum" "eius" "ei" "eo" ;
-      <PronRefl,   Masc, Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
-      <PronNonRefl,Fem,  Sg,P3> => \\_ => pronForms "ea" "eam" "eius" "ei" "ea" ;
-      <PronRefl,   Fem,  Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
-      <PronNonRefl,Neutr,Sg,P3> => \\_ => pronForms "id" "id"  "eius" "ei" "eo" ;
-      <PronRefl,   Neutr,Sg,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
-      <PronNonRefl,Masc, Pl,P3> => \\_ => pronForms "ii" "eos" "eorum" "iis" "iis" ;
-      <PronRefl,   Masc, Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
-      <PronNonRefl,Fem,  Pl,P3> => \\_ => pronForms "ii" "eas" "earum" "iis" "iis" ;
-      <PronRefl,   Fem,  Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se" ;
-      <PronNonRefl,Neutr,Pl,P3> => \\_ => pronForms "ea" "ea"  "eorum" "iis" "iis" ;
-      <PronRefl,   Neutr,Pl,P3> => \\_ => pronForms "######" "se" "sui" "sibi" "se"
-} ;
-    t = PronPers r ;
-    g = g ;
-    n = n ;
-    p = p
+    
+  createPronouns : Gender -> Number -> Person -> ( ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Gender => Number => Case => Str ) ) = \g,n,p ->
+    case <g,n,p> of {
+      <_,Sg,P1> =>
+  	< 
+  	table { 
+  	  PronDrop    => \\_,_ => "" ;  
+  	  PronNonDrop => \\_ => pronForms "ego" "me" "mei" "mihi" "me" "me"
+  	},
+  	\\_ => table {
+  	  Masc => table  {
+  	    Sg => pronForms "meus" "meum" "mei" "meo" "meo" "mi" ;
+  	    Pl => pronForms "mei" "meos" "meorum" "meis" "meis" "mei"
+  	    } ;
+  	  Fem => table { 
+  	    Sg => pronForms "mea" "meam" "meae" "meae" "mea" "mea" ;
+   	    Pl => pronForms "meae" "meas" "mearum" "meis" "meis" "meae"
+   	    } ;
+  	  Neutr => table {
+  	    Sg => pronForms "meum" "meum" "mei" "meo" "meo" "meum" ;
+   	    Pl => pronForms "mea" "mea" "meorum" "meis" "meis" "mea"
+   	    }
+  	}
+  	> ;
+      <_,    Sg,P2> => 
+      	< 
+      	table {
+	  PronDrop => \\_,_ => "" ; 
+      	  PronNonDrop => \\_ => pronForms "tu"  "te" "tui" "tibi" "te" "te" 
+      	} ,
+      	\\_ => table {
+      	  Masc => table {
+      	    Sg => pronForms "tuus" "tuum" "tui" "tuo" "tu" "tue" ;
+      	    Pl => pronForms "tui" "tuos" "tuorum" "tuis" "tuis" "tui"
+      	    } ;
+      	  Fem => table {
+      	    Sg => pronForms "tua" "tuam" "tuae" "tuae" "tua" "tua" ;
+      	    Pl => pronForms "tuae" "tuas" "tuarum" "tuis" "tuis" "tuae"
+      	    } ;
+      	  Neutr =>
+      	    table {
+      	      Sg => pronForms "tuum" "tuum" "tui" "tuo" "tuo" "tuum" ;
+      	      Pl => pronForms "tua" "tua" "tuorum" "tuis" "tuis" "tua"
+      	    }
+      	}
+      	> ;
+      <_,    Pl,P1> => 
+      	< 
+      	table { 
+      	  PronDrop => \\_,_ => "" ;
+      	  PronNonDrop => \\_ => pronForms "nos" "nos" "nostri" "nobis" "nobis" --- nostrum
+      	} , 
+      	\\_ => table {
+      	  Masc => table {
+      	    Sg => pronForms "noster" "nostrum" "nostri" "nostro" "nostro" "noster" ; 
+      	    Pl => pronForms "nostri" "nostros" "nostrorum" "nostris" "nostris" "nostri"
+      	    } ;
+      	  Fem => table {
+      	    Sg => pronForms "nostra" "nostram" "nostrae" "nostrae" "nostra" "nostra" ;
+      	    Pl => pronForms "nostrae" "nostras" "nostrarum" "nostris" "nostris" "nostrae" 
+      	    } ;
+      	  Neutr => table {
+      	    Sg => pronForms "nostrum" "nostrum" "nostri" "nostro" "nostro" "nostrum" ;
+      	    Pl => pronForms "nostra" "nostra" "nostrorum" "nostris" "nostris" "nostra"
+      	    }
+      	}
+      	> ; 
+      <_,    Pl,P2> => 
+      	< 
+      	table {
+      	  PronDrop => \\_,_ => "" ; 
+      	  PronNonDrop => \\_ => pronForms "vos" "vos" "vestri" "vobis" "vobis"  --- vestrum
+      	} ,
+      	\\_ => table {
+      	  Masc => table {
+      	    Sg => pronForms "vester" "vestrum" "vestri" "vestro" "vestro" "vester" ;
+      	    Pl => pronForms "vestri" "vestros" "vestrorum" "vestris" "vestris" "vestri"
+      	    } ;
+      	  Fem => table {
+      	    Sg => pronForms "vestra" "vestram" "vestrae" "vestrae" "vestra" "vestra" ;
+      	    Pl => pronForms "vestrae" "vestras" "vestrarum" "vestris" "vestris" "vestrae"
+      	    } ;
+      	  Neutr => table {
+      	    Sg => pronForms "vestrum" "vestrum" "vestri" "vestro" "vestro" "vestrum" ;
+      	    Pl => pronForms "vestra" "vestra" "vestrorum" "vestris" "vestris" "vestra"
+      	    }
+      	}
+      	>; 
+      <_,_ ,P3> => 
+      	<
+      	table {
+      	  PronDrop => \\_,_ => "" ;
+      	  PronNonDrop =>
+      	    table { 
+      	      PronNonRefl => 
+      		case <g,n> of {
+      		  <Masc ,Sg> => pronForms "is"  "eum" "eius"  "ei" "eo" ;
+      		  <Fem  ,Sg> => pronForms "ea"  "eam" "eius"  "ei" "ea" ;
+      		  <Neutr,Sg> => pronForms "id"  "id"  "eius"  "ei" "eo" ;
+      		  <Masc ,Pl> => pronForms "ei"  "eos" "eorum" "eis" "eis" ;
+      		  <Fem  ,Pl> => pronForms "eae" "eas" "earum" "eis" "eis" ;
+      		  <Neutr,Pl> => pronForms "ea"  "ea"  "eorum" "eis" "eis"
+      		} ;
+      	      PronRefl => pronForms "######" "se" "sui" "sibi" "se"
+      	    }
+      	} ,
+      	table {
+      	  PronNonRefl => 
+      	    \\_,_,_ => "######" ;
+      	  PronRefl =>
+      	    table {
+      	      Masc => table {
+      	  	Sg => pronForms "suus" "suum" "sui" "suo" "suo" ;
+      	  	Pl => pronForms "sui" "suos" "suorum" "suis" "suis"
+      	  	} ;
+      	      Fem => table {
+      	  	Sg => pronForms "sua" "suam" "suae" "suae" "sua" ;
+      	  	Pl => pronForms "suae" "suas" "suarum" "suis" "suis"
+      	  	} ;
+      	      Neutr => table {
+      	  	Sg => pronForms "suum" "suum" "sui" "suo" "suo" ;
+      	  	Pl => pronForms "sua" "sua" "suorum" "suis" "suis"
+      	  	}
+      	    }
+      	}
+      	> ;
+      _ =>
+    	< \\_,_,_ => "######!" , \\_,_,_,_ => "######!" > -- should never be reached
     } ;
 
-
-  possesivePronoun : PronReflForm -> Gender -> Number -> Person -> Pronoun = \r,g,n,p ->
+  mkPronoun : Gender -> Number -> Person -> Pronoun = \g,n,p ->
+    let 
+      -- Personal_Form * Possesive_Form
+      prons : ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Gender => Number => Case => Str ) =
+      createPronouns g n p ;
+    in
     {
-      s = case <r,g,n,p> of {
-	<_,Masc, Sg,P1> => table { 
-	  Sg => pronForms "meus" "meum" "mei" "meo" "meo" "mi" ;
-	  Pl => pronForms "mei" "meos" "meorum" "meis" "meis" "mei"
-	  } ;
-	<_,Fem,  Sg,P1> => table { 
-	  Sg => pronForms "mea" "meam" "meae" "meae" "mea" "mea" ;
-	  Pl => pronForms "meae" "meas" "mearum" "meis" "meis" "meae"
-	  } ;
-	<_,Neutr,Sg,P1> => table {
-	  Sg => pronForms "meum" "meum" "mei" "meo" "meo" "meum" ;
-	  Pl => pronForms "mea" "mea" "meorum" "meis" "meis" "mea"
-	  } ;
-	<_,Masc, Sg,P2> => table {
-	  Sg => pronForms "tuus" "tuum" "tui" "tuo" "tu" "tue" ;
-	  Pl => pronForms "tui" "tuos" "tuorum" "tuis" "tuis" "tui"
-	  } ;
-	<_,Fem,  Sg,P2> => table {
-	  Sg => pronForms "tua" "tuam" "tuae" "tuae" "tua" "tua" ;
-	  Pl => pronForms "tuae" "tuas" "tuarum" "tuis" "tuis" "tuae"
-	  } ;
-	<_,Neutr,Sg,P2> => table {
-	  Sg => pronForms "tuum" "tuum" "tui" "tuo" "tuo" "tuum" ;
-	  Pl => pronForms "tua" "tua" "tuorum" "tuis" "tuis" "tua"
-	  } ;
-	<_,Masc, Pl,P1> => table {
-	  Sg => pronForms "noster" "nostrum" "nostri" "nostro" "nostro" "noster" ; 
-	  Pl => pronForms "nostri" "nostros" "nostrorum" "nostris" "nostris" "nostri"
-	  } ;
-	<_,Fem,  Pl,P1> => table {
-	  Sg => pronForms "nostra" "nostram" "nostrae" "nostrae" "nostra" "nostra" ;
-	  Pl => pronForms "nostrae" "nostras" "nostrarum" "nostris" "nostris" "nostrae" 
-	  } ;
-	<_,Neutr,Pl,P1> => table {
-	  Sg => pronForms "nostrum" "nostrum" "nostri" "nostro" "nostro" "nostrum" ;
-	  Pl => pronForms "nostra" "nostra" "nostrorum" "nostris" "nostris" "nostra"
-	  } ;
-	<_,Masc ,Pl,P2> => table {
-	  Sg => pronForms "vester" "vestrum" "vestri" "vestro" "vestro" "vester" ;
-	  Pl => pronForms "vestri" "vestros" "vestrorum" "vestris" "vestris" "vestri"
-	  } ;
-	<_,Fem  ,Pl,P2> => table {
-	  Sg => pronForms "vestra" "vestram" "vestrae" "vestrae" "vestra" "vestra" ;
-	  Pl => pronForms "vestrae" "vestras" "vestrarum" "vestris" "vestris" "vestrae"
-	  } ;
-	<_,Neutr,Pl,P2> => table {
-	  Sg => pronForms "vestrum" "vestrum" "vestri" "vestro" "vestro" "vestrum" ;
-	  Pl => pronForms "vestra" "vestra" "vestrorum" "vestris" "vestris" "vestra"
-	  } ;
-	<PronNonRefl,_,    Sg,P3> => \\_,_ => "eius" ;
-	<PronNonRefl,Fem,  Pl,P3> => \\_,_ => "earum" ;
-	<PronNonRefl,_,    Pl,P3> => \\_,_ => "eorum" ;
-	<PronRefl,   Masc, _, P3> => table {
-	  Sg => pronForms "suus" "suum" "sui" "suo" "suo" "sue" ;
-	  Pl => pronForms "sui" "suos" "suorum" "suis" "suis" "sui" 
-	  } ;
-	<PronRefl,   Fem,  _, P3> => table {
-	  Sg => pronForms "sua" "suam" "suae" "suae" "sua" "sua" ;
-	  Pl => pronForms "suae" "suas" "suarum" "suis" "suis" "suae" 
-	  } ;
-	<PronRefl,   Neutr,_, P3> => table {
-	  Sg => pronForms "suum" "suum" "sui" "suo" "suo" "suum" ;
-	  Pl => pronForms "sua" "sua" "suorum" "suis" "suis" "sua"
-	  } 
-	} ;
-      t = PronPoss r ;
-      g = g ;
-      n = n ;
-      p = p
+     pers = prons.p1 ;
+     poss = prons.p2 ;
+     g = g ;
+     n = n ;
+     p = p
     } ;
 
-  -- indefinitePronoun : PronIndefUsage -> PronIndefPol -> PronIndefMeaning -> Gender -> Number -> Pronoun =
-  --   \use,pol,mean,gen,num ->
-  --   {
-  --     s = case <use,pol,mean,gen,num> of {
-  -- 	<PronSubst,PronPos,PronSomeone,Masc,Sg> => 
-  -- 	  \\_ => pronForms "aliquis" "aliquem" "alicuius" "alicui" "aliquo" ;
-  -- 	<PronSubst,PronPos,PronSomeone,_,   Sg> =>
-  -- 	  \\_ => pronForms "aliquid" "aliquid" 
-  -- 	  ( "alicuius" ++ "rei" ) ( "alicui" ++ "rei" ) -- Usefull ?
-	  
-  -- 	_ => \\_,_ => ""
-  -- 	} ;
-  --     t = PronIndef use pol mean ;
-  --     g = gen ;
-  --     n = num ;
-  --     p = P1 -- Some default !?!
-  --   } ;
-
-  emptyPersonalPronoun : Gender -> Number -> Person -> Pronoun = \g,n,p ->
-    {
-      s = \\_,_ => "" ;
-      t = PronPers ( PronNonRefl | PronRefl ) ;
-      g = g ;
-      n = n ;
-      p = p ;
-    }; 
 -- prepositions
 
   Preposition : Type = {s : Str ; c : Case} ;
