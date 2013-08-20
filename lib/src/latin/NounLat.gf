@@ -115,7 +115,10 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 
     AdjCN ap cn =  -- AP -> CN -> CN
       {
-	s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
+	-- s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
+	-- s = \\n,c => ( cn.s ! n ! c ) ++ ( ap.s ! AdjPhr cn.g n c) ; -- always add adjectives after noun?
+	s = cn.s ;
+	-- variants { postap = ConsAP postap ap ; preap = ConsAP preap ap } ; -- Nice if that would work
 	g = cn.g
       } ;
 
