@@ -63,6 +63,9 @@ oper
       = \v,x,y -> lin V ( verb_ippp v x y "######" ) ; 
   } ;
 
+  V0 : Type = V ;
+  mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
+
   mkV2 = overload {
     mkV2 : (amare : Str) -> V2
       = \v -> lin V2 ( verb v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
