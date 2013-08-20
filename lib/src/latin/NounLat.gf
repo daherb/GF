@@ -79,18 +79,11 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
       sp = \\_,_,_ => [] ;
       } ;
 
---    IndefArt = {
---      s = \\c,n => case <n,c> of {
---        <Sg,False> => artIndef ;
---        _ => []
---        } ;
---      sp = \\c,n => case <n,c> of {
---        <Sg,False> => "one" ;
---        <Pl,False> => "ones" ;
---        _ => []
---        }
---      } ;
---
+    IndefArt = {
+      s = \\_,_,_ => [] ;
+      sp = \\_,_,_ => [] ;
+      } ;
+
 --    MassNP cn = {
 --      s = cn.s ! Sg ;
 --      a = agrP3 Sg
