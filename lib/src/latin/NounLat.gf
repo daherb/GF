@@ -76,7 +76,6 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 
     DefArt = {
       s = \\_,_,_ => [] ;
---      sp = \\n,g => (personalPronoun PronRefl g n P3).s 
       sp = \\_,_,_ => [] ;
       } ;
 
