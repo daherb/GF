@@ -10,13 +10,12 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
       } ;
 
 --    UsePN pn = pn ** {a = agrgP3 Sg pn.g} ;
-    UsePron p =
+    UsePron p = -- Pron -> Np
       { 
 	g = p.g ;
 	n = p.n ;
 	p = p.p ;
-	s = p.s ! Sg ;
-	preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
+	s = p.pers ! PronDrop ! PronRefl ;
       } ;
 --    PredetNP pred np = {
 --      s = \\c => pred.s ++ np.s ! c ;
