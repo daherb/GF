@@ -5,8 +5,8 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
 
     PositA  a = -- A -> AP
       { 
-	s = a.s ! Posit ;
-	isPre = False | True ; -- adjectives can be before and after nouns
+	s = table { AdjPhr g n c  => a.s ! Posit ! g ! n ! c } ;
+--	isPre = True | False ; -- adjectives can be before and after nouns -> Trying to find a different way to do this
       };
 
 {-
