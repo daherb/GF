@@ -61,7 +61,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       } ;
 
     -- Bayer-Lindauer 93 2.2
-    can_VV = 
+    can_irreg_VV = 
       let
     	pres_stem = "pos" ;
     	pres_ind_base = "pos" ;
@@ -174,7 +174,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       };
 
     -- Bayer-Lindauer 95
-    want_VV = 
+    want_irreg_VV = 
       let
 	pres_stem = "vel" ;
 	pres_ind_base = "vol" ;
@@ -348,4 +348,58 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" -- no supin
       } ;
 	
+    rain_V =
+      {
+	act = 
+	  table {
+	    VAct VSim (VPres VInd) Sg P3 => "pluit" ;
+	    VAct VSim (VPres VInd) Pl P3 => "pluunt" ;
+	    VAct VSim (VImpf VInd) Sg P3 => "pluebat" ;
+	    VAct VSim (VImpf VInd) Pl P3 => "pluebant" ;
+	    VAct VSim VFut Sg P3 => "pluet" ;
+	    VAct VSim VFut Pl P3 => "pluent" ;
+	    VAct VAnt (VPres VInd) Sg P3 => "pluvit" ;
+	    VAct VAnt (VPres VInd) Pl P3 => "pluverunt" ;
+	    VAct VAnt (VImpf VInd) Sg P3 => "pluverat" ;
+	    VAct VAnt (VImpf VInd) Pl P3 => "pluverat" ;
+	    VAct VAnt VFut Sg P3 => "pluverit" ;
+	    VAct VAnt VFut Pl P3 => "pluverint" ;
+	    VAct VSim (VPres VConj) Sg P3 => "pluat" ;
+	    VAct VSim (VPres VConj) Pl P3 => "pluant" ;
+	    VAct VSim (VImpf VConj) Sg P3 => "plueret" ; 
+	    VAct VSim (VImpf VConj) Pl P3 => "pluerent" ;
+	    VAct VAnt (VPres VConj) Sg P3 => "pluverit" ;
+	    VAct VAnt (VPres VConj) Pl P3 => "pluverint" ;
+	    VAct VAnt (VImpf VConj) Sg P3 => "pluvisset" ;
+	    VAct VAnt (VImpf VConj) Pl P3 => "pluvissent" ;
+	    _ => "######" -- no such forms
+	  } ;
+	pass = 
+	  \\_ => "######" ; -- no passive forms
+	inf = table {
+	  VInfActPres => "pluere" ;
+	  VInfActPerf _ => "pluvisse" ;
+	  _ => "######"
+	  } ;
+	imp =
+	  table {
+	    VImp2 Sg ( P2 | P3 ) => "pluito" ;
+	    VImp2 Pl P2 => "pluitote" ;
+	    VImp2 Pl P3 => "pluunto" ;
+	    _ => "######" 
+	  } ;
+	ger = 
+	  \\_ => "######" ; -- no gerund forms
+	geriv = 
+	  \\_,_,_ => "######" ; -- no gerundive forms
+	sup = 
+	  \\_ => "######" ; -- no supin forms
+	partActPres =
+	  \\_,_,_ => "pluens" ;
+	partActFut =
+	  \\_,_,_ => "######" ; -- no such participle
+	partPassPerf =
+	  \\_,_,_ => "######" ; -- no such participle
+      } ;
+	    
 }
