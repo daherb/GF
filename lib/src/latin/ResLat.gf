@@ -9,13 +9,39 @@ param
   Gender = Masc | Fem | Neutr ;
 --  Degree = DPos | DComp | DSup ;
 
-oper
-  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
+  oper
+    consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
 
-  Noun : Type = {s : Number => Case => Str ; g : Gender} ;
-  Adjective : Type = {s : Degree => Gender => Number => Case => Str ; comp_adv : Str ; super_adv : Str } ;
-
+    Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+    NounPhrase : Type = 
+      {
+	s : Case => Str ; 
+	g : Gender ; 
+	n : Number ; 
+	p : Person ;
+      } ;
+  param
+    APForm = AdjPhr Gender Number Case ;
+  oper
+    Adjective : Type = {
+      s : Degree => Gender => Number => Case => Str ; 
+      comp_adv : Str ; 
+      super_adv : Str 
+      } ;
+    CommonNoun : Type = 
+    {
+      s : Number => Case => Str ; 
+      g : Gender ;
+      preap : {s : APForm => Str } ;
+      postap : {s : APForm => Str } ;
+    } ;
 -- nouns
+  useCNasN : CommonNoun -> Noun = \cn ->
+    {
+      s = cn.s ;
+      g = cn.g ;
+    } ;
+
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
       s = table {
