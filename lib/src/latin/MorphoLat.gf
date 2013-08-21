@@ -23,7 +23,7 @@ oper
   fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
   nasal : pattern Str = #( "m" | "n" );
   liquid : pattern Str = #( "r" | "l" );
-
+--  consonant : pattern Str = #(#stop | #fricative | #nasal | #liquid ); -- not working
 ----2 Nouns  
     
 -- declensions
