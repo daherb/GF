@@ -47,21 +47,14 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --    AP = Adjective ** {isPre : Bool} ; ---- {s : Agr => Str ; isPre : Bool} ; 
     AP = 
       { 
-	s : Gender => Number => Case => Str ;
-	isPre : Bool ;
+	s : APForm => Str ;
+--	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
       } ;
 --
 ---- Noun
 --
-    CN = {s : Number => Case => Str ; g : Gender} ;
-    NP = {
-      s : Case => Str ; 
-      g : Gender ; 
-      n : Number ; 
-      p : Person ;
-      preap : AP ; -- adjectives before noun
-      postap : AP -- adjectives after noun
-      } ;
+    CN = ResLat.CommonNoun ;
+    NP = ResLat.NounPhrase ;
     Pron = ResLat.Pronoun ;
     Det = Determiner ;
 --    Predet, Ord = {s : Str} ;
