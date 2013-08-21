@@ -1,12 +1,13 @@
-concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
+concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = {
-      s = \\c => det.s ! cn.g ! c ++ cn.s ! det.n ! c ; 
+    DetCN det cn = -- Det -> CN -> NP
+      {
+      s = \\c => det.s ! cn.g ! c ++ cn.preap.s ! (AdjPhr cn.g det.n c) ++ cn.s ! det.n ! c ++ cn.postap.s ! (AdjPhr cn.g det.n c) ; 
       n = det.n ; g = cn.g ; p = P3 ;
-      preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
+--      preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
       } ;
 
 --    UsePN pn = pn ** {a = agrgP3 Sg pn.g} ;
@@ -89,7 +90,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 --      a = agrP3 Sg
 --      } ;
 --
-    UseN n = lin CN n ; -- N -> CN
+    UseN n = lin CN n ** {preap, postap = {s = \\_ => "" } }; -- N -> CN
 
 --    UseN2 n = n ;
 -----b    UseN3 n = n ;
@@ -118,6 +119,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude in {
 	-- s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
 	-- s = \\n,c => ( cn.s ! n ! c ) ++ ( ap.s ! AdjPhr cn.g n c) ; -- always add adjectives after noun?
 	s = cn.s ;
+	postap = { s = \\a => ap.s ! a ++ cn.postap.s ! a } ;
+	preap = cn.preap ;
 	-- variants { postap = ConsAP postap ap ; preap = ConsAP preap ap } ; -- Nice if that would work
 	g = cn.g
       } ;
