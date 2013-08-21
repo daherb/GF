@@ -15,7 +15,9 @@ concrete LexiconLat of Lexicon = CatLat ** open
   ParadigmsLat, 
   IrregLat,
   ResLat,
-  Structural,
+  StructuralLat,
+  NounLat,
+  AdjectiveLat,
   Prelude in {
 
 flags 
@@ -53,7 +55,7 @@ lin
   butter_N = mkN "butyrum" ; -- -i n. (http://la.wikipedia.org/wiki/Butyrum / Pons)
   buy_V2 = mkV2 (mkV "emere") ; -- emo, emi, emptum 3 (Langenscheidts) (Stowasser) ab, de aliquo (Stowasser)
   -- Trying to work with Machina ++ photographica
---  camera_N = mkN "Machina" ++ "photographica" ; -- (http://la.wikipedia.org/wiki/Machina_photographica / Pons)
+  camera_N = ResLat.useCNasN (AdjCN (PositA (mkA "photographicus") ) (UseN (mkN "machina" ) ) )  ; -- (http://la.wikipedia.org/wiki/Machina_photographica / Pons)
   cap_N = mkN "galerus" ; -- -i m. (Langenscheidts)
   car_N = mkN "autoreada" ; -- -ae f. (Pons / http://la.wikipedia.org/wiki/Autocinetum)
   carpet_N = mkN "stragulum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Teges_pavimenti)
@@ -77,7 +79,7 @@ lin
 --  die_V = mkV "mori" ; -- morior, mortuus sum, morturus (Langenscheidts)
   dirty_A = mkA "sordidus" ; -- 3 (Langenscheidts)
 
---  distance_N3 = mkN3 (mkN "distantia") from_Prep to_Prep ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
+  distance_N3 = mkN3 (mkN "distantia") from_Prep to_Prep ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
   doctor_N = mkN "medicus" ; -- -i m. (Langenscheidts)
   dog_N = mkN "canis" "canis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
   door_N = mkN "porta" ; -- -ae f. (Langenscheidts)
@@ -147,7 +149,7 @@ lin
   new_A = mkA "novus" ; -- 3 (Langenscheidts)
   newspaper_N = mkN "diurnum" ; -- -i n. (Pons)
   oil_N = mkN "oleum" ; -- -i n. (Langenscheidts)
-  old_A = mkA "antiquus" ; -- 3 (Langenscheidts)
+  old_A = mkA "vetus" "veteris"; -- (Langenscheidts)
   open_V2 = mkV2 (mkV "aperire") ; -- aperio, aperui, apertum 4 (Langenscheidts)
   paint_V2A = mkV2A (mkV "pingere" "pingo" "pinxi" "pictum" ) Acc_Prep ; -- pingo, pinxi, pictum 3 (Langenscheidts)
   paper_N = mkN "charta" ; -- -ae f. (http://la.wikipedia.org/wiki/Charta / Pons)
@@ -164,7 +166,7 @@ lin
   queen_N = mkN "regina" ; -- -ae f. (Langenscheidts)
   radio_N = mkN "radiophonum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Radiophonia)
   -- Category not yet implemented
---  rain_V0 = mkV0 (mkV "pluit") ; -- (Langenscheidts)
+  rain_V0 = mkV0 ( IrregLat.rain_V ) ; -- (Langenscheidts)
   read_V2 = mkV2 (mkV "legere") ; -- lego, legi, lectum 3 (Langenscheidts)
   red_A = mkA "ruber" ; -- rubra, rubrum (Langenscheidts)
   religion_N = mkN "religio" "religionis" feminine ; -- -onis f. (Langenscheidts)
@@ -389,4 +391,6 @@ lin
     reason_N = mkN "causa" ; -- -ae f. (Langenscheidts)
     today_Adv = mkAdv "hodie" ; -- (Langenscheidts)
     uncertain_A = mkA "incertus" ; -- 3 (Langenscheidts)
+
+    alas_Interj = ss "eheu" ;
 }
