@@ -5,7 +5,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
   lin
     DetCN det cn = -- Det -> CN -> NP
       {
-      s = \\c => det.s ! cn.g ! c ++ cn.preap.s ! (AdjPhr cn.g det.n c) ++ cn.s ! det.n ! c ++ cn.postap.s ! (AdjPhr cn.g det.n c) ; 
+      s = \\c => det.s ! cn.g ! c ++ cn.preap.s ! (Ag cn.g det.n c) ++ cn.s ! det.n ! c ++ cn.postap.s ! (Ag cn.g det.n c) ; 
       n = det.n ; g = cn.g ; p = P3 ;
 --      preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
       } ;
@@ -45,8 +45,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --      } ;
 --
     DetQuant quant num = {
-      s  = \\g,c => quant.s  ! num.n ! g ! c ++ num.s ! g ! c ;
-      sp = \\g,c => quant.sp ! num.n ! g ! c ++ num.s ! g ! c ;
+      s  = \\g,c => quant.s  ! Ag g num.n c ++ num.s ! g ! c ;
+      sp = \\g,c => quant.sp ! Ag g num.n c ++ num.s ! g ! c ;
       n  = num.n
       } ;
 
@@ -76,13 +76,13 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --    OrdSuperl a = {s = a.s ! AAdj Superl} ;
 
     DefArt = {
-      s = \\_,_,_ => [] ;
-      sp = \\_,_,_ => [] ;
+      s = \\_ => [] ;
+      sp = \\_ => [] ;
       } ;
 
     IndefArt = {
-      s = \\_,_,_ => [] ;
-      sp = \\_,_,_ => [] ;
+      s = \\_ => [] ;
+      sp = \\_ => [] ;
       } ;
 
 --    MassNP cn = {

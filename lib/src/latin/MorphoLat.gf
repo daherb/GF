@@ -228,14 +228,14 @@ oper
 
 ----2 Adjectives
 oper
-  comp_super : Noun -> ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
+  comp_super : Noun -> ( Agr => Str ) * ( Agr => Str ) = 
     \bonus ->
     case bonus.s!Sg!Gen of {
       -- Exception Bayer-Lindauer 50 1
-      "boni" => < comp "meli" , table Gender [ (noun2us "optimus").s ; (noun1 "optima").s ; (noun2um "optimum").s ] > ;
+      "boni" => < comp "meli" , table { Ag g n c => table Gender [ (noun2us "optimus").s ! n ! c ; (noun1 "optima").s ! n ! c ; (noun2um "optimum").s ! n ! c ] ! g } > ;
       "mali" => < comp "pei" , super "pessus" > ;
-      "magni" => < comp "mai" , table Gender [ (noun2us "maximus").s; (noun1 "maxima").s ; (noun2um "maximum").s ] > ;
-      "parvi" => < comp "mini" , table Gender [ (noun2us "minimus").s ; (noun1 "minima").s ; (noun2um "minimum").s ] >;
+      "magni" => < comp "mai" , table { Ag g n c => table Gender [ (noun2us "maximus").s ! n ! c ; (noun1 "maxima").s ! n ! c ; (noun2um "maximum").s ! n ! c ] ! g } > ;
+      "parvi" => < comp "mini" , table { Ag g n c => table Gender [ (noun2us "minimus").s ! n ! c ; (noun1 "minima").s ! n ! c ; (noun2um "minimum").s ! n ! c ] ! g } >;
       --Exception Bayer-Lindauer 50.3
       "novi" => < comp "recenti" , super "recens" > ;
       "feri" => < comp "feroci" , super "ferox" > ;
@@ -247,43 +247,39 @@ oper
       sggen => < comp sggen , super (bonus.s!Sg!Nom) >
     } ;
   
-  comp : Str -> ( Gender => Number => Case => Str ) = \boni -> -- Bayer-Lindauer 46 2
+  comp : Str -> ( Agr => Str ) = \boni -> -- Bayer-Lindauer 46 2
     case boni of {
       bon + ( "i" | "is" ) => 
 	table
 	{
-	  Fem | Masc => table {
-	    Sg => table Case [ bon + "ior" ; 
+	  Ag ( Fem | Masc ) Sg c => table Case [ bon + "ior" ; 
 			       bon + "iorem" ; 
 			       bon + "ioris" ; 
 			       bon + "iori" ; 
 			       bon + "iore"; 
-			       bon + "ior" ] ;
-	    Pl => table Case [ bon + "iores" ; 
+			       bon + "ior" ] ! c ;
+	  Ag ( Fem | Masc ) Pl c => table Case [ bon + "iores" ; 
 			       bon + "iores" ; 
 			       bon + "iorum" ; 
 			       bon + "ioribus" ; 
 			       bon + "ioribus" ; 
-			       bon + "iores" ]
-	    } ;
-	  Neutr => table {
-	    Sg => table Case [ bon + "ius" ; 
+			       bon + "iores" ] ! c ;
+	  Ag Neutr Sg c => table Case [ bon + "ius" ; 
 			       bon + "ius" ; 
 			       bon + "ioris" ; 
 			       bon + "iori" ; 
 			       bon + "iore" ; 
-			       bon + "ius" ] ;
-	    Pl => table Case [ bon + "iora" ; 
+			       bon + "ius" ] ! c ;
+	  Ag Neutr Pl c => table Case [ bon + "iora" ; 
 			       bon + "iora" ; 
 			       bon + "iorum" ; 
 			       bon + "ioribus" ; 
 			       bon + "ioribus" ; 
-			       bon + "iora" ] 
-	    }
+			       bon + "iora" ] ! c 
 	}
     } ;
   
-  super : Str -> (Gender => Number => Case => Str) = \bonus ->
+  super : Str -> ( Agr => Str ) = \bonus ->
     let
       prefix : Str = case bonus of {
 	ac + "er" => bonus ; -- Bayer-Lindauer 48 2
@@ -299,9 +295,9 @@ oper
 	};
     in
     table {
-      Fem => (noun1 ( prefix + suffix + "a" )).s ;
-      Masc => (noun2us ( prefix + suffix + "us" )).s ;
-      Neutr => (noun2um ( prefix + suffix + "um" )).s
+      Ag Fem n c => (noun1 ( prefix + suffix + "a" )).s ! n ! c ;
+      Ag Masc n c => (noun2us ( prefix + suffix + "us" )).s ! n ! c;
+      Ag Neutr n c => (noun2um ( prefix + suffix + "um" )).s ! n ! c
     } ;
 
   adj12 : Str -> Adjective = \bonus ->
@@ -315,13 +311,13 @@ oper
 	_ => Predef.error ("adj12 does not apply to" ++ bonus)
 	} ; 
       nbonus = (noun12 bonus) ;
-      compsup : ( Gender => Number => Case => Str ) * ( Gender => Number => Case => Str ) = 
+      compsup : ( Agr => Str ) * ( Agr => Str ) = 
 	-- Bayer-Lindauer 50 4
 	case bonus of {
 	  (_ + #vowel + "us" ) |
 	    (_ + "r" + "us" ) => 
-	    < table Gender [ ( noun12 bonus ).s ; ( noun12 ( bon + "a" ) ).s ; ( noun12 ( bon + "um" ) ).s ] ,
-	    table Gender [ ( noun12 bonus ).s ; ( noun12 ( bon + "a" ) ).s ; ( noun12 ( bon + "um" ) ).s ] > ;
+	    < table { Ag g n c => table Gender [ ( noun12 bonus ).s ! n ! c ; ( noun12 ( bon + "a" ) ).s ! n ! c ; ( noun12 ( bon + "um" ) ).s ! n ! c ] ! g } ,
+	    table { Ag g n c => table Gender [ ( noun12 bonus ).s ! n ! c ; ( noun12 ( bon + "a" ) ).s ! n ! c ; ( noun12 ( bon + "um" ) ).s ! n ! c ] ! g } > ;
 	  _ => comp_super nbonus
 	};
       advs : Str * Str = 

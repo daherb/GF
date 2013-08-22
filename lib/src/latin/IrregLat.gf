@@ -51,13 +51,13 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	ger =
 	  \\_ => "######" ; -- no gerund forms
 	geriv = 
-	  \\_,_,_ => "######" ; -- no gerundive forms
+	  \\_ => "######" ; -- no gerundive forms
 	partActFut =
 	  verb.partActFut ;
 	partActPres = 
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
 	partPassPerf =
-	  \\_,_,_ => "######" -- no such participle
+	  \\_ => "######" -- no such participle
       } ;
 
     -- Bayer-Lindauer 93 2.2
@@ -103,13 +103,13 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
     	ger =
 	  \\_ => "######" ;
     	geriv =
-	  \\_,_,_ => "######" ;
+	  \\_ => "######" ;
     	partActFut =
-    	  \\_,_,_ => "######" ; -- no such participle
+    	  \\_ => "######" ; -- no such participle
     	partActPres = 
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
     	partPassPerf =
-    	  \\_,_,_ => "######" ; -- no such participle
+    	  \\_ => "######" ; -- no such participle
     	isAux = False
       };
 
@@ -213,11 +213,11 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  inf = 
 	    verb.inf ;
 	  partActFut =
-	    \\_,_,_ => "######" ;
+	    \\_ => "######" ;
 	  partActPres =
 	    verb.partActPres ;
 	  partPassPerf =
-	    \\_,_,_ => "######" ;
+	    \\_ => "######" ;
 	  sup =
 	    verb.sup ;
 	  isAux = False ;
@@ -274,21 +274,21 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  verb.partActFut ;
 	partActPres = 
 	  table {
-	    Fem | Masc =>
+	    Ag ( Fem | Masc ) n c =>
 	      ( mkNoun ( "iens" ) ( "euntem" ) ( "euntis" ) 
 		  ( "eunti" ) ( "eunte" ) ( "iens" ) 
 		  ( "euntes" ) ( "euntes" ) ( "euntium" ) 
 		  ( "euntibus" ) 
- 		  Masc ).s ;
-	    Neutr =>
+ 		  Masc ).s ! n ! c ;
+	    Ag Neutr n c =>
 	      ( mkNoun ( "iens" ) ( "iens" ) ( "euntis" ) 
 		  ( "eunti" ) ( "eunte" ) ( "iens" ) 
 		  ( "euntia" ) ( "euntia" ) ( "euntium" ) 
 		  ( "euntibus" ) 
- 		  Masc ).s 
+ 		  Masc ).s ! n ! c
 	  } ;
 	partPassPerf = 
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
 	sup = 
 	  \\_ => "######" -- really no such form?
       } ;
@@ -327,7 +327,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	ger =
 	  \\_ => "######" ; -- no gerund form
 	geriv = 
-	  \\_,_,_ => "######" ; -- no gerundive form
+	  \\_ => "######" ; -- no gerundive form
 	imp = 
 	  verb.imp ;
 	inf = 
@@ -339,9 +339,9 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	    a => verb.inf ! a
 	  } ;
 	partActFut = 
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
 	partActPres = 
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
 	partPassPerf =
 	  verb.partPassPerf ;
 	sup = 
@@ -391,15 +391,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	ger = 
 	  \\_ => "######" ; -- no gerund forms
 	geriv = 
-	  \\_,_,_ => "######" ; -- no gerundive forms
+	  \\_ => "######" ; -- no gerundive forms
 	sup = 
 	  \\_ => "######" ; -- no supin forms
 	partActPres =
-	  \\_,_,_ => "pluens" ;
+	  \\_ => "pluens" ;
 	partActFut =
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
 	partPassPerf =
-	  \\_,_,_ => "######" ; -- no such participle
+	  \\_ => "######" ; -- no such participle
       } ;
-	    
 }

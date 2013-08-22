@@ -47,7 +47,7 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --    AP = Adjective ** {isPre : Bool} ; ---- {s : Agr => Str ; isPre : Bool} ; 
     AP = 
       { 
-	s : APForm => Str ;
+	s : Agr => Str ;
 --	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
       } ;
 --

@@ -21,10 +21,10 @@ param
 	p : Person ;
       } ;
   param
-    APForm = AdjPhr Gender Number Case ;
+    Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   oper
     Adjective : Type = {
-      s : Degree => Gender => Number => Case => Str ; 
+      s : Degree => Agr => Str ; 
       comp_adv : Str ; 
       super_adv : Str 
       } ;
@@ -32,8 +32,8 @@ param
     {
       s : Number => Case => Str ; 
       g : Gender ;
-      preap : {s : APForm => Str } ;
-      postap : {s : APForm => Str } ;
+      preap : {s : Agr => Str } ;
+      postap : {s : Agr => Str } ;
     } ;
 -- nouns
   useCNasN : CommonNoun -> Noun = \cn ->
@@ -73,15 +73,15 @@ param
 -- adjectives
 
   mkAdjective : (_,_,_ : Noun) -> 
-    ( (Gender => Number => Case => Str) * Str ) -> 
-    ( (Gender => Number => Case => Str) * Str ) -> Adjective = 
+    ( (Agr => Str) * Str ) -> 
+    ( (Agr => Str) * Str ) -> Adjective = 
     \bonus,bona,bonum,melior,optimus ->
     {
       s = table {
 	Posit => table {
-	  Masc  => bonus.s ;
-	  Fem   => bona.s ;
-	  Neutr => bonum.s 
+	  Ag Masc  n c => bonus.s ! n ! c ;
+	  Ag Fem   n c => bona.s  ! n ! c ;
+	  Ag Neutr n c => bonum.s ! n ! c 
 	  } ;
 	Compar => melior.p1 ;
 	Superl => optimus.p1 
@@ -105,7 +105,7 @@ param
 
 
   emptyAdj : Adjective = 
-    { s = \\_,_,_,_ => "" ; comp_adv = "" ; super_adv = "" } ; 
+    { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" } ; 
 
 -- verbs
 
@@ -128,11 +128,11 @@ param
     inf   : VInfForm => Str ;
     imp   : VImpForm => Str ;
     ger   : VGerund => Str ;
-    geriv : Gender => Number => Case => Str ; 
+    geriv : Agr => Str ; 
     sup   : VSupine => Str ;
-    partActPres  : Gender => Number => Case => Str ;
-    partActFut   : Gender => Number => Case => Str ;
-    partPassPerf : Gender => Number => Case => Str ;
+    partActPres  : Agr => Str ;
+    partActFut   : Agr => Str ;
+    partPassPerf : Agr => Str ;
     } ;
 
 
@@ -317,8 +317,8 @@ param
 		( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndorum" ) 
 		( pres_stem + fill.p1 + "ndis" ) 
 		Neutr )
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
       sup = 
 	table {
@@ -329,18 +329,18 @@ param
 	} ;
       partActPres =
 	table {
-	  Fem | Masc => 
+	  Ag ( Fem | Masc ) n c => 
 	    ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntem" ) ( pres_stem + fill.p1 + "ntis" ) 
 		( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
 		( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntium" ) 
 		( pres_stem + fill.p1 + "ntibus" ) 
- 		Masc ).s ;
-	  Neutr =>
+ 		Masc ).s ! n ! c ;
+	  Ag Neutr n c =>
 	    ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntis" ) 
 		( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
 		( pres_stem + fill.p1 + "ntia" ) ( pres_stem + fill.p1 + "ntia" ) ( pres_stem + fill.p1 + "ntium" ) 
 		( pres_stem + fill.p1 + "ntibus" ) 
- 		Masc ).s 
+ 		Masc ).s ! n ! c
 	} ;
       partActFut = 
 	( mkAdjective
@@ -356,8 +356,8 @@ param
 		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
 		( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
 		Neutr )
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
       partPassPerf = 
 	( mkAdjective
@@ -373,8 +373,8 @@ param
 		( part_stem + "o" ) ( part_stem + "um" ) ( part_stem + "a" ) ( part_stem + "a" ) 
 		( part_stem + "orum" ) ( part_stem + "is" ) 
 		Neutr ) 
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
     } ;
  
@@ -526,8 +526,8 @@ param
 		( pres_stem + fill.p2 + "ndum" ) ( pres_stem + fill.p2 + "nda" ) ( pres_stem + fill.p2 + "nda" ) 
 		( pres_stem + fill.p2 + "ndorum" ) ( pres_stem + fill.p2 + "ndis" ) 
 		      Neutr )
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
       sup = 
 	table {
@@ -539,18 +539,18 @@ param
       -- Bayer-Lindauer 44 1
       partActPres =
 	table {
-	  Fem | Masc =>
+	  Ag ( Fem | Masc ) n c =>
 	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
 		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
 		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
 		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
- 		Masc ).s ;
-	  Neutr => 
+ 		Masc ).s ! n ! c ;
+	  Ag Neutr n c => 
 	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ns" ) 
 		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
 		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntia" ) ( pres_stem + fill.p2 + "ntia" ) 
 		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
- 		Masc ).s 
+ 		Masc ).s ! n ! c 
 	} ;
       partActFut = 
 	( mkAdjective
@@ -566,8 +566,8 @@ param
 		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
 		( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
 		Neutr )
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
       partPassPerf = 
 	( mkAdjective
@@ -586,8 +586,8 @@ param
 		( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "orum" ) 
 		( part_stem + "is" ) 
 		Neutr ) 
-	    < \\_,_,_ => "" , "" >
-	    < \\_,_,_ => "" , "" >
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
 	).s!Posit ;
     } ;
 
@@ -639,7 +639,7 @@ oper
   
   Pronoun : Type = {
     pers : PronDropForm => PronReflForm => Case => Str ;
-    poss : PronReflForm => Gender => Number => Case => Str ;
+    poss : PronReflForm => Agr => Str ;
     g : Gender ;
     n : Number ;
     p : Person ;
@@ -652,7 +652,7 @@ oper
       \meus,meum,mei,meo,meoo,mi -> table Case [meus ; meum ; mei ; meo ; meoo ; mi] ;
     };
     
-  createPronouns : Gender -> Number -> Person -> ( ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Gender => Number => Case => Str ) ) = \g,n,p ->
+  createPronouns : Gender -> Number -> Person -> ( ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Agr => Str ) ) = \g,n,p ->
     case <g,n,p> of {
       <_,Sg,P1> =>
   	< 
@@ -661,40 +661,27 @@ oper
   	  PronNonDrop => \\_ => pronForms "ego" "me" "mei" "mihi" "me" "me"
   	},
   	\\_ => table {
-  	  Masc => table  {
-  	    Sg => pronForms "meus" "meum" "mei" "meo" "meo" "mi" ;
-  	    Pl => pronForms "mei" "meos" "meorum" "meis" "meis" "mei"
-  	    } ;
-  	  Fem => table { 
-  	    Sg => pronForms "mea" "meam" "meae" "meae" "mea" "mea" ;
-   	    Pl => pronForms "meae" "meas" "mearum" "meis" "meis" "meae"
-   	    } ;
-  	  Neutr => table {
-  	    Sg => pronForms "meum" "meum" "mei" "meo" "meo" "meum" ;
-   	    Pl => pronForms "mea" "mea" "meorum" "meis" "meis" "mea"
-   	    }
+  	  Ag Masc  Sg c => ( pronForms "meus" "meum" "mei" "meo" "meo" "mi" ) ! c ;
+  	  Ag Masc  Pl c => ( pronForms "mei" "meos" "meorum" "meis" "meis" "mei" ) ! c ;
+  	  Ag Fem   Sg c => ( pronForms "mea" "meam" "meae" "meae" "mea" "mea" ) ! c ;
+   	  Ag Fem   Pl c => ( pronForms "meae" "meas" "mearum" "meis" "meis" "meae" ) ! c ;
+  	  Ag Neutr Sg c => ( pronForms "meum" "meum" "mei" "meo" "meo" "meum" ) ! c ;
+   	  Ag Neutr Pl c => ( pronForms "mea" "mea" "meorum" "meis" "meis" "mea" ) ! c
   	}
   	> ;
       <_,    Sg,P2> => 
       	< 
       	table {
-	  PronDrop => \\_,_ => "" ; 
+      	  PronDrop => \\_,_ => "" ; 
       	  PronNonDrop => \\_ => pronForms "tu"  "te" "tui" "tibi" "te" "te" 
       	} ,
       	\\_ => table {
-      	  Masc => table {
-      	    Sg => pronForms "tuus" "tuum" "tui" "tuo" "tu" "tue" ;
-      	    Pl => pronForms "tui" "tuos" "tuorum" "tuis" "tuis" "tui"
-      	    } ;
-      	  Fem => table {
-      	    Sg => pronForms "tua" "tuam" "tuae" "tuae" "tua" "tua" ;
-      	    Pl => pronForms "tuae" "tuas" "tuarum" "tuis" "tuis" "tuae"
-      	    } ;
-      	  Neutr =>
-      	    table {
-      	      Sg => pronForms "tuum" "tuum" "tui" "tuo" "tuo" "tuum" ;
-      	      Pl => pronForms "tua" "tua" "tuorum" "tuis" "tuis" "tua"
-      	    }
+      	  Ag Masc  Sg c => ( pronForms "tuus" "tuum" "tui" "tuo" "tu" "tue" ) ! c ;
+      	  Ag Masc  Pl c => ( pronForms "tui" "tuos" "tuorum" "tuis" "tuis" "tui" ) ! c ;
+      	  Ag Fem   Sg c => ( pronForms "tua" "tuam" "tuae" "tuae" "tua" "tua" ) ! c ;
+      	  Ag Fem   Pl c => ( pronForms "tuae" "tuas" "tuarum" "tuis" "tuis" "tuae" ) ! c ;
+      	  Ag Neutr Sg c => ( pronForms "tuum" "tuum" "tui" "tuo" "tuo" "tuum" ) ! c ;
+      	  Ag Neutr Pl c => ( pronForms "tua" "tua" "tuorum" "tuis" "tuis" "tua" ) ! c
       	}
       	> ;
       <_,    Pl,P1> => 
@@ -704,18 +691,12 @@ oper
       	  PronNonDrop => \\_ => pronForms "nos" "nos" "nostri" "nobis" "nobis" --- nostrum
       	} , 
       	\\_ => table {
-      	  Masc => table {
-      	    Sg => pronForms "noster" "nostrum" "nostri" "nostro" "nostro" "noster" ; 
-      	    Pl => pronForms "nostri" "nostros" "nostrorum" "nostris" "nostris" "nostri"
-      	    } ;
-      	  Fem => table {
-      	    Sg => pronForms "nostra" "nostram" "nostrae" "nostrae" "nostra" "nostra" ;
-      	    Pl => pronForms "nostrae" "nostras" "nostrarum" "nostris" "nostris" "nostrae" 
-      	    } ;
-      	  Neutr => table {
-      	    Sg => pronForms "nostrum" "nostrum" "nostri" "nostro" "nostro" "nostrum" ;
-      	    Pl => pronForms "nostra" "nostra" "nostrorum" "nostris" "nostris" "nostra"
-      	    }
+      	  Ag Masc  Sg c => ( pronForms "noster" "nostrum" "nostri" "nostro" "nostro" "noster" ) ! c ; 
+      	  Ag Masc  Pl c => ( pronForms "nostri" "nostros" "nostrorum" "nostris" "nostris" "nostri" ) ! c ;
+      	  Ag Fem   Sg c => ( pronForms "nostra" "nostram" "nostrae" "nostrae" "nostra" "nostra" ) ! c ;
+      	  Ag Fem   Pl c => ( pronForms "nostrae" "nostras" "nostrarum" "nostris" "nostris" "nostrae" ) ! c ;
+      	  Ag Neutr Sg c => ( pronForms "nostrum" "nostrum" "nostri" "nostro" "nostro" "nostrum" ) ! c ;
+      	  Ag Neutr Pl c => ( pronForms "nostra" "nostra" "nostrorum" "nostris" "nostris" "nostra" ) ! c
       	}
       	> ; 
       <_,    Pl,P2> => 
@@ -725,18 +706,12 @@ oper
       	  PronNonDrop => \\_ => pronForms "vos" "vos" "vestri" "vobis" "vobis"  --- vestrum
       	} ,
       	\\_ => table {
-      	  Masc => table {
-      	    Sg => pronForms "vester" "vestrum" "vestri" "vestro" "vestro" "vester" ;
-      	    Pl => pronForms "vestri" "vestros" "vestrorum" "vestris" "vestris" "vestri"
-      	    } ;
-      	  Fem => table {
-      	    Sg => pronForms "vestra" "vestram" "vestrae" "vestrae" "vestra" "vestra" ;
-      	    Pl => pronForms "vestrae" "vestras" "vestrarum" "vestris" "vestris" "vestrae"
-      	    } ;
-      	  Neutr => table {
-      	    Sg => pronForms "vestrum" "vestrum" "vestri" "vestro" "vestro" "vestrum" ;
-      	    Pl => pronForms "vestra" "vestra" "vestrorum" "vestris" "vestris" "vestra"
-      	    }
+      	  Ag Masc  Sg c => ( pronForms "vester" "vestrum" "vestri" "vestro" "vestro" "vester" ) ! c ;
+      	  Ag Masc  Pl c => ( pronForms "vestri" "vestros" "vestrorum" "vestris" "vestris" "vestri" ) ! c ;
+      	  Ag Fem   Sg c => ( pronForms "vestra" "vestram" "vestrae" "vestrae" "vestra" "vestra" ) ! c ;
+      	  Ag Fem   Pl c => ( pronForms "vestrae" "vestras" "vestrarum" "vestris" "vestris" "vestrae" ) ! c ;
+      	  Ag Neutr Sg c => ( pronForms "vestrum" "vestrum" "vestri" "vestro" "vestro" "vestrum" ) ! c ;
+      	  Ag Neutr Pl c => ( pronForms "vestra" "vestra" "vestrorum" "vestris" "vestris" "vestra" ) ! c
       	}
       	>; 
       <_,_ ,P3> => 
@@ -759,32 +734,27 @@ oper
       	} ,
       	table {
       	  PronNonRefl => 
-      	    \\_,_,_ => "######" ;
+      	    \\_ => "######" ;
       	  PronRefl =>
       	    table {
-      	      Masc => table {
-      	  	Sg => pronForms "suus" "suum" "sui" "suo" "suo" ;
-      	  	Pl => pronForms "sui" "suos" "suorum" "suis" "suis"
-      	  	} ;
-      	      Fem => table {
-      	  	Sg => pronForms "sua" "suam" "suae" "suae" "sua" ;
-      	  	Pl => pronForms "suae" "suas" "suarum" "suis" "suis"
-      	  	} ;
-      	      Neutr => table {
-      	  	Sg => pronForms "suum" "suum" "sui" "suo" "suo" ;
-      	  	Pl => pronForms "sua" "sua" "suorum" "suis" "suis"
-      	  	}
+      	      Ag Masc  Sg c => ( pronForms "suus" "suum" "sui" "suo" "suo" ) ! c ;
+      	      Ag Masc  Pl c => ( pronForms "sui" "suos" "suorum" "suis" "suis" ) ! c ;
+      	      Ag Fem   Sg c => ( pronForms "sua" "suam" "suae" "suae" "sua" ) ! c ;
+      	      Ag Fem   Pl c => ( pronForms "suae" "suas" "suarum" "suis" "suis" ) ! c ;
+      	      Ag Neutr Sg c => ( pronForms "suum" "suum" "sui" "suo" "suo" ) ! c ;
+      	      Ag Neutr Pl c => ( pronForms "sua" "sua" "suorum" "suis" "suis" ) ! c
       	    }
       	}
-      	> ;
-      _ =>
-    	< \\_,_,_ => "######!" , \\_,_,_,_ => "######!" > -- should never be reached
+      	> 
+--	;
+--      _ =>
+--    	< \\_,_,_ => "######!" , \\_,_ => "######!" > -- should never be reached
     } ;
 
   mkPronoun : Gender -> Number -> Person -> Pronoun = \g,n,p ->
     let 
       -- Personal_Form * Possesive_Form
-      prons : ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Gender => Number => Case => Str ) =
+      prons : ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Agr => Str ) =
       createPronouns g n p ;
     in
     {
@@ -836,7 +806,7 @@ oper
     adj = vp.adj
   } ;
 
-  insertAdj : (Gender => Number => Case => Str) -> VP -> VP = \adj,vp -> {
+  insertAdj : (Agr => Str) -> VP -> VP = \adj,vp -> {
     fin = vp.fin ;
     inf = vp.inf ;
     obj = vp.obj ;
@@ -879,7 +849,7 @@ oper
     } ;
 
   Quantifier : Type = {
-    s,sp : Number => Gender => Case => Str ;
+    s,sp : Agr => Str ;
     } ;
 
   mkQuantifG : (_,_,_,_,_ : Str) -> (_,_,_,_ : Str) -> (_,_,_ : Str) -> 
@@ -891,11 +861,17 @@ oper
     } ;
       
   mkQuantifier : (sg,pl : Gender => Case => Str) -> Quantifier = \sg,pl ->
-    let ssp = table {Sg => sg ; Pl => pl}
-    in {
+    let 
+      ssp = 
+	table {
+	  Ag g Sg c => sg ! g ! c ; 
+	  Ag g Pl c => pl ! g ! c
+	}
+    in 
+    {
       s  = ssp ;
       sp = ssp 
-      } ;
+    } ;
 
   hic_Quantifier = mkQuantifier
     (mkQuantifG 
