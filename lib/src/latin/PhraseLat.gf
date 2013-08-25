@@ -3,8 +3,8 @@
 --  lin
 --    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 --
---    UttS s = s ;
---    UttQS qs = {s = qs.s ! QDir} ;
+    UttS s = s ;
+    UttQS qs = {s = qs.s ! QDir} ;
 --    UttImpSg pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Sg False} ;
 --    UttImpPl pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Pl False} ;
 --    UttImpPol pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Sg True} ;
