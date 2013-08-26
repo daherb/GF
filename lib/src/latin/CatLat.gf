@@ -38,8 +38,8 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --
 ---- Verb
 --
-    VP = ResLat.VP ;
-    VPSlash = ResLat.VP ** {c2 : Preposition} ;
+    VP = ResLat.VerbPhrase ;
+    VPSlash = VP ** {c2 : Preposition} ;
     Comp = {s : Gender => Number => Case => Str} ; 
 --
 ---- Adjective
