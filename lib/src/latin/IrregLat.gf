@@ -61,7 +61,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       } ;
 
     -- Bayer-Lindauer 93 2.2
-    can_irreg_VV = 
+    can_VV = 
       let
     	pres_stem = "pos" ;
     	pres_ind_base = "pos" ;
@@ -174,7 +174,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       };
 
     -- Bayer-Lindauer 95
-    want_irreg_VV = 
+    want_VV = 
       let
 	pres_stem = "vel" ;
 	pres_ind_base = "vol" ;
@@ -347,7 +347,8 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	sup = 
 	  \\_ => "######" -- no supin
       } ;
-	
+
+    -- Source ?
     rain_V =
       {
 	act = 
@@ -400,5 +401,45 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" ; -- no such participle
 	partPassPerf =
 	  \\_ => "######" ; -- no such participle
+      } ;
+
+    -- Bayer-Lindauer 98
+    hate_V = 
+      let  
+	pres_stem = "" ;
+	pres_ind_base = "" ;
+	pres_conj_base = "" ;
+	impf_ind_base = "" ;
+	impf_conj_base = "" ;
+	fut_I_base = "" ;
+	imp_base = "" ;
+	perf_stem = "od" ;
+	perf_ind_base = "od" ;
+	perf_conj_base = "oderi" ;
+	pqperf_ind_base = "odera" ;
+	pqperf_conj_base = "odissem" ;
+	fut_II_base = "oderi" ;
+	part_stem = "os" ;
+	verb = 
+	  mkVerb "odisse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
+	  perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+      in {
+	act = table {
+	  VAct VSim t n p => verb.act ! VAct VAnt t n p ;
+	  _ => "######" -- no such verb forms
+	  } ;
+	pass = \\_ => "######" ; -- no passive forms 
+	ger = \\_ => "######" ; -- no gerund forms
+	geriv = \\_ => "######" ; -- no gerundive forms
+	imp = \\_ => "######" ; -- no imperative form
+	inf = table {
+	  VInfActPres => verb.inf ! VInfActPres ;
+	  VInfActFut g => verb.inf ! VInfActFut g ; -- really ?
+	  _ => "######"
+	  } ;
+	partActFut = verb.partActFut ;
+	partActPres = \\_ => "######" ; -- no such participle form
+	partPassPerf = \\_ => "######" ; -- no such participle form
+	sup = \\_ => "######" ; -- no such supine form
       } ;
 }
