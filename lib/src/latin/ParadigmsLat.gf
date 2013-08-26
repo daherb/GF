@@ -81,8 +81,8 @@ oper
 
 -- To be implemented, just place holders
   mkPN : N -> PN = \n -> lin PN n ;
-  mkN2 : N -> Prep -> N2 = \n,p -> lin N2 n ;
-  mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 n ;
+  mkN2 : N -> Prep -> N2 = \n,p -> lin N2 ( n ** { c = p } );
+  mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 ( n **{ c = p1 ; c2 = p2 } ) ;
   mkV2S : V -> Prep -> V2S = \v,p -> lin V2S ( v ** { c = p } ) ;
   mkV2Q : V -> Prep -> V2Q = \v,p -> lin V2Q ( v ** { c = p } ) ;
   mkV2V : V -> Str -> Bool -> V2V = \v,s,b -> lin V2V ( v ** { c2 = s ; isAux = b } ) ;
@@ -93,4 +93,8 @@ oper
   mkV2A : V -> Prep -> V2A = \v,p -> lin V2A (v ** { c = p } ) ;
 --  mkA2 : (verbum : Str) -> Prep -> A2  = \a,p -> 
 --    let adj = mkA a in lin A2 ( adj ** { c2 = p } ) ;
+  A2V : Type = A2 ;
+  mkA2V : A -> Prep -> A2V = \a,p -> lin A2V ( lin A2 ( a ** { c = p } ) ) ;
+  AV : Type = A ;
+  mkAV : A -> AV = \a -> lin AV a ;
 }
