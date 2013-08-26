@@ -52,12 +52,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" ; -- no gerund forms
 	geriv = 
 	  \\_ => "######" ; -- no gerundive forms
-	partActFut =
-	  verb.partActFut ;
-	partActPres = 
-	  \\_ => "######" ; -- no such participle
-	partPassPerf =
-	  \\_ => "######" -- no such participle
+	part = table {
+	  VActFut =>
+	    verb.part ! VActFut ;
+	  VActPres => 
+	    \\_ => "######" ; -- no such participle
+	  VPassPerf =>
+	    \\_ => "######" -- no such participle
+	  }
       } ;
 
     -- Bayer-Lindauer 93 2.2
@@ -104,12 +106,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" ;
     	geriv =
 	  \\_ => "######" ;
-    	partActFut =
-    	  \\_ => "######" ; -- no such participle
-    	partActPres = 
-	  \\_ => "######" ; -- no such participle
-    	partPassPerf =
-    	  \\_ => "######" ; -- no such participle
+    	part = table {
+	  VActFut =>
+    	    \\_ => "######" ; -- no such participle
+    	  VActPres => 
+	    \\_ => "######" ; -- no such participle
+    	  VPassPerf =>
+    	    \\_ => "######" -- no such participle
+	  } ;
     	isAux = False
       };
 
@@ -165,12 +169,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  verb.ger ;
     	geriv =
 	  verb.geriv ;
-    	partActFut =
-	  verb.partActFut ;
-    	partActPres = 
-	  verb.partActPres ;
-    	partPassPerf =
-	  verb.partPassPerf
+    	part = verb.part ;
       };
 
     -- Bayer-Lindauer 95
@@ -212,12 +211,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	    \\_ => "######" ;
 	  inf = 
 	    verb.inf ;
-	  partActFut =
-	    \\_ => "######" ;
-	  partActPres =
-	    verb.partActPres ;
-	  partPassPerf =
-	    \\_ => "######" ;
+	  part = table {
+	    VActFut =>
+	      \\_ => "######" ;
+	    VActPres =>
+	      verb.part ! VActPres ;
+	    VPassPerf =>
+	      \\_ => "######"
+	    } ; 
 	  sup =
 	    verb.sup ;
 	  isAux = False ;
@@ -270,25 +271,27 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	    VInfActPerf _ => "isse" ;
 	    a =>verb.inf ! a
 	  };
-	partActFut = 
-	  verb.partActFut ;
-	partActPres = 
-	  table {
-	    Ag ( Fem | Masc ) n c =>
-	      ( mkNoun ( "iens" ) ( "euntem" ) ( "euntis" ) 
-		  ( "eunti" ) ( "eunte" ) ( "iens" ) 
-		  ( "euntes" ) ( "euntes" ) ( "euntium" ) 
-		  ( "euntibus" ) 
- 		  Masc ).s ! n ! c ;
-	    Ag Neutr n c =>
-	      ( mkNoun ( "iens" ) ( "iens" ) ( "euntis" ) 
-		  ( "eunti" ) ( "eunte" ) ( "iens" ) 
-		  ( "euntia" ) ( "euntia" ) ( "euntium" ) 
-		  ( "euntibus" ) 
- 		  Masc ).s ! n ! c
+	part = table {
+	  VActFut => 
+	    verb.part ! VActFut ;
+	  VActPres => 
+	    table {
+	      Ag ( Fem | Masc ) n c =>
+		( mkNoun ( "iens" ) ( "euntem" ) ( "euntis" ) 
+		    ( "eunti" ) ( "eunte" ) ( "iens" ) 
+		    ( "euntes" ) ( "euntes" ) ( "euntium" ) 
+		    ( "euntibus" ) 
+ 		    Masc ).s ! n ! c ;
+	      Ag Neutr n c =>
+		( mkNoun ( "iens" ) ( "iens" ) ( "euntis" ) 
+		    ( "eunti" ) ( "eunte" ) ( "iens" ) 
+		    ( "euntia" ) ( "euntia" ) ( "euntium" ) 
+		    ( "euntibus" ) 
+ 		    Masc ).s ! n ! c
+	    } ;
+	  VPassPerf => 
+	    \\_ => "######" -- no such participle
 	  } ;
-	partPassPerf = 
-	  \\_ => "######" ; -- no such participle
 	sup = 
 	  \\_ => "######" -- really no such form?
       } ;
@@ -338,12 +341,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	    VInfActFut Neutr => "futurum" ;
 	    a => verb.inf ! a
 	  } ;
-	partActFut = 
-	  \\_ => "######" ; -- no such participle
-	partActPres = 
-	  \\_ => "######" ; -- no such participle
-	partPassPerf =
-	  verb.partPassPerf ;
+	part = table {
+	  VActFut =>
+	    \\_ => "######" ; -- no such participle
+	  VActPres => 
+	    \\_ => "######" ; -- no such participle
+	  VPassPerf =>
+	    verb.part ! VPassPerf
+	  } ;
 	sup = 
 	  \\_ => "######" -- no supin
       } ;
@@ -395,12 +400,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  \\_ => "######" ; -- no gerundive forms
 	sup = 
 	  \\_ => "######" ; -- no supin forms
-	partActPres =
-	  \\_ => "pluens" ;
-	partActFut =
-	  \\_ => "######" ; -- no such participle
-	partPassPerf =
-	  \\_ => "######" ; -- no such participle
+	part = table { 
+	  VActPres =>
+	    \\_ => "pluens" ;
+	  VActFut =>
+	    \\_ => "######" ; -- no such participle
+	  VPassPerf =>
+	    \\_ => "######" -- no such participle
+	  }
       } ;
 
     -- Bayer-Lindauer 98
@@ -437,9 +444,14 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	  VInfActFut g => verb.inf ! VInfActFut g ; -- really ?
 	  _ => "######"
 	  } ;
-	partActFut = verb.partActFut ;
-	partActPres = \\_ => "######" ; -- no such participle form
-	partPassPerf = \\_ => "######" ; -- no such participle form
+	part = table {
+	  VActFut => 
+	    verb.part ! VActFut ;
+	  VActPres => 
+	    \\_ => "######" ; -- no such participle form
+	  VPassPerf => 
+	    \\_ => "######" -- no such participle form
+	  } ;
 	sup = \\_ => "######" ; -- no such supine form
       } ;
 }

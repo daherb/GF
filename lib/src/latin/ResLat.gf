@@ -135,6 +135,7 @@ param
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
+  VPartForm = VActPres | VActFut | VPassPerf ;
 
   VAnter = VSim | VAnt ;
   VTense = VPres VMood | VImpf VMood | VFut ; 
@@ -156,9 +157,7 @@ param
     ger   : VGerund => Str ;
     geriv : Agr => Str ; 
     sup   : VSupine => Str ;
-    partActPres  : Agr => Str ;
-    partActFut   : Agr => Str ;
-    partPassPerf : Agr => Str ;
+    part  : VPartForm =>Agr => Str ;
     } ;
 
   VV : Type = Verb ** { isAux : Bool } ;
@@ -172,9 +171,7 @@ param
       ger = vv.ger ;
       geriv = vv.geriv ;
       sup = vv.sup ;
-      partActPres = vv.partActPres ;
-      partActFut = vv.partActFut ;
-      partPassPerf = vv.partPassPerf ;
+      part = vv.part ;
     } ;
 
   useVPasV : VerbPhrase -> Verb = \vp ->
@@ -186,9 +183,7 @@ param
       ger = \\_ => "???" ;
       geriv = \\_ => "???" ;
       sup = \\_ => "???" ;
-      partActPres = \\_ => "???" ;
-      partActFut = \\_ => "???" ;
-      partPassPerf = \\_ => "???"
+      part = \\_,_ => "???" ;
     } ;
 
   mkVerb : 
@@ -382,8 +377,8 @@ param
 	  VSupAbl => -- Supin
 	    part_stem + "u" 
 	} ;
-      partActPres =
-	table {
+      part= table {
+	VActPres => table {
 	  Ag ( Fem | Masc ) n c => 
 	    ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntem" ) ( pres_stem + fill.p1 + "ntis" ) 
 		( pres_stem + fill.p1 + "nti" ) ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
@@ -397,40 +392,42 @@ param
 		( pres_stem + fill.p1 + "ntibus" ) 
  		Masc ).s ! n ! c
 	} ;
-      partActFut = 
-	( mkAdjective
-	    ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
-		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) ( part_stem + "uri" ) 
-		( part_stem + "uros" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
-		Masc )
-	    ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" ) 
-		( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )( part_stem + "urae" ) 
-		( part_stem + "uras" ) ( part_stem +"urarum" ) ( part_stem + "uris" ) 
-		Fem )
-	    ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
-		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
-		( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
-		Neutr )
-	    < \\_ => "" , "" >
-	    < \\_ => "" , "" >
-	).s!Posit ;
-      partPassPerf = 
-	( mkAdjective
-	    ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) ( part_stem + "o" ) 
-		( part_stem + "o" ) ( part_stem + "e" ) ( part_stem + "i" ) ( part_stem + "os" ) 
-		( part_stem + "orum" ) ( part_stem + "is" ) 
-		Masc )
-	    ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) ( part_stem + "ae" ) 
-		( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "ae" ) ( part_stem + "as" ) 
-		( part_stem + "arum" ) ( part_stem + "is" ) 
-		Fem )
-	    ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) ( part_stem + "o" ) 
+	
+	VActFut => 
+	  ( mkAdjective
+	      ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uros" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
+		  Masc )
+	      ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" ) 
+		  ( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )( part_stem + "urae" ) 
+		  ( part_stem + "uras" ) ( part_stem +"urarum" ) ( part_stem + "uris" ) 
+		  Fem )
+	      ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
+		  ( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
+		  Neutr )
+	      < \\_ => "" , "" >
+	      < \\_ => "" , "" >
+	  ).s!Posit ;
+	VPassPerf => 
+	  ( mkAdjective
+	      ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) ( part_stem + "o" ) 
+		  ( part_stem + "o" ) ( part_stem + "e" ) ( part_stem + "i" ) ( part_stem + "os" ) 
+		  ( part_stem + "orum" ) ( part_stem + "is" ) 
+		  Masc )
+	      ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) ( part_stem + "ae" ) 
+		  ( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "ae" ) ( part_stem + "as" ) 
+		  ( part_stem + "arum" ) ( part_stem + "is" ) 
+		  Fem )
+	      ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) ( part_stem + "o" ) 
 		( part_stem + "o" ) ( part_stem + "um" ) ( part_stem + "a" ) ( part_stem + "a" ) 
-		( part_stem + "orum" ) ( part_stem + "is" ) 
-		Neutr ) 
-	    < \\_ => "" , "" >
-	    < \\_ => "" , "" >
-	).s!Posit ;
+		  ( part_stem + "orum" ) ( part_stem + "is" ) 
+		  Neutr ) 
+	      < \\_ => "" , "" >
+	      < \\_ => "" , "" >
+	  ).s!Posit
+	}
     } ;
  
 
@@ -592,58 +589,60 @@ param
 	    part_stem + "u" 
 	} ;
       -- Bayer-Lindauer 44 1
-      partActPres =
-	table {
-	  Ag ( Fem | Masc ) n c =>
-	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
+      part = table {
+	VActPres =>
+	  table {
+	    Ag ( Fem | Masc ) n c =>
+	      ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
+		  ( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
+		  ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
+		  ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+ 		  Masc ).s ! n ! c ;
+	    Ag Neutr n c => 
+	      ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ns" ) 
 		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
-		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
-		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
- 		Masc ).s ! n ! c ;
-	  Ag Neutr n c => 
-	    ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ns" ) 
-		( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) ( pres_stem + fill.p2 + "nte" ) 
-		( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntia" ) ( pres_stem + fill.p2 + "ntia" ) 
-		( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
- 		Masc ).s ! n ! c 
-	} ;
-      partActFut = 
-	( mkAdjective
-	    ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
-		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) ( part_stem + "uri" ) 
-		( part_stem + "uros" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
-		Masc )
-	    ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" ) 
-		( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )( part_stem + "urae" ) 
-		( part_stem + "uras" ) ( part_stem +"urarum" ) ( part_stem + "uris" ) 
-		Fem )
-	    ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
-		( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
-		( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
-		Neutr )
-	    < \\_ => "" , "" >
-	    < \\_ => "" , "" >
-	).s!Posit ;
-      partPassPerf = 
-	( mkAdjective
-	    ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) 
-		( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "e" ) 
-		( part_stem + "i" ) ( part_stem + "os" ) ( part_stem + "orum" ) 
-		( part_stem + "is" ) 
-		Masc )
-	    ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) 
-		( part_stem + "ae" ) ( part_stem + "a" ) ( part_stem + "a" ) 
-		( part_stem + "ae" ) ( part_stem + "as" ) ( part_stem + "arum" ) 
-		( part_stem + "is" ) 
-		Fem )
-	    ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) 
-		( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "um" ) 
-		( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "orum" ) 
-		( part_stem + "is" ) 
-		Neutr ) 
-	    < \\_ => "" , "" >
-	    < \\_ => "" , "" >
-	).s!Posit ;
+		  ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntia" ) ( pres_stem + fill.p2 + "ntia" ) 
+		  ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+ 		  Masc ).s ! n ! c 
+	  } ;
+	VpartActFut => 
+	  ( mkAdjective
+	      ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uros" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
+		  Masc )
+	      ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" ) 
+		  ( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )( part_stem + "urae" ) 
+		  ( part_stem + "uras" ) ( part_stem +"urarum" ) ( part_stem + "uris" ) 
+		  Fem )
+	      ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+		  ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) ( part_stem + "ura" ) 
+		  ( part_stem + "ura" ) ( part_stem + "urorum" ) ( part_stem + "uris" ) 
+		  Neutr )
+	      < \\_ => "" , "" >
+	      < \\_ => "" , "" >
+	  ).s!Posit ;
+	VPassPerf =>
+	  ( mkAdjective
+	      ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+		  ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "e" ) 
+		  ( part_stem + "i" ) ( part_stem + "os" ) ( part_stem + "orum" ) 
+		  ( part_stem + "is" ) 
+		  Masc )
+	      ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) 
+		  ( part_stem + "ae" ) ( part_stem + "a" ) ( part_stem + "a" ) 
+		  ( part_stem + "ae" ) ( part_stem + "as" ) ( part_stem + "arum" ) 
+		  ( part_stem + "is" ) 
+		  Fem )
+	      ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+		  ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "um" ) 
+		  ( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "orum" ) 
+		  ( part_stem + "is" ) 
+		  Neutr ) 
+	      < \\_ => "" , "" >
+	      < \\_ => "" , "" >
+	  ).s!Posit
+	}
     } ;
 
   actPresEnding : Number -> Person -> Str = 
