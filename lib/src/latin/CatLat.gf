@@ -75,10 +75,10 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --
 ---- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
+    V, VS, VQ, VA = ResLat.Verb ; -- = {s : VForm => Str} ;
     V2, V2A, V2Q, V2S = Verb ** {c : Prep } ;
     V3 = Verb ** {c2, c3 : Prep} ;
-    VV = Verb ** { isAux : Bool } ;
+    VV = ResLat.VV ;
     V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 
     A = Adjective ;
