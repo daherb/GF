@@ -61,7 +61,7 @@ lin
   carpet_N = mkN "stragulum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Teges_pavimenti)
   cat_N = mkN ( variants {"feles" ; "felis" } ) "felis" feminine ; -- -is f. (Langenscheidts) 
   ceiling_N = mkN "tegimentum" ; -- -i n. (Langenscheidts)
-  chair_N = mkN "sedes" "sedis" feminine; -- -is f. (Langenscheidts)
+  char_N = mkN "sedes" "sedis" feminine; -- -is f. (Langenscheidts)
   cheese_N = mkN "caseus" ; -- -i m. (Langenscheidts)
   child_N = mkN "proles" "prolis" feminine ; -- -is f. (Langenscheidts)
   church_N = mkN "ecclesia" ; -- -ae f. (Langenscheidts)
@@ -76,7 +76,7 @@ lin
   country_N = mkN "terra" ; -- -ae f. (Langenscheidts)
   cousin_N = mkN ( variants {"consobrinus" ; "consobrina" } ) ; -- -i/-ae m./f. (Langenscheidts)
   cow_N = mkN "bos" "bovis" ( variants { feminine ; masculine } ) ; -- bovis (gen. pl. boum, dat./abl. pl. bobus/bubus) m./f. (Langenscheidts)
---  die_V = mkV "mori" ; -- morior, mortuus sum, morturus (Langenscheidts)
+  die_V = mkV "mori" "mortuus" "morturus"; -- morior, mortuus sum, morturus (Langenscheidts)
   dirty_A = mkA "sordidus" ; -- 3 (Langenscheidts)
 
   distance_N3 = mkN3 (mkN "distantia") from_Prep to_Prep ; -- -ae f. (Langenscheidts) ab, ad aliquem; alicuius; aliquem (???)
@@ -84,8 +84,7 @@ lin
   dog_N = mkN "canis" "canis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
   door_N = mkN "porta" ; -- -ae f. (Langenscheidts)
   drink_V2 = mkV2 (mkV "bibere") ; -- bibo, potum 3 (Langenscheidts) aliquem (Bayer-Lindauer 110)
-  -- Category not yet implemented
---  easy_A2V = mkA2V (mkA "facilis" "facile" ) forP ; -- -e sup -illimus (Langenscheidts)
+  easy_A2V = mkA2V (mkA "facilis" "facile" ) for_Prep ; -- -e sup -illimus (Langenscheidts)
   eat_V2 = mkV2 (mkV "cenare") ; -- ceno 1 (Langenscheidts) aliquem (Bayer-Lindauer 110)
   empty_A = mkA "vacuus" ; -- 3 (Langenscheidts)
   enemy_N = mkN "hostis" "hostis" ( variants { masculine ; feminine } ) ; -- -is m./f. (Langenscheidts)
@@ -95,12 +94,11 @@ lin
   find_V2 = mkV2 (mkV "reperire") ; -- reperio, repperi, repertum 4 (Langenscheidts) aliquem
   fish_N = mkN "piscis" "piscis" masculine ; -- -is m. (Langenscheidts)
   floor_N = mkN "pavimentum" ; -- -i n. (Langenscheidts)
---  forget_V2 = mkV2 (mkV "oblivisci") ; -- obliscor, oblitus sum 3 (Langenscheidts)
+  forget_V2 = mkV2 (mkV "oblivisci" "obliviscor" "oblitus" ) ; -- obliscor, oblitus sum 3 (Langenscheidts)
   fridge_N = mkN "frigidarium" ; -- --i n. (Pons / http://la.wikipedia.org/wiki/Armarium_frigidarium)
   friend_N = mkN ( variants { "amicus" ; "amica" } ) ; -- -i/-ae m./f. (Langenscheidts)
   fruit_N = mkN "fructus" "fructus" masculine; -- -us m. (Langenscheidts)
-  -- Category not yet implemented
---  fun_AV = mkAV (mkA "iocosus") ; -- 3 (Langenscheidts)
+  fun_AV = mkAV (mkA "iocosus") ; -- 3 (Langenscheidts)
   garden_N = mkN "hortus" ; -- -i m. (Langenscheidts)
   girl_N = mkN "puella" ; -- -ae f. (Langenscheidts)
   glove_N = mkN "caestus" "caestus" masculine ; --us m. (Langenscheidts)
@@ -109,10 +107,8 @@ lin
   go_V = IrregLat.go_V ; -- eo, i(v)i, itum (Langenscheidts)
   green_A = mkA "viridis" "viride"; -- -e (Langenscheidts)
   harbour_N = mkN "portus" "portus" masculine ; -- -us m. (Langenscheidts)
---  hate_V2 = mkV2 (mkV "odisse" "odi" "osurus") ; -- odi, osurus/odivi (Langenscheidts)
+  hate_V2 = mkV2 IrregLat.hate_V Acc_Prep ; -- odi, osurus/odivi (Langenscheidts)
   hat_N = mkN "petasus" ; -- -i m. (Langenscheidts)
--- Not in abstract - don't know where it came from
---  have_V2 = mkV2 (mkV "habere") ; -- habeo, -ui, -itum 2 (Langenscheidts)
   hear_V2 = mkV2 (mkV "audire") ; -- 4 (Langenscheidts)
   hill_N = mkN "collis" "collis" masculine ; -- -is m. (Langenscheidts)
   hope_VS = mkVS (mkV "sperare") ; -- 1 (Langenscheidts)
@@ -340,7 +336,7 @@ lin
   fly_V = mkV "volare" ; -- volo 1 (Langenscheidts)
   freeze_V = mkV "gelare" ; -- gelo 1 (Langenscheidts)
   -- Category not yet implemented
---  give_V3 = mkV3 give_V toP ;
+  give_V3 = mkV3 (mkV "donare" ) from_Prep to_Prep ;
   laugh_V = mkV "ridere" ; -- rideo, -si, -sum 2 (Langenscheidts)
   lie_V = mkV "iacere" ; -- iaceo, iacui, - 2 (Langenscheidts)
   play_V = mkV "ludere" ; -- ludo, -si, -sum 3 (Langenscheidts)
