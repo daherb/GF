@@ -176,3 +176,7 @@ UseCl/UseQCL
 -----------------------
 Ommited for the moment:
 Indefinite pronouns, interrogative pronouns, numerals
+
+22.8.2013
+-----------------------
+Check suck_V2
