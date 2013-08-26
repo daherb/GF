@@ -42,6 +42,17 @@ param
       g = cn.g ;
     } ;
 
+  pluralN : Noun -> Noun = \n ->
+    { 
+      s = table {
+	Pl => n.s ! Pl ;
+	Sg => \\_ => "######" -- no singular forms
+	};
+      g = n.g ;
+      preap = n.preap ;
+      postap = n.postap ;
+    };
+  
   mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
       s = table {
@@ -130,6 +141,13 @@ param
   VMood  = VInd | VConj ;
 
   oper
+  VerbPhrase : Type = {
+    fin : VActForm => Str ;
+    inf : VInfForm => Str ;
+    obj : Str ;
+--    adj : Gender => Number => Str
+  } ;
+
   Verb : Type = {
     act   : VActForm => Str ;
     pass  : VPassForm => Str ;
@@ -143,6 +161,19 @@ param
     partPassPerf : Agr => Str ;
     } ;
 
+  useVPasV : VerbPhrase -> Verb = \vp ->
+    {
+      act = \\a => vp.obj ++ vp.fin ! a ;
+      pass = \\_ => "???" ;
+      inf = \\a => vp.obj ++ vp.inf ! a ;
+      imp = \\_ => "???" ;
+      ger = \\_ => "???" ;
+      geriv = \\_ => "???" ;
+      sup = \\_ => "???" ;
+      partActPres = \\_ => "???" ;
+      partActFut = \\_ => "???" ;
+      partPassPerf = \\_ => "???"
+    } ;
 
   mkVerb : 
     (regere,reg,regi,rega,regeba,regere,rege,regi,rex,rex,rexeri,rexera,rexisse,rexeri,rect : Str) 
@@ -787,16 +818,9 @@ oper
   Dat_Prep = lin Prep ( mkPrep "" Dat ) ;
   Abl_Prep = lin Prep ( mkPrep "" Abl ) ;
 
-  VP : Type = {
-    fin : VActForm => Str ;
-    inf : VInfForm => Str ;
-    obj : Str ;
---    adj : Gender => Number => Str
-  } ;
+  VPSlash = VerbPhrase ** {c2 : Preposition} ;
 
-  VPSlash = VP ** {c2 : Preposition} ;
-
-  predV : Verb -> VP = \v -> {
+  predV : Verb -> VerbPhrase = \v -> {
     fin = v.act ;
     inf = v.inf ;
     obj = [] ;
@@ -807,14 +831,14 @@ oper
 
   appPrep : Preposition -> (Case => Str) -> Str = \c,s -> c.s ++ s ! c.c ;
 
-  insertObj : Str -> VP -> VP = \obj,vp -> {
+  insertObj : Str -> VerbPhrase -> VerbPhrase = \obj,vp -> {
     fin = vp.fin ;
     inf = vp.inf ;
     obj = obj ++ vp.obj ;
     adj = vp.adj
   } ;
 
-  insertAdj : (Agr => Str) -> VP -> VP = \adj,vp -> {
+  insertAdj : (Agr => Str) -> VerbPhrase -> VerbPhrase = \adj,vp -> {
     fin = vp.fin ;
     inf = vp.inf ;
     obj = vp.obj ;
