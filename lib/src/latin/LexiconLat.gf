@@ -18,6 +18,7 @@ concrete LexiconLat of Lexicon = CatLat ** open
   StructuralLat,
   NounLat,
   AdjectiveLat,
+  VerbLat,
   Prelude in {
 
 flags 
@@ -61,7 +62,7 @@ lin
   carpet_N = mkN "stragulum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Teges_pavimenti)
   cat_N = mkN ( variants {"feles" ; "felis" } ) "felis" feminine ; -- -is f. (Langenscheidts) 
   ceiling_N = mkN "tegimentum" ; -- -i n. (Langenscheidts)
-  char_N = mkN "sedes" "sedis" feminine; -- -is f. (Langenscheidts)
+  chair_N = mkN "sedes" "sedis" feminine; -- -is f. (Langenscheidts)
   cheese_N = mkN "caseus" ; -- -i m. (Langenscheidts)
   child_N = mkN "proles" "prolis" feminine ; -- -is f. (Langenscheidts)
   church_N = mkN "ecclesia" ; -- -ae f. (Langenscheidts)
@@ -120,12 +121,14 @@ lin
   iron_N = mkN "ferrum" ; -- -i m. (Langenscheidts)
   king_N = mkN "rex" "regis" masculine; -- regis m. (Langenscheidts)
   know_V2 = mkV2 (mkV "scire") ; -- scio, scivi/scii, scitum 4 (Langenscheidts)
+  know_VQ = mkV "scire" ;
+  know_VS = mkV "scire" ;
   lake_N = mkN "lacus" "lacus" masculine; -- -us m. (Langenscheidts)
   lamp_N = mkN "lucerna" ; -- -ae f. (Langenscheidts)
   learn_V2 = mkV2 (mkV "discere" "disco" "didici") ; -- disco, didici, - 3 (-isc-?) (Langenscheidts)
   leather_N = mkN "scortum" ; -- -i n. (Langenscheidts)
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
---  like_V2 = mkV2 ( lin V IrregLat.want_VV ) Acc_Prep ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
+  like_V2 = mkV2 ( lin V ( useVV IrregLat.want_VV ) ) ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
   live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
@@ -134,7 +137,7 @@ lin
   love_V2 = mkV2 "amare" ; -- Ranta; amo 1 (Langenscheidts)
   man_N = mkN "vir" "viri" masculine ; -- viri m. (Langenscheidts)
   -- Category not yet implemented
---  married_A2 = mkA2 (mkA "coniunctus") to_Prep; -- 3 (http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.04.0060:entry=coniunctus&highlight=married)
+  married_A2 = mkA2 (mkA "coniunctus") to_Prep; -- 3 (http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.04.0060:entry=coniunctus&highlight=married)
   meat_N = mkN "carnis" "carnis" feminine ; -- -is f. (Langenscheidts)
   milk_N = mkN "lac" "lactis" neuter ; -- -- lactis n. (Langenscheidts)
   moon_N = mkN "luna" ; -- -ae f. (Langenscheidts)
@@ -158,7 +161,7 @@ lin
   policeman_N = mkN "custos" "custodis" ( variants { masculine ; feminine } ) ; -- -odis m./f. (Langenscheidts)
   priest_N = mkN "sacerdos" "sacerdotis" ( variants { masculine ; feminine } ) ; -- -dotis m./f. (Langenscheidts)
   -- Category not yet implemented
---  probable_AS = mkAS (mkA "verisimilis" "verisimile") ; -- -e (Langenscheidts)
+  probable_AS = mkAS (mkA "verisimilis" "verisimile") ; -- -e (Langenscheidts)
   queen_N = mkN "regina" ; -- -ae f. (Langenscheidts)
   radio_N = mkN "radiophonum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Radiophonia)
   -- Category not yet implemented
@@ -175,7 +178,7 @@ lin
   say_VS = mkVS (mkV "dicere" "dico" "dixi" "dictum") ; -- dico, dixi, dictum 3 (Langenscheidts)
   school_N = mkN "schola" ; -- -ae f. (Langenscheidts)
   -- Irregular
---  science_N = mkN "literae" ; -- nur pl. (Langenscheidts)
+  science_N = pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
   sea_N = mkN "mare" "maris" neuter ; -- -is n. (Langenscheidts)
   seek_V2 = mkV2 (mkV "quaerere" "quaero" "quaesivi" "quaesitum" ) ; -- quaero, quaesivi, quaesitum 3 (Langenscheidts)
   see_V2 = mkV2 (mkV "videre") ; -- video, vidi, visum 2 (Langenscheidts)
@@ -194,7 +197,7 @@ lin
   small_A = mkA "parvus" ; -- 3 (Langenscheidts)
   snake_N = mkN "serpens" "serpentis" ( variants { masculine ; feminine } ) ; -- -entis m./f. (Langenscheidts)
   sock_N = mkN "impile" "impilis" masculine ; -- -is n. (Pons)
---  speak_V2 = mkV2 (mkV "loqui") ; -- loquor, locutus sum 3 (Langenscheidts)
+  speak_V2 = mkV2 (mkV "loqui" "loquor" "locutus" ) ; -- loquor, locutus sum 3 (Langenscheidts)
   star_N = mkN "stella" ; -- -ae f. (Langenscheidts)
   steel_N = mkN "chalybs" "chalybis" masculine ; -- chalybis m. (Langenscheidts)
   stone_N = mkN "lapis" "lapidis" masculine ; -- -idis m. (Langenscheidts)
@@ -205,14 +208,14 @@ lin
   switch8off_V2 = mkV2 (mkV "accendere") ; -- -cendo, -cendi, -censum 3 (Langenscheidts)
   switch8on_V2 = mkV2 (mkV ( variants { "exstinguere" ; "extinguere" } ) ); -- -ingo, -inxi, -inctum 3 (Langenscheidts)
   table_N = mkN "mensa" ; -- -ae f. (Langenscheidts)
---  talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
+  talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
   teacher_N = mkN "magister" "magistri" masculine ; -- -tri m. (Langenscheidts)
   teach_V2 = mkV2 (mkV "docere") ; -- doceo, docui, doctum 2 (Langenscheidts)
   television_N = mkN "televisio" "televisionis" feminine ; -- -onis f. (Pons)
   thick_A = mkA "crassus" ; -- 3 (Langenscheidts)
   thin_A = mkA "tenuis" "tenue" ; -- -e (Langenscheidts)
   train_N = mkN "hamaxostichus" ; -- -i m. (http://la.wikipedia.org/wiki/Hamaxostichus)
---  travel_V = mkV "iter facere" ; -- facio, feci, factum 3
+  travel_V = useVPasV ( ComplSlash ( SlashV2a ( mkV2 "facere" ) ) ( DetCN ( DetQuant IndefArt NumSg ) ( UseN ( mkN "iter" "itineris" Neutr ) ) ) ) ; -- facio, feci, factum 3
   tree_N = mkN "arbor" "arboris" feminine ; -- -oris f.
   -- Not even in English implemented
 ---- trousers_N = mkN "trousers" ;
