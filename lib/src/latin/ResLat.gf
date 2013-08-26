@@ -68,6 +68,14 @@ param
   nounWithGen : Gender -> Noun -> Noun = \g,n ->
     {s = n.s ; g = g} ;
 
+  regNP : (_,_,_,_,_,_ : Str) -> Gender -> Number -> NounPhrase = 
+    \nom,acc,gen,dat,abl,voc,g,n ->
+    {
+      s = table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
+      g = g ;
+      n = n ;
+      p = P3 
+    } ;
 -- also used for adjectives and so on
 
 -- adjectives
@@ -899,4 +907,3 @@ param
   Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
 
 }
-
