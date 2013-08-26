@@ -161,6 +161,22 @@ param
     partPassPerf : Agr => Str ;
     } ;
 
+  VV : Type = Verb ** { isAux : Bool } ;
+
+  useVV : VV -> Verb = \vv ->
+    {
+      act = vv.act ;
+      pass = vv.pass ;
+      inf = vv.inf ;
+      imp = vv.imp ;
+      ger = vv.ger ;
+      geriv = vv.geriv ;
+      sup = vv.sup ;
+      partActPres = vv.partActPres ;
+      partActFut = vv.partActFut ;
+      partPassPerf = vv.partPassPerf ;
+    } ;
+
   useVPasV : VerbPhrase -> Verb = \vp ->
     {
       act = \\a => vp.obj ++ vp.fin ! a ;
