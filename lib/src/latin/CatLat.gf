@@ -13,7 +13,7 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
 --
 ---- Sentence
 --
-    Cl = {s : VAnter => VTense => Polarity => Str} ;
+    Cl = { s : Tense => Anteriority => Polarity => Order => Str } ;
 --    ClSlash = {
 --      s : ResLat.Tense => Anteriority => Polarity => Order => Str ;
 --      c2 : Str
