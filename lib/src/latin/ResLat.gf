@@ -2,7 +2,7 @@
 
 --1 Latin auxiliary operations.
 
-resource ResLat = ParamX ** open Prelude in {
+resource ResLat = ParamX ** open Prelude,TenseX in {
 
 param
   Case = Nom | Acc | Gen | Dat | Abl | Voc ;
@@ -20,6 +20,8 @@ param
 	n : Number ; 
 	p : Person ;
       } ;
+  param
+    Order = SVO | SOV | VSO | VOS | OSV | OVS ; 
   param
     Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   oper
@@ -137,7 +139,7 @@ param
   VSupine   = VSupAcc | VSupAbl ;
   VPartForm = VActPres | VActFut | VPassPerf ;
 
-  VAnter = VSim | VAnt ;
+  VAnter = VAnt | VSim ;
   VTense = VPres VMood | VImpf VMood | VFut ; 
   VMood  = VInd | VConj ;
 
@@ -161,6 +163,24 @@ param
     } ;
 
   VV : Type = Verb ** { isAux : Bool } ;
+
+  tenseToVTense : Tense -> VTense = 
+    \t ->
+    case t of
+    {
+      Pres => VPres VInd ;
+      Past => VImpf VInd ;
+      Fut => VFut ;
+      Cond => VPres VConj -- don't know what to do
+    } ;
+  
+  anteriorityToVAnter : Anteriority -> VAnter = 
+    \a ->
+    case a of
+    {
+      Simul => VSim ;
+      Anter => VAnt
+    } ;
 
   useVV : VV -> Verb = \vv ->
     {
@@ -605,7 +625,7 @@ param
 		  ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
  		  Masc ).s ! n ! c 
 	  } ;
-	VpartActFut => 
+	VActFut => 
 	  ( mkAdjective
 	      ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
 		  ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) ( part_stem + "uri" ) 
@@ -860,7 +880,7 @@ oper
     adj = \\g,n => adj ! g ! n ! Nom ++ vp.adj ! g ! n
   } ;
 
-  Clause = {s : VAnter => VTense => Polarity => Str} ;
+--  Clause = {s : VAnter => VTense => Polarity => Str} ;
 
   -- mkClause : Pronoun -> VP -> Clause = \np,vp -> {
   --   s = \\a,t,p => np.s ! Nom ++ vp.obj ++ vp.adj ! np.g ! np.n ++ negation p ++ 
