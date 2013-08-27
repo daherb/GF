@@ -1,9 +1,9 @@
---concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
---
---  lin
---    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
---
-    UttS s = s ;
+concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
+  
+  lin
+    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
+    --
+    UttS s = lin Utt s ; -- S -> Utt
     UttQS qs = {s = qs.s ! QDir} ;
 --    UttImpSg pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Sg False} ;
 --    UttImpPl pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Pl False} ;
@@ -15,10 +15,10 @@
 --    UttVP vp = {s = infVP False vp (agrP3 Sg)} ;
 --    UttAdv adv = adv ;
 --
---    NoPConj = {s = []} ;
---    PConjConj conj = {s = conj.s2} ; ---
+    NoPConj = {s = []} ;
+    PConjConj conj = {s = conj.s2} ; ---
 --
---    NoVoc = {s = []} ;
---    VocNP np = {s = "," ++ np.s ! Nom} ;
+    NoVoc = {s = []} ;
+    VocNP np = {s = "," ++ np.s ! Voc} ;
 --
---}
+}
