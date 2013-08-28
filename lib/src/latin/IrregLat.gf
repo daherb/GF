@@ -173,7 +173,7 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
       };
 
     -- Bayer-Lindauer 95
-    want_VV = 
+    want_V = 
       let
 	pres_stem = "vel" ;
 	pres_ind_base = "vol" ;
@@ -221,7 +221,6 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	    } ; 
 	  sup =
 	    verb.sup ;
-	  isAux = False ;
       } ;
 
     -- Bayer-Lindauer 96 1

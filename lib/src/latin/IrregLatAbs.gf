@@ -3,7 +3,7 @@ abstract IrregLatAbs = Cat ** {
     be_V : V ;
     can_VV : VV ;
     bring_V : V ;
-    want_VV : VV ;
+    want_V : V ;
     go_V : V;
     become_V : V;
     rain_V : V;
