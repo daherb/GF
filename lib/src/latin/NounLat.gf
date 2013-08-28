@@ -10,7 +10,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --      preap, postap = lin AP { s = \\_,_,_ => "" ; isPre = False }
       } ;
 
---    UsePN pn = pn ** {a = agrgP3 Sg pn.g} ;
+    UsePN pn = lin NP { s = pn.s ! Sg ; g = pn.g ; n = Sg ; p = P3 } ;
     UsePron p = -- Pron -> Np
       { 
 	g = p.g ;
@@ -85,15 +85,17 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
       sp = \\_ => [] ;
       } ;
 
---    MassNP cn = {
---      s = cn.s ! Sg ;
---      a = agrP3 Sg
---      } ;
---
-    UseN n = lin CN n ** {preap, postap = {s = \\_ => "" } }; -- N -> CN
+    -- MassNP cn = {
+    --   s = cn.s ! Sg ;
+    --   a = Ag cn.g Sg
+    --   } ;
 
---    UseN2 n = n ;
------b    UseN3 n = n ;
+    UseN n = -- N -> CN
+  lin CN ( n ** {preap, postap = {s = \\_ => "" } } ) ; 
+      
+      UseN2 n2 = -- N2 -> CN
+  lin CN ( n2 ** {preap, postap = {s = \\_ => "" } } ) ; 
+  -----b    UseN3 n = n ;
 --
 --    Use2N3 f = {
 --      s = \\n,c => f.s ! n ! Nom ;
@@ -114,13 +116,18 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --      c2 = f.c3
 --      } ;
 
+  param
+    AdjPos = Pre | Post ;
+  lin
     AdjCN ap cn =  -- AP -> CN -> CN
+      let pos = variants { Post ; Pre }
+      in
       {
 	-- s = \\n,c => preOrPost ap.isPre (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
 	-- s = \\n,c => ( cn.s ! n ! c ) ++ ( ap.s ! AdjPhr cn.g n c) ; -- always add adjectives after noun?
 	s = cn.s ;
-	postap = { s = \\a => ap.s ! a ++ cn.postap.s ! a } ;
-	preap = cn.preap ;
+	postap = case pos of { Pre => cn.postap ; Post => { s = \\a => ap.s ! a ++ cn.postap.s ! a } } ;
+	preap = case pos of { Pre => { s = \\a => ap.s ! a ++ cn.preap.s ! a } ; Post => cn.preap } ;
 	-- variants { postap = ConsAP postap ap ; preap = ConsAP preap ap } ; -- Nice if that would work
 	g = cn.g
       } ;
