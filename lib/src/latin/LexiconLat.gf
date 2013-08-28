@@ -128,7 +128,7 @@ lin
   learn_V2 = mkV2 (mkV "discere" "disco" "didici") ; -- disco, didici, - 3 (-isc-?) (Langenscheidts)
   leather_N = mkN "scortum" ; -- -i n. (Langenscheidts)
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
-  like_V2 = mkV2 ( lin V ( useVV IrregLat.want_VV ) ) ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
+  like_V2 = mkV2 ( IrregLat.want_V ) ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
   live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
@@ -238,7 +238,7 @@ lin
   wood_N = mkN "lignum" ; -- -i n. (Langenscheidts)
   write_V2 = mkV2 (mkV "scribere") ; -- scribo, scripsi, scriptum 3 (Langenscheidts)
   yellow_A = mkA "flavus" ; -- 3 (Langenscheidts)
-  young_A = mkA "parvus" ; -- 3 (Langenscheidts)
+  young_A = mkA "adulescens" "adulescentis"; -- -entis (Langenscheidts)
 
   do_V2 = mkV2 (mkV "agere") ; -- ago, egi, actum 3 (Langenscheidts)
   now_Adv = mkAdv "nunc" ; -- (Langenscheidts)
