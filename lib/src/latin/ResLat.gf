@@ -21,7 +21,7 @@ param
 	p : Person ;
       } ;
   param
-    Order = SVO | SOV | VSO | VOS | OSV | OVS ; 
+    Order = SVO | VSO | VOS | OSV | OVS | SOV ; 
   param
     Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   oper
@@ -895,24 +895,14 @@ oper
 -- determiners
 
   Determiner : Type = {
-    s,sp : Gender => Case => Str ; -- singular and plural strings
+    s : Gender => Case => Str ; -- s,sp : Gender => Case => Str ; Don't know what sp is for
     n : Number
     } ;
 
-  mkDeterminer : Str -> Number -> Determiner = \d,n ->
-    case n of {
-      Sg => 
-	{
-	  s = \\_,_ => d ;
-	  sp = \\_,_ => "######" ;
-	  n = n
-	} ;
-      Pl => 
-	{
-	  s = \\_,_ => "######" ;
-	  sp = \\_,_ => d ;
-	  n = n
-	}
+  mkDeterminer : Adjective -> Number -> Determiner = \a,n ->
+    {
+      n = n ;
+      s = \\g,c => a.s ! Posit ! Ag g n c ;
     } ;
 
   Quantifier : Type = {
