@@ -26,7 +26,7 @@ concrete CatLat of Cat = CommonX ** open ResLat, Prelude in {
     IP = {s : Case => Str ; n : Number} ;
     IComp = {s : Str} ;    
     IDet = Determiner ; --{s : Str ; n : Number} ;
-    IQuant = {s : Number => Str} ;
+    IQuant = {s : Agr => Str} ;
 --
 ---- Relative
 --
