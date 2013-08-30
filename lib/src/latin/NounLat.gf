@@ -15,7 +15,10 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 	g = p.g ;
 	n = p.n ;
 	p = p.p ;
-	s = p.pers ! PronDrop ! PronRefl ;
+	s = \\c => case c of { 
+	  Nom => p.pers ! PronDrop ! PronRefl ; -- Drop pronoun in nominative case
+	  _ => p.pers ! PronNonDrop ! PronRefl  -- but don't drop it otherwise
+	  } ! c ;
       } ;
 --    PredetNP pred np = {
 --      s = \\c => pred.s ++ np.s ! c ;
