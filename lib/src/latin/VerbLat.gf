@@ -32,7 +32,8 @@ concrete VerbLat of Verb = CatLat ** open ResLat,IrregLat in {
 --        (insertObjc (\\a => infVP vv.isAux vp a) (predVc vv)) **
 --          {c2 = vp.c2} ;
 --
---    UseComp comp = insertAdj comp.s (predV be_V) ;
+    UseComp comp = -- Comp -> VP
+      insertAdj comp.s (predV be_V) ;
 
 --    AdvVP vp adv = insertObj adv.s vp ;
 
@@ -44,7 +45,7 @@ concrete VerbLat of Verb = CatLat ** open ResLat,IrregLat in {
 --
 -----b    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no "to"
 --
---    CompAP ap = ap ;
+    CompAP ap = ap ;
 --    CompNP np = {s = \\_ => np.s ! Acc} ;
 --    CompAdv a = {s = \\_ => a.s} ;
 --

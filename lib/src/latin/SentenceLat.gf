@@ -8,12 +8,12 @@ concrete SentenceLat of Sentence = CatLat,TenseX ** open Prelude, ResLat in {
       {
 	s = \\tense,anter,pol,order => 
 	  case order of {
-	    SVO => np.s ! Nom ++ negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ vp.obj ;
-	    VSO => negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ np.s ! Nom ++ vp.obj ;
-	    VOS => negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ vp.obj ++ np.s ! Nom ;
-	    OSV => vp.obj ++ np.s ! Nom ++ negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ;
-	    OVS => vp.obj ++ negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ np.s ! Nom ;
-	    SOV => np.s ! Nom ++ vp.obj ++ negation pol ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p 
+	    SVO => np.s ! Nom ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ vp.obj ;
+	    VSO => negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ np.s ! Nom ++ vp.obj ;
+	    VOS => negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ vp.obj ++ np.s ! Nom ;
+	    OSV => vp.obj ++ np.s ! Nom ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ;
+	    OVS => vp.obj ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ++ np.s ! Nom ;
+	    SOV => np.s ! Nom ++ vp.obj ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p 
 	  } 
       } ;
 --

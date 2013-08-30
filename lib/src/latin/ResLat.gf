@@ -148,7 +148,7 @@ param
     fin : VActForm => Str ;
     inf : VInfForm => Str ;
     obj : Str ;
---    adj : Gender => Number => Str
+    adj : Agr => Str
   } ;
 
   Verb : Type = {
@@ -859,7 +859,7 @@ oper
     fin = v.act ;
     inf = v.inf ;
     obj = [] ;
---    adj = \\_,_ => []
+    adj = \\a => []
   } ;
 
   predV2 : (Verb ** {c : Preposition}) -> VPSlash = \v -> predV v ** {c2 = v.c} ;
@@ -877,7 +877,7 @@ oper
     fin = vp.fin ;
     inf = vp.inf ;
     obj = vp.obj ;
-    adj = \\g,n => adj ! g ! n ! Nom ++ vp.adj ! g ! n
+    adj = \\a => adj ! a ++ vp.adj ! a
   } ;
 
 --  Clause = {s : VAnter => VTense => Polarity => Str} ;
