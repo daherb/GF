@@ -160,13 +160,11 @@ lin
   play_V2 = mkV2 (mkV "ludere") ; -- ludo, lusi, lusum 3 (Langenscheidts)
   policeman_N = mkN "custos" "custodis" ( variants { masculine ; feminine } ) ; -- -odis m./f. (Langenscheidts)
   priest_N = mkN "sacerdos" "sacerdotis" ( variants { masculine ; feminine } ) ; -- -dotis m./f. (Langenscheidts)
-  -- Category not yet implemented
   probable_AS = mkAS (mkA "verisimilis" "verisimile") ; -- -e (Langenscheidts)
   queen_N = mkN "regina" ; -- -ae f. (Langenscheidts)
   radio_N = mkN "radiophonum" ; -- -i n. (Pons / http://la.wikipedia.org/wiki/Radiophonia)
-  -- Category not yet implemented
   rain_V0 = mkV0 ( IrregLat.rain_V ) ; -- (Langenscheidts)
-  read_V2 = mkV2 (mkV "legere") ; -- lego, legi, lectum 3 (Langenscheidts)
+  read_V2 = mkV2 (mkV "legere" "lego" "legi" "lectum") ; -- lego, legi, lectum 3 (Langenscheidts)
   red_A = mkA "ruber" ; -- rubra, rubrum (Langenscheidts)
   religion_N = mkN "religio" "religionis" feminine ; -- -onis f. (Langenscheidts)
   restaurant_N = mkN "taberna" ; -- -ae f. (Langenscheidts)
@@ -215,7 +213,7 @@ lin
   thick_A = mkA "crassus" ; -- 3 (Langenscheidts)
   thin_A = mkA "tenuis" "tenue" ; -- -e (Langenscheidts)
   train_N = mkN "hamaxostichus" ; -- -i m. (http://la.wikipedia.org/wiki/Hamaxostichus)
-  travel_V = useVPasV ( ComplSlash ( SlashV2a ( mkV2 "facere" ) ) ( DetCN ( DetQuant IndefArt NumSg ) ( UseN ( mkN "iter" "itineris" Neutr ) ) ) ) ; -- facio, feci, factum 3
+  travel_V = ResLat.useVPasV ( ComplSlash ( SlashV2a ( mkV2 "facere" ) ) ( DetCN ( DetQuant IndefArt NumSg ) ( UseN ( mkN "iter" "itineris" Neutr ) ) ) ) ; -- facio, feci, factum 3
   tree_N = mkN "arbor" "arboris" feminine ; -- -oris f.
   -- Not even in English implemented
 ---- trousers_N = mkN "trousers" ;
