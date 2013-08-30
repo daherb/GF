@@ -27,10 +27,10 @@ param
   oper
     Adjective : Type = {
       s : Degree => Agr => Str ; 
-      comp_adv : Str ; 
-      super_adv : Str 
+--      comp_adv : Str ; 
+--      super_adv : Str 
       } ;
-    CommonNoun : Type = 
+    CompoundNoun : Type = 
     {
       s : Number => Case => Str ; 
       g : Gender ;
@@ -38,7 +38,7 @@ param
       postap : {s : Agr => Str } ;
     } ;
 -- nouns
-  useCNasN : CommonNoun -> Noun = \cn ->
+  useCNasN : CompoundNoun -> Noun = \cn ->
     {
       s = cn.s ;
       g = cn.g ;
@@ -226,7 +226,7 @@ param
 		_ + "a" =>  ( init pres_ind_base ) ;
 		_ => pres_ind_base
 		}
-	    ) + actPresEnding Sg P1 ;
+	    ) + "o" ; --actPresEnding Sg P1 ;
 	  VAct VSim (VPres VInd)  Pl P3 => -- Present Indicative
 	    pres_ind_base + fill.p2 + actPresEnding Pl P3 ;
           VAct VSim (VPres VInd)  n  p  =>  -- Present Indicative
