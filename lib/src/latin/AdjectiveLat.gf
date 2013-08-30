@@ -6,7 +6,6 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
     PositA  a = -- A -> AP
       { 
 	s = table { Ag g n c  => a.s ! Posit ! Ag g n c } ;
---	isPre = True | False ; -- adjectives can be before and after nouns -> Trying to find a different way to do this
       };
 
 {-
@@ -38,6 +37,9 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
     --   isPre = ap.isPre
     --   } ;
 
---    UseA2 a = a ;
+    UseA2 a = -- A2 -> AP
+      { 
+	s = table { Ag g n c  => a.s ! Posit ! Ag g n c } ;
+      } ;
 
 }
