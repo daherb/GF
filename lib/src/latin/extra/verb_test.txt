@@ -1,0 +1,1187 @@
+                              
+         *  *  *              
+      *           *           
+    *               *         
+   *                          
+   *                          
+   *        * * * * * *       
+   *        *         *       
+    *       * * * *  *        
+      *     *      *          
+         *  *  *              
+                              
+This is GF version 3.4. 
+No detailed version info available
+Built on linux/x86_64 with ghc-7.0, flags: interrupt
+License: see help -license.   
+Bug reports: http://code.google.com/p/grammatical-framework/issues/list
+
+
+Languages:
+> - compiling /home/herb/src/GF-daherb/lib/src/prelude/Predef.gf...   write file /home/herb/src/GF-daherb/lib/src/prelude/Predef.gfo
+- compiling /home/herb/src/GF-daherb/lib/src/prelude/Prelude.gf...   write file /home/herb/src/GF-daherb/lib/src/prelude/Prelude.gfo
+- compiling /home/herb/src/GF-daherb/lib/src/latin/ResLat.gf...   write file /home/herb/src/GF-daherb/lib/src/latin/ResLat.gfo
+- compiling /home/herb/src/GF-daherb/lib/src/latin/MorphoLat.gf...   write file /home/herb/src/GF-daherb/lib/src/latin/MorphoLat.gfo
+1092 msec
+> act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => laudo
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => laudas
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => laudat
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => laudamus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => laudatis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => laudant
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => laudem
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => laudes
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => laudet
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => laudemus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => laudetis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => laudent
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => laudabam
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => laudabas
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => laudabat
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => laudabamus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => laudabatis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => laudabant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => laudarem
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => laudares
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => laudaret
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => laudaremus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => laudaretis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => laudarent
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P1 => laudabo
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P2 => laudabis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P3 => laudabit
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P1 => laudabimus
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P2 => laudabitis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P3 => laudabunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => laudavi
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => laudavisti
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => laudavit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => laudavimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => laudavistis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => laudaverunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => laudaverim
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => laudaveris
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => laudaverit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => laudaverimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => laudaveritis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => laudaverint
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => laudaveram
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => laudaveras
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => laudaverat
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => laudaveramus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => laudaveratis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => laudaverant
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => laudavissem
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => laudavisses
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => laudavisset
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => laudavissemus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => laudavissetis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => laudavissent
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P1 => laudavero
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P2 => laudaveris
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P3 => laudaverit
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P1 => laudaverimus
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P2 => laudaveritis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P3 => laudaverint
+ger . ResLat.VGenAcc => laudandum
+ger . ResLat.VGenGen => laudandi
+ger . ResLat.VGenDat => laudando
+ger . ResLat.VGenAbl => laudando
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Nom => laudandus
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Acc => laudandum
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Gen => laudandi
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Dat => laudando
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Abl => laudando
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Voc => laudande
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Nom => laudandi
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Acc => laudandos
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Gen => laudandorum
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Dat => laudandis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Abl => laudandis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Voc => laudandi
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Nom => laudanda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Acc => laudandam
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Gen => laudandae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Dat => laudandae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Abl => laudanda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Voc => laudanda
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Nom => laudandae
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Acc => laudandas
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Gen => laudandarum
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Dat => laudandis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Abl => laudandis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Voc => laudandae
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Nom => laudandum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Acc => laudandum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Gen => laudandi
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Dat => laudando
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Abl => laudando
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Voc => laudandum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Nom => laudanda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Acc => laudanda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Gen => laudandorum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Dat => laudandis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Abl => laudandis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Voc => laudanda
+imp . ResLat.VImp1 ParamX.Sg => lauda
+imp . ResLat.VImp1 ParamX.Pl => laudate
+imp . ResLat.VImp2 ParamX.Sg ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Sg ParamX.P2 => laudato
+imp . ResLat.VImp2 ParamX.Sg ParamX.P3 => laudato
+imp . ResLat.VImp2 ParamX.Pl ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Pl ParamX.P2 => laudatote
+imp . ResLat.VImp2 ParamX.Pl ParamX.P3 => laudanto
+inf . ResLat.VInfActPres => laudare
+inf . ResLat.VInfActPerf ResLat.Masc => laudavisse
+inf . ResLat.VInfActPerf ResLat.Fem => laudavisse
+inf . ResLat.VInfActPerf ResLat.Neutr => laudavisse
+inf . ResLat.VInfActFut ResLat.Masc => laudaturum
+inf . ResLat.VInfActFut ResLat.Fem => laudaturam
+inf . ResLat.VInfActFut ResLat.Neutr => laudaturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Nom => laudaturus
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Acc => laudaturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Gen => laudaturi
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Dat => laudaturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Abl => laudaturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Voc => laudature
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Nom => laudaturi
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Acc => laudaturos
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Gen => laudaturorum
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Dat => laudaturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Abl => laudaturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Voc => laudaturi
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Nom => laudatura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Acc => laudaturam
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Gen => laudaturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Dat => laudaturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Abl => laudatura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Voc => laudatura
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Nom => laudaturae
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Acc => laudaturas
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Gen => laudaturarum
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Dat => laudaturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Abl => laudaturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Voc => laudaturae
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Nom => laudaturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Acc => laudaturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Gen => laudaturi
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Dat => laudaturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Abl => laudaturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Voc => laudaturum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Nom => laudatura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Acc => laudatura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Gen => laudaturorum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Dat => laudaturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Abl => laudaturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Voc => laudatura
+partActPres . ParamX.Sg => ResLat.Nom => laudans
+partActPres . ParamX.Sg => ResLat.Acc => laudantem
+partActPres . ParamX.Sg => ResLat.Gen => laudantis
+partActPres . ParamX.Sg => ResLat.Dat => laudanti
+partActPres . ParamX.Sg => ResLat.Abl => laudante
+partActPres . ParamX.Sg => ResLat.Voc => laudans
+partActPres . ParamX.Pl => ResLat.Nom => laudantes
+partActPres . ParamX.Pl => ResLat.Acc => laudantes
+partActPres . ParamX.Pl => ResLat.Gen => laudantium
+partActPres . ParamX.Pl => ResLat.Dat => laudantibus
+partActPres . ParamX.Pl => ResLat.Abl => laudantibus
+partActPres . ParamX.Pl => ResLat.Voc => laudantes
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Nom => laudatus
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Acc => laudatum
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Gen => laudati
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Dat => laudato
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Abl => laudato
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Voc => laudate
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Nom => laudati
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Acc => laudatos
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Gen => laudatorum
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Dat => laudatis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Abl => laudatis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Voc => laudati
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Nom => laudata
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Acc => laudatam
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Gen => laudatae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Dat => laudatae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Abl => laudata
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Voc => laudata
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Nom => laudatae
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Acc => laudatas
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Gen => laudatarum
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Dat => laudatis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Abl => laudatis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Voc => laudatae
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Nom => laudatum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Acc => laudatum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Gen => laudati
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Dat => laudato
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Abl => laudato
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Voc => laudatum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Nom => laudata
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Acc => laudata
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Gen => laudatorum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Dat => laudatis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Abl => laudatis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Voc => laudata
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => laudor
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => laudaris
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => laudatur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => laudamur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => laudamini
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => laudantur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => lauder
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => lauderis
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => laudetur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => laudemur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => laudemini
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => laudentur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => laudabar
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => laudabaris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => laudabatur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => laudabamur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => laudabamini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => laudabantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => laudarer
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => laudareris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => laudaretur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => laudaremur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => laudaremini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => laudarentur
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P1 => laudabor
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P2 => laudaberis
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P3 => laudabitur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P1 => laudabimur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P2 => laudabimini
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P3 => laudabuntur
+sup . ResLat.VSupAcc => laudatum
+sup . ResLat.VSupAbl => laudatu
+4 msec
+> act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => moneo
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => mones
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => monet
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => monemus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => monetis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => monent
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => moneam
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => moneas
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => moneat
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => moneamus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => moneatis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => moneant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => monebam
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => monebas
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => monebat
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => monebamus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => monebatis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => monebant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => monerem
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => moneres
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => moneret
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => moneremus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => moneretis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => monerent
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P1 => monebo
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P2 => monebis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P3 => monebit
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P1 => monebimus
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P2 => monebitis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P3 => monebunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => monui
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => monuisti
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => monuit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => monuimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => monuistis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => monuerunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => monuerim
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => monueris
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => monuerit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => monuerimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => monueritis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => monuerint
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => monueram
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => monueras
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => monuerat
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => monueramus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => monueratis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => monuerant
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => monuissem
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => monuisses
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => monuisset
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => monuissemus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => monuissetis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => monuissent
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P1 => monuero
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P2 => monueris
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P3 => monuerit
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P1 => monuerimus
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P2 => monueritis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P3 => monuerint
+ger . ResLat.VGenAcc => monendum
+ger . ResLat.VGenGen => monendi
+ger . ResLat.VGenDat => monendo
+ger . ResLat.VGenAbl => monendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Nom => monendus
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Acc => monendum
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Gen => monendi
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Dat => monendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Abl => monendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Voc => monende
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Nom => monendi
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Acc => monendos
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Gen => monendorum
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Dat => monendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Abl => monendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Voc => monendi
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Nom => monenda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Acc => monendam
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Gen => monendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Dat => monendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Abl => monenda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Voc => monenda
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Nom => monendae
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Acc => monendas
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Gen => monendarum
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Dat => monendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Abl => monendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Voc => monendae
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Nom => monendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Acc => monendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Gen => monendi
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Dat => monendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Abl => monendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Voc => monendum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Nom => monenda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Acc => monenda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Gen => monendorum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Dat => monendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Abl => monendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Voc => monenda
+imp . ResLat.VImp1 ParamX.Sg => mone
+imp . ResLat.VImp1 ParamX.Pl => monete
+imp . ResLat.VImp2 ParamX.Sg ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Sg ParamX.P2 => moneto
+imp . ResLat.VImp2 ParamX.Sg ParamX.P3 => moneto
+imp . ResLat.VImp2 ParamX.Pl ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Pl ParamX.P2 => monetote
+imp . ResLat.VImp2 ParamX.Pl ParamX.P3 => monento
+inf . ResLat.VInfActPres => monere
+inf . ResLat.VInfActPerf ResLat.Masc => monuisse
+inf . ResLat.VInfActPerf ResLat.Fem => monuisse
+inf . ResLat.VInfActPerf ResLat.Neutr => monuisse
+inf . ResLat.VInfActFut ResLat.Masc => moniturum
+inf . ResLat.VInfActFut ResLat.Fem => monituram
+inf . ResLat.VInfActFut ResLat.Neutr => moniturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Nom => moniturus
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Acc => moniturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Gen => monituri
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Dat => monituro
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Abl => monituro
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Voc => moniture
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Nom => monituri
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Acc => monituros
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Gen => moniturorum
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Dat => monituris
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Abl => monituris
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Voc => monituri
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Nom => monitura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Acc => monituram
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Gen => moniturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Dat => moniturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Abl => monitura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Voc => monitura
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Nom => moniturae
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Acc => monituras
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Gen => moniturarum
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Dat => monituris
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Abl => monituris
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Voc => moniturae
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Nom => moniturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Acc => moniturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Gen => monituri
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Dat => monituro
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Abl => monituro
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Voc => moniturum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Nom => monitura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Acc => monitura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Gen => moniturorum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Dat => monituris
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Abl => monituris
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Voc => monitura
+partActPres . ParamX.Sg => ResLat.Nom => monens
+partActPres . ParamX.Sg => ResLat.Acc => monentem
+partActPres . ParamX.Sg => ResLat.Gen => monentis
+partActPres . ParamX.Sg => ResLat.Dat => monenti
+partActPres . ParamX.Sg => ResLat.Abl => monente
+partActPres . ParamX.Sg => ResLat.Voc => monens
+partActPres . ParamX.Pl => ResLat.Nom => monentes
+partActPres . ParamX.Pl => ResLat.Acc => monentes
+partActPres . ParamX.Pl => ResLat.Gen => monentium
+partActPres . ParamX.Pl => ResLat.Dat => monentibus
+partActPres . ParamX.Pl => ResLat.Abl => monentibus
+partActPres . ParamX.Pl => ResLat.Voc => monentes
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Nom => monitus
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Acc => monitum
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Gen => moniti
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Dat => monito
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Abl => monito
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Voc => monite
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Nom => moniti
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Acc => monitos
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Gen => monitorum
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Dat => monitis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Abl => monitis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Voc => moniti
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Nom => monita
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Acc => monitam
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Gen => monitae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Dat => monitae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Abl => monita
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Voc => monita
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Nom => monitae
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Acc => monitas
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Gen => monitarum
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Dat => monitis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Abl => monitis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Voc => monitae
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Nom => monitum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Acc => monitum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Gen => moniti
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Dat => monito
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Abl => monito
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Voc => monitum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Nom => monita
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Acc => monita
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Gen => monitorum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Dat => monitis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Abl => monitis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Voc => monita
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => moneor
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => moneris
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => monetur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => monemur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => monemini
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => monentur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => monear
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => monearis
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => moneatur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => moneamur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => moneamini
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => moneantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => monebar
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => monebaris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => monebatur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => monebamur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => monebamini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => monebantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => monerer
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => monereris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => moneretur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => moneremur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => moneremini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => monerentur
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P1 => monebor
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P2 => moneberis
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P3 => monebitur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P1 => monebimur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P2 => monebimini
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P3 => monebuntur
+sup . ResLat.VSupAcc => monitum
+sup . ResLat.VSupAbl => monitu
+4 msec
+> act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => audio
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => audis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => audit
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => audimus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => auditis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => audiunt
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => audiam
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => audias
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => audiat
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => audiamus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => audiatis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => audiant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => audiebam
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => audiebas
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => audiebat
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => audiebamus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => audiebatis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => audiebant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => audirem
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => audires
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => audiret
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => audiremus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => audiretis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => audirent
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P1 => audiam
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P2 => audies
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P3 => audiet
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P1 => audiemus
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P2 => audietis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P3 => audient
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => audivi
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => audivisti
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => audivit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => audivimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => audivistis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => audiverunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => audiverim
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => audiveris
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => audiverit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => audiverimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => audiveritis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => audiverint
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => audiveram
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => audiveras
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => audiverat
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => audiveramus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => audiveratis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => audiverant
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => audivissem
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => audivisses
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => audivisset
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => audivissemus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => audivissetis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => audivissent
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P1 => audivero
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P2 => audiveris
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P3 => audiverit
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P1 => audiverimus
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P2 => audiveritis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P3 => audiverint
+ger . ResLat.VGenAcc => audiendum
+ger . ResLat.VGenGen => audiendi
+ger . ResLat.VGenDat => audiendo
+ger . ResLat.VGenAbl => audiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Nom => audiendus
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Acc => audiendum
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Gen => audiendi
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Dat => audiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Abl => audiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Voc => audiende
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Nom => audiendi
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Acc => audiendos
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Gen => audiendorum
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Dat => audiendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Abl => audiendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Voc => audiendi
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Nom => audienda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Acc => audiendam
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Gen => audiendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Dat => audiendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Abl => audienda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Voc => audienda
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Nom => audiendae
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Acc => audiendas
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Gen => audiendarum
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Dat => audiendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Abl => audiendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Voc => audiendae
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Nom => audiendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Acc => audiendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Gen => audiendi
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Dat => audiendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Abl => audiendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Voc => audiendum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Nom => audienda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Acc => audienda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Gen => audiendorum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Dat => audiendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Abl => audiendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Voc => audienda
+imp . ResLat.VImp1 ParamX.Sg => audi
+imp . ResLat.VImp1 ParamX.Pl => audite
+imp . ResLat.VImp2 ParamX.Sg ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Sg ParamX.P2 => audito
+imp . ResLat.VImp2 ParamX.Sg ParamX.P3 => audito
+imp . ResLat.VImp2 ParamX.Pl ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Pl ParamX.P2 => auditote
+imp . ResLat.VImp2 ParamX.Pl ParamX.P3 => audiunto
+inf . ResLat.VInfActPres => audire
+inf . ResLat.VInfActPerf ResLat.Masc => audivisse
+inf . ResLat.VInfActPerf ResLat.Fem => audivisse
+inf . ResLat.VInfActPerf ResLat.Neutr => audivisse
+inf . ResLat.VInfActFut ResLat.Masc => auditurum
+inf . ResLat.VInfActFut ResLat.Fem => audituram
+inf . ResLat.VInfActFut ResLat.Neutr => auditurum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Nom => auditurus
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Acc => auditurum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Gen => audituri
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Dat => audituro
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Abl => audituro
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Voc => auditure
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Nom => audituri
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Acc => audituros
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Gen => auditurorum
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Dat => audituris
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Abl => audituris
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Voc => audituri
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Nom => auditura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Acc => audituram
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Gen => auditurae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Dat => auditurae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Abl => auditura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Voc => auditura
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Nom => auditurae
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Acc => audituras
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Gen => auditurarum
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Dat => audituris
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Abl => audituris
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Voc => auditurae
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Nom => auditurum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Acc => auditurum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Gen => audituri
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Dat => audituro
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Abl => audituro
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Voc => auditurum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Nom => auditura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Acc => auditura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Gen => auditurorum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Dat => audituris
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Abl => audituris
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Voc => auditura
+partActPres . ParamX.Sg => ResLat.Nom => audiens
+partActPres . ParamX.Sg => ResLat.Acc => audientem
+partActPres . ParamX.Sg => ResLat.Gen => audientis
+partActPres . ParamX.Sg => ResLat.Dat => audienti
+partActPres . ParamX.Sg => ResLat.Abl => audiente
+partActPres . ParamX.Sg => ResLat.Voc => audiens
+partActPres . ParamX.Pl => ResLat.Nom => audientes
+partActPres . ParamX.Pl => ResLat.Acc => audientes
+partActPres . ParamX.Pl => ResLat.Gen => audientium
+partActPres . ParamX.Pl => ResLat.Dat => audientibus
+partActPres . ParamX.Pl => ResLat.Abl => audientibus
+partActPres . ParamX.Pl => ResLat.Voc => audientes
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Nom => auditus
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Acc => auditum
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Gen => auditi
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Dat => audito
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Abl => audito
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Voc => audite
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Nom => auditi
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Acc => auditos
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Gen => auditorum
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Dat => auditis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Abl => auditis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Voc => auditi
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Nom => audita
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Acc => auditam
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Gen => auditae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Dat => auditae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Abl => audita
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Voc => audita
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Nom => auditae
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Acc => auditas
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Gen => auditarum
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Dat => auditis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Abl => auditis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Voc => auditae
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Nom => auditum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Acc => auditum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Gen => auditi
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Dat => audito
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Abl => audito
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Voc => auditum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Nom => audita
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Acc => audita
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Gen => auditorum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Dat => auditis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Abl => auditis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Voc => audita
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => audior
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => audiris
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => auditur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => audimur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => audimini
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => audiuntur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => audiar
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => audiaris
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => audiatur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => audiamur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => audiamini
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => audiantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => audiebar
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => audiebaris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => audiebatur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => audiebamur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => audiebamini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => audiebantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => audirer
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => audireris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => audiretur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => audiremur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => audiremini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => audirentur
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P1 => audiar
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P2 => audieris
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P3 => audietur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P1 => audiemur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P2 => audiemini
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P3 => audientur
+sup . ResLat.VSupAcc => auditum
+sup . ResLat.VSupAbl => auditu
+5 msec
+> act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => rego
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => regis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => regit
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => regimus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => regitis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => regunt
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => regam
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => regas
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => regat
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => regamus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => regatis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => regant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => regebam
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => regebas
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => regebat
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => regebamus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => regebatis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => regebant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => regerem
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => regeres
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => regeret
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => regeremus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => regeretis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => regerent
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P1 => regam
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P2 => reges
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P3 => reget
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P1 => regemus
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P2 => regetis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P3 => regent
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => rexi
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => rexisti
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => rexit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => reximus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => rexistis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => rexerunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => rexerim
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => rexeris
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => rexerit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => rexerimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => rexeritis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => rexerint
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => rexeram
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => rexeras
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => rexerat
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => rexeramus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => rexeratis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => rexerant
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => rexissem
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => rexisses
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => rexisset
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => rexissemus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => rexissetis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => rexissent
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P1 => rexero
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P2 => rexeris
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P3 => rexerit
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P1 => rexerimus
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P2 => rexeritis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P3 => rexerint
+ger . ResLat.VGenAcc => regendum
+ger . ResLat.VGenGen => regendi
+ger . ResLat.VGenDat => regendo
+ger . ResLat.VGenAbl => regendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Nom => regendus
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Acc => regendum
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Gen => regendi
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Dat => regendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Abl => regendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Voc => regende
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Nom => regendi
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Acc => regendos
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Gen => regendorum
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Dat => regendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Abl => regendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Voc => regendi
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Nom => regenda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Acc => regendam
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Gen => regendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Dat => regendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Abl => regenda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Voc => regenda
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Nom => regendae
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Acc => regendas
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Gen => regendarum
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Dat => regendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Abl => regendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Voc => regendae
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Nom => regendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Acc => regendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Gen => regendi
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Dat => regendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Abl => regendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Voc => regendum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Nom => regenda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Acc => regenda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Gen => regendorum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Dat => regendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Abl => regendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Voc => regenda
+imp . ResLat.VImp1 ParamX.Sg => rege
+imp . ResLat.VImp1 ParamX.Pl => regite
+imp . ResLat.VImp2 ParamX.Sg ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Sg ParamX.P2 => regito
+imp . ResLat.VImp2 ParamX.Sg ParamX.P3 => regito
+imp . ResLat.VImp2 ParamX.Pl ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Pl ParamX.P2 => regitote
+imp . ResLat.VImp2 ParamX.Pl ParamX.P3 => regunto
+inf . ResLat.VInfActPres => regere
+inf . ResLat.VInfActPerf ResLat.Masc => rexisse
+inf . ResLat.VInfActPerf ResLat.Fem => rexisse
+inf . ResLat.VInfActPerf ResLat.Neutr => rexisse
+inf . ResLat.VInfActFut ResLat.Masc => recturum
+inf . ResLat.VInfActFut ResLat.Fem => recturam
+inf . ResLat.VInfActFut ResLat.Neutr => recturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Nom => recturus
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Acc => recturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Gen => recturi
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Dat => recturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Abl => recturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Voc => recture
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Nom => recturi
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Acc => recturos
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Gen => recturorum
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Dat => recturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Abl => recturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Voc => recturi
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Nom => rectura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Acc => recturam
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Gen => recturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Dat => recturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Abl => rectura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Voc => rectura
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Nom => recturae
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Acc => recturas
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Gen => recturarum
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Dat => recturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Abl => recturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Voc => recturae
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Nom => recturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Acc => recturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Gen => recturi
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Dat => recturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Abl => recturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Voc => recturum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Nom => rectura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Acc => rectura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Gen => recturorum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Dat => recturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Abl => recturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Voc => rectura
+partActPres . ParamX.Sg => ResLat.Nom => regens
+partActPres . ParamX.Sg => ResLat.Acc => regentem
+partActPres . ParamX.Sg => ResLat.Gen => regentis
+partActPres . ParamX.Sg => ResLat.Dat => regenti
+partActPres . ParamX.Sg => ResLat.Abl => regente
+partActPres . ParamX.Sg => ResLat.Voc => regens
+partActPres . ParamX.Pl => ResLat.Nom => regentes
+partActPres . ParamX.Pl => ResLat.Acc => regentes
+partActPres . ParamX.Pl => ResLat.Gen => regentium
+partActPres . ParamX.Pl => ResLat.Dat => regentibus
+partActPres . ParamX.Pl => ResLat.Abl => regentibus
+partActPres . ParamX.Pl => ResLat.Voc => regentes
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Nom => rectus
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Acc => rectum
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Gen => recti
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Dat => recto
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Abl => recto
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Voc => recte
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Nom => recti
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Acc => rectos
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Gen => rectorum
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Dat => rectis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Abl => rectis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Voc => recti
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Nom => recta
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Acc => rectam
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Gen => rectae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Dat => rectae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Abl => recta
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Voc => recta
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Nom => rectae
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Acc => rectas
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Gen => rectarum
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Dat => rectis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Abl => rectis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Voc => rectae
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Nom => rectum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Acc => rectum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Gen => recti
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Dat => recto
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Abl => recto
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Voc => rectum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Nom => recta
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Acc => recta
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Gen => rectorum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Dat => rectis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Abl => rectis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Voc => recta
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => regor
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => regeris
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => regitur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => regimur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => regimini
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => reguntur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => regar
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => regaris
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => regatur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => regamur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => regamini
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => regantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => regebar
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => regebaris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => regebatur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => regebamur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => regebamini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => regebantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => regerer
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => regereris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => regeretur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => regeremur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => regeremini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => regerentur
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P1 => regar
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P2 => regeris
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P3 => regetur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P1 => regemur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P2 => regemini
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P3 => regentur
+sup . ResLat.VSupAcc => rectum
+sup . ResLat.VSupAbl => rectu
+4 msec
+> act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => capio
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => capis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => capit
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => capimus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => capitis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => capiunt
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => capiam
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => capias
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => capiat
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => capiamus
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => capiatis
+act . ResLat.VAct ResLat.VSim (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => capiant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => capiebam
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => capiebas
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => capiebat
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => capiebamus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => capiebatis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => capiebant
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => caperem
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => caperes
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => caperet
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => caperemus
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => caperetis
+act . ResLat.VAct ResLat.VSim (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => caperent
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P1 => capiam
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P2 => capies
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Sg ParamX.P3 => capiet
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P1 => capiemus
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P2 => capietis
+act . ResLat.VAct ResLat.VSim ResLat.VFut ParamX.Pl ParamX.P3 => capient
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => cepi
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => cepisti
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => cepit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => cepimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => cepistis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => ceperunt
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => ceperim
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => ceperis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => ceperit
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => ceperimus
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => ceperitis
+act . ResLat.VAct ResLat.VAnt (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => ceperint
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => ceperam
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => ceperas
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => ceperat
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => ceperamus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => ceperatis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => ceperant
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => cepissem
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => cepisses
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => cepisset
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => cepissemus
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => cepissetis
+act . ResLat.VAct ResLat.VAnt (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => cepissent
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P1 => cepero
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P2 => ceperis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Sg ParamX.P3 => ceperit
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P1 => ceperimus
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P2 => ceperitis
+act . ResLat.VAct ResLat.VAnt ResLat.VFut ParamX.Pl ParamX.P3 => ceperint
+ger . ResLat.VGenAcc => capiendum
+ger . ResLat.VGenGen => capiendi
+ger . ResLat.VGenDat => capiendo
+ger . ResLat.VGenAbl => capiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Nom => capiendus
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Acc => capiendum
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Gen => capiendi
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Dat => capiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Abl => capiendo
+geriv . ResLat.Masc => ParamX.Sg => ResLat.Voc => capiende
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Nom => capiendi
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Acc => capiendos
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Gen => capiendorum
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Dat => capiendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Abl => capiendis
+geriv . ResLat.Masc => ParamX.Pl => ResLat.Voc => capiendi
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Nom => capienda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Acc => capiendam
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Gen => capiendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Dat => capiendae
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Abl => capienda
+geriv . ResLat.Fem => ParamX.Sg => ResLat.Voc => capienda
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Nom => capiendae
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Acc => capiendas
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Gen => capiendarum
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Dat => capiendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Abl => capiendis
+geriv . ResLat.Fem => ParamX.Pl => ResLat.Voc => capiendae
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Nom => capiendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Acc => capiendum
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Gen => capiendi
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Dat => capiendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Abl => capiendo
+geriv . ResLat.Neutr => ParamX.Sg => ResLat.Voc => capiendum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Nom => capienda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Acc => capienda
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Gen => capiendorum
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Dat => capiendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Abl => capiendis
+geriv . ResLat.Neutr => ParamX.Pl => ResLat.Voc => capienda
+imp . ResLat.VImp1 ParamX.Sg => cape
+imp . ResLat.VImp1 ParamX.Pl => capite
+imp . ResLat.VImp2 ParamX.Sg ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Sg ParamX.P2 => capito
+imp . ResLat.VImp2 ParamX.Sg ParamX.P3 => capito
+imp . ResLat.VImp2 ParamX.Pl ParamX.P1 => ######
+imp . ResLat.VImp2 ParamX.Pl ParamX.P2 => capitote
+imp . ResLat.VImp2 ParamX.Pl ParamX.P3 => capiunto
+inf . ResLat.VInfActPres => capere
+inf . ResLat.VInfActPerf ResLat.Masc => cepisse
+inf . ResLat.VInfActPerf ResLat.Fem => cepisse
+inf . ResLat.VInfActPerf ResLat.Neutr => cepisse
+inf . ResLat.VInfActFut ResLat.Masc => capturum
+inf . ResLat.VInfActFut ResLat.Fem => capturam
+inf . ResLat.VInfActFut ResLat.Neutr => capturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Nom => capturus
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Acc => capturum
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Gen => capturi
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Dat => capturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Abl => capturo
+partActFut . ResLat.Masc => ParamX.Sg => ResLat.Voc => capture
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Nom => capturi
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Acc => capturos
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Gen => capturorum
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Dat => capturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Abl => capturis
+partActFut . ResLat.Masc => ParamX.Pl => ResLat.Voc => capturi
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Nom => captura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Acc => capturam
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Gen => capturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Dat => capturae
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Abl => captura
+partActFut . ResLat.Fem => ParamX.Sg => ResLat.Voc => captura
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Nom => capturae
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Acc => capturas
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Gen => capturarum
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Dat => capturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Abl => capturis
+partActFut . ResLat.Fem => ParamX.Pl => ResLat.Voc => capturae
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Nom => capturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Acc => capturum
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Gen => capturi
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Dat => capturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Abl => capturo
+partActFut . ResLat.Neutr => ParamX.Sg => ResLat.Voc => capturum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Nom => captura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Acc => captura
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Gen => capturorum
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Dat => capturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Abl => capturis
+partActFut . ResLat.Neutr => ParamX.Pl => ResLat.Voc => captura
+partActPres . ParamX.Sg => ResLat.Nom => capiens
+partActPres . ParamX.Sg => ResLat.Acc => capientem
+partActPres . ParamX.Sg => ResLat.Gen => capientis
+partActPres . ParamX.Sg => ResLat.Dat => capienti
+partActPres . ParamX.Sg => ResLat.Abl => capiente
+partActPres . ParamX.Sg => ResLat.Voc => capiens
+partActPres . ParamX.Pl => ResLat.Nom => capientes
+partActPres . ParamX.Pl => ResLat.Acc => capientes
+partActPres . ParamX.Pl => ResLat.Gen => capientium
+partActPres . ParamX.Pl => ResLat.Dat => capientibus
+partActPres . ParamX.Pl => ResLat.Abl => capientibus
+partActPres . ParamX.Pl => ResLat.Voc => capientes
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Nom => captus
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Acc => captum
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Gen => capti
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Dat => capto
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Abl => capto
+partPassPerf . ResLat.Masc => ParamX.Sg => ResLat.Voc => capte
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Nom => capti
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Acc => captos
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Gen => captorum
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Dat => captis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Abl => captis
+partPassPerf . ResLat.Masc => ParamX.Pl => ResLat.Voc => capti
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Nom => capta
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Acc => captam
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Gen => captae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Dat => captae
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Abl => capta
+partPassPerf . ResLat.Fem => ParamX.Sg => ResLat.Voc => capta
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Nom => captae
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Acc => captas
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Gen => captarum
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Dat => captis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Abl => captis
+partPassPerf . ResLat.Fem => ParamX.Pl => ResLat.Voc => captae
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Nom => captum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Acc => captum
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Gen => capti
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Dat => capto
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Abl => capto
+partPassPerf . ResLat.Neutr => ParamX.Sg => ResLat.Voc => captum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Nom => capta
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Acc => capta
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Gen => captorum
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Dat => captis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Abl => captis
+partPassPerf . ResLat.Neutr => ParamX.Pl => ResLat.Voc => capta
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P1 => capior
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P2 => caperis
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Sg ParamX.P3 => capitur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P1 => capimur
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P2 => capimini
+pass . ResLat.VPass (ResLat.VPres ResLat.VInd) ParamX.Pl ParamX.P3 => capiuntur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P1 => capiar
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P2 => capiaris
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Sg ParamX.P3 => capiatur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P1 => capiamur
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P2 => capiamini
+pass . ResLat.VPass (ResLat.VPres ResLat.VConj) ParamX.Pl ParamX.P3 => capiantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P1 => capiebar
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P2 => capiebaris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Sg ParamX.P3 => capiebatur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P1 => capiebamur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P2 => capiebamini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VInd) ParamX.Pl ParamX.P3 => capiebantur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P1 => caperer
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P2 => capereris
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Sg ParamX.P3 => caperetur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P1 => caperemur
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P2 => caperemini
+pass . ResLat.VPass (ResLat.VImpf ResLat.VConj) ParamX.Pl ParamX.P3 => caperentur
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P1 => capiar
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P2 => capieris
+pass . ResLat.VPass ResLat.VFut ParamX.Sg ParamX.P3 => capietur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P1 => capiemur
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P2 => capiemini
+pass . ResLat.VPass ResLat.VFut ParamX.Pl ParamX.P3 => capientur
+sup . ResLat.VSupAcc => captum
+sup . ResLat.VSupAbl => captu
+15 msec
+> See you.
+0 msec

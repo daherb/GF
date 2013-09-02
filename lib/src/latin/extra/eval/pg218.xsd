@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="tagged">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="ABBR"/>
+        <xs:element ref="ADJ"/>
+        <xs:element ref="ADV"/>
+        <xs:element ref="CC"/>
+        <xs:element ref="CS"/>
+        <xs:element ref="DET"/>
+        <xs:element ref="DIMOS"/>
+        <xs:element ref="ESSE"/>
+        <xs:element ref="FW"/>
+        <xs:element ref="INDEF"/>
+        <xs:element ref="INT"/>
+        <xs:element ref="N"/>
+        <xs:element ref="NPR"/>
+        <xs:element ref="POSS"/>
+        <xs:element ref="PREP"/>
+        <xs:element ref="PRON"/>
+        <xs:element ref="PUN"/>
+        <xs:element ref="REL"/>
+        <xs:element ref="SENT"/>
+        <xs:element ref="SYM"/>
+        <xs:element ref="V"/>
+        <xs:element ref="ob"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ABBR">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADJ">
+    <xs:complexType mixed="true">
+      <xs:attribute name="atts" type="xs:NCName"/>
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADV">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CC">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DET">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DIMOS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ESSE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="atts" use="required" type="xs:NCName"/>
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FW">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NMTOKEN">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INDEF">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INT">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NMTOKEN">
+          <xs:attribute name="stem" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="N">
+    <xs:complexType mixed="true">
+      <xs:attribute name="atts" use="required" type="xs:NCName"/>
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NPR">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NMTOKEN">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POSS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PREP">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRON">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PUN">
+    <xs:complexType mixed="true">
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="REL">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SENT">
+    <xs:complexType mixed="true">
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SYM">
+    <xs:complexType mixed="true">
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="V">
+    <xs:complexType mixed="true">
+      <xs:attribute name="atts" use="required" type="xs:NCName"/>
+      <xs:attribute name="stem" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ob">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="stem" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
