@@ -1,6 +1,0 @@
-i -src -retain MorphoLat.gf
-cc -table verb "hortari"
-cc -table verb "vereri"
-cc -table verb "largiri"
-cc -table verb_ippp "sequi" "sequor" "secutus" "secutus"
-cc -table verb_ippp "pati" "patior" "passus" "passus"

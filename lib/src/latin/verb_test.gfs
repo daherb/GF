@@ -1,6 +1,0 @@
-i -src -retain MorphoLat.gf
-cc -table verb "laudare"
-cc -table verb "monere"
-cc -table verb "audire"
-cc -table verb_ippp "regere" "rego" "rexi" "rectum"
-cc -table verb_ippp "capere" "capio" "cepi" "captum"
