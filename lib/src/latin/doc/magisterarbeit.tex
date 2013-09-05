@@ -1,4 +1,4 @@
-\documentclass[draft,11pt]{scrartcl}
+\documentclass[11pt]{scrartcl}
 
 %\usepackage[utf8]{inputenc}
 \usepackage[onehalfspacing]{setspace}
@@ -9,9 +9,10 @@
 \usepackage{qtree}
 \usepackage{listings}
 \usepackage{floatrow}
-\usepackage{capt-of}
-
+%\usepackage{capt-of}
+\usepackage{fancyvrb}
 \floatstyle{plain}
+
 \newfloat{program}{thp}{lop}
 \floatname{program}{Beispiel}
 
@@ -22,7 +23,7 @@
   morecomment=[l]{--},
   morestring=[b]"
 }
-\lstset{language=gf}
+\lstset{language=gf,captionpos=b}
 
 \begin{document}
 \setcounter{tocdepth}{3}
@@ -58,41 +59,55 @@ Nachdem sich das Grammatical Framework als geeignet heraus gestellt hatte, fiel 
 \subsection{Inhalt}
 Im Folgenden sollen zunächst die Grundlagen der Arbeit genauer geschildert werden, es folgt also eine genauere Betrachtung des Grammatical Framework so wie der lateinischen Sprache. Anschließend wird das Vorgehen bei der Implementierung der Grammatik als zukünftiger Bestandteil der Ressource Grammar Library geschildert werden. Und zum Schluss soll noch eine Betrachtung der Erweiterungs- und Anwendungsmöglichkeiten folgen.
 \subsection{Das Grammatical Framework}
-Das Grammatical Framework ist ein Softwaresystem mit einer spezialisierten Programmiersprache um Grammatiken zu entwickeln. Es bietet die nötigen Möglichkeiten um natürliche Sprachen zu verarbeiten. Dabei benutzt es Formalismen, wie sie auch in modernen funktionalen Programmiersprachen wie Haskell zu finden sind.\footnote{RANTA S. vii} \\ 
-Die große Stärke dabei ist die Multilingualität. Grundkonzept dabei ist die Trennung in eine konkrete und eine abstrakte Repräsentation der Grammatik. Dabei ist die konkrete repräsentation jeder Sprache eigen während die abstrakte Repräsentation von mehreren Sprachen geteilt werden kann. Über diesen Schritt der abstrakten Repräsentation kann man eine Übersetzung zwischen allen Sprachen umsetzen, die diese abstrakte Syntax teilen.\footnote{RANTA S. 10ff.} Im folgenden soll darauf noch genauer eingegangen werden.
+Das Grammatical Framework ist ein Softwaresystem mit einer spezialisierten Programmiersprache zur Entwicklung von Grammatiken. Es bietet alle nötigen Möglichkeiten um natürliche Sprachen zu verarbeiten. Dabei benutzt es Formalismen, wie sie auch in modernen funktionalen Programmiersprachen wie Haskell zu finden sind.\footnote{RANTA S. vii} Somit können einem manche Konzepte bereits vertraut sein, wenn man sich bereits mit den Möglichkeiten der funktionalen Programmierung auseinandergestzt hat.\\ 
+Die große Stärke dabei ist die Multilingualität. Grundkonzept dabei ist die Trennung in eine konkrete und eine abstrakte Repräsentation der Grammatik. Dabei ist die abstrakte Struktur verschiedenen Sprachen gemein und die konkrete Syntax beschreibt, wie aus einem sprachunabhängigen Baum eine für die jeweilige Sprache spezifische Zeichenkette erzeugt werden kann. Über diesen Schritt der abstrakten Repräsentation kann man eine Übersetzung zwischen verschiedensten Sprachen umsetzen, die eine gemeinsame abstrakte Syntax teilen.\footnote{RANTA S. 10ff.} Dies Details dieses Formalismuses sollen nun genauer betrachtet werden.
 \subsubsection{Der Grammatikformalismus}
-Meist werden im Bereich der Computerlinguistik und Informatik kontextfreie Grammatiken, also Grammatiken von Typ 2 der Chomsky-Hierarchie verwendet.\footnote{quelle} Dies hat meist den Grund, dass die Ausdrucksmächtigkeit größtenteils ausreicht, jedoch der Verarbeitungsaufwand vergleichsweise gering ist.\footnote{quelle}
+Meist werden im Bereich der Computerlinguistik und Informatik kontextfreie Grammatiken, also Grammatiken von Typ 2 der Chomsky-Hierarchie verwendet.\footnote{quelle} Dies hat meist den Grund, dass die Mächtigkeit dieses Formalismuses meist ausreicht, die gewünschten Sprachen zu beschreiben, jedoch der Verarbeitungsaufwand vergleichsweise gering ist.\footnote{quelle}
 \begin{program}[h]
-\begin{flushleft}
-$S\ \longrightarrow\ NP\ \ VP$ \\
-$NP\ \longrightarrow\ Det\ N$ \\
-$N\ \longrightarrow\ \text{Mann}$ \\
-$Det\ \longrightarrow\ \text{der}$ \\
-$VP\ \longrightarrow\ V$ \\
-$V\ \longrightarrow\ \text{schläft} $ \\
-\end{flushleft}
+\begin{tabular}{lll}
+S & $\longrightarrow$ & NP, VP \\
+NP & $\longrightarrow$ & Det, N \\
+N & $\longrightarrow$ & \textit{Mann} \\
+Det & $\longrightarrow$ & \textit{der} \\
+VP & $\longrightarrow$ & V \\
+V  & $\longrightarrow$ & \textit{schläft} \\
+\end{tabular}
 \caption{Kontextfreie Grammatikfragment}
 \label{CFG-Beispiel}
 \end{program}
-Die in Beispiel \ref{CFG-Beispiel} gegebene Grammatik ist ein sehr minimalistisches Beispiel für eine kontextfreie Grammatik. Mit ihrer Hilfe kann nur der eine deutsche Satz \textit{Der Mann schläft} hergeleitet werden. Dabei hat die Ableitung die in Beispiel \ref{CFG-Ableitung} gezeigte Form.
-\begin{figure}
-\begin{floatrow}[2]
-\ffigbox{
-\begin{flushleft}
-S \\ $\Rightarrow$ NP VP \\ $\Rightarrow$ Det N VP \\ $\Rightarrow$ ``der'' N VP \\ $\Rightarrow$ ``der Mann'' VP \\ $\Rightarrow$ ``der Mann'' V \\ $\Rightarrow$ ``der Mann schläft''
-\end{flushleft}
-}{\caption{Ableitung eines Satzes}\label{CFG-Ableitung}}
-\ffigbox{\Tree [.S [.NP [.Det ``der'' ] [.N ``Mann'' ] ] [.VP [.V ``schläft'' ] ] ]}{\caption{Entsprechender Syntaxbaum}\label{CFG-Syntaxbaum}}
-\end{floatrow}
+Die in Beispiel \ref{CFG-Beispiel} gegebene Grammatik ist ein sehr minimalistisches Beispiel für eine kontextfreie Grammatik. Mit ihrer Hilfe kann nur der eine deutsche Satz \textit{Der Mann schläft} hergeleitet werden. Dabei hat eine mögliche Ableitung die in Beispiel \ref{CFG-Ableitung} gezeigte Form. Dabei wird top-down vorgegangen, also von der allgemeinsten Kategorie hinab bis zum spezifischen String. Alternativ wäre es auch möglich gewesen eine bottom-up-Ableitung anzugeben, die jedoch dem Ablesen der gegebenen Ableiung von unten nach oben entspricht.
+\\
+%\begin{minipage}{0.45\textwidth}
+\begin{program}[h]
+\begin{Verbatim}[commandchars=\\\{\}]
+S
+\Rightarrow NP VP
+\Rightarrow Det N VP
+\Rightarrow \textit{der} N VP
+\Rightarrow \textit{der Mann} VP
+\Rightarrow \textit{der Mann} V
+\Rightarrow \textit{der Mann schläft}
+\end{Verbatim}
+\caption{Ableitung des Satzes}
+\label{CFG-Ableitung}
+\end{program}
+%\end{minipage}
+%\begin{minipage}{0.50\textwidth}
+\begin{figure}[h]
+\Tree [.S [.NP [.Det \textit{der} ] [.N \textit{Mann} ] ] [.VP [.V \textit{schläft} ] ] ]
+\caption{Entsprechender Syntaxbaum}\label{CFG-Syntaxbaum}
 \end{figure}
+%\end{minipage} 
 Im Formalismus des Grammatical Framework wird die oben gegebene Grammatik in die abstrakte und die konkrete Syntax zerlegt.
-Dabei entspricht die abstrakte Syntax dem Syntaxbaum ohne die terminalen Blätter.
-\begin{minipage}{0.5\textwidth}
-\begin{verbatim}
-abstract Satz = {
+Dabei entspricht die abstrakte Syntax in etwa dem Syntaxbaum ohne die terminalen Blätter. Die abstrakte Syntax der kontextfreien Grammatik aus Beispiel \ref{CFG-Beispiel} ist in Listing \ref{GF-Mini-Abs} zu sehen. Zunächst gibt das Schlüsselwort \textbf{abstract} an, dass es sich um Datei mit einer abstrakten Syntaxbeschreibung handelt. Dieses Schlüsselwort wird vom Namen der Grammatik gefolgt. Anschließend folgt der Inhalt der Grammatik. \\
+Zunächst werden mithilfe der \textbf{flags}-Direktive einige mögliche Einstellungen vorgenommen. In diesem sehr kurzen Beispiel wird nur die Startkategorie für das Parsing gesetzt, also die Wurzel aller Parsebäume. Andere mögliche Optionen sind z.B. die Einstellungen des Encodings und der Lexer, also das Programm, das die Eingabe in lexikalische Tokens zerlegt.\footnote{quelle} \\
+Nach dem Schlüsselwort \textbf{cat} folgt eine Liste der nicht-lexikalischen Kategorien oder auch Nonterminal-Symbole. Sie entsprechen in etwa den Datentypen in (funktionalen) Programmiersprachen. \\
+Hauptbestandteil der Grammatik sind offensichtlich die Syntaxregeln. Sie werden nach dem Schlüsselwort \textbf{fun} aufgelistet. Für denjenigen, der mit funktionaler Programmierung vertraut ist, kommt das Format der abstrakten Syntaxregeln möglicherweise bekannt vor, da es starke Ähnlichkeit zu Funktionensignaturen in Sprachen wie Standard ML oder Haskell hat. Dies ist allerdings kein Zufall, denn diese Regeln beschreiben lediglich die Bestandteile aus denen ein Ausdruck einer neuen Kategorie zusammengesetzt werden soll, ohne eine Aussage über das genaue Vorgehen zu treffen. Dies wird unabhänging voneinander in jeder konkreten Grammatik, die diese abstrakte Grammatik implementiert, beschrieben. So sagt die erste Regel mit dem Namen \texttt{mkNP} aus, dass ein Ausdruck der Kategorie \texttt{NP} aus einem Ausdruck der Kategorie \texttt{Det} und aus einem Ausdruck der Kategorie \texttt{N} zusammengesetzt werden kann. Die letzten drei Regeln führen lexikalische Einheiten mit einer entsprechenden Kategorie ein. \\
+\begin{lstlisting}[float,caption={Abstrakte Syntax},label={GF-Mini-Abs}]
+abstract MiniSatzAbs = {
   flags startcat = S ;
   cat S ; NP ; VP ; Det ; N ; V ;
-  lin
+  fun
     mkNP : Det -> N -> NP ;
     mkVP : V -> VP ;
     mkS : NP -> VP -> S ;
@@ -100,12 +115,13 @@ abstract Satz = {
     Mann_N : N ;
     schlafen_V : V ;
 }
-\end{verbatim}
-\captionof{program}{Abstrakte Syntax}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-\begin{verbatim}
-concrete Satz of SatzAbs = {
+\end{lstlisting}
+Diese abstrakte Grammatik kann nun konkret umgesetzt werden. Zwei konkrete Implementierungen, für Deutsch und Englisch, sind in Listing \ref{GF-Mini-Conc-Ger} und \ref{GF-Mini-Conc-Eng} zu finden. \\
+Zunächst weist das Schlüsselwort \textbf{concrete} die Grammatik als eine konkrete Grammatik aus. Es folgt wie bei einer abstrakten Syntax der Name der Grammatik, diesmal wird jedoch darauf folgend angegeben welche abstrakte Grammatik die Grundlage bietet, hier unsere \texttt{MiniSatzAbs}-Grammatik. \\
+Das Schlüsselwort \textbf{lincat} ist die konkrete Entsprechung zum Schlüsselwort \textbf{cat} in der abstrakten Syntax. Hier müssen für jede in der abstrakten Syntax angegebene Kategorie ein konkreter Datentyp angegeben werden. In diesem Falle wurde für alle Kategorien der einfache Datentyp \texttt{Str}, also eine einfache Zeichenkette, gewählt. Das Grammatical Framework unterstützt auch verschiedene Arten komplexer Datentypen.
+\begin{lstlisting}[float,caption={Konkrete deutsch Syntax},label={GF-Mini-Conc-Ger}]
+concrete MiniSatzGer of MiniSatzAbs = {
+
   lincat S,NP,VP,Det,N,V = Str;
   lin
     mkNP det n = det ++ n ;
@@ -115,9 +131,21 @@ concrete Satz of SatzAbs = {
     Mann_N = "Mann" ;
     schlafen_V = "schlaeft" ;
 }
-\end{verbatim}
-\captionof{program}{Konkrete Syntax}
-\end{minipage}
+\end{lstlisting}
+\begin{lstlisting}[float,caption={Konkrete englische Syntax},label={GF-Mini-Conc-Eng}]
+concrete MiniSatzEng of MiniSatzAbs = {
+
+  lincat S,NP,VP,Det,N,V = Str;
+  lin
+    mkNP det n = det ++ n ;
+    mkVP v = v ;           
+    mkS np vp = np ++ vp ;
+    der_Det = "the" ;     
+    Mann_N = "man" ;
+    schlafen_V = "sleeps" ;
+}
+\end{lstlisting}
+%\end{minipage}
 \subsubsection{Die Ressource Grammar Library}
 Was für allgemeine Programmiersprachen eine Standardbibliothek ist, ist im Grammatical Framework für die Multilingualität die Ressource Grammar Library. Sie ist definiert als gemeinsame abstrakte Syntax, die für verschiedenen Sprachen implementiert ist. Auf diese Möglichkeit ist eine grundlegende Übersetzung zwischen den unterstützten Sprachen direkt nach der Installation möglich. Meist muss jedoch mindestens das nötige Vokabular angegeben werden, da das Lexikon auf eine kleine Anzahl von Wörtern beschränkt ist, die benötigt wird um die grammatischen Konstrukte zu testen. \\
 \subsection{Die Lateinische Sprache}
