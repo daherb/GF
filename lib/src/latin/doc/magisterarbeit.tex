@@ -6,22 +6,27 @@
 \usepackage{fontspec}
 \usepackage[a4paper, left=3cm, right=3cm, top=3cm]{geometry}
 \usepackage{amsmath}
-\usepackage{qtree}
+%\usepackage{qtree}
 \usepackage{listings}
 \usepackage{floatrow}
 %\usepackage{capt-of}
 \usepackage{fancyvrb}
+\usepackage{graphicx}
+%\usepackage{tipa}
+
 \floatstyle{plain}
 
 \newfloat{program}{thp}{lop}
 \floatname{program}{Beispiel}
 
+
 \lstdefinelanguage{gf}
 {
-  morekeywords={abstract, flags, cat, fun, concrete, of, lincat, lin},
+  morekeywords={abstract, flags, cat, fun, incomplete, concrete, of, in, lincat, lin, ressource, param, oper},
   sensitive=false,
   morecomment=[l]{--},
-  morestring=[b]"
+  morestring=[b]",
+  stringstyle={\textit}
 }
 \lstset{language=gf,captionpos=b}
 
@@ -64,95 +69,84 @@ Die große Stärke dabei ist die Multilingualität. Grundkonzept dabei ist die T
 \subsubsection{Der Grammatikformalismus}
 Meist werden im Bereich der Computerlinguistik und Informatik kontextfreie Grammatiken, also Grammatiken von Typ 2 der Chomsky-Hierarchie verwendet.\footnote{quelle} Dies hat meist den Grund, dass die Mächtigkeit dieses Formalismuses meist ausreicht, die gewünschten Sprachen zu beschreiben, jedoch der Verarbeitungsaufwand vergleichsweise gering ist.\footnote{quelle}
 \begin{program}[h]
-\begin{tabular}{lll}
-S & $\longrightarrow$ & NP, VP \\
-NP & $\longrightarrow$ & Det, N \\
-N & $\longrightarrow$ & \textit{Mann} \\
-Det & $\longrightarrow$ & \textit{der} \\
-VP & $\longrightarrow$ & V \\
-V  & $\longrightarrow$ & \textit{schläft} \\
+\begin{tabular}{llll}
+1 & S & $\longrightarrow$ & NP, VP \\
+2 & NP & $\longrightarrow$ & Det, N \\
+3 & N & $\longrightarrow$ & \textit{Mann} \\
+4 & Det & $\longrightarrow$ & \textit{der} \\
+5 & VP & $\longrightarrow$ & V \\
+6 & V  & $\longrightarrow$ & \textit{schläft} \\
 \end{tabular}
 \caption{Kontextfreie Grammatikfragment}
 \label{CFG-Beispiel}
 \end{program}
-Die in Beispiel \ref{CFG-Beispiel} gegebene Grammatik ist ein sehr minimalistisches Beispiel für eine kontextfreie Grammatik. Mit ihrer Hilfe kann nur der eine deutsche Satz \textit{Der Mann schläft} hergeleitet werden. Dabei hat eine mögliche Ableitung die in Beispiel \ref{CFG-Ableitung} gezeigte Form. Dabei wird top-down vorgegangen, also von der allgemeinsten Kategorie hinab bis zum spezifischen String. Alternativ wäre es auch möglich gewesen eine bottom-up-Ableitung anzugeben, die jedoch dem Ablesen der gegebenen Ableiung von unten nach oben entspricht.
+Die in Beispiel \ref{CFG-Beispiel} gegebene Grammatik ist ein sehr minimalistisches Beispiel für eine kontextfreie Grammatik. Mit ihrer Hilfe kann nur der eine deutsche Satz \textit{Der Mann schläft} hergeleitet werden. Dabei hat eine mögliche Ableitung die in Beispiel \ref{CFG-Ableitung} gezeigte Form. Dabei wird top-down vorgegangen, also von der allgemeinsten Kategorie hinab bis zum spezifischen String. Alternativ wäre es auch möglich gewesen eine bottom-up-Ableitung anzugeben, die jedoch dem Ablesen der gegebenen Ableiung von unten nach oben entspricht. In der Grammatik sind die Regeln zum einfacheren Bezug auf die Grammatik mit Regelnummern versehen. Diese Regelnummern sind deshalb auch in der Ableitung und dem entsprechenden Syntaxbaum zu sehen.
 \\
-%\begin{minipage}{0.45\textwidth}
 \begin{program}[h]
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7}] 
 S
-\Rightarrow NP VP
-\Rightarrow Det N VP
-\Rightarrow \textit{der} N VP
-\Rightarrow \textit{der Mann} VP
-\Rightarrow \textit{der Mann} V
-\Rightarrow \textit{der Mann schläft}
+$\overset{1}{\Rightarrow}$ NP VP
+$\overset{2}{\Rightarrow}$ Det N VP
+$\overset{4}{\Rightarrow}$ \textit{der} N VP
+$\overset{3}{\Rightarrow}$ \textit{der Mann} VP
+$\overset{5}{\Rightarrow}$ \textit{der Mann} V
+$\overset{6}{\Rightarrow}$ \textit{der Mann schläft}
 \end{Verbatim}
 \caption{Ableitung des Satzes}
 \label{CFG-Ableitung}
 \end{program}
-%\end{minipage}
-%\begin{minipage}{0.50\textwidth}
+% $ Just to fix errors in syntax highlighting
 \begin{figure}[h]
-\Tree [.S [.NP [.Det \textit{der} ] [.N \textit{Mann} ] ] [.VP [.V \textit{schläft} ] ] ]
+\includegraphics{minisatz/MiniSatzSyntax.eps}
 \caption{Entsprechender Syntaxbaum}\label{CFG-Syntaxbaum}
 \end{figure}
-%\end{minipage} 
 Im Formalismus des Grammatical Framework wird die oben gegebene Grammatik in die abstrakte und die konkrete Syntax zerlegt.
-Dabei entspricht die abstrakte Syntax in etwa dem Syntaxbaum ohne die terminalen Blätter. Die abstrakte Syntax der kontextfreien Grammatik aus Beispiel \ref{CFG-Beispiel} ist in Listing \ref{GF-Mini-Abs} zu sehen. Zunächst gibt das Schlüsselwort \textbf{abstract} an, dass es sich um Datei mit einer abstrakten Syntaxbeschreibung handelt. Dieses Schlüsselwort wird vom Namen der Grammatik gefolgt. Anschließend folgt der Inhalt der Grammatik. \\
+Dabei entspricht die abstrakte Syntax in etwa dem Syntaxbaum ohne die terminalen Blätter. Die abstrakte Syntax der kontextfreien Grammatik aus Beispiel \ref{CFG-Beispiel} ist in Listing \ref{GF-MiniSatzAbs} zu sehen. Zunächst gibt das Schlüsselwort \textbf{abstract} an, dass es sich um Datei mit einer abstrakten Syntaxbeschreibung handelt. Dieses Schlüsselwort wird vom Namen der Grammatik gefolgt. Anschließend folgt der Inhalt der Grammatik. \\
 Zunächst werden mithilfe der \textbf{flags}-Direktive einige mögliche Einstellungen vorgenommen. In diesem sehr kurzen Beispiel wird nur die Startkategorie für das Parsing gesetzt, also die Wurzel aller Parsebäume. Andere mögliche Optionen sind z.B. die Einstellungen des Encodings und der Lexer, also das Programm, das die Eingabe in lexikalische Tokens zerlegt.\footnote{quelle} \\
 Nach dem Schlüsselwort \textbf{cat} folgt eine Liste der nicht-lexikalischen Kategorien oder auch Nonterminal-Symbole. Sie entsprechen in etwa den Datentypen in (funktionalen) Programmiersprachen. \\
 Hauptbestandteil der Grammatik sind offensichtlich die Syntaxregeln. Sie werden nach dem Schlüsselwort \textbf{fun} aufgelistet. Für denjenigen, der mit funktionaler Programmierung vertraut ist, kommt das Format der abstrakten Syntaxregeln möglicherweise bekannt vor, da es starke Ähnlichkeit zu Funktionensignaturen in Sprachen wie Standard ML oder Haskell hat. Dies ist allerdings kein Zufall, denn diese Regeln beschreiben lediglich die Bestandteile aus denen ein Ausdruck einer neuen Kategorie zusammengesetzt werden soll, ohne eine Aussage über das genaue Vorgehen zu treffen. Dies wird unabhänging voneinander in jeder konkreten Grammatik, die diese abstrakte Grammatik implementiert, beschrieben. So sagt die erste Regel mit dem Namen \texttt{mkNP} aus, dass ein Ausdruck der Kategorie \texttt{NP} aus einem Ausdruck der Kategorie \texttt{Det} und aus einem Ausdruck der Kategorie \texttt{N} zusammengesetzt werden kann. Die letzten drei Regeln führen lexikalische Einheiten mit einer entsprechenden Kategorie ein. \\
-\begin{lstlisting}[float,caption={Abstrakte Syntax},label={GF-Mini-Abs}]
-abstract MiniSatzAbs = {
-  flags startcat = S ;
-  cat S ; NP ; VP ; Det ; N ; V ;
-  fun
-    mkNP : Det -> N -> NP ;
-    mkVP : V -> VP ;
-    mkS : NP -> VP -> S ;
-    der_Det : Det ;
-    Mann_N : N ;
-    schlafen_V : V ;
-}
-\end{lstlisting}
-Diese abstrakte Grammatik kann nun konkret umgesetzt werden. Zwei konkrete Implementierungen, für Deutsch und Englisch, sind in Listing \ref{GF-Mini-Conc-Ger} und \ref{GF-Mini-Conc-Eng} zu finden. \\
+\lstinputlisting[float,caption={Abstrakte Syntax},label={GF-MiniSatzAbs}]{minisatz/MiniSatzAbs.gf}[h]
+Diese abstrakte Grammatik kann nun konkret umgesetzt werden. Zwei konkrete Implementierungen, für Deutsch und Englisch, sind in Listing \ref{GF-MiniSatzGer} und \ref{GF-MiniSatzEng} zu finden. \\
+\lstinputlisting[float,caption={Konkrete deutsche Syntax},label={GF-MiniSatzGer}]{minisatz/MiniSatzGer.gf}[h]
+\lstinputlisting[float,caption={Konkrete englische Syntax},label={GF-MiniSatzEng}]{minisatz/MiniSatzEng.gf}[h]
 Zunächst weist das Schlüsselwort \textbf{concrete} die Grammatik als eine konkrete Grammatik aus. Es folgt wie bei einer abstrakten Syntax der Name der Grammatik, diesmal wird jedoch darauf folgend angegeben welche abstrakte Grammatik die Grundlage bietet, hier unsere \texttt{MiniSatzAbs}-Grammatik. \\
-Das Schlüsselwort \textbf{lincat} ist die konkrete Entsprechung zum Schlüsselwort \textbf{cat} in der abstrakten Syntax. Hier müssen für jede in der abstrakten Syntax angegebene Kategorie ein konkreter Datentyp angegeben werden. In diesem Falle wurde für alle Kategorien der einfache Datentyp \texttt{Str}, also eine einfache Zeichenkette, gewählt. Das Grammatical Framework unterstützt auch verschiedene Arten komplexer Datentypen.
-\begin{lstlisting}[float,caption={Konkrete deutsch Syntax},label={GF-Mini-Conc-Ger}]
-concrete MiniSatzGer of MiniSatzAbs = {
-
-  lincat S,NP,VP,Det,N,V = Str;
-  lin
-    mkNP det n = det ++ n ;
-    mkVP v = v ;           
-    mkS np vp = np ++ vp ;
-    der_Det = "der" ;     
-    Mann_N = "Mann" ;
-    schlafen_V = "schlaeft" ;
-}
-\end{lstlisting}
-\begin{lstlisting}[float,caption={Konkrete englische Syntax},label={GF-Mini-Conc-Eng}]
-concrete MiniSatzEng of MiniSatzAbs = {
-
-  lincat S,NP,VP,Det,N,V = Str;
-  lin
-    mkNP det n = det ++ n ;
-    mkVP v = v ;           
-    mkS np vp = np ++ vp ;
-    der_Det = "the" ;     
-    Mann_N = "man" ;
-    schlafen_V = "sleeps" ;
-}
-\end{lstlisting}
-%\end{minipage}
+Das in der deutschen, konkreten Grammatik verwendete Flag \texttt{coding} ermöglicht es, die Zeichenkodierung in den Zeichenketten festzulegen. In diesem Falle ist es für die deutschen Umlaute nötig das Encoding anzugeben.\footnote{quelle coding} Für andere Sprachen mit komplett vom lateinischen unterschiedlichen Schriftsystemen, gibt es auch die Möglichkeit statt der direkten Zeichenkodierung eine Transliteration zu verwenden.\footnote{quelle transliteration}\\
+Das Schlüsselwort \textbf{lincat} ist die konkrete Entsprechung zum Schlüsselwort \textbf{cat} in der abstrakten Syntax. Hier müssen für jede in der abstrakten Syntax angegebene Kategorie ein konkreter Datentyp angegeben werden. In diesem Falle wurde für alle Kategorien der einfache Datentyp \texttt{Str}, also eine einfache Zeichenkette\footnote{Um genau zu sein, eine Liste von Tokens, die am Schluss mit Leerzeichen konkateniert werden}, gewählt. Das Grammatical Framework unterstützt auch verschiedene Arten komplexer Datentypen. \\
+Auf den \texttt{lincat}-Block folgt, mit dem Schlüsselwort \texttt{lin} markiert, der Abschnitt, in dem die für jede abstrakte Syntaxregel beschrieben wird, wie diese in eine konkrete Zeichenkette zu übersetzen. Für die drei lexikalischen Regeln \texttt{Mann\_N}, \texttt{der\_Det} und \texttt{schlafen\_N} ist dies lediglich die entsprechende Zeichenkette z.B. für \texttt{Mann\_N} \textit{Mann} im Deutschen bzw. \textit{man} im Englischen. Die restlichen Syntaxregeln sind in diesem Beispiel nur geringfügig komplexer. Die Regel \texttt{mkVP} gibt lediglich den Parameter als Rückgabewert zurück, bildet also den gleichen String, der bereits als Parameter übergeben wurde. Und die beiden verbleibenden Regeln \texttt{mkNP} und \texttt{mkS} konkatenieren einfach die beiden als Parameter übergebenen Strings. \\
+Man kann diese sehr kurzen konkreten Grammatiken zusammen mit der gemeinsamen Grammatik in das Grammatical Framework laden und in einer der beiden Sprachen den Satz \textit{der Mann schläft} bzw. \textit{the man sleeps} parsen und die abstrakte Representation \texttt{(mkS (mkNP der\_Det Mann\_N) (mkVP schlafen\_V))} in die andere Sprache linearisieren, also mit Hilfe der konkreten Syntaxregeln die entsprechende Zeichenkette in der Sprache generieren.
+\begin{figure}
+\includegraphics{minisatz/MiniSatzTree.eps}
+\caption{Baum der abstrakten Syntax}\label{GF-MiniSatz-Tree}
+\end{figure}
+\begin{figure}
+\includegraphics{minisatz/MiniSatzParseGer.eps}
+\caption{Parsebaum der konkreten deutschen Syntax}\label{GF-MiniSatz-ParseGer}
+\end{figure}
 \subsubsection{Die Ressource Grammar Library}
 Was für allgemeine Programmiersprachen eine Standardbibliothek ist, ist im Grammatical Framework für die Multilingualität die Ressource Grammar Library. Sie ist definiert als gemeinsame abstrakte Syntax, die für verschiedenen Sprachen implementiert ist. Auf diese Möglichkeit ist eine grundlegende Übersetzung zwischen den unterstützten Sprachen direkt nach der Installation möglich. Meist muss jedoch mindestens das nötige Vokabular angegeben werden, da das Lexikon auf eine kleine Anzahl von Wörtern beschränkt ist, die benötigt wird um die grammatischen Konstrukte zu testen. \\
 \subsection{Die Lateinische Sprache}
 \subsubsection{Sprachwissenschaftliche Einordnung}
-Die lateinische Sprache gehört zur indogermanische Sprachfamilie und dort zur Unterfamilie der italischen Sprachen. Entstanden ist es als ein in der Stadt Rom üblicher Dialekt parallel zu weiteren ländlichen Dialekten im Latium, im laufe der Zeit verdrängte es jedoch die weiteren italischen Sprachen im Zuge der Ausdehnung des römischen Reichs.\footnote{METZLER2004 S. 5359} Die Sprachgeschichte kann in mehrere Epochen unterteilt werden, nämlich das Altlatein, das klassische Latei, das Mittellatein (ca. 650 n. Chr. bis ca. 1400 n. Chr.) und das Neulatein (ca. 1400 n. Chr. bis heute).\footnote{MÜLLER-LANCE2006 S. 27ff.} Auch heute noch am bedeutendsten ist wohl das klassische Latein, das weiterhin in Schulen unterrichtet wird und vor allem mit seinem großen überlieferten Textkorpus hervorsticht. \\
-Latein gehört zu den stark flektierenden Sprachen. Es gibt fünf zum teil genusbasierte Flektionsklassen für Nomen, sechs Verschiedene Kasus (Nominativ, Genitiv, Dativ, Akkusativ, Ablativ und Vokativ), drei Genera (Maskulin, Feminin, Neutrum), ein voll flektierendes Pronomensystem und vier relativ stark synthetische Deklinationsklassen für Verben.\footnote{METZLER2004 S. 5359} Zu den Kasus sei anzumerken, dass der Ablativ ein eigenständiger Kasus ist, jedoch der Vokativ oft mit dem Nominativ zusammenfällt.\footnote{???} \\
-Die Wortstellung des Lateinischen wird oft als sehr frei beschrieben, allerdings gibt es eine klare Präferenz der SOV-Wortstellung im Satz, also dass das Objekt des Satzes direkt auf das Subjekt folgt, und das Verb den Satz abschließt. Die position des Adjektivs im Bezug auf das Nomen ist allerdings wirklich recht frei.\footnote{METZLER2004 s. 5359}
+Die lateinische Sprache, auch als oskisch-umbrische Sprache bezeichnet, gehört zur indogermanische Sprachfamilie und dort zur Unterfamilie der italischen Sprachen. Durch diese Verwandschaft kann man bei Wörtern und Wortformen oft Entsprechungen zwischen der lateinischen Sprache und verschiedensten anderen Sprachen Westeuropas bis hin zu Mittelasien finden (vgl. Tabelle \ref{Idg-Entsprechungen}.\footnote{vgl. BAYER-LINDAUER1994 S.1}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+lateinisch & altgriechisch & deutsch \\
+\hline
+pater & \pi\alpha\tau\'{\eta}\rho\ (=patēr) & Vater \\
+ager & \alpha\gamma\rho\'{o}\varsigma\ (=agr\'{o}s)& Acker \\
+trēs & \tau\rho\varepsilon\~{\iota}\varsigma\ (=treĩs) & drei \\
+decem & \delta\'{\varepsilon}\kappa\alpha\ (=d\'{e}ka) & zehn \\
+\hline
+\end{tabular}
+\caption{Wortentsprechungen in verschiedenen indogermanischen Sprachen}
+\label{Idg-Entsprechungen}
+\end{table} 
+Entstanden ist es als ein in der Stadt Rom üblicher Dialekt parallel zu anderen ländlicheren Dialekten im Latium, im laufe der Zeit verdrängte es jedoch die weiteren italischen Sprachen im Zuge der Ausdehnung des römischen Reichs.\footnote{vgl. METZLER2004 S. 5359} Die Sprachgeschichte kann in mehrere Epochen unterteilt werden. Üblicherweise beginnt man diese Einordnung mit der Epoche des Altlateins, das von ca. 240 v. Chr bis 80 v. Chr angesiedelt wird. Es reicht von den frühesten nachgewiesenen lateinischen Sprachzeugnissen bis zum Beginn der Zeit des klassischen Lateins. Dessen Zeitaum wird von ca. 80 v. Chr. bis 117. n. Chr. gerechnet und beginnt in etwa mit den ersten öffentlichen Auftritten des M. Tullius Cicero. Die bekannten Gerichtsreden des berühmten römischen Anwalts und Schriftstellers von ca. 80 v. Chr sind noch größtenteils erhalten. Die nachklassische Phase kann wiederum in verschiedene Epochen unterteilt werden, in denen unter anderem die romanischen Volkssprachen entstanden sind, bis hin zum sogenannten Neulatein, das noch vom 15. Jahrhundert bis hin zum beginn des 20. Jahrhundert die Sprache der Wissenschaft darstellte und auch heute noch großen Einfluss auf Begriffe des Alltags ausübt.\footnote{MÜLLER-LANCE2006 S. 27ff.}  \\
+Auch heute noch am bedeutendsten ist jedoch wohl das klassische Latein, das weiterhin in Schulen unterrichtet wird und sich vor allem mit seinem großen überlieferten Textkorpus hervorhebt. Da sich die meisten Lateingrammatiken auf diese Sprachepoche stützen, wird diese primär in dieser Arbeit betrachtet.\footnote{quelle}. \\
+In der Sprachwissenschaft ist jedoch auch weiterhin umstritten, in welchem Verhältnis das klassische Latein zum sogenanten Vulgärlatein steht. Heutzutage geht man davon aus, dass das klasische Latein eine kaum wirklich gesprochene Sprache war und das Vulgärlatein nicht nur eine nachklassische Sprachvariante ist, sondern bereits parallel zum klasischen Schriftlatein als gesprochene Sprache verwendet wurde. Allerdings fand das klassische Latein noch bis in das 5. Jahrhundert n. Chr. Verwendung als eine Art Schreibnorm, während sich das Vulgärlatein langsam hin zu den romanischen Sprachen entwickelte.\footnote{vgl. METZLER2004 S. 5359 und S. 10719} \\
+Formal gehört Latein den stark flektierenden Sprachen. Das heißt das in der lateinischen Sprache, wie für synthetische Sprachen üblich, syntaktische Klassen und Verhältnisse über Wortsuffixe ausgedrückt werden.\footnote{vgl. METZLER2004 S. 9690}. Allerdings drücken bei flektierenden Sprachen, im Gegensatz zu agglutinierenden Sprachen, die Affixe meist mehr als en grammatisches Merkmal aus.\footnote{vgl. METZLER2004 S. 3009} So ist bei der Verbform \textit{audio} das \textit{audi} der Verbstamm, um genau zu sein den Präsensstamm, des Verbs \textit{audire} und das Suffix \textit{-o} kodiert folgende Merkmale: 1. Person, Singular, Präsesn, Indikativ, Aktiv.\footnote{vgl. BAYER-LINDAUER1994 S. 75} \\
+ Es gibt fünf zum Teil genusbasierte Flektionsklassen für Nomen, sechs verschiedene Kasus (Nominativ, Genitiv, Dativ, Akkusativ, Ablativ und Vokativ), drei Genera (Maskulin, Feminin, Neutrum), ein voll flektierendes Pronomensystem und vier relativ stark synthetische Deklinationsklassen für Verben.\footnote{METZLER2004 S. 5359} Zu den Kasus sei anzumerken, dass der Ablativ im Lateinischen ein eigenständiger Kasus ist, jedoch der Vokativ oft mit dem Nominativ zusammenfällt.\footnote{vgl. BAYER-LINDAUER1994 S. 20f.} \\
+Die Wortstellung des Lateinischen wird oft als sehr frei beschrieben, allerdings gibt es eine klare Präferenz der SOV-Wortstellung im Satz, also dass das Objekt des Satzes direkt auf das Subjekt folgt, und das Verb den Satz abschließt. Die Möglichkeiten zur Positionierung des Adjektivs im Bezug auf das Nomen sind allerdings durch nichts beschränkt.\footnote{METZLER2004 s. 5359}
 \subsubsection{Bedeutung in der heutigen Zeit}
 Man kann sich natürlich über die Notwendigkeit streiten, sich in der heutigen Zeit noch mit der lateinischen Sprache zu beschäftigen. Es gibt aber auch ziemlich gute Gründe dafür Latein nicht einfach nur als tote Sprache abzustempeln und nicht weiter zu betrachten. \\
 So gibt es verschiedenste Personengruppen, für die Lateinkenntnis von Vorteil ist.
