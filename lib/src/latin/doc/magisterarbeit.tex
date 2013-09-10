@@ -12,7 +12,7 @@
 %\usepackage{capt-of}
 \usepackage{fancyvrb}
 \usepackage{graphicx}
-%\usepackage{tipa}
+\usepackage[section]{placeins}
 
 \floatstyle{plain}
 
@@ -61,8 +61,10 @@ München, den \@date
 So mancher, der den Titel dieser Arbeit liest, wird sich wundern, warum man in der heutigen Zeit eine computergestützte Grammatik gerade für eine tote Sprache wie Latein entwickeln will. Doch die konkrete Sprache, die umgesetzt werden sollte, war bei der Wahl des Themas zunächst zweitrangig. Die Intention hinter dieser Arbeit war es eher, einmal in einem konkreten Falle die im Studium behandelten Theorien der Morphologie und der Syntax, aber auch die Prinzipien der Lexikonerstellung, in einem einheitlichen Projekt zusammenzuführen. \\
 Das fuer dieses Unterfangen am ehesten geeignete Softwaresystem schien schon sehr bald das Grammatical Framework\footnote{http://www.grammaticalframework.org/} zu sein. Es stellt alle benötigten Hilfsmittel zur Verfügung, die jeweils für die einzelnen Komponenten benötigt werden, sorgt aber auch durch einen einheitlichen Beschreibungsformalismus für die nötige Konsistenz zwischen allen Bestandteilen. Weitere Vorteile des Grammatical Frameworks sind der mächtige Beschreibungsformalismus für Grammatiken, Unterstützung für Multilingualität und aktive Entwicklung als Open Source-Software. \\
 Nachdem sich das Grammatical Framework als geeignet heraus gestellt hatte, fiel die Wahl der zu bearbeitenden Sprache auf Latein, da diese Sprache, die trotz ihres Alters in der Linguistik weiterhin nicht unbedeutend ist, in der Ressource Grammar Library\footnote{http://www.grammaticalframework.org/lib/doc/synopsis.html} bisher nur sehr rudimentär umgesetzt war. \\
+\pagebreak
 \subsection{Inhalt}
 Im Folgenden sollen zunächst die Grundlagen der Arbeit genauer geschildert werden, es folgt also eine genauere Betrachtung des Grammatical Framework so wie der lateinischen Sprache. Anschließend wird das Vorgehen bei der Implementierung der Grammatik als zukünftiger Bestandteil der Ressource Grammar Library geschildert werden. Und zum Schluss soll noch eine Betrachtung der Erweiterungs- und Anwendungsmöglichkeiten folgen.
+\pagebreak
 \subsection{Das Grammatical Framework}
 Das Grammatical Framework ist ein Softwaresystem mit einer spezialisierten Programmiersprache zur Entwicklung von Grammatiken. Es bietet alle nötigen Möglichkeiten um natürliche Sprachen zu verarbeiten. Dabei benutzt es Formalismen, wie sie auch in modernen funktionalen Programmiersprachen wie Haskell zu finden sind.\footnote{RANTA S. vii} Somit können einem manche Konzepte bereits vertraut sein, wenn man sich bereits mit den Möglichkeiten der funktionalen Programmierung auseinandergestzt hat.\\ 
 Die große Stärke dabei ist die Multilingualität. Grundkonzept dabei ist die Trennung in eine konkrete und eine abstrakte Repräsentation der Grammatik. Dabei ist die abstrakte Struktur verschiedenen Sprachen gemein und die konkrete Syntax beschreibt, wie aus einem sprachunabhängigen Baum eine für die jeweilige Sprache spezifische Zeichenkette erzeugt werden kann. Über diesen Schritt der abstrakten Repräsentation kann man eine Übersetzung zwischen verschiedensten Sprachen umsetzen, die eine gemeinsame abstrakte Syntax teilen.\footnote{RANTA S. 10ff.} Dies Details dieses Formalismuses sollen nun genauer betrachtet werden.
@@ -105,25 +107,38 @@ Dabei entspricht die abstrakte Syntax in etwa dem Syntaxbaum ohne die terminalen
 Zunächst werden mithilfe der \textbf{flags}-Direktive einige mögliche Einstellungen vorgenommen. In diesem sehr kurzen Beispiel wird nur die Startkategorie für das Parsing gesetzt, also die Wurzel aller Parsebäume. Andere mögliche Optionen sind z.B. die Einstellungen des Encodings und der Lexer, also das Programm, das die Eingabe in lexikalische Tokens zerlegt.\footnote{quelle} \\
 Nach dem Schlüsselwort \textbf{cat} folgt eine Liste der nicht-lexikalischen Kategorien oder auch Nonterminal-Symbole. Sie entsprechen in etwa den Datentypen in (funktionalen) Programmiersprachen. \\
 Hauptbestandteil der Grammatik sind offensichtlich die Syntaxregeln. Sie werden nach dem Schlüsselwort \textbf{fun} aufgelistet. Für denjenigen, der mit funktionaler Programmierung vertraut ist, kommt das Format der abstrakten Syntaxregeln möglicherweise bekannt vor, da es starke Ähnlichkeit zu Funktionensignaturen in Sprachen wie Standard ML oder Haskell hat. Dies ist allerdings kein Zufall, denn diese Regeln beschreiben lediglich die Bestandteile aus denen ein Ausdruck einer neuen Kategorie zusammengesetzt werden soll, ohne eine Aussage über das genaue Vorgehen zu treffen. Dies wird unabhänging voneinander in jeder konkreten Grammatik, die diese abstrakte Grammatik implementiert, beschrieben. So sagt die erste Regel mit dem Namen \texttt{mkNP} aus, dass ein Ausdruck der Kategorie \texttt{NP} aus einem Ausdruck der Kategorie \texttt{Det} und aus einem Ausdruck der Kategorie \texttt{N} zusammengesetzt werden kann. Die letzten drei Regeln führen lexikalische Einheiten mit einer entsprechenden Kategorie ein. \\
-\lstinputlisting[float,caption={Abstrakte Syntax},label={GF-MiniSatzAbs}]{minisatz/MiniSatzAbs.gf}[h]
+% Listing MiniSatzAbs
+\lstinputlisting[float=ht,caption={Abstrakte Syntax},label={GF-MiniSatzAbs}]{minisatz/MiniSatzAbs.gf}
 Diese abstrakte Grammatik kann nun konkret umgesetzt werden. Zwei konkrete Implementierungen, für Deutsch und Englisch, sind in Listing \ref{GF-MiniSatzGer} und \ref{GF-MiniSatzEng} zu finden. \\
-\lstinputlisting[float,caption={Konkrete deutsche Syntax},label={GF-MiniSatzGer}]{minisatz/MiniSatzGer.gf}[h]
-\lstinputlisting[float,caption={Konkrete englische Syntax},label={GF-MiniSatzEng}]{minisatz/MiniSatzEng.gf}[h]
+% Listing MiniSatzGer
+\lstinputlisting[float=ht,caption={Konkrete deutsche Syntax},label={GF-MiniSatzGer}]{minisatz/MiniSatzGer.gf}
+% Listing MiniSatzEng
+\lstinputlisting[float=ht,caption={Konkrete englische Syntax},label={GF-MiniSatzEng}]{minisatz/MiniSatzEng.gf}
 Zunächst weist das Schlüsselwort \textbf{concrete} die Grammatik als eine konkrete Grammatik aus. Es folgt wie bei einer abstrakten Syntax der Name der Grammatik, diesmal wird jedoch darauf folgend angegeben welche abstrakte Grammatik die Grundlage bietet, hier unsere \texttt{MiniSatzAbs}-Grammatik. \\
 Das in der deutschen, konkreten Grammatik verwendete Flag \texttt{coding} ermöglicht es, die Zeichenkodierung in den Zeichenketten festzulegen. In diesem Falle ist es für die deutschen Umlaute nötig das Encoding anzugeben.\footnote{quelle coding} Für andere Sprachen mit komplett vom lateinischen unterschiedlichen Schriftsystemen, gibt es auch die Möglichkeit statt der direkten Zeichenkodierung eine Transliteration zu verwenden.\footnote{quelle transliteration}\\
 Das Schlüsselwort \textbf{lincat} ist die konkrete Entsprechung zum Schlüsselwort \textbf{cat} in der abstrakten Syntax. Hier müssen für jede in der abstrakten Syntax angegebene Kategorie ein konkreter Datentyp angegeben werden. In diesem Falle wurde für alle Kategorien der einfache Datentyp \texttt{Str}, also eine einfache Zeichenkette\footnote{Um genau zu sein, eine Liste von Tokens, die am Schluss mit Leerzeichen konkateniert werden}, gewählt. Das Grammatical Framework unterstützt auch verschiedene Arten komplexer Datentypen. \\
 Auf den \texttt{lincat}-Block folgt, mit dem Schlüsselwort \texttt{lin} markiert, der Abschnitt, in dem die für jede abstrakte Syntaxregel beschrieben wird, wie diese in eine konkrete Zeichenkette zu übersetzen. Für die drei lexikalischen Regeln \texttt{Mann\_N}, \texttt{der\_Det} und \texttt{schlafen\_N} ist dies lediglich die entsprechende Zeichenkette z.B. für \texttt{Mann\_N} \textit{Mann} im Deutschen bzw. \textit{man} im Englischen. Die restlichen Syntaxregeln sind in diesem Beispiel nur geringfügig komplexer. Die Regel \texttt{mkVP} gibt lediglich den Parameter als Rückgabewert zurück, bildet also den gleichen String, der bereits als Parameter übergeben wurde. Und die beiden verbleibenden Regeln \texttt{mkNP} und \texttt{mkS} konkatenieren einfach die beiden als Parameter übergebenen Strings. \\
-Man kann diese sehr kurzen konkreten Grammatiken zusammen mit der gemeinsamen Grammatik in das Grammatical Framework laden und in einer der beiden Sprachen den Satz \textit{der Mann schläft} bzw. \textit{the man sleeps} parsen und die abstrakte Representation \texttt{(mkS (mkNP der\_Det Mann\_N) (mkVP schlafen\_V))} in die andere Sprache linearisieren, also mit Hilfe der konkreten Syntaxregeln die entsprechende Zeichenkette in der Sprache generieren.
+Man kann diese sehr kurzen konkreten Grammatiken zusammen mit der gemeinsamen Grammatik in das Grammatical Framework laden und in einer der beiden Sprachen den Satz \textit{der Mann schläft} bzw. \textit{the man sleeps} parsen und die abstrakte Representation \texttt{(mkS (mkNP der\_Det Mann\_N) (mkVP schlafen\_V))} in die andere Sprache linearisieren, also mit Hilfe der konkreten Syntaxregeln die entsprechende Zeichenkette in der Sprache generieren. [fehlt: BlaBla zu den Bäumen]
 \begin{figure}
 \includegraphics{minisatz/MiniSatzTree.eps}
-\caption{Baum der abstrakten Syntax}\label{GF-MiniSatz-Tree}
+\caption{Baum der abstrakten Syntax}\label{MiniSatz-Tree}
 \end{figure}
 \begin{figure}
 \includegraphics{minisatz/MiniSatzParseGer.eps}
-\caption{Parsebaum der konkreten deutschen Syntax}\label{GF-MiniSatz-ParseGer}
+\caption{Parsebaum der konkreten deutschen Syntax}\label{MiniSatz-ParseGer}
 \end{figure}
+% Listing SatzAbs
+\lstinputlisting[float=ht,caption={Erweiterte abstrakte Syntax},label={GF-SatzAbs}]{satz/SatzAbs.gf}
+Nun kann man diese doch sehr minimalistische Grammatik etwas erweitern, so dass man auch die Sätze ``die Frauen schlafen'', ``der Mann sieht die Frau'' und ``der Mann liest das Buch''erkennen kann. Die fertigen Quelltextdateien sind in Listing \ref{GF-SatzAbs}, \ref{GF-SatzGer} und \ref{GF-SatzEng} zu finden. Die Veränderungen in der abstrakten Syntax (Listing \ref{GF-SatzAbs} sind nicht sehr umfangreich und betreffen hauptsächlich die Einführung von transitiven Verben mit der Kategorie \texttt{V2}. Mit der Funktion \texttt{mkVP2} wird aus einem transitiven Verb und einer Nominalphrase eine Verbalphrase mit Akkusativobjekt aufgebaut. Um auch Nominalphrasen im Plural zu ermöglichen, wird für den bestimmten Artikel eine Singular- und eine Pluralform benötigt. Sonst wird noch das ``Lexikon'' um die Wörter für Frau, Buch, sehen und lesen erweitert. \\
+% Listing SatzGer
+\lstinputlisting[float=ht,caption={Erweiterte konkrete deutsche Syntax},label={GF-SatzGer}]{satz/SatzGer.gf}
+In der konkreten Umsetzung sind nun aber größere Unterschiede, sowohl zur ursprünglichen Grammatik, als auch zwischen den unterschiedlichen Sprachen zu finden. [fehlt: Beschreibung der konkreten Programme]
+% Listing SatzEng
+\lstinputlisting[float=ht,caption={Erweiterte konkrete englische Syntax},label={GF-SatzEng}]{satz/SatzEng.gf}
+\FloatBarrier
 \subsubsection{Die Ressource Grammar Library}
 Was für allgemeine Programmiersprachen eine Standardbibliothek ist, ist im Grammatical Framework für die Multilingualität die Ressource Grammar Library. Sie ist definiert als gemeinsame abstrakte Syntax, die für verschiedenen Sprachen implementiert ist. Auf diese Möglichkeit ist eine grundlegende Übersetzung zwischen den unterstützten Sprachen direkt nach der Installation möglich. Meist muss jedoch mindestens das nötige Vokabular angegeben werden, da das Lexikon auf eine kleine Anzahl von Wörtern beschränkt ist, die benötigt wird um die grammatischen Konstrukte zu testen. \\
+\pagebreak
 \subsection{Die Lateinische Sprache}
 \subsubsection{Sprachwissenschaftliche Einordnung}
 Die lateinische Sprache, auch als oskisch-umbrische Sprache bezeichnet, gehört zur indogermanische Sprachfamilie und dort zur Unterfamilie der italischen Sprachen. Durch diese Verwandschaft kann man bei Wörtern und Wortformen oft Entsprechungen zwischen der lateinischen Sprache und verschiedensten anderen Sprachen Westeuropas bis hin zu Mittelasien finden (vgl. Tabelle \ref{Idg-Entsprechungen}.\footnote{vgl. BAYER-LINDAUER1994 S.1}
@@ -138,9 +153,9 @@ trēs & \tau\rho\varepsilon\~{\iota}\varsigma\ (=treĩs) & drei \\
 decem & \delta\'{\varepsilon}\kappa\alpha\ (=d\'{e}ka) & zehn \\
 \hline
 \end{tabular}
-\caption{Wortentsprechungen in verschiedenen indogermanischen Sprachen}
+\caption{Wortentsprechungen in verschiedenen indogermanischen Sprachen (vgl. BAYER-LINDAUER S.1)}
 \label{Idg-Entsprechungen}
-\end{table} 
+\end{table}
 Entstanden ist es als ein in der Stadt Rom üblicher Dialekt parallel zu anderen ländlicheren Dialekten im Latium, im laufe der Zeit verdrängte es jedoch die weiteren italischen Sprachen im Zuge der Ausdehnung des römischen Reichs.\footnote{vgl. METZLER2004 S. 5359} Die Sprachgeschichte kann in mehrere Epochen unterteilt werden. Üblicherweise beginnt man diese Einordnung mit der Epoche des Altlateins, das von ca. 240 v. Chr bis 80 v. Chr angesiedelt wird. Es reicht von den frühesten nachgewiesenen lateinischen Sprachzeugnissen bis zum Beginn der Zeit des klassischen Lateins. Dessen Zeitaum wird von ca. 80 v. Chr. bis 117. n. Chr. gerechnet und beginnt in etwa mit den ersten öffentlichen Auftritten des M. Tullius Cicero. Die bekannten Gerichtsreden des berühmten römischen Anwalts und Schriftstellers von ca. 80 v. Chr sind noch größtenteils erhalten. Die nachklassische Phase kann wiederum in verschiedene Epochen unterteilt werden, in denen unter anderem die romanischen Volkssprachen entstanden sind, bis hin zum sogenannten Neulatein, das noch vom 15. Jahrhundert bis hin zum beginn des 20. Jahrhundert die Sprache der Wissenschaft darstellte und auch heute noch großen Einfluss auf Begriffe des Alltags ausübt.\footnote{MÜLLER-LANCE2006 S. 27ff.}  \\
 Auch heute noch am bedeutendsten ist jedoch wohl das klassische Latein, das weiterhin in Schulen unterrichtet wird und sich vor allem mit seinem großen überlieferten Textkorpus hervorhebt. Da sich die meisten Lateingrammatiken auf diese Sprachepoche stützen, wird diese primär in dieser Arbeit betrachtet.\footnote{quelle}. \\
 In der Sprachwissenschaft ist jedoch auch weiterhin umstritten, in welchem Verhältnis das klassische Latein zum sogenanten Vulgärlatein steht. Heutzutage geht man davon aus, dass das klasische Latein eine kaum wirklich gesprochene Sprache war und das Vulgärlatein nicht nur eine nachklassische Sprachvariante ist, sondern bereits parallel zum klasischen Schriftlatein als gesprochene Sprache verwendet wurde. Allerdings fand das klassische Latein noch bis in das 5. Jahrhundert n. Chr. Verwendung als eine Art Schreibnorm, während sich das Vulgärlatein langsam hin zu den romanischen Sprachen entwickelte.\footnote{vgl. METZLER2004 S. 5359 und S. 10719} \\
@@ -150,7 +165,9 @@ Die Wortstellung des Lateinischen wird oft als sehr frei beschrieben, allerdings
 \subsubsection{Bedeutung in der heutigen Zeit}
 Man kann sich natürlich über die Notwendigkeit streiten, sich in der heutigen Zeit noch mit der lateinischen Sprache zu beschäftigen. Es gibt aber auch ziemlich gute Gründe dafür Latein nicht einfach nur als tote Sprache abzustempeln und nicht weiter zu betrachten. \\
 Der am häufigsten, vor allem im Schulalter bei der Wahl einer zu lernenden Fremdsprache, vorgebrachte Grund ist, dass die lateinische Sprache als ``Mutter aller romanischen Sprachen'' später einen einfacheren Einstieg in das Erlernen z.B von Französisch oder Spanisch bietet. Auch gilt Latein galt seit Jahrhunderten, und gilt weiterhin, als produktive Quelle für Fachbegriffe aus Wissenschaft, Forschung und Technik. So haben viele moderne Begriffe wie Computer\footnote{von \textit{lat.} computere - berechnen} und Monitor\footnote{\textit{lat.} f. der Mahner, von \textit{lat.} monere - mahnen} lateinische Wurzeln. Auch im Universitätsalltat wird man oft mit lateinischen Lehnwörtern konfrontiert. Man trifft sich zum Essen in der Mensa\footnote{\textit{lat.} mensa - Tisch, Tafel} und studiert an Fakultäten\footnote{von \textit{lat.} facultas - Vermögen, Fähigkeit}. \\
+Vor allem in der Sprachwissenschaft hat Latein eine besondere Bedeutung, da sie bei einem Vergleich verschiedener indogermanischer Sprachen als eine Art \textit{default}-Sprache angesehen werden kann, denn sie bietet fast alle nötigen grammatischen Kategorien, die gewöhnlich benötigt werden. So kann Latein als Vergleichsparameter (\textit{tertium comparationis}) verwendet werden. Diese Stellung der lateinischen Sprache spiegelt sich auch in der Fachterminologie moderner Schulgrammatiken wieder, die fast ausschließlich von lateinischen Fachausdrücken geprägt ist.\footnote{vgl. MÜLLER-LANCE2006 S. 10} \\
 Als etwas skurile Verwendung einer Variation der lateinischen Sprache kann \textit{latino sine flexione} gelten. Diese von Giuseppe Peano anfang des 20. Jahrhunderts als Welthilfssprache entwickelte vereinfachte Form der lateinischen Sprache fand bis ca. 1950 in mehreren wissenschaftlichen Veröffentlichungen Verwendung. Sie basiert auf dem üblichen lateinischen Wortsschatz, der auch durch modernes romanisches Vokabular erweitert werden kann, und einer stark vereinfachten Morphologie.\footnote{vgl. METZLER2004 S. 5374}
+\pagebreak
 \section{Grammatikerstellung}
 \subsection{Lexikon}
 Den Beginn dieser Grammatikimplementierung bildete die Erstellung des minimal nötigen Lexikons. Durch die abstrakte Syntax der RGL\footnote{vgl. lib/src/abstract/Lexicon.gf} eine Liste von ca. 400 englischen Bezeichnern für Worte vorgegeben, die in jeder Sprache umgesetzt werden sollten. \\
@@ -161,15 +178,21 @@ Bei vielen, meist moderneren Begriffen, konnte nicht immer ein entsprechender W�
 \subsubsection{Geschlossene Kategorien}
 \subsubsection{Offene Kategorien}
 \subsubsection{Ausnahmen} 
+\pagebreak
 \subsection{Morphologie}
 \subsubsection{Nomenflektion}
 \subsubsection{Verbdeklination}
 \subsubsection{Pronomen}
 \subsubsection{Ausnahmen}
+\pagebreak
 \subsection{Syntax}
 \subsubsection{Nominalphrasen}
 \subsubsection{Verbalphrasen}
 \subsubsection{Einfache Sätze}
-\subsection{Anwendungen und Ausblick}
+\pagebreak
 \section{Ausblick}
+\pagebreak
+\section*{Bibliographie}
+\pagebreak
+\section*{Anhang}
 \end{document}
