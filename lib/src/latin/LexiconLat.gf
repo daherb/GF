@@ -5,11 +5,13 @@
 -- Aarne Ranta pre 2013, Herbert Lange 2013
 
 -- This lexicon implements all the words in the abstract Lexicon.
--- For each entry a source is given, either a printed dictionary or
--- a link to an online source. The two used printed dictionaries are
--- Langescheidts Schulwörterbuch Lateinisch 17. Edition 1984 (shorter:
--- Langenscheidts) and Der kleine Stowasser 3. Edition 1991 (shorter:
--- Stowasser)
+-- For each entry a source is given, either a printed dictionary, a 
+-- printed grammar book or a link to an online source. The used printed 
+-- dictionaries are Langescheidts Schulwörterbuch Lateinisch 17. Edition 
+-- 1984 (shorter: Langenscheidts), PONS Schulwörterbuch Latein 1. Edition 
+-- 2012 (Shorter: Pons) and Der kleine Stowasser 3. Edition 1991 (shorter: 
+-- Stowasser). The Grammar book is Bayer-Lindauer: Lateinische Schulgrammatik
+-- 2. Edition 1994.
 
 concrete LexiconLat of Lexicon = CatLat ** open 
   ParadigmsLat, 
