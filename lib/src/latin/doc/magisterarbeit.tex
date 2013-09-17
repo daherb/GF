@@ -14,6 +14,8 @@
 \usepackage{graphicx}
 \usepackage[section]{placeins}
 \usepackage{url}
+\usepackage{multirow}
+\usepackage{arydshln}
 
 \floatstyle{plain}
 
@@ -22,7 +24,7 @@
 
 \urldef\persalatin\url{http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3atext%3a1999.04.0059}
 \urldef\perselemlat\url{http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3atext%3a1999.04.0060}
-
+\urldef\vatlatinitas\url{http://www.vatican.va/roman_curia/institutions_connected/latinitas/documents/rc_latinitas_20040601_lexicon_it.html}
 \lstdefinelanguage{gf}
 {
   morekeywords={abstract, flags, cat, fun, incomplete, concrete, of, in, lincat, lin, resource, param, oper, variants, table, interface, instance, def, data, lindef, printname,},
@@ -195,18 +197,52 @@ Als Mögliche Lösung bietet sich die Nutzung von kollaborativen Internetquellen
 Das erstere bezeichnet sich selbst als das größte deutschsprachige Lateinportal im Internet und bietet ein kostenloses Onlinewörterbuch, sowohl in der Richtung Lateinisch-Deutsch als auch umgekehrt, das von registrierten Benutzern erweitert und korrigiert werden kann. Allerdings liegt bei diesem Wörterbuch der Schwerpunkt auch eher auf dem klassischen Vokabular. \\
 Das englischsprachige Wiktionary hilft zwar nicht direkt bei der Suche nach einer direkten Übersetzung aus einer anderen Sprachee, es bietet aber für ein umfangreiches Vokabular sowohl eine morphologische Analyse für viele Wortformen als auch detailierte Informationen über Verwendung und Formenbildung für lateinische Vokabeln. \\
 Die Perseus Digital Library, und vor allem die darin enthaltenen Wörterbücher fallen eher in die Kategorie klassischer, gedruckter Wörterbücher, was primär daher rührt, dass diese Wörterbücher Digitalisate seit Jahrzehnten bewährter Wörtrebücher sind.\footnote{\textit{A Latin Dictionary. Founded on Andrews' edition of Freund's Latin dictionary. revised, enlarged, and in great part rewritten by. Charlton T. Lewis, Ph.D. and. Charles Short, LL.D. Oxford. Clarendon Press. 1879.} (\persalatin) und \textit{Lewis, Charlton, T. An Elementary Latin Dictionary. New York, Cincinnati, and Chicago. American Book Company. 1890.} (\perselemlat)} Jedoch bietet Perseus die Möglichkeit einer erweiterten Suchfunktion so wie einer Angabe zur Wortfrequenz im verfügbaren Korpus. \\
-Eine der Onlinequellen für moderne lateinische Begriffe wurde nicht verwendet, da sie nur zwischen Latein und Italienisch übersetzt. Dies würde aus verschiedenen Gründen zu Problemen führen. Diese Quelle soll allerdings trotzdem kurz erwähnt werden, denn sie ist die offizielle Liste des Vatikans zur Übersetzung moderner Alltagsbegrifft\footnote{\url{http://www.vatican.va/roman_curia/institutions_connected/latinitas/documents/rc_latinitas_20040601_lexicon_it.html}}.
+Eine der Onlinequellen für moderne lateinische Begriffe wurde nicht verwendet, da sie nur zwischen Latein und Italienisch übersetzt. Dies würde aus verschiedenen Gründen zu Problemen führen. Diese Quelle soll allerdings trotzdem kurz erwähnt werden, denn sie ist die offizielle Liste des Vatikans zur Übersetzung moderner Alltagsbegrifft\footnote{\vatlatinitas}.
 \subsubsection{Geschlossene Kategorien}
-Das Lexikon einer Ressource Grammar ist unterteilt in zwei Dateien. Die erste Datei, StructuralLat.gf, enthält die Einträge für die sogenannten geschlossenen Kategorien.
-% StructuralLat.gf
-\lstinputlisting[float=ht,caption={Auszüge aus StructuralLat.gf},label={GF-StructuralLat},firstnumber=8,linerange={8-18}]{../StructuralLat.gf}
-Im Listing \ref{GF-StructuralLat} ist ein Auzug aus dem Lexikon für geschlossene Kategorien zu sehen. 
+Das Lexikon einer Ressource Grammar ist unterteilt in zwei Dateien. Die erste Datei, StructuralLat.gf, enthält die Einträge für die sogenannten geschlossenen Kategorien, so wie einige weiter Einträge die eher eine strukturelle als eine lexikalische Bedeutung haben. Die meisten Wortarten in diesem Teil des Lexikons gehören zu den sogenannten Partikeln, die nicht flektiert werden. Dazu gehören vor allem Adverbien, Präpositionen und Konjunktionen.\footnote{BAYER-LINDAUER1994 S.12} \\
+Adverbien gehören eigentlich nicht wirklich zu den geschlossenen Kategorien, jedoch gibt es eine gewisse Anzahl von Adverbien und adverbial benutzten Wörtern, die den meisten Sprachen gemein sind, weswegen sie als strukturale Bestandteile aufgefasst werden können. Meist werden Adverbien aus Adjecktiven gebildet, weswegen man sie zu den offenen Kategorien rechnen sollte. Jedoch ist dies nur eine von verschiedenen Möglichkeiten zur Verwendung von Adverbien. Vor allem im  Bereich der lokalen Adverbien (auf die Fragen wo?, wohin?, woher?) gibt es nur ein eingeschränktes Vokabular, das zu Recht zu den geschlossenen Kategorien gerechnet werden kann.\footnote{BAYER-LINDAUER1994 S.44} 
+Konkret als \texttt{Adv}\footnote{verb-phrase-modifying adverb \url{http://www.grammaticalframework.org/lib/doc/synopsis.html#Adv}} gekennzeichnet, sind im Falle der Ressource Grammar Library die Bezeichner \texttt{everywhere\_N},\texttt{here\_Adv},\texttt{here7to\_Adv}, \texttt{here7from\_Adv}, \texttt{somewhere\_Adv}, \texttt{there\_Adv}, \texttt{there7to\_Adv} und \texttt{there7from\_Adv}. Betrachtet man die Übersetzung dieser Bezeichner, so stellt sich heraus, dass die lateinischen Wörter \textit{ubique}, \textit{hic}, \textit{huc}, \textit{hinc}, \textit{usquam}, \textit{ibi}, \textit{eo} und \textit{inde} in der Lateingrammatik nicht als Adverbien, sondern als Pronominaladverbien, aufgeführt werden, also eher zur geschlossenen Kategorie der Pronomen, allerdings mit adverbialer Verwendung gehören. \\
+Zur selben grammatischen Kategorie gehören die meisten der im Grammatical Framework als \texttt{IAdv}\footnote{interrogative adverb \url{http://www.grammaticalframework.org/lib/doc/synopsis.html#IAdv}} bezeichneten Vokabeln \texttt{how\_IAdv} (lat. \textit{qui}), \texttt{when\_IAdv} (lat. \textit{quando}) und \texttt{where\_IAdv} (lat. \textit{ubi}). Das Wort \texttt{how8much\_IAdv} (lat. \textit{quantum}) wird als korrellatives Pronomen bezeichnet, lediglich das Fragewort \texttt{why\_IAdv} (lat. \textit{cur}) ist in der gegebenen Grammatik nicht explizit eingeordnet, hat aber offensichtlich eine verwandtschaftliche Beziehung zu (Interrogativ-)Pronomen\footnote {vgl. wer? -  lat. \textit{quis}, Dat. \textit{cur}}.
+%less_CAdv = mkCAdv "minus" "quam"
+%more_CAdv = mkCAdv "magis" "quam"
+%as_CAdv = mkCAdv "ita" "ut"
+%???
+%quite_Adv = ss "admodum"
+
+Prepositions
+
+
 \FloatBarrier
 \subsubsection{Offene Kategorien}
+Das Lexikon der offenen Kategorien LexiconLat.gf ethält eine kleine Anzahl aus Wörtern aus den sogenannten offenen Kategorien, vornehmlich Nomen, Verben und Adjektive. 
+Die Einträge haben unterschiedliche Umfang. Dies ist zum einen abhängig von der Menge an Informationen, die nötig ist um das gesamte Paradigma des generieren. Wovon dies abhängig ist wird im Kapitel über die Morphologie genau beschrieben. Im allgemeinen reicht, bei regelmäßiger Deklination\footnote{Nomenflektion} und Konjugation\footnote{Verbflexion}, eine einzelne Zeichenkette aus. \\
+Die meisten Zeichenketten konnten, wie bereits erläutert wurde
 \subsubsection{Ausnahmen} 
 \pagebreak
 \subsection{Morphologie}
+Eine der großen Herausforderung bei der Implementierung einer Lateingrammtik, ist die Morphologie. Dies bedingt daraus, dass Latein eine flektierende Sprache ist, und deshalb viele grammatische Merkmale in der Wortform kodiert. Dadurch beding ist eine große Menge an Wortformen für jeden Lexikoneintrag. Um so wichtiger ist es, möglichst viele dieser Formen mit möglichst wenig Informationen zu generieren. Deshalb ist es ratsam, das Konzept der sogenannten Smart Paradigms zu implementieren. Dabei wird versucht Mit Hilfe von Stringanalysen möglichst viele Informationen zur Wortbildung zu extrahieren. Im Falle der lateinischen Sprache werden dabei Wortsuffixe zu Rate gezogen.
 \subsubsection{Nomenflektion}
+In der lateinischen Sprache gibt es fünf deklinationsklassen für Nomen. Sie werden entweder durchnummeriert oder aber durch ihren Kennlaut bestimmt. Demnach unterscheidet man die erste bis fünfte Deklination bzw. die ā-, ǒ-, ǐ-, ǔ- und ē-Deklination. Den zur Identifikation kann man den Kennlaut am leichtesten nach Abtrennung der Endung \textit{-um} im Genitiv Plural erkennen. \footnote{BAYER-LINDAUER1994 S. 21}\\
+Allerdings kann man meist die Deklinationsklasse auch an der Endung der Nominativ Singular Form erkennen. So haben z.B alle Nomen der ā-Deklination den Ausgang \textit{-ǎ} und Genus Femininum. Es gibt keine wirklich relevanten Ausnahmen, so können lediglich Flußnamen und männliche Personennamen männliches Geschlecht haben. Deshalb ist es bei fast allen Nomen dieser Deklinationsklasse nicht nötig mehr als die Nominativ Singular Form anzugeben. \\
+Bei der zweiten Deklinationsklasse gibt es eine größere Anzahl möglicher Wortausgänge, nämlich \textit{-us}, \textit{-um} und \textit{-er} bzw. \textit{-ir}. Grundätzlich sind Nomen mit dem Ausgang \textit{-um} Neutra, Nomen mit den Endungen \textit{-us} und \textit{-r} Maskulina. \\
+Die dritte oder auch ǐ-Deklination wird auch als Mischdeklination bezeichnet, da sie in zwei Unterklassen unterteilt werden kann, in Nomen mit konsonantischem oder vokalischem, also auf \textit{-ǐ} auslautendem Stamm. Auf Grund dessen gehört die dritte Deklination zu den schwerer zu handhabenden Flexionsklassen. In Folge dessen reicht auch nicht eine einzige Wortform für die Generierung des Paradigmas aus. [todo: blablabla] \\
+Die vierte Deklinationsklasse hingegen ist wieder unkomplizierter. Sie hat im Nominativ Singular die Endungen \textit{-ū} oder \textit{-us} und die Nomen sind, wenn sie auf \textit{-us} enden, maskulin und, wenn sie auf \textit{-ū} enden, Neutra. Da die Nominativ Singular Form bei den Nomen auf \textit{-us} nicht von Nomen der zweiten Deklination mit der gleichen Endung zu unterscheiden sind, kann das Smart Paradigm für nur eine Wortform nur bei den Nomen auf \textit{-ū} angewadt werden, da die Endung \textit{-us} schon die zweite Deklination identifiziert. In diesem Falle wird ebenfalls das Paradigma mit Hilfe den drei Parameter Nominativ Singular, Genitiv Singular und Geschlecht bestimmt. \\
+Bei der fünften Deklination ist die Nominativ Singular-Endung an sich wieder eindeutig, sie enden alle auf \textit{-es}. Jedoch können, wie oben bereits beschrieben, auch Nomen der dritten Deklination im Nominativ Singular auf \textit{-es} enden. Man kann die unterschiedlichen Deklinationen aber klar an der Genitiv Singular-Form unterscheiden. Deshalb ist die sicherste Möglichkeit Fehler zu vermeiden, auch diese Genitivform im Lexikon anzugeben. Dies ist jedoch nicht nötig, da wenn nur die Nominativform angegeben ist und diese auf \textit{-es} endet, das Smart Paradigm so definiert ist, dass ein Paradigma der fünften Deklination generiert wird. \\
+Die Bildung der Wortformen für Nomen ist fast schon trivial. Der Wortstamm wird meist dadurch gefunden, dass man, wenn nötig, die Endung abtrennt. Anschließend werden alle zwölf Wortformen, für die zwei Numeri und die sechs Kasus, durch anfügen der passenden Endung gebildet. \\
+Bei der ersten Deklination ist der Wortstamm angenehmerweise gleich der Nominativ Singular-Form. Ebenfalls identisch zum Wortstamm sind die Ablativ und Vokativ Singular-Formen. Die Endungen für die restlichen Kasus sind \textit{-m} für den Akkusativ Singular, \textit{-e} für den Genitiv und Dativ Singular so wie Nominativ und Vokativ Plural, \textit{-rum} für den Genitiv Plural, und \textit{-s} für Akkusativ Plural. Etwas anders verhält es sich bei Dativ und Ablativ Plural. Bei diesen zwei Fällen wird die Endung \textit{-is} nicht an den Wortstamm, sondern an den Wortstock, also den Wortstamm, ohne den Kennvokal, angefügt.\footnote{BAYER-LINDAUER1994 S.21f.} \\
+\begin{table}[h]
+\begin{tabular}{|r:c:l|}
+\hline
+\multicolumn{2}{|l:}{Wortstamm} & Endung \\
+\hline
+terr & a & e \\
+\hline
+Wortstock & \multicolumn{2}{:l|}{Wortausgang} \\
+\hline
+\end{tabular}
+\caption{Bestandteile eines lateinischen Nomens im Genitiv Singular (Vgl. BAYER-LINDAUER S. 21)}
+\end{table}
+Bei der zweiten Nomendeklination ist das Vorgehen ganz ähnlich zur ersten Deklination, zumindest bei den Nomen auf \textit{-us} und \textit{-um}. Diesmal muss von der Nominativ Singular-Form die Endung abgespalten werden um, diesmal den Wortstock, zu erhalten. An diesen werden nun die kasusabhängigen Ausgänge angehängt. Diese sind in den meisten Fällen für alle Nomen dieser Deklinationsklasse gleich, in manchen Kasus unterscheiden sie sich aber je nach Nominativ Singular-Endung. Somit ist logischerweise der Nominativ Singular nicht einheitlich sondern hat die Endungen \textit{-us}, \textit{-um} oder \textit{-r}. Die gleichen Endungen haben all diese Nomen im Genitiv, Dativ, Akkusativ und Ablativ Singular (\textit{-i}, \textit{-o}, \textit{-um}, \textit{-o}) sowie im Genitiv, Dativ und Ablativ Plural (\textit{-orum}, \textit{-is} und \textit{is}). 
 \subsubsection{Verbdeklination}
 \subsubsection{Pronomen}
 \subsubsection{Ausnahmen}
