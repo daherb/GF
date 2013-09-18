@@ -1,4 +1,4 @@
-\documentclass[11pt]{scrartcl}
+\documentclass[12pt]{scrartcl}
 
 %\usepackage[utf8]{inputenc}
 \usepackage[onehalfspacing]{setspace}
@@ -209,15 +209,18 @@ Zur selben grammatischen Kategorie gehören die meisten der im Grammatical Frame
 %???
 %quite_Adv = ss "admodum"
 
-Prepositions
-
+Die letzte zu erwähnende Kategorie von Wörtern sind Präpositionen. Präpositionen werden gemeinhin verwendet um die Funktion verschiedener Kasus genauer zu spezifizieren. Deshalb gibt es zu jeder Präposition zwingend auch eine Angabe, mit welchem Kasus sie verwendet werden kann.\footnote{BAYER-LINDAUER1994 S. 160f.} Allerdings haben die Kasus im Lateinischen bereits eine relativ feste Funktion, die in anderen Sprachen durch Präpositionen zusammen mit einem entsprechenden Kasus ausgedrückt werden. Deshalb gibt es in Latein auch einige ``leere'' Präpositionen, die also keine Zeichenkette produzieren, aber die Verwendung eines bestimmten Falles erzwingen. Zu diesen Präpositionen gehören unter anderem \texttt{part\_Prep} und \texttt{posses\_Prep}, deren Bedeutung schon allein durch einen Genitiv ausgedrückt wird. Andere, recht häufige, Präpositionen wie \textit{in} können dagegen auch mit mehreren Fällen benutzt werden. Dies wird in GF durch sogenannte freie Variationen ermöglicht (Listing \ref{GF-Structural-in}). So kann \textit{in} sowohl zusammen mit Akkusativ oder Ablativ gebraucht werden.
+\begin{lstlisting}[label=GF-Structural-in,caption=Beispiel für freie Variation]
+in_Prep = mkPrep "in" ( variants { Abl ; Acc } ) ; -- (Langenscheidts)
+\end{lstlisting}
 
 \FloatBarrier
 \subsubsection{Offene Kategorien}
 Das Lexikon der offenen Kategorien LexiconLat.gf ethält eine kleine Anzahl aus Wörtern aus den sogenannten offenen Kategorien, vornehmlich Nomen, Verben und Adjektive. 
-Die Einträge haben unterschiedliche Umfang. Dies ist zum einen abhängig von der Menge an Informationen, die nötig ist um das gesamte Paradigma des generieren. Wovon dies abhängig ist wird im Kapitel über die Morphologie genau beschrieben. Im allgemeinen reicht, bei regelmäßiger Deklination\footnote{Nomenflektion} und Konjugation\footnote{Verbflexion}, eine einzelne Zeichenkette aus. \\
-Die meisten Zeichenketten konnten, wie bereits erläutert wurde
-\subsubsection{Ausnahmen} 
+Die Einträge haben unterschiedliche Umfang. Dies ist zum einen abhängig von der Menge an Informationen, die nötig ist um das gesamte Paradigma des generieren. Wovon dies abhängig ist wird im Kapitel über die Morphologie genau beschrieben. Im allgemeinen reicht, bei regelmäßiger Deklination\footnote{Nomenflektion} und Konjugation\footnote{Verbflexion}, eine einzelne Zeichenkette aus. Deshalb ist es bei den Nomen der ersten, zweiten, vierten und fünften meist nicht nötig weitere Informationen anzugeben. Allerdings gibt es Ausnahmen, z.B. wenn bei einem Wort das Genus vom üblichen Geschlecht abweicht, das normalerweise mit der entsprechenden Endung kodiert wird. Also ist sowohl für Nomen der dritten Deklination, so wie für Nomen der anderen Deklinationsklassen nötig, statt einer Wortform zwei Wortformen, den Nominativ und Genitiv Singular, und das Geschlecht anzugeben. Bie einigen Nomen, wie z.B. Bezeichnungen für Tiere, kann das entsprechende Nomen bei gleicher Wortform beide Genera annehmen. Deshalb wird in diesem Falle die Funktion zum Erzeugen des Paradigmas mit freier Variation über die möglichen Geschlechter, meist Femininum und Maskulinum, versehen (vgl. Listing \ref{GF-Structural-in}). Andere Nomen haben dagegen sowohl eine männliche als auch eine weibliche Form, wobei diese meist sehr klar den üblicherweise entsprechenden Deklinationsklassen entsprechen. So gibt es im englischen nur ein geschlechtsunspezifisches Nomen für Cousin und Cousine. Des halb heißt das entsprechende Symbol \texttt{cousin\_N} ausgederückt. Die lateinische Übersetzung ist aber \textit{consobrinus} für den männlichen Cousin und \textit{consobrina} für das weibliche Pendant. Auch in diesem Falle kann die freie Variation, wenn auch auf einem höheren Level eingesetzt werden. Es wird nicht nur der Wert eines Parameters variiert, sondern über zwei verschiedene Nomen-''Objekte''. [blablabla]
+
+
+\FloatBarrier
 \pagebreak
 \subsection{Morphologie}
 Eine der großen Herausforderung bei der Implementierung einer Lateingrammtik, ist die Morphologie. Dies bedingt daraus, dass Latein eine flektierende Sprache ist, und deshalb viele grammatische Merkmale in der Wortform kodiert. Dadurch beding ist eine große Menge an Wortformen für jeden Lexikoneintrag. Um so wichtiger ist es, möglichst viele dieser Formen mit möglichst wenig Informationen zu generieren. Deshalb ist es ratsam, das Konzept der sogenannten Smart Paradigms zu implementieren. Dabei wird versucht Mit Hilfe von Stringanalysen möglichst viele Informationen zur Wortbildung zu extrahieren. Im Falle der lateinischen Sprache werden dabei Wortsuffixe zu Rate gezogen.
@@ -243,8 +246,10 @@ Wortstock & \multicolumn{2}{:l|}{Wortausgang} \\
 \caption{Bestandteile eines lateinischen Nomens im Genitiv Singular (Vgl. BAYER-LINDAUER S. 21)}
 \end{table}
 Bei der zweiten Nomendeklination ist das Vorgehen ganz ähnlich zur ersten Deklination, zumindest bei den Nomen auf \textit{-us} und \textit{-um}. Diesmal muss von der Nominativ Singular-Form die Endung abgespalten werden um, diesmal den Wortstock, zu erhalten. An diesen werden nun die kasusabhängigen Ausgänge angehängt. Diese sind in den meisten Fällen für alle Nomen dieser Deklinationsklasse gleich, in manchen Kasus unterscheiden sie sich aber je nach Nominativ Singular-Endung. Somit ist logischerweise der Nominativ Singular nicht einheitlich sondern hat die Endungen \textit{-us}, \textit{-um} oder \textit{-r}. Die gleichen Endungen haben all diese Nomen im Genitiv, Dativ, Akkusativ und Ablativ Singular (\textit{-i}, \textit{-o}, \textit{-um}, \textit{-o}) sowie im Genitiv, Dativ und Ablativ Plural (\textit{-orum}, \textit{-is} und \textit{is}). 
-\subsubsection{Verbdeklination}
-\subsubsection{Pronomen}
+\subsubsection{Adjektivflexion}
+Im Lateinischen müssen Adjektive mit dem Nomen in Genus, Numerus und Kasus übereinstimmen. Zusätzlich gibt es drei Steigerungsstufen, Positiv, Komparativ und Superlativ. Deshalb werden sie in diesen Merkmalen flektiert. Auf diese Art und Weise enthält das Paradigma ziemlich viele Wortformen, diese zu generieren ist aber relativ einfach. Die meisten Adjektive gehören zur ersten und zweiten Deklination. Adjektive dieser Klasse bilden für Feminina die selben Endungen wie Nomen der ersten Deklination und verhalten sich auch für Makulina und Neutra jeweils analog zu Nomen der zweiten Deklination auf \textit{-us} (Maskulina) und \textit{-um} (Neutra).
+\subsubsection{Verbflexion}
+\subsubsection{Pronomenflexion}
 \subsubsection{Ausnahmen}
 \pagebreak
 \subsection{Syntax}
