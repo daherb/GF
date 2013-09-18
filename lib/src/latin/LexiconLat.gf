@@ -132,7 +132,7 @@ lin
   leave_V2 = mkV2 (mkV "relinquere" "relinquo" "relinqui" "relictum") ; -- relinquo, relinqui, relictum 3 (Langenscheidts)
   like_V2 = mkV2 ( IrregLat.want_V ) ; -- vello, velli (volsi, vulsi), vulsum 3 (Langenscheidts)
   listen_V2 = mkV2 (mkV "auscultare") ; -- ausculto 1 (Langenscheidts)
-  live_V = mkV "vivere" ; -- vivo, vixi, victurus 3 (Langenscheidts)
+  live_V = mkV "vivere" "vivo" "vixi" "victum" ; -- vivo, vixi, victurus 3 (Langenscheidts)
   long_A = mkA "longus" ; -- 3 (Langenscheidts)
   lose_V2 = mkV2 (mkV "amittere") ; -- amitto, amissi, amissum 3 (Langenscheidts)
   love_N = mkN "amor" "amoris" masculine ; -- Ranta; -oris m. (Langenscheidts)
@@ -159,7 +159,7 @@ lin
   pen_N = mkN "stilus" ; -- -i m. (Langenscheidts)
   planet_N = mkN "planeta" ; -- -ae m. (http://la.wikipedia.org/wiki/Planeta)
   plastic_N = mkN "plastica" "plasticae" feminine ; -- -ae f. (http://la.wikipedia.org/wiki/Plasticum)
-  play_V2 = mkV2 (mkV "ludere") ; -- ludo, lusi, lusum 3 (Langenscheidts)
+  play_V2 = mkV2 (mkV "ludere" "ludo" "lusi" "lusum" ) ; -- ludo, lusi, lusum 3 (Langenscheidts)
   policeman_N = mkN "custos" "custodis" ( variants { masculine ; feminine } ) ; -- -odis m./f. (Langenscheidts)
   priest_N = mkN "sacerdos" "sacerdotis" ( variants { masculine ; feminine } ) ; -- -dotis m./f. (Langenscheidts)
   probable_AS = mkAS (mkA "verisimilis" "verisimile") ; -- -e (Langenscheidts)
@@ -174,7 +174,7 @@ lin
   rock_N = mkN "saxum" ; -- -i n. (Langenscheidts)
   roof_N = mkN "tectum" ; -- -i n. (Langenscheidts)
   rubber_N = mkN "cummis" "cummis" feminine ; -- -is f. Der kleine Stowasser
-  run_V = mkV "currere" ; -- curro, cucurri, cursum 3 (Langenscheidts)
+  run_V = mkV "currere" "curro" "cucurri" "cursum" ; -- curro, cucurri, cursum 3 (Langenscheidts)
   say_VS = mkVS (mkV "dicere" "dico" "dixi" "dictum") ; -- dico, dixi, dictum 3 (Langenscheidts)
   school_N = mkN "schola" ; -- -ae f. (Langenscheidts)
   -- Irregular
@@ -206,7 +206,7 @@ lin
   stupid_A = mkA "stultus" ; -- 3 (Langenscheidts)
   sun_N = mkN "sol" "solis" masculine ; -- solis m. (Langenscheidts)
   switch8off_V2 = mkV2 (mkV "accendere") ; -- -cendo, -cendi, -censum 3 (Langenscheidts)
-  switch8on_V2 = mkV2 (mkV ( variants { "exstinguere" ; "extinguere" } ) ); -- -ingo, -inxi, -inctum 3 (Langenscheidts)
+  switch8on_V2 = mkV2 ( variants { mkV "exstinguere" "exstingo" "exstinxi" "exstinctum" ; mkV "extinguere" "extingo" "extinxi" "extinctum" } ) ; -- -ingo, -inxi, -inctum 3 (Langenscheidts)
   table_N = mkN "mensa" ; -- -ae f. (Langenscheidts)
   talk_V3 = mkV3 ( lin V speak_V2 ) Dat_Prep Acc_Prep ;
   teacher_N = mkN "magister" "magistri" masculine ; -- -tri m. (Langenscheidts)
@@ -220,7 +220,7 @@ lin
   -- Not even in English implemented
 ---- trousers_N = mkN "trousers" ;
   ugly_A = mkA "foedus" ; -- 3 (Langenscheidts)
-  understand_V2 = mkV2 (mkV "intellegere") ; -- intellego, intellexi, intellectum 3 (Langenscheidts)
+  understand_V2 = mkV2 (mkV "intellegere" "intellego" "intellexi" "intellectum" ) ; -- intellego, intellexi, intellectum 3 (Langenscheidts)
   university_N = mkN "universitas" "universitatis" feminine ; -- -atis f. (http://la.wikipedia.org/wiki/Universitas) and (Langenscheidts)
   village_N = mkN "vicus" ; -- -i m. (Langenscheidts)
   wait_V2 = mkV2 (mkV "exspectare") ; -- 1 (Langenscheidts)
