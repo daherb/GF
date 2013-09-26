@@ -87,7 +87,7 @@ oper
 	} ;
     in
     mkNoun
-      rex regemes.p1 ( reg + "is" ) ( reg + "i" ) ( reg + "e" ) rex
+      rex regemes.p1 regis ( reg + "i" ) ( reg + "e" ) rex
       regemes.p2 regemes.p2 ( reg + "um" ) ( reg + "ibus" ) 
       g ;
 
@@ -108,7 +108,7 @@ oper
 	};
     in
     mkNoun
-      ars artemes.p1 ( art + "is" ) ( art + "i" ) arte ars
+      ars artemes.p1 artis ( art + "i" ) arte ars
       artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
       g ;
 
@@ -204,10 +204,13 @@ oper
       -- Bos has to many exceptions to be handled correctly
       < "bos" , "bov" > => mkNoun "bos" "bovem" "bovis" "bovi" "bove" "bos" "boves" "boves" "boum" "bobus" g;
       -- Some exceptions with no fitting rules
-      < "nix" , _ > => noun3i rex regis g; -- L...
+      < "nix" , _ > => noun3i rex regis g; -- Langenscheidts
       < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > => noun3c rex regis g ;  -- Bayer-Lindauer 31 3 and Exercitia Latina 32 b), sal must be handled here because it will be handled wrongly by the next rule 
       < _ + ( "e" | "al" | "ar" ) , _ > => noun3i rex regis g ; -- Bayer-Lindauer 32 2.3
-      < _ + "ter", _ + "tr" > => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Lindauer 31 2.2 
+      ( < _ + "ter" , _ + "tr" >
+      | < _ + "en"  , _ + "in" >
+      | < _ + "s"   , _ + "r" > 
+	) => noun3c rex regis g ; -- might not be right but seems fitting for Bayer-Lindauer 31 2.2 
       < _ , _ + #consonant + #consonant > => noun3i rex regis g ; -- Bayer-Lindauer 32 2.2
       < _ + ( "is" | "es" ) , _ > => 
 	if_then_else 
@@ -323,7 +326,7 @@ oper
       advs : Str * Str = 
 	case bonus of {
 	  -- Bayer-Lindauer 50 4
-	  idon + #vowel + "us" => < "magis" , "maxime" > ;
+	  idon + ( #vowel | "r" ) + "us" => < "magis" , "maxime" > ;
 	  _ => < "" , "" >
 	}
     in
