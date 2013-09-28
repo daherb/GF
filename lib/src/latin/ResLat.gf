@@ -197,13 +197,13 @@ param
   useVPasV : VerbPhrase -> Verb = \vp ->
     {
       act = \\a => vp.obj ++ vp.fin ! a ;
-      pass = \\_ => "???" ;
+      pass = \\_ => "######" ;
       inf = \\a => vp.obj ++ vp.inf ! a ;
-      imp = \\_ => "???" ;
-      ger = \\_ => "???" ;
-      geriv = \\_ => "???" ;
-      sup = \\_ => "???" ;
-      part = \\_,_ => "???" ;
+      imp = \\_ => "######" ;
+      ger = \\_ => "######" ;
+      geriv = \\_ => "######" ;
+      sup = \\_ => "######" ;
+      part = \\_,_ => "######" ;
     } ;
 
   mkVerb : 
