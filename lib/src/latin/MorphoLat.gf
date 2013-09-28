@@ -403,7 +403,7 @@ oper
     mkVerb laudare pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
     perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
 
--- 2./e-conjugation
+  -- 2./e-conjugation
 
   verb2 : Str -> Verb = \monere ->
     let
@@ -616,8 +616,8 @@ oper
       _ + "eri" => deponent2 iacere ;
       _ + "iri" => deponent4 iacere ;
       _ + "are" => verb1 iacere ;
-      _ + "ire" => let iaci = Predef.tk 2 iacere 
-        in verb4 iacere ; -- (iaci + "vi") (iaci + "tus") ;
+      _ + "ire" => -- let iaci = Predef.tk 2 iacere in
+        verb4 iacere ; -- (iaci + "vi") (iaci + "tus") ;
       _ + "ere" => verb2 iacere ;
       _ => Predef.error ("verb: illegal infinitive form" ++ iacere) 
     } ;
