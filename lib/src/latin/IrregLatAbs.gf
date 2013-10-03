@@ -1,5 +1,6 @@
 abstract IrregLatAbs = Cat ** {
   fun
+    science_N : N ;
     be_V : V ;
     can_VV : VV ;
     bring_V : V ;

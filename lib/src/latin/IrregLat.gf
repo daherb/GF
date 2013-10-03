@@ -6,6 +6,8 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 --
 
   lin
+    science_N = pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
+    
     -- Bayer-Lindauer 93 1
     be_V =
       let
