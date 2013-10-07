@@ -346,18 +346,13 @@ param
 	    imp_base + imp_fill.p1 ;
 	  VImp1 Pl           => -- Imperative I
 	    imp_base + imp_fill.p2 + "te" ;
-	VImp2 Sg ( P2 | P3 ) => -- Imperative II
-	  imp_base + imp_fill.p2 + "to" ;
-	VImp2 Pl P2          => -- Imperative II
-	  imp_base +
-	  ( case imp_base of {
-	      _ + #consonant => "i" ;
-	      _ => fill.p3
-	      }
-	  ) + "tote" ;
-	VImp2 Pl P3          => -- Imperative II 
-	  pres_stem + fill.p2 + "nto" ;
-	_ => "######" -- No imperative form
+	  VImp2 Sg ( P2 | P3 ) => -- Imperative II
+	    imp_base + imp_fill.p2 + "to" ;
+	  VImp2 Pl P2          => -- Imperative II
+	    imp_base + fill.p3 + "tote" ;
+	  VImp2 Pl P3          => -- Imperative II 
+	    pres_stem + fill.p2 + "nto" ;
+	  _ => "######" -- No imperative form
 	} ;
       ger = 
 	table {
@@ -727,8 +722,8 @@ oper
     };
     
   createPronouns : Gender -> Number -> Person -> ( ( PronDropForm => PronReflForm => Case => Str ) * ( PronReflForm => Agr => Str ) ) = \g,n,p ->
-    case <g,n,p> of {
-      <_,Sg,P1> =>
+    case <n,p> of {
+      <Sg,P1> =>
   	< 
   	table { 
   	  PronDrop    => \\_,_ => "" ;  
@@ -743,7 +738,7 @@ oper
    	  Ag Neutr Pl c => ( pronForms "mea" "mea" "meorum" "meis" "meis" "mea" ) ! c
   	}
   	> ;
-      <_,    Sg,P2> => 
+      <Sg,P2> => 
       	< 
       	table {
       	  PronDrop => \\_,_ => "" ; 
@@ -758,7 +753,7 @@ oper
       	  Ag Neutr Pl c => ( pronForms "tua" "tua" "tuorum" "tuis" "tuis" "tua" ) ! c
       	}
       	> ;
-      <_,    Pl,P1> => 
+      <Pl,P1> => 
       	< 
       	table { 
       	  PronDrop => \\_,_ => "" ;
@@ -773,7 +768,7 @@ oper
       	  Ag Neutr Pl c => ( pronForms "nostra" "nostra" "nostrorum" "nostris" "nostris" "nostra" ) ! c
       	}
       	> ; 
-      <_,    Pl,P2> => 
+      <Pl,P2> => 
       	< 
       	table {
       	  PronDrop => \\_,_ => "" ; 
@@ -788,7 +783,7 @@ oper
       	  Ag Neutr Pl c => ( pronForms "vestra" "vestra" "vestrorum" "vestris" "vestris" "vestra" ) ! c
       	}
       	>; 
-      <_,_ ,P3> => 
+      <_ ,P3> => 
       	<
       	table {
       	  PronDrop => \\_,_ => "" ;
@@ -808,7 +803,13 @@ oper
       	} ,
       	table {
       	  PronNonRefl => 
-      	    \\_ => "######" ;
+	    \\_ =>
+      	    case <g,n> of {
+	      <_,Sg>     => "eius" ;
+	      <Masc,Pl>  => "eorum" ;
+	      <Fem, Pl>  => "earum" ;
+	      <Neutr,Pl> => "eorum"
+	    };
       	  PronRefl =>
       	    table {
       	      Ag Masc  Sg c => ( pronForms "suus" "suum" "sui" "suo" "suo" ) ! c ;
