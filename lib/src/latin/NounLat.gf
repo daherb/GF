@@ -10,6 +10,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
       } ;
 
     UsePN pn = lin NP { s = pn.s ! Sg ; g = pn.g ; n = Sg ; p = P3 } ;
+
     UsePron p = -- Pron -> Np
       { 
 	g = p.g ;
@@ -20,6 +21,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 	  _ => p.pers ! PronNonDrop ! PronRefl  -- but don't drop it otherwise
 	  } ! c ;
       } ;
+
 --    PredetNP pred np = {
 --      s = \\c => pred.s ++ np.s ! c ;
 --      a = np.a
@@ -92,6 +94,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     --   a = Ag cn.g Sg
     --   } ;
 
+--2 Common Nouns
     UseN n = -- N -> CN
   lin CN ( n ** {preap, postap = {s = \\_ => "" } } ) ; 
       
