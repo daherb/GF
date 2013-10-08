@@ -1,6 +1,5 @@
 concrete SatzEng of SatzAbs = {
   param Numerus = Sg | Pl ;
-	Genus = Mask | Fem | Neutr ;
   lincat S = { s : Str } ;
 	 NP = { s : Str ; n : Numerus ; } ;
 	 VP = {s : Numerus => Str ; o : Str } ; 
