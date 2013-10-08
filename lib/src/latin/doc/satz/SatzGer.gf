@@ -10,7 +10,8 @@ concrete SatzGer of SatzAbs = {
 	 V,V2 = { s : Numerus => Str } ;
 	 VP = { s : Numerus => Str ; o : Str };
   lin
-    mkNP det noun = { s = \\cas => det.s ! noun.g ! cas ++ noun.s ! det.n ; n = det.n } ;
+    mkNP det noun = { s = \\cas => det.s ! noun.g ! cas ++ noun.s ! det.n ; 
+		      n = det.n } ;
     mkVP v = v ** { o = "" } ;
     mkVP2 v2 np = v2 ** { o = np.s ! Akk } ; 
     mkS np vp = { s = np.s ! Nom ++ vp.s ! np.n ++ vp.o } ;
