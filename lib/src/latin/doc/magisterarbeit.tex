@@ -461,7 +461,7 @@ oper
   } ;
 \end{lstlisting}
 Dies sind finite Verbformen, infinite Verbformen, wenn vorhanden ein Objekt und möglicherweise auch ein modifizierendes Adjektiv. Die Typen \texttt{VActForm} und \texttt{VInfForm} haben dabei die selben möglichen Werte wie bei den Verben. Die Funktion \texttt{predV} füllt das \texttt{fin}-Feld mit den aktiven Verbformen und das \texttt{inf}-Feld mit den Infinitivformen des Verbs. Die Felder für das Objekt und das Adjektiv werden mit leeren Zeichenketten gefüllt. Damit ist die Verwandlung in eine Verbalphrase auch schon beendet. \par
-Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt nötig. Denn aus einem transitiven Verb wird zunächst eine \texttt{VP} erzeugt, der eine Nominalphrase in der Objektposition fehlt. Diese Kategorie heißt analog zur Nomenklatur im GPSG-Grammatikformalismus VPSlash (in der GPSG-Notation VP/NP).\footnote{vgl. \cite{RANTA2011} S. 217}
+Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt nötig. Denn aus einem transitiven Verb wird zunächst eine \texttt{VP} erzeugt, der eine Nominalphrase in der Objektposition fehlt. Diese Kategorie heißt analog zur Nomenklatur im GPSG-Grammatikformalismus VPSlash (in der GPSG-Notation VP/NP).\footnote{vgl. \cite{RANTA2011} S. 217} Solch eine \texttt{VPSlash} besteht lediglich aus einer, um ein zusätzliches Feld erweiterte, Verbalphrase. In diesem zusätzlichen Feld kann, wenn nötig eine Präposition gespeichert werden, die unter anderem bestimmt, in welchem Kasus das Objekt des Verbs stehen muss. Diese bei transitiven Verben nötige Präposition ist üblicherweise im Lexikoneintrag des Verbs zu finden oder eine Präposition mit leerer Zeichenkette, die ein Akkusativobjekt nach sich zieht, wird angenommen. Die Transformation eines transitiven Verbs in eine \texttt{VPSlash} erfolgt analog zu den intransitiven Verben mit einer Funktion namens \texttt{predV2}, wobei das \texttt{V2} für transitive Verben steht. Diese Funktion macht nichts anderes um mit Hilfe von \texttt{predV} eine \texttt{VP} zu erzeugen, um die Präposition des transitiven Verbs erweitern und den Typ auf \texttt{VPSlash} zu ändern. Um nun aus solch einer \texttt{VPSlash} eine vollständige Verbalphrase zu erzeugen, kann die Regel \texttt{ComplSlash} verwendet werden. Sie kombiniert eine \texttt{VPSlash} zusammen mit einer Nominalphrase zu einer \texttt{VP}.
 \FloatBarrier
 \subsection{Einfache Sätze}
 \label{subsec:einfachesaetze}
@@ -481,5 +481,5 @@ Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt
 \label{part:anhang}
 \section{Quelltext}
 \label{sec:quelltext}
-%\lstinputlisting[caption={Unterschiede zwischen der Anfangs- und Endversion der Lateingrammatik},label={GF-Diff},basicstyle=\tiny]{complete.diff}
+\lstinputlisting[caption={Unterschiede zwischen der Anfangs- und Endversion der Lateingrammatik},label={GF-Diff},basicstyle=\tiny]{complete.diff}
 \end{document}
