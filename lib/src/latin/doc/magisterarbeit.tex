@@ -445,7 +445,8 @@ param
   Agr = Ag Gender Number Case ; -- Agreement for NP et al.
 \end{lstlisting}
 Als nächstes folgt die Nomenform, die den Numerus des Determinans übernimmt, so wie den Kasus aus \texttt{c}. Als letztes folgen die Adjektivphrasen nach dem Nomen aus dem Feld \texttt{postap} analog zu \texttt{preap}. Durch die Konkatenation dieser Bestandteile wird die Zeichenkette gebildet, die der Nominalphrase entspricht. Diese Nominalphrase behält den Numerus des Artikels so wie das Genus des Common Nouns als inhärente Merkmale. Zusätzlich hat sie als Person die 3. Person, die die Verbform beeinflusst. Dies war auch schon die komplizierteste der bisher implementierten Regeln um Nominalphrasen zu erzeugen. \par
-Daneben gibt es noch zwei kurze Regeln um Nominalphrasen aus Eigennamen und Personalpronomen zu erzeugen. Die erste namens \texttt{UsePN} hat die selbe Form wie der verwendete Name im Singular. Entsprechend ist der Genus der \texttt{NP} gleich dem Genus des Eigennamens, der Numerus ist Singular und die Person wieder die 3. Person. Und die letzte Regel \texttt{UsePron} verwandelt ein Pronomen in eine Nominalphrase. Dazu werden Genus, Numerus und Person aus dem Pronomen übernommen. Bei der Kasus-abhängigen Form kommt dafür das Pro-Drop-Phänomen zu tragen. Denn wenn die aus einem Pronomen gebildete Nominalphrase im Nominativ verwendet wird, entfällt sie, es wird also nur die leere Zeichenkette produziert. In allen anderen Kasus wird einfach die entsprechende Pronomenform gebildet. \par
+Daneben gibt es noch zwei kurze Regeln um Nominalphrasen aus Eigennamen und Personalpronomen zu erzeugen. Die erste namens \texttt{UsePN} hat die selbe Form wie der verwendete Name im Singular. Entsprechend ist der Genus der \texttt{NP} gleich dem Genus des Eigennamens, der Numerus ist Singular und die Person wieder die 3. Person. Und die letzte Regel \texttt{UsePron} verwandelt ein Pronomen in eine Nominalphrase. Dazu werden Genus, Numerus und Person aus dem Pronomen übernommen. Bei der Kasus-abhängigen Form kommt dafür das Pro-Drop-Phänomen zu tragen. Denn wenn die aus einem Pronomen gebildete Nominalphrase im Nominativ verwendet wird, entfällt sie, es wird also nur die leere Zeichenkette produziert. In allen anderen Kasus wird einfach die entsprechende Pronomenform gebildet. 
+Soll allerdings auch in der Subjektposition die Pronomenform erzwungen werden, existiert im Extra-Teil\footnote{\textbf{ExtraLatAbs.gf} und \textbf{ExtraLat.gf}} der Grammatik eine Funktion namens \texttt{UsePronNonDrop}, die aus der Nicht-Pro-Pro-Drop-Form des Pronomens eine Nominalphrase erzeugt. Der Extra-Teil einer Grammatik kann im Grammatical Framework verwendet werden um für eine einzelne Sprache spezielle Konstrukte zu beschreiben. Diese können zwar beim Parsen verwendet werden, nicht jedoch beim Übersetzen, wenn die Zielsprache nicht auch die selbe erweiterte abstrakte Syntax hat. Allerdings können bei nahe verwandten Sprachen möglicherweise auch die Extra-Konstrukte aufeinander abegbildet werden, so dass auch zwischen diesen Sprachen übersetzt werden kann.\par
 Diese drei Regeln Nominalphrasen zu bilden die grundlegenden Möglichkeiten um in einer Sprache Nominalphrasen zu bilden, wie sie in einfachen Sätzen Verwendung finden. In der abstrakten Syntax existieren noch fünf weitere Regel wovon eine einzige wirklich eine neue \texttt{NP} erzeugt. Die restlichen Regeln modifizieren lediglich die Nominalphrasen. Allerdings sind diese Regeln noch zu implementieren, wenn die Grammatik in der Zukunft erweitert werden sollte.
 \subsection{Verbalphrasen}
 \label{subsec:verbalphrasen}
@@ -465,6 +466,11 @@ Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt
 \FloatBarrier
 \subsection{Einfache Sätze}
 \label{subsec:einfachesaetze}
+Nachdem wir uns in den vorangegangenen Kapiteln mit dem Aufbau einzelner Phrasen in der lateinischen Syntax beschäftigt haben, können wir uns nun letztendlich dem Aufbau ganzer Sätze widmen. Das die Wortstellung in der lateinischen Sprache nicht unproblematisch ist, wurde nun schon des öfteren angesprochen. Doch wie die Situation wirklich ist, ist z.B. bei Bamman und Crane (\cite{BAMMAN2006}) zu finden. \par 
+In diesem Paper, das sich primär mit der Erstellung einer Treebank für lateinische Texte beschäftigt, sind an Hand der Treebank einige empirische Werte für die Wortstellung in lateinischen Sätzen aufgeführt. Das dazu untersuchte Korpus enthält Textauszüge aus dem Werk vier verschiedener Autoren, nämlich Cicero (ca. 63 v. Chr.), Caesar (ca. 51 v. Chr.), Vergil (ca. 19 v. Chr.) und Hieronymus (ca. 405 n. Chr.). Damit werden sowohl verschiedenste Epochen und verschiedene Stilrichtigungen abgedeckt. So sind Caesar und Hieronymus Autoren relativ einfacher Prosa, Cicero ein bekannter Redner und Rhetoriker und Vergil ein kunstvoller Dichter. Insgesammt umfasst das Korpus 12098 Wörter wovon auf Cicero 1189, auf Caesar 1486, auf Vergil 2647 und auf Hieronymus 6776 Wörter entfallen.\footnote{\cite{BAMMAN2006} S. 71f.} 
+Bei der lateinischen Worttellung geht man von davon aus, dass allgemein die Reihenfolge Subjekt-Objekt-Verb bevorzugt wird. Dies verändert sich jedoch hin zur Folge Subjekt-Verb-Objekt, wie sie bei modernen romanischen Sprachen zu finden ist. Caesar verwendet vorwiegend die für das klassische Latein zu erwartende Wortstellung Subjekt-Objekt-Verb (64.7\%), Cicero dagegen benutzt am häufigsten die Wortstellung Objekt-Subjekt-Verb (52.6\%), die allgemein dazu dient, das Objekt zu betonen. Vergil als Lyriker verwendet alle möglichen Wortstellungen relativ häufig um unter anderem der gewünschten lyischen Form Rechnung zu tragen, am häufigsten jedoch wie bei Cicero die Wortstellung Objekt-Subjekt-Verb (25.0\%). Und schließlich Hieronymus verwendet bereits vornehmlich die Wortfolge Subjekt-Verb-Objekt (68.5\%), wie sie häufig bei den romanischen Sprachen zu finden ist. Betrachtet man zusätzlich diejenigen Sätze ohne Subjekt, also die Sätze bei denen ein Pronomen in der Subjektposition entfallen ist, so stellt man fest, dass die klassischeren Autoren Caesar, Cicero und Vergil klar die Wortstellung  Objekt-Verb bevorzugten. Nur Hieronymus verwendet meistens die Wortstellung Verb-Objekt.\footnote{\cite{BAMMAN2006} S. 74} \par
+Wie man an diesen Beispielen sehen kann, wurden selbst in einem recht kurzen Zeitraum viele verschiedene Wortstellungen in Sätzen verwendet, zumindest in literarischen Texten. Deshalb müssen im Grunde in der Grammatik sechs verschiedene Wortstellungen ermöglicht werden: Subjekt-Verb-Objekt, Subjekt-Objekt-Verb, Verb-Subjekt-Objekt, Verb-Objekt-Subjekt, Objekt-Subjekt-Verb und Objekt-Verb-Subjekt.
+
 \pagebreak
 \chapter{Ausblick}
 \label{chap:ausblick}
@@ -481,5 +487,32 @@ Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt
 \label{part:anhang}
 \section{Quelltext}
 \label{sec:quelltext}
-\lstinputlisting[caption={Unterschiede zwischen der Anfangs- und Endversion der Lateingrammatik},label={GF-Diff},basicstyle=\tiny]{complete.diff}
+\iffalse
+%\lstinputlisting[caption={Unterschiede zwischen der Anfangs- und Endversion der Lateingrammatik},label={GF-Adjective-Diff},basicstyle=\tiny]{complete.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{AdjectiveLat.gf}},label={GF-Adjective-Diff},basicstyle=\tiny]{diffs/AdjectiveLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{AdverbLat.gf}},label={GF-Adverb-Diff},basicstyle=\tiny]{diffs/AdverbLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{AllLatAbs.gf}},label={GF-AllAbs-Diff},basicstyle=\tiny]{diffs/AllLatAbs.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{AllLat.gf}},label={GF-All-Diff},basicstyle=\tiny]{diffs/AllLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{CatLat.gf}},label={GF-Cat-Diff},basicstyle=\tiny]{diffs/CatLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{ConjunctionLat.gf}},label={GF-Conjunction-Diff},basicstyle=\tiny]{diffs/ConjunctionLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{ExtraLatAbs.gf}},label={GF-ExtraAbs-Diff},basicstyle=\tiny]{diffs/ExtraLatAbs.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{ExtraLat.gf}},label={GF-Extra-Diff},basicstyle=\tiny]{diffs/ExtraLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{GrammarLat.gf}},label={GF-Grammar-Diff},basicstyle=\tiny]{diffs/GrammarLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{IrregLatAbs.gf}},label={GF-IrregAbs-Diff},basicstyle=\tiny]{diffs/IrregLatAbs.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{IrregLat.gf}},label={GF-Irreg-Diff},basicstyle=\tiny]{diffs/IrregLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{LangLat.gf}},label={GF-Lang-Diff},basicstyle=\tiny]{diffs/LangLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{LexiconLat.gf}},label={GF-Lexicon-Diff},basicstyle=\tiny]{diffs/LexiconLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{MorphoLat.gf}},label={GF-Morpho-Diff},basicstyle=\tiny]{diffs/MorphoLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{NounLat.gf}},label={GF-Noun-Diff},basicstyle=\tiny]{diffs/NounLat.gf.diff}
+%\lstinputlisting[caption={Unterschiede der Datei \texttt{NumeralLat.gf}},label={GF-Numeral-Diff},basicstyle=\tiny]{diffs/NumeralLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{ParadigmsLat.gf}},label={GF-Paradigms-Diff},basicstyle=\tiny]{diffs/ParadigmsLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{PhraseLat.gf}},label={GF-Phrase-Diff},basicstyle=\tiny]{diffs/PhraseLat.gf.diff}
+%\lstinputlisting[caption={Unterschiede der Datei \texttt{QuestionLat.gf}},label={GF-Question-Diff},basicstyle=\tiny]{diffs/QuestionLat.gf.diff}
+%\lstinputlisting[caption={Unterschiede der Datei \texttt{RelativeLat.gf}},label={GF-Relativ-Diff},basicstyle=\tiny]{diffs/RelativeLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{ResLat.gf}},label={GF-Res-Diff},basicstyle=\tiny]{diffs/ResLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{SentenceLat.gf}},label={GF-Senctence-Diff},basicstyle=\tiny]{diffs/SentenceLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{StructuralLat.gf}},label={GF-Structural-Diff},basicstyle=\tiny]{diffs/StructuralLat.gf.diff}
+%\lstinputlisting[caption={Unterschiede der Datei \texttt{SymbolLat.gf}},label={GF-Symbol-Diff},basicstyle=\tiny]{diffs/SymbolLat.gf.diff}
+\lstinputlisting[caption={Unterschiede der Datei \texttt{VerbLat.gf}},label={GF-Verb-Diff},basicstyle=\tiny]{diffs/VerbLat.gf.diff}
+\fi
 \end{document}
