@@ -2,6 +2,6 @@
 
 abstract AllLatAbs = 
   Lang,
-  IrregLatAbs-[can_VV,go_V],
+  IrregLatAbs-[can_VV,go_V,science_N],
   ExtraLatAbs
   ** {} ;
