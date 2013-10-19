@@ -1,6 +1,7 @@
 --# -path=.:prelude:../abstract:../common
 
-concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat in {
+concrete IrregLat of IrregLatAbs = CatLat ** 
+  open Prelude, ParadigmsLat, ResLat in {
 --
 --flags optimize=values ;
 --
@@ -25,8 +26,9 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	pqperf_conj_base = "fuisse" ;
 	fut_II_base = "fueri" ;
 	part_stem = "fut" ;
-	verb = mkVerb "esse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
-    	  imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+	verb = mkVerb "esse" pres_stem pres_ind_base pres_conj_base impf_ind_base 
+	  impf_conj_base fut_I_base imp_base perf_stem perf_ind_base 
+	  perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
       in
       {
 	act = 
@@ -81,8 +83,10 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
     	pqperf_conj_base = "potuisse" ;
     	fut_II_base = "potueri" ;
     	part_stem = "" ;
-    	verb = mkVerb "posse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
-    	  imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+    	verb = mkVerb "posse" pres_stem pres_ind_base pres_conj_base 
+	  impf_ind_base impf_conj_base fut_I_base imp_base perf_stem 
+	  perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base 
+	  fut_II_base part_stem ;
       in
       {
     	act =
@@ -136,8 +140,10 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
     	pqperf_conj_base = "tulisse" ;
     	fut_II_base = "tuleri" ;
     	part_stem = "lat" ;
-    	verb = mkVerb "ferre" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
-    	  imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+    	verb = mkVerb "ferre" pres_stem pres_ind_base pres_conj_base 
+	  impf_ind_base impf_conj_base fut_I_base imp_base perf_stem 
+	  perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base 
+	  fut_II_base part_stem ;
       in
       {
     	act =
@@ -191,8 +197,10 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	pqperf_conj_base = "voluisse" ;
 	fut_II_base = "volueri" ;
 	part_stem = "volet" ;
-	verb = mkVerb "velle" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
-    	  imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+	verb = mkVerb "velle" pres_stem pres_ind_base pres_conj_base 
+	  impf_ind_base impf_conj_base fut_I_base imp_base perf_stem 
+	  perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base 
+	  fut_II_base part_stem ;
       in
       {
 	act =
@@ -242,8 +250,9 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	pqperf_conj_base = "isse" ;
 	fut_II_base = "ieri" ;
 	part_stem = "it" ;
-	verb = mkVerb "ire" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
-    	  imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+	verb = mkVerb "ire" pres_stem pres_ind_base pres_conj_base impf_ind_base 
+	  impf_conj_base fut_I_base imp_base perf_stem perf_ind_base 
+	  perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
       in
       {
 	act =
@@ -316,14 +325,16 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	part_stem = "fact" ;
 
 	verb = 
-	  mkVerb "fieri" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
-	  perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+	  mkVerb "fieri" pres_stem pres_ind_base pres_conj_base impf_ind_base 
+	  impf_conj_base fut_I_base imp_base perf_stem perf_ind_base 
+	  perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
       in
       {
 	act = 
 	  table {
 	    VAct VSim (VPres VInd) Sg P1 => "fio" ;
-	    VAct VAnt _            _  _  => "######" ; -- perfect expressed by participle
+	    -- perfect expressed by participle
+	    VAct VAnt _            _  _  => "######" ; 
 	    a => verb.act ! a 
 	  } ;
 	pass =
@@ -429,8 +440,9 @@ concrete IrregLat of IrregLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat 
 	fut_II_base = "oderi" ;
 	part_stem = "os" ;
 	verb = 
-	  mkVerb "odisse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
-	  perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+	  mkVerb "odisse" pres_stem pres_ind_base pres_conj_base impf_ind_base 
+	  impf_conj_base fut_I_base imp_base perf_stem perf_ind_base 
+	  perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
       in {
 	act = table {
 	  VAct VSim t n p => verb.act ! VAct VAnt t n p ;
