@@ -18,11 +18,14 @@
 \usepackage{arydshln}
 \usepackage[style=alphabetic-verb,backend=biber]{biblatex}
 \usepackage{rotating}
+\usepackage{tocloft}
 \setlength{\parindent}{10pt} 
 \floatstyle{plain}
 
 \newfloat{program}{thp}{lop}
 \floatname{program}{Beispiel}
+
+\setlength{\cftbeforetoctitleskip}{50pt} 
 
 \renewcommand{\abstractname}{Zusammenfassung}
 
@@ -37,7 +40,7 @@
   morestring=[b]",
   stringstyle={\textit}
 }
-\lstset{language=gf,captionpos=b,numbers=left, numberstyle=\tiny, numbersep=5pt}
+\lstset{language=gf,captionpos=b,numbers=left, numberstyle=\tiny, numbersep=5pt, basicstyle=\ttfamily}
 
 \bibliography{MA.ebib}
 \begin{document}
@@ -108,9 +111,9 @@ Die Gliederung folgt dem gewählten Vorgehen bei der Implementierung. Die Begrü
 \input{tex/Syntax.tex}
 \FloatBarrier
 \pagebreak
-\chapter{Ausblick}
-\label{chap:ausblick}
-\input{tex/Ausblick.tex}
+\chapter{Fazit}
+\label{chap:fazit}
+\input{tex/Fazit.tex}
 \FloatBarrier
 \pagebreak
 \clearpage
@@ -120,10 +123,18 @@ Die Gliederung folgt dem gewählten Vorgehen bei der Implementierung. Die Begrü
 %\bibliographystyle{natdin}
 \printbibliography
 \pagebreak
-
-\part{Anhang}
-\label{part:anhang}
-\section{Quelltext}
-\label{sec:quelltext}
+\chapter*{Tabellen- und Abbildungsverzeichnis}
+\addcontentsline{toc}{chapter}{Tabellen- und Abbildungsverzeichnis}
+\listoftables
+\listoffigures
+\lstlistoflistings
+\chapter*{Lebenslauf}
+\addcontentsline{toc}{chapter}{Lebenslauf}
+\chapter*{Tabellen- und Abbildungsverzeichnis}
+\addcontentsline{toc}{chapter}{Eigenständigkeitserklärung}
+%\part{Anhang}
+%\label{part:anhang}
+%\section{Quelltext}
+%\label{sec:quelltext}
 %\input{tex/Source.tex}
 \end{document}
