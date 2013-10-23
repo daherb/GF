@@ -1,5 +1,5 @@
 --# -path=.:alltenses:prelude
-abstract RglSatzAbs = open Syntax in {
+abstract RglSatzAbs = {
   flags startcat = S ;
   cat S ; NP ; VP ; Det ; N ; V ; V2 ;
   fun
