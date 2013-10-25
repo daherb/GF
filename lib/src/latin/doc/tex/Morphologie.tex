@@ -1,29 +1,84 @@
-Eine der großen Herausforderung bei der Implementierung einer Lateingrammatik, ist die Morphologie. Dies bedingt daraus, dass Latein eine flektierende Sprache ist, und deshalb viele grammatische Merkmale in der Wortform kodiert. Dadurch bedingt ist eine große Menge an Wortformen für jeden Lexikoneintrag. Um so wichtiger ist es, möglichst viele dieser Formen mit möglichst wenig Informationen zu generieren. Deshalb ist es ratsam, das Konzept der so genannten Smart Paradigms zu implementieren. Dabei wird versucht Mit Hilfe von Stringanalysen möglichst viele Informationen zur Wortbildung zu extrahieren. Im Falle der lateinischen Sprache werden dabei Wortsuffixe zu Rate gezogen. Die Implementierung der Morphologie ist hauptsächlich in der Quelltextdatei \textbf{MorphoLat.gf} zu finden, wobei die Konstruktion der konkreten Datenstrukturen, und damit auch ein Teil der Morphologie, in der Datei \textbf{ResLat.gf} zu finden ist.
-\begin{lstlisting}[float=ht,caption={Beispiel für ein Smart Paradigm mit Hilfe von Pattern matching},label={GF-Morpho-Noun}]
-noun : Str -> Noun = \verbum -> 
-case verbum of {
-  _ + "a"  => noun1 verbum ;
-  _ + "us" => noun2us verbum ;
-  _ + "um" => noun2um verbum ;
-  _ + ( "er" | "ir" ) => noun2er verbum ( (Predef.tk 2 verbum) + "ri" ) ;
-  _ + "u"  => noun4u verbum ;
-  _ + "es" => noun5 verbum ;
-  _  
-    => Predef.error ("3rd declinsion cannot be applied " ++ 
-                     "to just one noun form " ++ verbum)
+Eine der großen Herausforderung bei der Implementierung einer Lateingrammatik ist die Morphologie, da Latein eine flektierende Sprache ist, und deshalb viele grammatische Merkmale in der Wortform kodiert. Dies führt zu einer großen Menge an Wortformen für jeden Lexikoneintrag (vgl. Listing \ref{GF-Sleep-V}). Alles in allem haben Verben in Latein bis zu 260 Wortformen, die zur Bildung des Paradigmas komplett aufgelistet werden müssten. \par
+\begin{lstlisting}[caption={Ausschnitt aus dem Paradigma des Verbs \texttt{sleep\_V}},label={GF-Sleep-V}]
+...
+act (VAct VSim (VPres VInd) Sg P1) : dormio
+act (VAct VSim (VPres VInd) Sg P2) : dormis
+act (VAct VSim (VPres VInd) Sg P3) : dormit
+act (VAct VSim (VPres VInd) Pl P1) : dormimus
+act (VAct VSim (VPres VInd) Pl P2) : dormitis
+act (VAct VSim (VPres VInd) Pl P3) : dormiunt
+act (VAct VSim (VPres VConj) Sg P1) : dormiam
+act (VAct VSim (VPres VConj) Sg P2) : dormias
+act (VAct VSim (VPres VConj) Sg P3) : dormiat
+act (VAct VSim (VPres VConj) Pl P1) : dormiamus
+act (VAct VSim (VPres VConj) Pl P2) : dormiatis
+act (VAct VSim (VPres VConj) Pl P3) : dormiant
+act (VAct VSim (VImpf VInd) Sg P1) : dormiebam
+act (VAct VSim (VImpf VInd) Sg P2) : dormiebas
+act (VAct VSim (VImpf VInd) Sg P3) : dormiebat
+act (VAct VSim (VImpf VInd) Pl P1) : dormiebamus
+act (VAct VSim (VImpf VInd) Pl P2) : dormiebatis
+act (VAct VSim (VImpf VInd) Pl P3) : dormiebant
+act (VAct VSim (VImpf VConj) Sg P1) : dormirem
+act (VAct VSim (VImpf VConj) Sg P2) : dormires
+act (VAct VSim (VImpf VConj) Sg P3) : dormiret
+act (VAct VSim (VImpf VConj) Pl P1) : dormiremus
+act (VAct VSim (VImpf VConj) Pl P2) : dormiretis
+act (VAct VSim (VImpf VConj) Pl P3) : dormirent
+act (VAct VSim VFut Sg P1) : dormiam
+act (VAct VSim VFut Sg P2) : dormies
+act (VAct VSim VFut Sg P3) : dormiet
+act (VAct VSim VFut Pl P1) : dormiemus
+act (VAct VSim VFut Pl P2) : dormietis
+act (VAct VSim VFut Pl P3) : dormient
+...
+\end{lstlisting}
+Um so wichtiger ist es, möglichst viele dieser Formen mit möglichst wenig Informationen zu generieren. Deshalb ist es ratsam, das Konzept der "`Smart Paradigms"' zu implementieren. Dabei wird versucht Mit Hilfe von Stringanalysen und Pattern Matching möglichst viele Informationen zur Wortbildung aus den gegebenen Wortformen zu extrahieren. Im Falle der lateinischen Sprache werden dabei Wortsuffixe zu Rate gezogen. Wie so eine Stringanalyse mit entsprechender Fallunterscheidung für die Wortformenbildung aussen kann, ist in Listing \ref{GF-Morpho-Noun} zu sehen.\par
+Die Implementierung der Morphologie ist hauptsächlich in der Quelltextdatei \textbf{MorphoLat.gf} zu finden, wobei die Konstruktion der konkreten Datenstrukturen, und damit auch ein Teil der Morphologie, in der Datei \textbf{ResLat.gf} zu finden ist.
+\begin{lstlisting}[float=ht,caption={Beispiel für ein Smart Paradigm mit Hilfe von Pattern Matching und Fallunterscheidung (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun}]
+oper
+  noun : Str -> Noun = \verbum -> 
+  case verbum of {
+    _ + "a"  => noun1 verbum ;
+    _ + "us" => noun2us verbum ;
+    _ + "um" => noun2um verbum ;
+    _ + ( "er" | "ir" ) 
+      => noun2er verbum ( (Predef.tk 2 verbum) + "ri" ) ;
+    _ + "u"  => noun4u verbum ;
+    _ + "es" => noun5 verbum ;
+    _  
+      => Predef.error ("3rd declinsion cannot be applied " ++ 
+                       "to just one noun form " ++ verbum)
   } ;
 \end{lstlisting}
 \subsection{Nomenflexion}
 \label{subsec:nomen}
-\subsubsection{Reguläre Nomenformen}
-In der lateinischen Sprache gibt es fünf Deklinationsklassen für Nomen. Sie werden entweder durchnummeriert oder aber durch ihren Kennlaut bestimmt. Demnach unterscheidet man die erste bis fünfte Deklination bzw. die ā-, ǒ-, ǐ-, ǔ- und ē-Deklination. Den zur Identifikation kann man den Kennlaut am leichtesten nach Abtrennung der Endung \textit{-um} im Genitiv Plural erkennen. \footnote{vgl. \cite{BAYER-LINDAUER1994} S. 21}\par
-Allerdings kann man meist die Deklinationsklasse auch an der Endung der Nominativ Singular Form erkennen. So haben z.B alle Nomen der ā-Deklination den Ausgang \textit{-ǎ} und Genus Femininum. Es gibt keine wirklich relevanten Ausnahmen, so können lediglich Flußnamen und männliche Personennamen männliches Geschlecht haben. Deshalb ist es bei fast allen Nomen dieser Deklinationsklasse nicht nötig mehr als die Nominativ Singular Form anzugeben. \par
-Bei der zweiten Deklinationsklasse gibt es eine größere Anzahl möglicher Wortausgänge, nämlich \textit{-us}, \textit{-um} und \textit{-er} bzw. \textit{-ir}. Grundsätzlich sind Nomen mit dem Ausgang \textit{-um} Neutra, Nomen mit den Endungen \textit{-us} und \textit{-r} Maskulina. \par
-Die dritte oder auch ǐ-Deklination wird auch als Mischdeklination bezeichnet, da sie in zwei Unterklassen unterteilt werden kann, in Nomen mit konsonantischem oder vokalischem, also auf \textit{-ǐ} auslautendem Stamm. Auf Grund dessen gehört die dritte Deklination zu den schwerer zu handhabenden Flexionsklassen. In Folge dessen reicht auch nicht eine einzige Wortform für die Generierung des Paradigmas aus. \par
-Die vierte Deklinationsklasse hingegen ist wieder unkomplizierter. Sie hat im Nominativ Singular die Endungen \textit{-ū} oder \textit{-us} und die Nomen sind, wenn sie auf \textit{-us} enden, maskulin und, wenn sie auf \textit{-ū} enden, Neutra. Da die Nominativ Singular Form bei den Nomen auf \textit{-us} nicht von Nomen der zweiten Deklination mit der gleichen Endung zu unterscheiden sind, kann das Smart Paradigm für nur eine Wortform nur bei den Nomen auf \textit{-ū} angewandt werden, da die Endung \textit{-us} schon die zweite Deklination identifiziert. In diesem Falle wird ebenfalls das Paradigma mit Hilfe den drei Parameter Nominativ Singular, Genitiv Singular und Geschlecht bestimmt. \par
-Bei der fünften Deklination ist die Nominativ Singular-Endung an sich wieder eindeutig, sie enden alle auf \textit{-es}. Jedoch können, wie oben bereits beschrieben, auch Nomen der dritten Deklination im Nominativ Singular auf \textit{-es} enden. Man kann die unterschiedlichen Deklinationen aber klar an der Genitiv Singular-Form unterscheiden. Deshalb ist die sicherste Möglichkeit Fehler zu vermeiden, auch diese Genitivform im Lexikon anzugeben. Dies ist jedoch nicht nötig, da wenn nur die Nominativform angegeben ist und diese auf \textit{-es} endet, das Smart Paradigm so definiert ist, dass ein Paradigma der fünften Deklination generiert wird. \par
-Die Bildung der Wortformen für Nomen ist fast schon trivial. Der Wortstamm wird meist dadurch gefunden, dass man, wenn nötig, die Endung abtrennt. Anschließend werden alle zwölf Wortformen, für die zwei Numeri und die sechs Kasus, durch anfügen der passenden Endung gebildet. \par
-Bei der ersten Deklination ist der Wortstamm angenehmerweise gleich der Nominativ Singular-Form. Ebenfalls identisch zum Wortstamm sind die Ablativ und Vokativ Singular-Formen. Die Endungen für die restlichen Kasus sind \textit{-m} für den Akkusativ Singular, \textit{-e} für den Genitiv und Dativ Singular so wie Nominativ und Vokativ Plural, \textit{-rum} für den Genitiv Plural, und \textit{-s} für Akkusativ Plural. Etwas anders verhält es sich bei Dativ und Ablativ Plural. Bei diesen zwei Fällen wird die Endung \textit{-is} nicht an den Wortstamm, sondern an den Wortstock, also den Wortstamm, ohne den Kennvokal, angefügt.\footnote{vgl. \cite{BAYER-LINDAUER1994} S.21f.} \par
+\subsubsection{Allgemeines}
+In der lateinischen Sprache gibt es fünf Deklinationsklassen für Nomen. Sie werden entweder durchnummeriert oder aber durch ihren Kennlaut bestimmt. Demnach unterscheidet man die erste bis fünfte Deklination bzw. die ā-, ǒ-, ǐ-, ǔ- und ē-Deklination. Zur Identifikation kann man den Kennlaut am leichtesten nach Abtrennung der Endung \textit{-um} im Genitiv Plural erkennen. \footnote{vgl. \cite{BAYER-LINDAUER1994} S. 21}\par
+Allerdings kann man meist die Deklinationsklasse auch an der Endung der Nominativ-Singular-Form erkennen. So haben z.B alle Nomen der ā-Deklination den Ausgang \textit{-ǎ} und das Genus Femininum. Es gibt keine wirklich relevanten Ausnahmen, so können lediglich Flußnamen und männliche Personennamen männliches Geschlecht haben. Deshalb ist es bei fast allen Nomen dieser Deklinationsklasse nicht nötig, mehr als die Nominativ-Singular-Form anzugeben. Diese Überlegungen führen zu der Zeile 3 in Listing \ref{GF-Morpho-Noun}.\par
+Bei der zweiten Deklinationsklasse gibt es eine größere Anzahl möglicher Wortausgänge, nämlich \textit{-us}, \textit{-um} und \textit{-er} bzw. \textit{-ir}. Grundsätzlich sind Nomen mit dem Ausgang \textit{-um} Neutra, Nomen mit den Endungen \textit{-us} und \textit{-r} Maskulina. Diese Fälle sind in den Zeilen 4 bis 7 zu finden. \par
+Die dritte oder auch ǐ-Deklination wird auch als Mischdeklination bezeichnet, da sie in zwei Unterklassen unterteilt werden kann, in Nomen mit konsonantischem oder vokalischem, also auf \textit{-ǐ} auslautendem, Stamm. Die dritte Deklination ist deshalb eine größere und etwas schwerer zu handhabenden Flexionsklassen. In Folge dessen reicht auch nicht eine einzige Wortform für die Generierung des Paradigmas aus. Statt dessen werden die Nominativ- und Genitiv-Singular-Formen und das Genus für die Erzeugung des Paradigmas verwendet. Deshalb kommt die dritte Deklination auch nicht in Listing \ref{GF-Morpho-Noun} vor, denn die dort gezeigte Funktion behandelt nur einzelne Stammformen. Statt dessen wird die Funktion in Listing \ref{GF-Morpho-Noun-NGG} verwendet.\par
+Die vierte Deklinationsklasse hingegen ist wieder unkomplizierter. Sie hat im Nominativ Singular die Endungen \textit{-ū} oder \textit{-us} und die Nomen sind, wenn sie auf \textit{-us} enden, maskulin und, wenn sie auf \textit{-ū} enden, Neutra. Da die Nominativ-Singular-Form bei den Nomen auf \textit{-us} nicht von Nomen der zweiten Deklination mit der gleichen Endung zu unterscheiden sind, kann das Smart Paradigm für nur eine Wortform nur bei den Nomen auf \textit{-ū} angewandt werden, da die Endung \textit{-us} schon die zweite Deklination identifiziert. In diesem Falle wird das Paradigma mit Hilfe der zwei Formen Nominativ Singular, Genitiv Singular und dem Geschlecht bestimmt. Endet die Nominativ-Singular-Form jedoch auf \textit{-ū} endet, kann das Paradigma aus der einzelnen Stammform gebildet werden, wie in Zeile 8 von Listing \ref{GF-Morpho-Noun} zu sehen ist. \par
+Bei der fünften Deklination ist die Nominativ Singular-Endung an sich wieder eindeutig, sie enden alle auf \textit{-es}. Jedoch können, wie oben bereits beschrieben, auch Nomen der dritten Deklination im Nominativ Singular auf \textit{-es} enden. Man kann die unterschiedlichen Deklinationen aber klar an der Genitiv Singular-Form unterscheiden. Deshalb ist die sicherste Möglichkeit Fehler zu vermeiden, auch diese Genitivform im Lexikon anzugeben. Dies ist jedoch nicht nötig, da wenn nur die Nominativform angegeben ist und diese auf \textit{-es} endet, das Smart Paradigm so definiert ist, dass ein Paradigma der fünften Deklination generiert wird, wie in Zeile 9 von Listing \ref{GF-Morpho-Noun} zu sehen ist. \par
+Für alle Deklinationen gilt, dass wenn entweder die Formenbildung nicht allein durch die Nominativ-Singular-Form bestimmt ist oder das Genus von dem zu erwartenden abweicht, müssen die mehrfach genannten zwei Wortformen und das Genus zur Formenbildung herangezogen werden. Dazu wird statt der Funktion \texttt{noun} in Listing \ref{GF-Morpho-Noun} die Funktion \texttt{noun\_ngg} in Listing \ref{GF-Morpho-Noun-NGG} herangezogen. Das \texttt{ngg} im Funktionsnamen steht für die Bedeutung der Parameter, nämlich Nominativ, Genitiv und Genus. Die Regeln für das Pattern Matching sind ähnlich zu denen in der \texttt{noun}-Funktion, differenzieren allerdings etwas genauer. Die Formenbildung erfolgt genau wie bei der obigen Funktion und schließlich wird mit Hilfe der Funktion \texttt{nounWithGen} das Genus, falls nötig, korrigiert.
+\begin{lstlisting}[float=ht,caption={Smart Paradigm für zwei Nomenformen und Genus (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun-NGG}]
+oper
+  noun_ngg : Str -> Str -> Gender -> Noun = \verbum,verbi,g -> 
+    let s : Noun = case <verbum,verbi> of {
+      <_ + "a",  _ + "ae"> => noun1 verbum ;
+      <_ + "us", _ + "i">  => noun2us verbum ;
+      <_ + "um", _ + "i">  => noun2um verbum ;
+      <_ + ( "er" | "ir" ) , _ + "i">  
+        => noun2er verbum verbi ;
+      <_ + "us", _ + "us"> => noun4us verbum ;
+      <_ + "u",  _ + "us"> => noun4u verbum ;
+      <_ + "es", _ + "ei"> => noun5 verbum ;
+      _  => noun3 verbum verbi g
+      }
+    in  
+    nounWithGen g s ;
+\end{lstlisting}
+Die Bildung der Wortformen für Nomen ist relativ einfach. Der Wortstamm (vgl. Tabelle \ref{Tabelle-Wortstamm}) wird meist dadurch gefunden, dass man, wenn nötig, die Nominativ-Singular- bzw. Genitiv-Singular-Endung abtrennt. Anschließend werden alle zwölf Wortformen, für die zwei Numeri und die sechs Kasus, durch anfügen der passenden Endung, die sehr regelmäßig sind, gebildet. \par
 \begin{table}[h]
 \begin{tabular}{|r:c:l|}
 \hline
@@ -35,19 +90,205 @@ Wortstock & \multicolumn{2}{:l|}{Wortausgang} \\
 \hline
 \end{tabular}
 \caption{Bestandteile eines lateinischen Nomens im Genitiv Singular (Vgl. \cite{BAYER-LINDAUER1994} S. 21)}
+\label{Tabelle-Wortstamm}
 \end{table}
-Bei der zweiten Nomendeklination ist das Vorgehen ganz ähnlich zur ersten Deklination, zumindest bei den Nomen auf \textit{-us} und \textit{-um}. Diesmal muss von der Nominativ Singular-Form die Endung abgespalten werden um, in diesem Fall den Wortstock, zu erhalten. An diesen werden nun die kasusabhängigen Ausgänge angehängt. Diese sind in den meisten Fällen für alle Nomen dieser Deklinationsklasse gleich, in manchen Kasus unterscheiden sie sich aber je nach Nominativ Singular-Endung. Somit ist logischerweise der Nominativ Singular nicht einheitlich sondern hat die Endungen \textit{-us}, \textit{-um} oder \textit{-r}. Bei den Nomen auf \textit{-r} wird meist im Nominativ und Vokativ ein \textit{-e-} eingefügt um die Aussprache zu erleichtern. Allerdings gibt es einige Nomen, die auf \textit{-r} enden, bei denen ein \textit{-e-} zum Wortstamm gehört, weswegen es in keinem Fall entfallen kann.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 24}. Die selben Endungen haben all diese Nomen im Genitiv, Dativ, Akkusativ und Ablativ Singular (\textit{-i}, \textit{-o}, \textit{-um}, \textit{-o}) sowie im Genitiv, Dativ und Ablativ Plural (\textit{-orum}, \textit{-is} und \textit{is}). Unterschiede gibt es in den verbleibenden Fällen Vokativ Singular so wie Nominativ, Akkusativ und Vokativ Plural. Der Vokativ Singular stimmt bei Nomen auf \textit{-um} und \textit{-r} mit der Nominativ Singular-Form überein, Nomen auf \textit{-us} bilden dagegen die eigenständige Form auf \textit{-e}. Im Plural bilden die Nomen auf \textit{-us} und \textit{-r} die selben Formen, im Nominativ und Vokativ mit den Endung \textit{-i} und im Akkusativ mit \textit{-os}. Die Neutra auf \textit{-um} bilden in allen drei Fällen Formen mit der Endung \textit{-a}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 23f.} Zwar bietet sich hier möglicherweise eine Wiederverwendung gleicher Programmteile zur Implementierung an, jedoch wurde der Übersicht halber für jede Unterklasse der zweiten Deklination eine eigene Funktion implementiert, da diese Funktionen noch von so einer niedrigen Komplexität sind, dass die Wiederverwendung von Codeteilen keinen deutlichen Vorteil bringt. \par
+\FloatBarrier
+\subsubsection{Erste Deklination}
+\begin{lstlisting}[float=ht,caption={Deklinationsfunktion für die erste Deklination},label={GF-Morpho-Noun1}]
+oper
+  -- a-Declension
+  noun1 : Str -> Noun = \mensa ->
+    let 
+      mensae = mensa + "e" ;
+      mensis = init mensa + "is" ;
+    in
+    mkNoun 
+      mensa (mensa +"m") mensae mensae mensa mensa
+      mensae (mensa + "s") (mensa + "rum") mensis
+      Fem ;
+\end{lstlisting}
+Bei der ersten Deklination ist der Wortstamm angenehmerweise gleich der Nominativ Singular-Form. Ebenfalls identisch zum Wortstamm sind die Ablativ und Vokativ Singular-Formen. Die Endungen für die restlichen Kasus sind \textit{-m} für den Akkusativ Singular, \textit{-e} für den Genitiv und Dativ Singular so wie Nominativ und Vokativ Plural, \textit{-rum} für den Genitiv Plural, und \textit{-s} für Akkusativ Plural. Etwas anders verhält es sich bei Dativ und Ablativ Plural. Bei diesen zwei Fällen wird die Endung \textit{-is} nicht an den Wortstamm, sondern an den Wortstock, also den Wortstamm, ohne den Kennvokal, angefügt.\footnote{vgl. \cite{BAYER-LINDAUER1994} S.21f.} \par
+In der in Listing \ref{GF-Morpho-Noun1} gezeigten Funktion, in der das soeben genannte Vorgehen implementiert ist, werden zunächst für die Wortformen die öfter im Paradigma vorkommen, also die Formen mit der Endung \textit{-ae} und \textit{-is}, temporäre Variablen definiert, die in der Konstruktion des Paradigmas verwendet werden können. Anschließend wird mit der Funktion \texttt{mkNoun}\footnote{vgl. \textbf{ResLat.gf}} das Nomenobjekt mit den Wortformen und dem Genus erzeugt. Die Reihenfolge der Nomenformen ist dabei Nominativ, Akkusativ, Genitiv, Dativ, Ablativ und Vokativ im Singular und Nominativ/Vokativ, Akkusativ, Genitiv, und Dativ/Ablativ. 
+\par
+\FloatBarrier
+\subsubsection{Zweite Deklination}
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-us}},label={GF-Morpho-Noun2us},basicstyle=\small]
+oper
+  -- o-Declension
+  noun2us : Str -> Noun = \servus ->
+    let
+      serv = Predef.tk 2 servus ;
+      servum = serv + "um" ;
+      servi = serv + "i" ;
+      servo = serv + "o" ;
+    in
+    mkNoun 
+      servus servum servi servo servo (serv + "e")
+      servi (serv + "os") (serv + "orum") (serv + "is")
+      Masc ;
+\end{lstlisting}
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-um}},label={GF-Morpho-Noun2um},basicstyle=\small]
+  noun2um : Str -> Noun = \bellum ->
+    let
+      bell = Predef.tk 2 bellum ;
+      belli = bell + "i" ;
+      bello = bell + "o" ;
+      bella = bell + "a" ;
+    in
+    mkNoun 
+      bellum bellum belli bello bello (bell + "um")
+      bella bella (bell + "orum") (bell + "is")
+      Neutr ;
+\end{lstlisting}
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-er}},label={GF-Morpho-Noun2er},basicstyle=\small]
+  noun2er : Str -> Str -> Noun = \liber,libri ->
+    let
+      libr : Str = Predef.tk 1 libri;
+      librum = libr + "um" ;
+      libri = libr + "i" ;
+      libro = libr + "o" ;
+    in
+    mkNoun 
+      liber librum libri libro libro liber
+      libri ( libr + "os" ) ( libr + "orum" ) ( libr + "is" )
+      Masc ;
+\end{lstlisting}
+Bei der zweiten Nomendeklination ist das Vorgehen ganz ähnlich zur ersten Deklination, zumindest bei den Nomen auf \textit{-us} und \textit{-um}. Diesmal muss von der Nominativ-Singular-Form die Endung abgespalten werden um, in diesem Fall den Wortstock\footnote{vgl. Tabelle \ref{Tabelle-Wortstamm})}, zu erhalten. An diesen werden nun die kasusabhängigen Ausgänge angehängt. Diese sind in den meisten Fällen für alle Nomen dieser Deklinationsklasse gleich, in manchen Kasus unterscheiden sie sich aber je nach Nominativ-Singular-Endung. \par
+Der Nominativ Singular hat offensichtlich die unterschiedlichen Endungen \textit{-us}, \textit{-um} oder \textit{-r}. Bei den Nomen auf \textit{-r} wird meist im Nominativ und Vokativ ein \textit{-e-} eingefügt um die Aussprache zu erleichtern. Allerdings gibt es einige Nomen, die auf \textit{-r} enden, bei denen ein \textit{-e-} zum Wortstamm gehört, weswegen es in keinem Fall entfallen kann.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 24}. Die selben Endungen haben all diese Nomen im Genitiv, Dativ, Akkusativ und Ablativ Singular (\textit{-i}, \textit{-o}, \textit{-um}, \textit{-o}) sowie im Genitiv, Dativ und Ablativ Plural (\textit{-orum}, \textit{-is} und \textit{is}). Unterschiede gibt es in den verbleibenden Fällen Vokativ Singular so wie Nominativ, Akkusativ und Vokativ Plural. Der Vokativ Singular stimmt bei Nomen auf \textit{-um} und \textit{-r} mit der Nominativ Singular-Form überein, Nomen auf \textit{-us} bilden dagegen die eigenständige Form auf \textit{-e}. \par
+Im Plural bilden die Nomen auf \textit{-us} und \textit{-r} die selben Formen, im Nominativ und Vokativ mit den Endung \textit{-i} und im Akkusativ mit \textit{-os}. Die Neutra auf \textit{-um} bilden in allen drei Fällen Formen mit der Endung \textit{-a}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 23f.} Zwar bietet sich hier möglicherweise eine Wiederverwendung gleicher Programmteile zur Implementierung an, jedoch wurde der Übersicht halber für jede Unterklasse der zweiten Deklination eine eigene Funktion (Listing \ref{GF-Morpho-Noun2us}, Listing \ref{GF-Morpho-Noun2um} und \ref{GF-Morpho-Noun2er}) implementiert. Außerdem ist der Mehraufwand, der nötig ist, um die Gemeinsamkeiten und Unterschiede herauszuarbeiten, in diesem Bereich kaum zu rechtfertigen, da keine großen Verbesserungen zu erwarten sind. \par
+\FloatBarrier
+\subsubsection{Dritte Deklination}
+\begin{lstlisting}[float=ht,caption={Funktion zur Zuordnung von Nomen zu den Stämmen der dritten Deklination},label={GF-Morpho-Noun3},basicstyle=\small]
+oper
+  noun3 : Str -> Str -> Gender -> Noun = \rex,regis,g ->
+    let
+      reg : Str = Predef.tk 2 regis ;
+    in
+    case <rex,reg> of {
+      -- Bos has to many exceptions to be handled correctly
+      < "bos" , "bov" > 
+        => mkNoun "bos" "bovem" "bovis" "bovi" "bove" 
+                  "bos" "boves" "boves" "boum" "bobus" g;
+      -- Some exceptions with no fitting rules
+      < "nix" , _ > => noun3i rex regis g; -- Langenscheidts
+      -- Bayer-Lindauer 31 3 and Exercitia Latina 32 b), sal must be handled 
+      -- here because otherwise it will be handled wrongly by the next rule 
+      < ( "sedes" | "canis" | "iuvenis" | "mensis" | "sal" ) , _ > 
+        => noun3c rex regis g ;  
+      < _ + ( "e" | "al" | "ar" ) , _ > 
+        => noun3i rex regis g ; -- Bayer-Lindauer 32 2.3
+      -- might not be completely right but seems fitting for 
+      -- Bayer-Lindauer 31 2.2 
+      ( < _ + "ter" , _ + "tr" >
+      | < _ + "en"  , _ + "in" >
+      | < _ + "s"   , _ + "r" > 
+	) 
+        => noun3c rex regis g ; 
+        -- Bayer-Lindauer 32 2.2
+      < _ , _ + #consonant + #consonant > => noun3i rex regis g ; 
+      < _ + ( "is" | "es" ) , _ > => 
+	if_then_else 
+	  Noun 
+	  -- assumption based on Bayer-Lindauer 32 2.1
+	  ( pbool2bool ( Predef.eqInt ( Predef.length rex ) ( Predef.length regis ) ) ) 
+	  ( noun3i rex regis g ) 
+	  ( noun3c rex regis g ) ;
+      _ => noun3c rex regis g
+    } ;
+\end{lstlisting}
 Die dritte Deklination ist wohl die komplexeste Deklinationsklasse. Sie wird anhand der Wortstämme in zwei Klassen unterteilt, die Nomen mit einem Wortstamm, der auf einen Konsonanten endet, und die Nomen, deren Wortstamm auf ein kurzes \textit{-ǐ} endet. \par
-Die Unterscheidung ist alles andere als unproblematisch, wenn man, wie bei dieser Arbeit, darauf verzichten möchte Vokalqualitäten zu unterscheiden. Denn die Regel sind sowohl von Silbenzahlen als auch von Lautgesetzen abhängig. Und die Bestimmung von Silbengrenzen so wie die Anwendung von Lautgesetzen verlangt nach der Markierung von Langvokalen. Dies würde jedoch die Anwendung der Grammatik behindern. Die Markierung im Lexikon währe nur mit einem etwas größeren Arbeitsaufwand verbunden aber noch relativ leicht machbar, da es ein einmaliger Mehraufwand wäre. Allerdings müssten auch bei jeder Eingabe für das Parsen und Übersetzen die Vokallängen unterschieden werden, was kaum einem Benutzer zugemutet werden sollte. \par
-Deshalb wurde versucht, diese Problematik zu umgehen, was zu einigen Regeln führte, die in zumindest im beschränkten Rahmen dieser Grammatik funktionieren. Sie wurden allerdings ad hoc entworfen um die eigentlichen Regeln anzunähern und verlangen nicht nach Allgemeingültigkeit. So ist zunächst das Wort \textit{bos} so unregelmäßig, dass es in diesem Falle einfacher ist, alle Formen einfach aufzulisten, an statt Regeln für die Generierung zu entwerfen. Für einige andere Nomen wird direkt festgelegt nach welchem Deklinationsschema die Formen gebildet werden sollen. So wird \textit{nix} wie ein Nomen des \textit{ǐ}-Stammes und \textit{sedes}, \textit{canis}, \textit{iuvenis}, \textit{mensis} und \textit{sal} wie Nomen der Konsonantenstämmen dekliniert, obwohl dies nach den nachfolgenden Regeln nicht so wäre. Diese Wörter werden aber auch in Grammatikbüchern als aufnahmen gelistet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 28} \par
-Die nachfolgenden Regeln versuchen die nicht umsetzbaren Entscheidungsregeln, die in der Literatur zu finden sind, mit den gegebenen Informationen zu imitieren. So gehören Nomen der dritten Deklination, die im Nominativ Singular auf \textit{-e}, \textit{-al} und \textit{-ar} enden, zu den \textit{ǐ}-Stämmen. Dagegen ist die nächste Regel Über die Zugehörigkeit zu den Konsonantenstämmen komplizierter. Die ursprüngliche Regel besagt, dass Nomen zu den Konsonantenstämmen gehören, wenn die Nominativ Singular-Form gegenüber dem Wortstamm verändert ist. Es folgen eine Liste von Lautgesetzen, die hier Anwendung finden. Diese werden mit einer Folge von Pattern versucht anzunähern. So kann sich bei einer Ablautung des letzten Vokals bei einer Nominativ Singular-Form auf \textit{-ter} so verändern, dass der Wortstamm nur noch auf \textit{-tr} endet. Es kann auch zu einer Klangfarbenänderung des letzten Vokals kommen, so dass aus der Nominativ Singular-Form auf \textit{-en} der Wortstamm \textit{-in} wird. Des weiteren gibt es noch die Veränderung von \textit{-s} zu \textit{-r} zwischen Nominativ Singular und Wortstamm. Lediglich die Regel, dass sich auch nur die Vokallänge ändern kann, konnte nicht verwirklicht werden. Relativ problemlos dagegen ist wieder die Regel, dass Nomen, deren Wortstock auf zwei oder mehr Konsonanten enden, zu den \textit{ǐ}-Stämmen gehören. Und die letzte Regel ist wieder abhängig von der Silbenzahl und kann deshalb nur angenähert werden. Statt der Silbenzahl wird bei Nomen auf \textit{-es} und \textit{-is} anhand der Buchstabenanzahl entschieden zu welcher der beiden Kategorien ein Wort gehört. Haben Nominativ Singular und Genitiv Singular die selbe Länge, so gehört das Wort zu den \textit{ǐ}-Stämmen, und sonst gehört es zu den Konsonantenstämmen.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 26ff.} \par
+Die Unterscheidung ist alles andere als unproblematisch, wenn man, wie bei dieser Arbeit, darauf verzichten möchte Vokalqualitäten zu unterscheiden. Denn die eigentlichen Flexionsregel sind sowohl von Silbenzahlen als auch von Lautgesetzen abhängig. Und die Bestimmung von Silbengrenzen so wie die Anwendung von Lautgesetzen verlangt nach der Markierung von Langvokalen. Dies würde jedoch die Anwendung der Grammatik behindern. Die Markierung im Lexikon wäre nur mit einem etwas größeren Arbeitsaufwand verbunden aber noch relativ leicht machbar, da es ein einmaliger Mehraufwand wäre. Allerdings müssten auch bei jeder Eingabe für das Parsen und Übersetzen die Vokallängen berücksichtigt werden, was zu einem erheblich größeren Verarbeitungsaufwand führt. \par
+Deshalb wurde versucht, diese Problematik zu umgehen, was zu einigen Regeln führte, die in zumindest im beschränkten Rahmen dieser Grammatik funktionieren. Sie wurden allerdings ad hoc entworfen, um die eigentlichen Regeln anzunähern und verlangen nicht nach Allgemeingültigkeit. So ist zunächst das Wort \textit{bos} so unregelmäßig, dass es in diesem Falle einfacher ist, alle Formen einfach aufzulisten, anstatt Regeln für die Generierung zu entwerfen (Zeile 7ff. in Listing \ref{GF-Morpho-Noun3}). Für einige andere Nomen wird direkt festgelegt, nach welchem Deklinationsschema die Formen gebildet werden sollen. So wird \textit{nix} wie ein Nomen des \textit{ǐ}-Stammes (Zeile 11f. in Listing \ref{GF-Morpho-Noun3}) und \textit{sedes}, \textit{canis}, \textit{iuvenis}, \textit{mensis} und \textit{sal} wie Nomen der Konsonantenstämmen (Zeile 13ff. in Listing \ref{GF-Morpho-Noun3}) dekliniert, obwohl dies nach den nachfolgenden Regeln nicht so wäre. Diese Wörter werden aber auch in Grammatikbüchern als Ausnahmen gelistet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 28} \par
+Die nachfolgenden Muster versuchen, die nicht umsetzbaren Entscheidungsregeln, die in der Literatur zu finden sind, mit den gegebenen Informationen zu imitieren. So gehören Nomen der dritten Deklination, die im Nominativ Singular auf \textit{-e}, \textit{-al} und \textit{-ar} enden, zu den \textit{ǐ}-Stämmen (Zeile 17f. in Listing \ref{GF-Morpho-Noun3}). Dagegen ist die nächste Regel über die Zugehörigkeit zu den Konsonantenstämmen komplizierter. Die ursprüngliche Regel besagt, dass Nomen zu den Konsonantenstämmen gehören, wenn die Nominativ-Singular-Form gegenüber dem Wortstamm verändert ist. Es folgen eine Liste von Lautgesetzen, die hier Anwendung finden. Diese werden mit einer Folge von Mustern versucht anzunähern. So kann sich bei einer Ablautung des letzten Vokals bei einer Nominativ-Singular-Form auf \textit{-ter} so verändern, dass der Wortstamm nur noch auf \textit{-tr} endet. Es kann auch zu einer Klangfarbenänderung des letzten Vokals kommen, so dass aus der Nominativ-Singular-Form auf \textit{-en} der Wortstamm \textit{-in} wird. Des weiteren gibt es noch die Veränderung von \textit{-s} zu \textit{-r} zwischen Nominativ Singular und Wortstamm (Zeilen 19f. in Listing \ref{GF-Morpho-Noun3}). Lediglich die Regel, dass sich auch nur die Vokallänge ändern kann, konnte nicht in dieser Form verwirklicht werden. Relativ problemlos dagegen ist auch die Regel, dass Nomen, deren Wortstock auf zwei oder mehr Konsonanten enden, zu den \textit{ǐ}-Stämmen gehören (Zeile 26f. in Listing \ref{GF-Morpho-Noun3}). Und die letzte Bedingung für die Zuordnung zu den Stämmen ist wieder abhängig von der Silbenzahl und kann deshalb nur angenähert werden. Statt der Silbenzahl wird bei Nomen auf \textit{-es} und \textit{-is} anhand der Buchstabenanzahl entschieden, zu welcher der beiden Kategorien ein Wort gehört. Haben Nominativ Singular und Genitiv Singular dieselbe Länge, so gehört das Wort zu den \textit{ǐ}-Stämmen, und sonst gehört es zu den Konsonantenstämmen (Zeile 28ff. in Listing \ref{GF-Morpho-Noun3}).\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 26ff.} Über die Allgemeingültigkeit dieser Regeln kann keine endgültige aussage getroffen werden. Allerdings liefern sie für alle Wörter im Lexikon die gewünschten Ergebnisse.\par
 Alle Wörter, auf die keine der bisherigen Regeln zutrifft, werden einfach als den Konsonantenstämmen zugehörig angesehen. \par
-Hat man die Nomen der dritten Deklination in \textit{ǐ}- und Konsonantenstämme unterteilt, so kann man relativ problemlos die komplette Paradigmen erzeugen. Bei der dritten Deklination hat man zum Erstellen des Paradigmas die Nominativ und Genitiv Singular-Form, so wie das Geschlecht, gegeben. Zunächst trennt man bei der Genitiv Singular-Form die Endung \textit{-is} ab um den Wortstamm zu erhalten. Da Nomen der dritten Deklination allen drei Geschlechtern angehören können, und die Akkusativ Singular-, Nominativ Plural- und Akkusativ Plural-Form geschlechtsabhängig sind, müssen diese Endungen abhängig vom Geschlecht des Wortes bestimmt werden. Dabei sind bei weiblichen und männlichen Nomen die Akkusativ Singular-Form mit der Endung \textit{-em} und die beiden Pluralfälle bilden Formen mit der selben Endung \textit{-es}. Neutra bilden in allen drei Fällen die Endung \textit{-a}. Dies gilt bei den \textit{ǐ}-Stämmen jedoch nur für Nomen, deren Stamm auf zwei Konsonanten endet. Ist dies nicht der Fall, so sind die Endungen jeweils \textit{-ia}. Bei den Konsonantenstämmen wird also ein Paradigma gebildet, mit den folgenden Singularformen: der gegebenen Nominativ-Form, der gegebenen Genitiv-Form, im Dativ dem Wortstamm mit der Endung \textit{-i}, der vorher aus dem Geschlecht bestimmten Akkusativ-Form, der Ablativform mit der Endung \textit{-e}, und im Vokativ erneut die Nominativform. Im Plural sind es die ebenfalls bereits bestimmten Nominativ Plural-Form, im Genitiv die Endung \textit{-um}, im Dativ und Ablativ die selbe Endung \textit{-ibus} und im Akkusativ wieder die selbe Form wie im Nominativ. Bei den \textit{ǐ}-Stämmen werden im Singular die Formen nach dem selben Schema gebildet, abgesehen von der Ablativform. Denn bei Nomen der \textit{ǐ}-Stämme, die im Nominativ Singular auf \textit{-e}, \textit{-al} und \textit{-ar} enden, bilden den Ablativ mit der Endung \textit{-i}, alle anderen, wie die Konsonantenstämme, mit \textit{-e}. Im Plural weicht die Genitivform ab, denn die Endung lautet hier \textit{-ium} statt \textit{-um}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 28} \par
-Nomen der vierten Deklination können in der Nominativ Singular-Form auf \textit{-u} oder \textit{-us} enden. Die Nomen auf \textit{-us} im Nominativ Singular haben diese Endung auch im Genitiv und Vokativ Singular so wie im Nominativ, Akkusativ und Vokativ Plural. Im Dativ Singular enden die Formen auf \textit{-ui} und im Akkusativ Singular auf \textit{-um}. Die verbleibenden Endungen im Plural sind \textit{-uum} im Genitiv und \textit{-ibus} sowohl im Dativ als auch im Ablativ. Da die meisten Endungen mit einem \textit{-u-} beginnen, wird dieser Buchstabe in der Implementierung direkt bei der Abspaltung der Nominativ Singular-Endung am Wortstamm belassen und nur in für Dativ und Ablativ Plural explizit entfernt. Es werden also für die Erzeugung des Paradigmas zwei temporäre Zeichenketten verwendet, zum einen den Wortstamm und zum anderen den Wortstamm mit dem \textit{-u}. Bei den Nomen auf \textit{-u}, die größtenteils Neutra sind, enden fast alle Formen des Singular auf \textit{-u}. Lediglich im Genitiv enden die Formen auf \textit{-us}. Um Plural hat man die für Neutra relativ üblichen Endungen auf \textit{-a} bzw. hier auf \textit{-ua} im Nominativ, Akkusativ und Vokativ. Die verbleibenden Pluralendungen sind identisch zu denen der Nomen auf \textit{-us}. Zur Generierung des Paradigmas werden bei den Nomen auf \textit{-u} drei Zeichenketten verwendet. Zum einen die Nominativ Singular-Form, die fünf mal im Paradigma ohne Endung und zwei mal mit verschiedenen Endungen vorkommt. Dann den Wortstamm, der zwei mal mit Endungen vorkommt. Und schließlich den Wortstamm mit der Endung \textit{-ua}, der immerhin drei mal im Paradigma vertreten ist.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 33} \par
-Und die letzte Deklinationsklasse, die fünfte oder \textit{e}-Deklination, besteht aus den Nomen, die im Nominativ Singular auf \textit{-es} enden. Die Vokativ-Form im Singular und Plural ist auch hier, wie fast immer, gleich der Nominativ-Form. Zusätzlich hat auch der Akkusativ Plural die gleiche Form. Genitiv und Dativ Singular enden beide auf \textit{-ei}, und Akkusativ Singular auf \textit{-em}. Der Ablativ Singular hat nur den Ausgang \textit{-e}, also keine Endung am Wortstamm. Im Plural endet die Genitiv-Form auf \textit{-erum} und Dativ so wie Ablativ auf \textit{-ebus}. Um das Paradigma zu erzeugen wird neben der Nominativ Singular-Form, der davon abgeleitete Wortstamm so wie die Form, die aus dem Wortstamm mit dem Ausgang \textit{-i} besteht, verwendet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 34} \par
-Betrachtet man die Nomenendungen im Gesamtüberblick so kann man auch oberhalb der Deklinationsklassen Muster erkenne, die man versuchen könnte zu formalisieren. Allerdings wäre der Nutzen davon wohl eher gering und würde zu größeren Problemen in den Details führen. Außerdem war ein Aspekt bei dieser Arbeit die Nähe zu einer gegebenen gedruckten Schulgrammatik. Deshalb wurde auch bei der Implementierung die etablierte Einteilung in die Deklinationsklassen gewahrt.
-\subsubsection{Sonderformen}
-Die häufigste Sonderform von Nomen dürften die bereits im Lexikon-Kapitel erwähnten Nomen sein, die in der gewünschten Bedeutung nur Pluralformen bilden. Um das Paradigma für diese Nomen zu bilden wird lediglich das vollständige Nomenparadigma gebildet und anschließend durch die Hilfsfunktion \texttt{pluralN} alle Singularformen durch die Fehlerzeichenkette \textit{\#\#\#\#\#\#}, die signalisiert, dass diese Formen nicht existieren.
+Hat man die Nomen der dritten Deklination in \textit{ǐ}- und Konsonantenstämme unterteilt, so kann man relativ problemlos die kompletten Paradigmen erzeugen. Bei der dritten Deklination hat man zum Erstellen des Paradigmas die Nominativ- und Genitiv-Singular-Form, so wie das Geschlecht, gegeben. Zunächst trennt man bei der Genitiv-Singular-Form die Endung \textit{-is} ab, um den Wortstamm zu erhalten. Da Nomen der dritten Deklination allen drei Geschlechtern angehören können, und die Akkusativ-Singular-, Nominativ-Plural- und Akkusativ-Plural-Form geschlechtsabhängig sind, müssen diese Endungen abhängig vom Geschlecht des Wortes bestimmt werden. Dabei sind bei weiblichen und männlichen Nomen die Akkusativ-Singular-Form mit der Endung \textit{-em} und die beiden Pluralfälle bilden Formen mit der selben Endung \textit{-es}. Neutra bilden in allen drei Fällen die Endung \textit{-a}. Dies gilt bei den \textit{ǐ}-Stämmen jedoch nur für Nomen, deren Stamm auf zwei Konsonanten endet. Ist dies nicht der Fall, so sind die Endungen jeweils \textit{-ia}. \par
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der Konsonantenstämme},label={GF-Morpho-Noun3c},basicstyle=\small]
+oper
+  -- Consonant declension
+  noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
+    let
+      reg : Str = Predef.tk 2 regis ;
+      regemes : Str * Str = case g of {
+	Masc | Fem => < reg + "em" , reg + "es" > ;
+	Neutr => < rex , reg + "a" > 
+	} ;
+    in
+    mkNoun
+      rex regemes.p1 regis ( reg + "i" ) ( reg + "e" ) rex
+      regemes.p2 regemes.p2 ( reg + "um" ) ( reg + "ibus" ) 
+      g ;
+\end{lstlisting}
+Bei den Konsonantenstämmen wird also ein Paradigma gebildet, mit den folgenden Singularformen: der gegebenen Nominativ-Form, der gegebenen Genitiv-Form, im Dativ dem Wortstamm mit der Endung \textit{-i}, der vorher aus dem Geschlecht bestimmten Akkusativ-Form, der Ablativform mit der Endung \textit{-e}, und im Vokativ erneut die Nominativform. Im Plural sind es die ebenfalls bereits bestimmten Nominativ Plural-Form, im Genitiv die Endung \textit{-um}, im Dativ und Ablativ die selbe Endung \textit{-ibus} und im Akkusativ wieder die selbe Form wie im Nominativ. \par
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der \textit{ǐ}-Stämme},label={GF-Morpho-Noun3i},basicstyle=\small]
+oper
+  -- i-declension
+  noun3i : Str -> Str -> Gender -> Noun = \ars,artis,g ->
+    let 
+      art : Str = Predef.tk 2 artis ;
+      artemes : Str * Str = case g of {
+	Masc | Fem => < art + "em" , art + "es" > ;
+	Neutr => case art of {
+          -- seems to be working
+	  _ + #consonant + #consonant => < ars , art + "a" > ; 
+	  _ => < ars , art + "ia" > -- Bayer-Lindauer 32 4
+	  }
+	} ;
+      arte : Str = case ars of {
+	_ + ( "e" | "al" | "ar" ) => art + "i" ;
+	_ => art + "e"
+	};
+    in
+    mkNoun
+      ars artemes.p1 artis ( art + "i" ) arte ars
+      artemes.p2 artemes.p2 ( art + "ium" ) ( art + "ibus" ) 
+      g ;
+\end{lstlisting}
+Bei den \textit{ǐ}-Stämmen werden im Singular die Formen nach dem selben Schema gebildet, abgesehen von der Ablativform. Denn bei Nomen der \textit{ǐ}-Stämme, die im Nominativ Singular auf \textit{-e}, \textit{-al} und \textit{-ar} enden, bilden den Ablativ mit der Endung \textit{-i}, alle anderen, wie die Konsonantenstämme, mit \textit{-e}. Im Plural weicht die Genitivform ab, denn die Endung lautet hier \textit{-ium} statt \textit{-um}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 28} \par
+\FloatBarrier
+\subsubsection{Vierte Deklination}
+Nomen der vierten Deklination können in der Nominativ-Singular-Form auf \textit{-u} oder \textit{-us} enden. \par
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-us}},label={GF-Morpho-Noun4us},basicstyle=\small]
+  noun4us : Str -> Noun = \fructus -> 
+    let
+      fructu = init fructus ;
+      fruct  = init fructu
+    in
+    mkNoun
+      fructus (fructu + "m") fructus (fructu + "i") fructu fructus
+      fructus fructus (fructu + "um") (fruct + "ibus")
+      Masc ;
+\end{lstlisting}
+Die Nomen auf \textit{-us} im Nominativ Singular haben diese Endung auch im Genitiv und Vokativ Singular so wie im Nominativ, Akkusativ und Vokativ Plural. Im Dativ Singular enden die Formen auf \textit{-ui} und im Akkusativ Singular auf \textit{-um}. Die verbleibenden Endungen im Plural sind \textit{-uum} im Genitiv und \textit{-ibus} sowohl im Dativ als auch im Ablativ. Da die meisten Endungen mit einem \textit{-u-} beginnen, wird dieser Buchstabe in der Implementierung direkt bei der Abspaltung der Nominativ Singular-Endung am Wortstamm belassen und nur in für Dativ und Ablativ Plural explizit entfernt (Zeile 4 in Listing \ref{GF-Morpho-Noun4us}). Es werden also für die Erzeugung des Paradigmas zwei temporäre Zeichenketten verwendet, zum einen den Wortstamm und zum anderen den Wortstamm mit dem \textit{-u}. \par
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-u}},label={GF-Morpho-Noun4u},basicstyle=\small]
+  noun4u : Str -> Noun = \cornu -> 
+    let
+      corn = init cornu ;
+      cornua = cornu + "a"
+    in
+    mkNoun
+      cornu cornu (cornu + "s") cornu cornu cornu
+      cornua cornua (cornu + "um") (corn + "ibus")
+      Neutr ;
+\end{lstlisting}
+Bei den Nomen auf \textit{-u}, die größtenteils Neutra sind, enden fast alle Formen des Singular auf \textit{-u}. Lediglich im Genitiv enden die Formen auf \textit{-us}. Um Plural hat man die für Neutra relativ üblichen Endungen auf \textit{-a} bzw. hier auf \textit{-ua} im Nominativ, Akkusativ und Vokativ. Die verbleibenden Pluralendungen sind identisch zu denen der Nomen auf \textit{-us}. Zur Generierung des Paradigmas werden bei den Nomen auf \textit{-u} drei Zeichenketten verwendet. Zum einen die Nominativ Singular-Form, die fünf mal im Paradigma ohne Endung und zwei mal mit verschiedenen Endungen vorkommt. Dann den Wortstamm, der zwei mal mit Endungen vorkommt. Und schließlich den Wortstamm mit der Endung \textit{-ua}, der immerhin drei mal im Paradigma vertreten ist.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 33} \par
+\subsubsection{Fünfte Deklination}
+\begin{lstlisting}[float=ht,caption={Die Deklinationsfunktionen für die Nomen der fünften Deklination},label={GF-Morpho-Noun5},basicstyle=\small]
+oper
+  -- e-Declension
+  noun5 : Str -> Noun = \res -> 
+    let
+      re = init res ;
+      rei = re + "i"
+    in
+    mkNoun
+      res (re+ "m") rei rei re res
+      res res (re + "rum") (re + "bus")
+      Fem ;
+\end{lstlisting}
+Und die letzte Deklinationsklasse für Nomen, die fünfte oder \textit{e}-Deklination, besteht aus den Nomen, die im Nominativ Singular auf \textit{-es} enden. Die Vokativ-Form im Singular und Plural ist auch hier, wie fast immer, gleich der Nominativ-Form. Zusätzlich hat auch der Akkusativ Plural die gleiche Form. Genitiv und Dativ Singular enden beide auf \textit{-ei}, und Akkusativ Singular auf \textit{-em}. Der Ablativ Singular hat nur den Ausgang \textit{-e}, also keine Endung am Wortstamm. Im Plural endet die Genitiv-Form auf \textit{-erum} und Dativ so wie Ablativ auf \textit{-ebus}. Um das Paradigma zu erzeugen wird neben der Nominativ-Singular-Form, der davon abgeleitete Wortstamm so wie die Form, die aus dem Wortstamm mit dem Ausgang \textit{-i} besteht, verwendet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 34} \par
+Betrachtet man die Nomenendungen im Gesamtüberblick, so kann man auch oberhalb der Deklinationsklassen Muster erkenne, die man versuchen könnte zu formalisieren. Allerdings wäre der Nutzen davon wohl eher gering und würde zu größeren Problemen in den Details führen. Außerdem war ein Aspekt bei dieser Arbeit die Nähe zu einer gegebenen gedruckten Schulgrammatik. Deshalb wurde auch bei der Implementierung die etablierte Einteilung in die Deklinationsklassen gewahrt.
+\subsubsection{Sonderfälle}
+Die häufigste Sonderform von Nomen dürften die bereits im Lexikon-Kapitel erwähnten Nomen sein, die in der gewünschten Bedeutung nur Pluralformen bilden. Um das Paradigma für diese Nomen zu bilden wird lediglich das vollständige Nomenparadigma gebildet und anschließend durch die Hilfsfunktion \texttt{pluralN} alle Singularformen durch die Fehlerzeichenkette \textit{\#\#\#\#\#\#}, die signalisiert, dass diese Formen nicht existieren. In einer möglichen zukünftigen Fassung der Lateingrammatik kann diese improvisierte Lösung durch die neue Methode ersetzt werden, den \texttt{Maybe}-Typ zu verwenden.
 \subsection{Adjektivflexion}
 \label{subsec:adjektiv}
 Im Lateinischen müssen Adjektive mit dem Nomen in Genus, Numerus und Kasus übereinstimmen. Zusätzlich gibt es drei Steigerungsstufen, Positiv, Komparativ und Superlativ. Deshalb werden sie in diesen Merkmalen flektiert. Auf diese Art und Weise enthält das Paradigma ziemlich viele Wortformen, diese zu generieren ist aber relativ einfach, nachdem man bereits eine funktionierende Nomenflexion hat. Denn die Adjektive bilden, durch ihre Kongruenz mit Nomen, meist die gleichen Formen wie die durch sie attribuierten Nomen. Viele Adjektive gehören zur ersten und zweiten Deklination. Adjektive dieser Klasse bilden für Feminina die selben Endungen wie Nomen der ersten Deklination und verhalten sich auch für Maskulina und Neutra jeweils analog zu Nomen der zweiten Deklination auf \textit{-us} (Maskulina) und \textit{-um} (Neutra). Alle weiteren Adjektive werden zur dritten Adjektivdeklinationsklasse gezählt. Diese haben ebenfalls einige Gemeinsamkeiten. So haben all diese Adjektive die Endung \textit{-e} bzw. \textit{-i} im Ablativ Singular, \textit{-um} bzw. \textit{-ium} im Genitiv Plural und \textit{-a} bzw. \textit{-ia} im Nominativ, Vokativ und Akkusativ Plural des Neutrums, je nach Zugehörigkeit zu den Konsonanten- oder \textit{ǐ}-Stämme. Denn diese werden auch hier wieder unterschieden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 38} \par
@@ -69,7 +310,7 @@ Die wenigsten der lateinischen Verben bilden jedoch tatsächlich alle diese Verb
 In der lateinischen Sprache gibt es für die Konjugation\footnote{Verbflexion} der Verben, ähnlich wie die Deklinationsklassen der Nomen, vier Klassen. Diese Konjugationsklassen verhalten sich teilweise auch ganz analog zu den Deklinationsklassen der Nomen und Adjektiven. Die Konjugationsklassen werden wieder anhand von Kennlauten unterschieden. Die erste Konjugation hat, wie die erste Deklination, als Kennlaut den Vokal \textit{-ā-}, die zweite den Kennlaut \textit{-ē-} und die vierte den Kennlaut \textit{-ī-}. Die dritte Konjugation ist wieder unterteilt, zum einen in die konsonantische Konjugation und zum anderen in die Kurzvokalische Konjugation. Wie der Name schon sagt, ist der Kennlaut der konsonantischen Konjugation ein Konsonant, und bei der kurzvokalischen Konjugation entweder der Kurzvokal \textit{-ǔ-} oder \textit{-ǐ-}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
 Diese Klassen gelten sowohl für die Konjugation der regulären Verben als auch für die Deponentia. Für die Bildung des Verbparadigmas gibt es wieder zwei Arten von Verben. Das Paradigma für die meisten Verben der ersten, zweiten und vierten Konjugation, sowohl bei den normalen Verben als auch bei den Deponentia, kann von einer einzigen Verbform, der Infinitiv-Präsens-Aktiv-Form, gebildet werden. Für Verben der dritten Konjugation so wie unregelmäßigere Verben der anderen Konjugationsklassen werden vier Verbformen verwendet. Neben der Infinitiv-Präsens-Aktiv-Form wird die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, die 1.-Person-Singular-Perfekt-Indikativ-Aktiv-Form, so wie die Partizip-Perfekt-Passiv-Form.  \par
 Denn für die Verben der ersten, zweiten und vierten Konjugation kann die Zugehörigkeit zur entsprechenden Konjugationsklasse am Wortausgang\footnote{Kennlaut zusammen mit der Endung} der Infinitiv-Präsens-Aktiv-Form abgelesen werden. Endet die Verbform auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-ri}, so handelt es sich um ein Deponens der ersten, zweiten oder vierten Konjugation. Endet die Verbform dagegen auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-re}, so handelt es sich entsprechend um ein reguläres Verb der ersten, zweiten oder vierten Konjugation. Zur Einordnung der Verben der dritten Konjugation sind mindestens zwei Wortformen, neben der Infinitiv-Präsens-Aktiv- auch noch die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, nötig. Endet die Verbform nämlich nur auf \textit{-i}, so gehört sie zu den Deponentia der dritten Konjugation. Der Kennlaut zur Unterscheidung in Konsonantenstämme oder Kurzvokalstämme erscheint erst bei den finiten Präsensformen, weshalb eine von diesen, nämlich die erwähnte 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, zu Rate gezogen wird. Ist in diesem Falle der Wortausgang \textit{-ior}, so gehört das Wort zu den Kurzvokalstämmen der dritten Konjugation, sonst gehört es zu den Konsonantenstämmen. Endet die Infinitiv-Form dagegen auf \textit{-ere} muss folgendermaßen unterschieden werden: Endet die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form auf einen Konsonanten gefolgt von \textit{-o}, so gehört das Verb zu den Konsonantenstämmen der dritten Konjugation, endet diese Form auf \textit{-eo}, so gehört sie statt zur dritten zur zweiten Konjugation, was jedoch nicht an der Infinitivform zu unterscheiden ist. Endet die Wortform auf einen der beiden Kennvokale der kurzvokalischen dritten Deklination gefolgt von einem \textit{-o}, so ist das Wort offensichtlich Teil der Kurzvokalstämme, in allen anderen Fällen ist es teil der Konsonantenstämme der dritten Konjugation.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
-\begin{lstlisting}[float=ht,label={GF-Res-Verb},caption={Datentyp eines Verbs im Grammatical Framework},basicstyle=\footnotesize]
+\begin{lstlisting}[label={GF-Res-Verb},float=ht,caption={Datentyp eines Verbs im Grammatical Framework},basicstyle=\footnotesize]
 param
   Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   VActForm  = VAct VAnter VTense Number Person ;
@@ -81,7 +322,6 @@ param
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
   VPartForm = VActPres | VActFut | VPassPerf ;
-
 oper
   Verb : Type = {
     act   : VActForm => Str ;
