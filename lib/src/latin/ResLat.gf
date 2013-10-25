@@ -27,8 +27,8 @@ param
   oper
     Adjective : Type = {
       s : Degree => Agr => Str ; 
---      comp_adv : Str ; 
---      super_adv : Str 
+      comp_adv : Str ; 
+      super_adv : Str 
       } ;
     CommonNoun : Type = 
     {
