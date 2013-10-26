@@ -1,5 +1,5 @@
 Eine der großen Herausforderung bei der Implementierung einer Lateingrammatik ist die Morphologie, da Latein eine flektierende Sprache ist, und deshalb viele grammatische Merkmale in der Wortform kodiert. Dies führt zu einer großen Menge an Wortformen für jeden Lexikoneintrag (vgl. Listing \ref{GF-Sleep-V}). Alles in allem haben Verben in Latein bis zu 260 Wortformen, die zur Bildung des Paradigmas komplett aufgelistet werden müssten. \par
-\begin{lstlisting}[float=h!,caption={Ausschnitt aus dem Paradigma des Verbs \texttt{sleep\_V}},label={GF-Sleep-V},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus dem Paradigma des Verbs \texttt{sleep\_V}},label={GF-Sleep-V},basicstyle=\small]
 ...
 act (VAct VSim (VPres VInd) Sg P1) : dormio
 act (VAct VSim (VPres VInd) Sg P2) : dormis
@@ -35,7 +35,7 @@ act (VAct VSim VFut Pl P3) : dormient
 \end{lstlisting}
 Um so wichtiger ist es, möglichst viele dieser Formen mit möglichst wenig Informationen zu generieren. Deshalb ist es ratsam, das Konzept der "`Smart Paradigms"' zu implementieren. Dabei wird versucht Mit Hilfe von Stringanalysen und Pattern Matching möglichst viele Informationen zur Wortbildung aus den gegebenen Wortformen zu extrahieren. Im Falle der lateinischen Sprache werden dabei Wortsuffixe zu Rate gezogen. Wie so eine Stringanalyse mit entsprechender Fallunterscheidung für die Wortformenbildung aussen kann, ist in Listing \ref{GF-Morpho-Noun} zu sehen.\par
 Die Implementierung der Morphologie ist hauptsächlich in der Quelltextdatei \textbf{MorphoLat.gf} zu finden, wobei die Konstruktion der konkreten Datenstrukturen, und damit auch ein Teil der Morphologie, in der Datei \textbf{ResLat.gf} zu finden ist. Allerdings sind die morphologischen Funktionen so gekapselt, dass üblicherweise zur Erzeugung eines Objektes eines Typs $Typ$ die Funktion \texttt{mk$Typ$} verwendet wird. Diese Funktionen für die verschiedenen Typen sind in der Datei \textbf{ParadigmsLat.gf} definiert, rufen aber größtenteils lediglich die im Folgenden erklärten Funktionen auf.
-\begin{lstlisting}[float=h!,caption={Beispiel für ein Smart Paradigm mit Hilfe von Pattern Matching und Fallunterscheidung (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun}]
+\begin{lstlisting}[float=h!tp,caption={Beispiel für ein Smart Paradigm mit Hilfe von Pattern Matching und Fallunterscheidung (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun}]
 oper
   noun : Str -> Noun = \verbum -> 
   case verbum of {
@@ -61,7 +61,7 @@ Die dritte oder auch ǐ-Deklination wird auch als Mischdeklination bezeichnet, d
 Die vierte Deklinationsklasse hingegen ist wieder unkomplizierter. Sie hat im Nominativ Singular die Endungen \textit{-ū} oder \textit{-us} und die Nomen sind, wenn sie auf \textit{-us} enden, maskulin und, wenn sie auf \textit{-ū} enden, Neutra. Da die Nominativ-Singular-Form bei den Nomen auf \textit{-us} nicht von Nomen der zweiten Deklination mit der gleichen Endung zu unterscheiden sind, kann das Smart Paradigm für nur eine Wortform nur bei den Nomen auf \textit{-ū} angewandt werden, da die Endung \textit{-us} schon die zweite Deklination identifiziert. In diesem Falle wird das Paradigma mit Hilfe der zwei Formen Nominativ Singular, Genitiv Singular und dem Geschlecht bestimmt. Endet die Nominativ-Singular-Form jedoch auf \textit{-ū} endet, kann das Paradigma aus der einzelnen Stammform gebildet werden, wie in Zeile 8 von Listing \ref{GF-Morpho-Noun} zu sehen ist. \par
 Bei der fünften Deklination ist die Nominativ Singular-Endung an sich wieder eindeutig, sie enden alle auf \textit{-es}. Jedoch können, wie oben bereits beschrieben, auch Nomen der dritten Deklination im Nominativ Singular auf \textit{-es} enden. Man kann die unterschiedlichen Deklinationen aber klar an der Genitiv Singular-Form unterscheiden. Deshalb ist die sicherste Möglichkeit Fehler zu vermeiden, auch diese Genitivform im Lexikon anzugeben. Dies ist jedoch nicht nötig, da wenn nur die Nominativform angegeben ist und diese auf \textit{-es} endet, das Smart Paradigm so definiert ist, dass ein Paradigma der fünften Deklination generiert wird, wie in Zeile 9 von Listing \ref{GF-Morpho-Noun} zu sehen ist. \par
 Für alle Deklinationen gilt, dass wenn entweder die Formenbildung nicht allein durch die Nominativ-Singular-Form bestimmt ist oder das Genus von dem zu erwartenden abweicht, müssen die mehrfach genannten zwei Wortformen und das Genus zur Formenbildung herangezogen werden. Dazu wird statt der Funktion \texttt{noun} in Listing \ref{GF-Morpho-Noun} die Funktion \texttt{noun\_ngg} in Listing \ref{GF-Morpho-Noun-NGG} herangezogen. Das \texttt{ngg} im Funktionsnamen steht für die Bedeutung der Parameter, nämlich Nominativ, Genitiv und Genus. Die Regeln für das Pattern Matching sind ähnlich zu denen in der \texttt{noun}-Funktion, differenzieren allerdings etwas genauer. Die Formenbildung erfolgt genau wie bei der obigen Funktion und schließlich wird mit Hilfe der Funktion \texttt{nounWithGen} das Genus, falls nötig, korrigiert.
-\begin{lstlisting}[float=h!,caption={Smart Paradigm für zwei Nomenformen und Genus (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun-NGG}]
+\begin{lstlisting}[float=h!tp,caption={Smart Paradigm für zwei Nomenformen und Genus (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Noun-NGG}]
 oper
   noun_ngg : Str -> Str -> Gender -> Noun = \verbum,verbi,g -> 
     let s : Noun = case <verbum,verbi> of {
@@ -94,7 +94,7 @@ Wortstock & \multicolumn{2}{:l|}{Wortausgang} \\
 \end{table}
 \FloatBarrier
 \subsubsection{Erste Deklination}
-\begin{lstlisting}[float=h!,caption={Deklinationsfunktion für die erste Deklination},label={GF-Morpho-Noun1}]
+\begin{lstlisting}[float=h!tp,caption={Deklinationsfunktion für die erste Deklination},label={GF-Morpho-Noun1}]
 oper
   -- a-Declension
   noun1 : Str -> Noun = \mensa ->
@@ -112,7 +112,7 @@ In der in Listing \ref{GF-Morpho-Noun1} gezeigten Funktion, in der das soeben ge
 \par
 \FloatBarrier
 \subsubsection{Zweite Deklination}
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-us}},label={GF-Morpho-Noun2us},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-us}},label={GF-Morpho-Noun2us},basicstyle=\small]
 oper
   -- o-Declension
   noun2us : Str -> Noun = \servus ->
@@ -127,7 +127,7 @@ oper
       servi (serv + "os") (serv + "orum") (serv + "is")
       Masc ;
 \end{lstlisting}
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-um}},label={GF-Morpho-Noun2um},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-um}},label={GF-Morpho-Noun2um},basicstyle=\small]
   noun2um : Str -> Noun = \bellum ->
     let
       bell = Predef.tk 2 bellum ;
@@ -140,7 +140,7 @@ oper
       bella bella (bell + "orum") (bell + "is")
       Neutr ;
 \end{lstlisting}
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-er}},label={GF-Morpho-Noun2er},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der zweiten Deklination auf \textit{-er}},label={GF-Morpho-Noun2er},basicstyle=\small]
   noun2er : Str -> Str -> Noun = \liber,libri ->
     let
       libr : Str = Predef.tk 1 libri;
@@ -158,7 +158,7 @@ Der Nominativ Singular hat offensichtlich die unterschiedlichen Endungen \textit
 Im Plural bilden die Nomen auf \textit{-us} und \textit{-r} die selben Formen, im Nominativ und Vokativ mit den Endung \textit{-i} und im Akkusativ mit \textit{-os}. Die Neutra auf \textit{-um} bilden in allen drei Fällen Formen mit der Endung \textit{-a}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 23f.} Zwar bietet sich hier möglicherweise eine Wiederverwendung gleicher Programmteile zur Implementierung an, jedoch wurde der Übersicht halber für jede Unterklasse der zweiten Deklination eine eigene Funktion (Listing \ref{GF-Morpho-Noun2us}, Listing \ref{GF-Morpho-Noun2um} und \ref{GF-Morpho-Noun2er}) implementiert. Außerdem ist der Mehraufwand, der nötig ist, um die Gemeinsamkeiten und Unterschiede herauszuarbeiten, in diesem Bereich kaum zu rechtfertigen, da keine großen Verbesserungen zu erwarten sind. \par
 \FloatBarrier
 \subsubsection{Dritte Deklination}
-\begin{lstlisting}[float=h!,caption={Funktion zur Zuordnung von Nomen zu den Stämmen der dritten Deklination},label={GF-Morpho-Noun3},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Funktion zur Zuordnung von Nomen zu den Stämmen der dritten Deklination},label={GF-Morpho-Noun3},basicstyle=\small]
 oper
   noun3 : Str -> Str -> Gender -> Noun = \rex,regis,g ->
     let
@@ -202,7 +202,7 @@ Deshalb wurde versucht, diese Problematik zu umgehen, was zu einigen Regeln füh
 Die nachfolgenden Muster versuchen, die nicht umsetzbaren Entscheidungsregeln, die in der Literatur zu finden sind, mit den gegebenen Informationen zu imitieren. So gehören Nomen der dritten Deklination, die im Nominativ Singular auf \textit{-e}, \textit{-al} und \textit{-ar} enden, zu den \textit{ǐ}-Stämmen (Zeile 17f. in Listing \ref{GF-Morpho-Noun3}). Dagegen ist die nächste Regel über die Zugehörigkeit zu den Konsonantenstämmen komplizierter. Die ursprüngliche Regel besagt, dass Nomen zu den Konsonantenstämmen gehören, wenn die Nominativ-Singular-Form gegenüber dem Wortstamm verändert ist. Es folgen eine Liste von Lautgesetzen, die hier Anwendung finden. Diese werden mit einer Folge von Mustern versucht anzunähern. So kann sich bei einer Ablautung des letzten Vokals bei einer Nominativ-Singular-Form auf \textit{-ter} so verändern, dass der Wortstamm nur noch auf \textit{-tr} endet. Es kann auch zu einer Klangfarbenänderung des letzten Vokals kommen, so dass aus der Nominativ-Singular-Form auf \textit{-en} der Wortstamm \textit{-in} wird. Des weiteren gibt es noch die Veränderung von \textit{-s} zu \textit{-r} zwischen Nominativ Singular und Wortstamm (Zeilen 19f. in Listing \ref{GF-Morpho-Noun3}). Lediglich die Regel, dass sich auch nur die Vokallänge ändern kann, konnte nicht in dieser Form verwirklicht werden. Relativ problemlos dagegen ist auch die Regel, dass Nomen, deren Wortstock auf zwei oder mehr Konsonanten enden, zu den \textit{ǐ}-Stämmen gehören (Zeile 26f. in Listing \ref{GF-Morpho-Noun3}). Und die letzte Bedingung für die Zuordnung zu den Stämmen ist wieder abhängig von der Silbenzahl und kann deshalb nur angenähert werden. Statt der Silbenzahl wird bei Nomen auf \textit{-es} und \textit{-is} anhand der Buchstabenanzahl entschieden, zu welcher der beiden Kategorien ein Wort gehört. Haben Nominativ Singular und Genitiv Singular dieselbe Länge, so gehört das Wort zu den \textit{ǐ}-Stämmen, und sonst gehört es zu den Konsonantenstämmen (Zeile 28ff. in Listing \ref{GF-Morpho-Noun3}).\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 26ff.} Über die Allgemeingültigkeit dieser Regeln kann keine endgültige aussage getroffen werden. Allerdings liefern sie für alle Wörter im Lexikon die gewünschten Ergebnisse.\par
 Alle Wörter, auf die keine der bisherigen Regeln zutrifft, werden einfach als den Konsonantenstämmen zugehörig angesehen. \par
 Hat man die Nomen der dritten Deklination in \textit{ǐ}- und Konsonantenstämme unterteilt, so kann man relativ problemlos die kompletten Paradigmen erzeugen. Bei der dritten Deklination hat man zum Erstellen des Paradigmas die Nominativ- und Genitiv-Singular-Form, so wie das Geschlecht, gegeben. Zunächst trennt man bei der Genitiv-Singular-Form die Endung \textit{-is} ab, um den Wortstamm zu erhalten. Da Nomen der dritten Deklination allen drei Geschlechtern angehören können, und die Akkusativ-Singular-, Nominativ-Plural- und Akkusativ-Plural-Form geschlechtsabhängig sind, müssen diese Endungen abhängig vom Geschlecht des Wortes bestimmt werden. Dabei sind bei weiblichen und männlichen Nomen die Akkusativ-Singular-Form mit der Endung \textit{-em} und die beiden Pluralfälle bilden Formen mit der selben Endung \textit{-es}. Neutra bilden in allen drei Fällen die Endung \textit{-a}. Dies gilt bei den \textit{ǐ}-Stämmen jedoch nur für Nomen, deren Stamm auf zwei Konsonanten endet. Ist dies nicht der Fall, so sind die Endungen jeweils \textit{-ia}. \par
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der Konsonantenstämme},label={GF-Morpho-Noun3c},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der Konsonantenstämme},label={GF-Morpho-Noun3c},basicstyle=\small]
 oper
   -- Consonant declension
   noun3c : Str -> Str -> Gender -> Noun = \rex,regis,g ->
@@ -219,7 +219,7 @@ oper
       g ;
 \end{lstlisting}
 Bei den Konsonantenstämmen wird also ein Paradigma gebildet, mit den folgenden Singularformen: der gegebenen Nominativ-Form, der gegebenen Genitiv-Form, im Dativ dem Wortstamm mit der Endung \textit{-i}, der vorher aus dem Geschlecht bestimmten Akkusativ-Form, der Ablativform mit der Endung \textit{-e}, und im Vokativ erneut die Nominativform. Im Plural sind es die ebenfalls bereits bestimmten Nominativ Plural-Form, im Genitiv die Endung \textit{-um}, im Dativ und Ablativ die selbe Endung \textit{-ibus} und im Akkusativ wieder die selbe Form wie im Nominativ. \par
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der \textit{ǐ}-Stämme},label={GF-Morpho-Noun3i},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der dritten Deklination der \textit{ǐ}-Stämme},label={GF-Morpho-Noun3i},basicstyle=\small]
 oper
   -- i-declension
   noun3i : Str -> Str -> Gender -> Noun = \ars,artis,g ->
@@ -247,7 +247,7 @@ Bei den \textit{ǐ}-Stämmen werden im Singular die Formen nach dem selben Schem
 \FloatBarrier
 \subsubsection{Vierte Deklination}
 Nomen der vierten Deklination können in der Nominativ-Singular-Form auf \textit{-u} oder \textit{-us} enden. \par
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-us}},label={GF-Morpho-Noun4us},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-us}},label={GF-Morpho-Noun4us},basicstyle=\small]
   noun4us : Str -> Noun = \fructus -> 
     let
       fructu = init fructus ;
@@ -259,7 +259,7 @@ Nomen der vierten Deklination können in der Nominativ-Singular-Form auf \textit
       Masc ;
 \end{lstlisting}
 Die Nomen auf \textit{-us} im Nominativ Singular haben diese Endung auch im Genitiv und Vokativ Singular so wie im Nominativ, Akkusativ und Vokativ Plural. Im Dativ Singular enden die Formen auf \textit{-ui} und im Akkusativ Singular auf \textit{-um}. Die verbleibenden Endungen im Plural sind \textit{-uum} im Genitiv und \textit{-ibus} sowohl im Dativ als auch im Ablativ. Da die meisten Endungen mit einem \textit{-u-} beginnen, wird dieser Buchstabe in der Implementierung direkt bei der Abspaltung der Nominativ Singular-Endung am Wortstamm belassen und nur in für Dativ und Ablativ Plural explizit entfernt (Zeile 4 in Listing \ref{GF-Morpho-Noun4us}). Es werden also für die Erzeugung des Paradigmas zwei temporäre Zeichenketten verwendet, zum einen den Wortstamm und zum anderen den Wortstamm mit dem \textit{-u}. \par
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-u}},label={GF-Morpho-Noun4u},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der vierten Deklination auf \textit{-u}},label={GF-Morpho-Noun4u},basicstyle=\small]
   noun4u : Str -> Noun = \cornu -> 
     let
       corn = init cornu ;
@@ -272,7 +272,7 @@ Die Nomen auf \textit{-us} im Nominativ Singular haben diese Endung auch im Geni
 \end{lstlisting}
 Bei den Nomen auf \textit{-u}, die größtenteils Neutra sind, enden fast alle Formen des Singular auf \textit{-u}. Lediglich im Genitiv enden die Formen auf \textit{-us}. Um Plural hat man die für Neutra relativ üblichen Endungen auf \textit{-a} bzw. hier auf \textit{-ua} im Nominativ, Akkusativ und Vokativ. Die verbleibenden Pluralendungen sind identisch zu denen der Nomen auf \textit{-us}. Zur Generierung des Paradigmas werden bei den Nomen auf \textit{-u} drei Zeichenketten verwendet. Zum einen die Nominativ Singular-Form, die fünf mal im Paradigma ohne Endung und zwei mal mit verschiedenen Endungen vorkommt. Dann den Wortstamm, der zwei mal mit Endungen vorkommt. Und schließlich den Wortstamm mit der Endung \textit{-ua}, der immerhin drei mal im Paradigma vertreten ist.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 33} \par
 \subsubsection{Fünfte Deklination}
-\begin{lstlisting}[float=h!,caption={Die Deklinationsfunktionen für die Nomen der fünften Deklination},label={GF-Morpho-Noun5},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Die Deklinationsfunktionen für die Nomen der fünften Deklination},label={GF-Morpho-Noun5},basicstyle=\small]
 oper
   -- e-Declension
   noun5 : Str -> Noun = \res -> 
@@ -292,7 +292,7 @@ Die häufigste Sonderform von Nomen dürften die bereits im Lexikon-Kapitel erw�
 \subsection{Adjektivflexion}
 \label{subsec:adjektiv}
 Im Lateinischen müssen Adjektive mit dem Nomen in Genus, Numerus und Kasus übereinstimmen. Zusätzlich gibt es drei Steigerungsstufen, Positiv, Komparativ und Superlativ. Deshalb werden sie in diesen Merkmalen flektiert. Auf diese Art und Weise enthält das Paradigma 108 Wortformen (3 Genera x 2 Numeri x 6 Kasus x 3 Steigerungsformen), diese zu generieren ist aber relativ einfach, nachdem man bereits eine funktionierende Nomenflexion hat. Denn die Adjektive bilden, durch ihre Kongruenz mit Nomen, meist die gleichen Formen wie die durch sie attribuierten Nomen. \par
-\begin{lstlisting}[float=h!,caption={Smart Paradigm für zwei Adjektivformen (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Smart Paradigm für zwei Adjektivformen (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj},basicstyle=\small]
 oper
   adj : Str -> Adjective = \bonus ->
     case bonus of {
@@ -303,7 +303,7 @@ oper
     } ;  
 \end{lstlisting}
 Viele Adjektive gehören zur ersten und zweiten Deklination. Adjektive dieser Klasse bilden für Feminina die selben Endungen wie Nomen der ersten Deklination und verhalten sich für Maskulina und Neutra jeweils analog zu Nomen der zweiten Deklination auf \textit{-us} (Maskulina) und \textit{-um} (Neutra). Alle weiteren Adjektive werden zur dritten Adjektivdeklinationsklasse gezählt. Diese haben ebenfalls einige Gemeinsamkeiten. So haben all diese Adjektive die Endung \textit{-e} bzw. \textit{-i} im Ablativ Singular, \textit{-um} bzw. \textit{-ium} im Genitiv Plural und \textit{-a} bzw. \textit{-ia} im Nominativ, Vokativ und Akkusativ Plural des Neutrums, je nach Zugehörigkeit zu den Konsonanten- oder \textit{ǐ}-Stämme. Denn diese werden auch hier wieder unterschieden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 38} \par
-\begin{lstlisting}[float=h!,caption={Smart Paradigm für zwei Adjektivformen (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj123},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Smart Paradigm für zwei Adjektivformen (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj123},basicstyle=\small]
 oper
   adj123 : Str -> Str -> Adjective = \bonus,boni ->
     case <bonus,boni> of {
@@ -317,7 +317,7 @@ oper
 Bei Adjektiven der ersten und zweiten Deklination kann wieder das ganze Paradigma aus einer einzigen Zeichenkette erzeugt werden. Ebenfalls ist dies bei Adjektiven auf \textit{-is} und \textit{-x} möglich, die zur dritten Deklination gehören (vgl. Listing \ref{GF-Morpho-Adj}). Sollte eine Zeichenkette nicht genügen, wie bei den meisten Adjektiven aus der dritten Deklinationsklasse, so kann das Paradigma aus zwei gegebenen Formen, Nominativ Singular und Genitiv Singular der maskulinen Form, zu generieren werden (vgl. Listing \ref{GF-Morpho-Adj123}). Für sehr seltene Adjektive, für die auch diese Möglichkeit nicht ausreichend ist, kann aus drei Wortformen, nämlich den drei Nominativ Singular-Formen, alle weiteren Wortformen generiert werden. Diese Option wird jedoch im bisherigen Lexikon nicht benötigt.\footnote{vgl. \textbf{ParadigmsLat.gf} und \textbf{MorphoLat.gf}} \par
 Die Deklinationsklasse der Adjektive wird, wenn nur eine Form, die Nominativ Singular-Form bei Maskulinum, gegeben ist, wieder anhand der Endung bestimmt. Ist diese \textit{-us}, so ist das Adjektiv drei-endig\footnote{Unter drei-endig versteht ,man, wenn ein Adjektiv in jedem Genus eine andere Endung hat, unter zwei-endig, wenn das Adjektiv bei Femininum und Maskulinum die selbe Endung hat, diese sich jedoch von der Neutrum-Endung unterscheidet} und gehört zur ersten und zweiten Deklination. Hat es eine andere Endung, so gehört es zur dritten Deklination. Sind zwei Wortformen vorhanden, so wird zusätzlich die gegebene Genitiv Singular-Form bei Maskulina betrachtet. Ist die gegebene Nominativ-Endung \textit{-us} und die Genitiv-Endung \textit{-i}, so ist, wie bereits gesagt, das Adjektiv drei-endig. Ist dagegen die Genitiv-Endung \textit{-is}, so ist das Adjektiv Teil der dritten Deklination. Zur dritten Deklination gehören auch alle anderen Adjektive, die im Genitiv bei Maskulina auf \textit{-is} enden so wie alle Adjektive die im gegebenen Nominativ auf \textit{-is} und im entsprechenden Genitiv auf \textit{-e} enden. Alle anderen Adjektive mit zwei Wortformen führen zu einem Fehler. Sollte dieser Fehler für ein Adjektiv im Lexikon auftreten, so muss man zur Erzeugung des Paradigmas die Funktion verwenden, die die drei Nominativ-""Singular-""Formen verwendet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 36 u. S. 38} \par
 \subsubsection{Erste und zweite Deklination}
-\begin{lstlisting}[float=h!,caption={Deklinationsfunktion für drei-endige Adjektive der ersten und zweiten Deklination (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj12},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Deklinationsfunktion für drei-endige Adjektive der ersten und zweiten Deklination (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj12},basicstyle=\small]
 oper
   adj12 : Str -> Adjective = \bonus ->
     let
@@ -369,7 +369,7 @@ Das Paradigma für Adjektive der ersten und zweiten Deklination wird folgenderma
 \FloatBarrier
 \subsubsection{Komparation}
 Die "`Berechnungen"' in den Zeilen 14 bis 37 in Listing \ref{GF-Morpho-Adj12} werden verwendet um die Wortformen der Steigerungsstufen des Adjektivs zu erzeugen. Normalerweise wird die Steigerung von Adjektiven durch Flexion ausgedrückt. Es müssen also eigene Wortformen für jede Steigerungsstufe generiert werden. Bei manchen Adjektiven wird dies jedoch statt dessen mit der Positivform und entsprechenden Adverbien umschrieben. Adjektive, die so eine Umschreibung benötigen, enden allgemein auf \textit{-us}, wobei aber der Wortstamm selbst wieder entweder auf einen Vokal oder \textit{-r-} endet. Nach dieser Regel wird z.B. bei \textit{arduus} und \textit{mirus} nicht, wie später beschrieben, die Steigerung morphologisch kodiert, sondern mit den Adverbien \textit{magis} (Komparativ) und \textit{maxime} (Superlativ) umschrieben. Deshalb muss für diese Wörter nur die Positivform generiert werden. Bei allen anderen Adjektiven der ersten und zweiten Deklination werden für die Steigerung neue Wortstämme gebildet, an die wiederum die für die erste und zweite Deklination üblichen Endungen angehängt werden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 36f} \par
-\begin{lstlisting}[float=h!,caption={Funktion zur Bestimmung der Komparativ- und Superlativformen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-CompSuper},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Funktion zur Bestimmung der Komparativ- und Superlativformen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-CompSuper},basicstyle=\small]
 oper
   comp_super : Noun -> ( Agr => Str ) * ( Agr => Str ) = 
     \bonus ->
@@ -412,7 +412,7 @@ oper
     } ;
 \end{lstlisting}
 Die Bildung des neuen Wortstammes ist nicht ganz trivial (vgl. Listing \ref{GF-Morpho-CompSuper}). Zunächst einmal gibt es in der lateinischen Sprache Adjektive, deren Komparativ- und Superlativstamm kaum Gemeinsamkeiten mit der Grundform haben. Dazu zählen z.B \textit{bonus} (komp. \textit{melior}, sup. \textit{optimus}), \textit{malus} (komp. \textit{peior}, sup. \textit{pessimus}), \textit{magnus} (komp. \textit{maior}, sup. \textit{maximus}), \textit{parvus} (komp. \textit{minor}, sup. \textit{minimus}), etc. Für jedes dieser Wörter muss eine eigene Regel existieren, wie der Wortstamm im Komparativ und Superlativ aussieht. Teilweise sind es wirklich nur Abbildungen auf eine neue Genitiv- und eine neue Nominativ-Form, die wie bei den regelmäßigen Adjektiven für die Bildung der Steigerungsformen verwendet werden können. Teilweise wird aber auch sogleich das entsprechende Nomenparadigma für den Superlativ gebildet. Dies hängt davon ab, ob die Superlativform eine der üblichen Superlativendungen hat oder nicht. Zur Zuordnung, so wie zur Generierung der Komparativformen, wird als kennzeichnende Form die Genitiv-Singular-Form des bereits erstellten Nomenparadigmas verwendet. Diese Wortform hat den Vorteil, dass sie bei allen Adjektiven den wirklichen Wortstamm enthält, was im Nominativ wie schon ausgeführt, nicht immer der Fall ist. Der Superlativ dagegen wird aus der Nominativ-Form gebildet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 40ff.} \par
-\begin{lstlisting}[float=h!,caption={Erzeugung der Komparativ-Formen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Comp},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Erzeugung der Komparativ-Formen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Comp},basicstyle=\small]
 oper
   comp : Str -> ( Agr => Str ) = \boni -> -- Bayer-Lindauer 46 2
     case boni of {
@@ -447,7 +447,7 @@ oper
     } ;
 \end{lstlisting}
 Der Komparativ wird, wie in Listing \ref{GF-Morpho-Comp} zu sehen, üblicherweise durch das No\-mi\-na\-tiv-Suffix \textit{-ior} für Feminina und Maskulina und \textit{-ium} für Neutra ausgedrückt. Adjektive sind also im Komparativ zwei- statt drei-endig. Die Endungen im Singular sind \textit{-ior}, \textit{-ioris}, \textit{-iori}, \textit{-iorem}, \textit{-iore} im Nominativ/Vokativ, Genitiv, Dativ, Akkusativ und Ablativ. Im Plural sind es entsprechend \textit{-iores}, \textit{-iorum}, \textit{-ioribus}, \textit{-iores} und \textit{-ioribus}. Die Neutrumformen unterscheiden sich nur im Nominativ, Vokativ und Akkusativ von den Femininum-/Maskulinumformen, nämlich \textit{-ius} im Singular und \textit{-ia} im Plural. Diese Endungen werden an den Wortstamm, also die Genitiv-Form ohne die Genitivendung \textit{-i} bzw. \textit{-is}, angehängt.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 40f.} \par
-\begin{lstlisting}[float=h!,caption={Erzeugung der Superlativ-Formen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Comp},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Erzeugung der Superlativ-Formen eines Adjektivs (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Comp},basicstyle=\small]
 oper
   super : Str -> ( Agr => Str ) = \bonus ->
     let
@@ -475,7 +475,7 @@ Für die bereits genannten Adjektive, die ihre Komparation durch Adverbien und n
 Zum Schluss werden alle Einzelbestandteile, also die Positiv-, Komparativ- und Superlativformen so wie die möglicherweise nötigen Adverbien zu einem Adjektiv-Objekt verbunden, das die Form hat, wie sie in Zeile 22-26 in Listing \ref{GF-Lexicon-Lincat}, zu sehen ist.\par
 \FloatBarrier
 \subsubsection{Dritte Deklination}
-\begin{lstlisting}[float=h!,caption={Deklinationsfunktion für zwei- und drei-endige Adjektive der dritten Deklination (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj3x},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Deklinationsfunktion für zwei- und drei-endige Adjektive der dritten Deklination (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Adj3x},basicstyle=\small]
 oper
   adj3x : (_,_ : Str) -> Adjective = \acer,acris ->
    let
@@ -498,7 +498,8 @@ oper
 \end{lstlisting}
 Für die Adjektive der dritten Deklination stimmt das Vorgehen größtenteils mit dem gerade beschriebenen Vorgehen für die erste und zweite Deklination überein. Allerdings sind zwei Wortformen für die Generierung des Paradigmas nötig, die Nominativ- und die Genitiv-Form des Maskulinums im Singular. Zunächst wird die Endung von dieser gegebenen Nominativ-Form abgetrennt und die Nominativformen für alle drei Genera gebildet. Dabei können Adjektive der dritten Deklination entweder drei-endig (m. \textit{acer}, f. \textit{acris}, n. \textit{acre}), wenn sie als Nominativ Maskulin-Form auf \textit{-er} enden, zwei-endig (m./f. \textit{fortis}, n. \textit{forte}), wenn die Nominativform auf \textit{-is} endet, oder sonst auch ein-endig (m./f./n. \textit{felix}) sein. \par
 In diesem Falle kann nicht so klar auf die Nomenflexion zurückgegriffen werden. Statt dessen wird das Paradigma direkt aus zwei gegebenen Formen und dem gewünschten Geschlecht hergeleitet. Dazu wird zunächst der Wortstamm durch das Abtrennen der Genitivendung von der entsprechenden Form gebildet. Anschließend wird von Geschlecht abhängig die Akkusativ Singular- (Endung: m./f. \textit{-em}, n. keine Endung) und Nominativ/Vokativ/Akkusativ-Plural-Form (Endung: m./f. \textit{-es}, n. \textit{-ia}) gebildet. Ebenso wie die geschlechtsunanhängige Dativ/Ablativ-Singular-Form mit der Endung \textit{-i}. Zusammen mit der feststehenden Genitiv-Singular- (\textit{-is}), Genitiv-Plural- (\textit{-ium}) und Dativ/Ablativ-Plural-Endung (\textit{-ibus}) können alle Formen des Paradigmas gebildet werden (vgl. Listing \ref{GF-Res-Noun3Adj}).\par
-\begin{lstlisting}[float=h!,caption={Deklinationsfunktion für die "`Nomenformen"' der Adjektive der dritten Deklination (vgl. \textbf{MorphoLat.gf})},label={GF-Res-Noun3Adj},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Deklinationsfunktion für die "`Nomenformen"' der Adjektive der dritten Deklination (vgl. \textbf{ResLat.gf})},label={GF-Res-Noun3Adj},basicstyle=\small]
+oper
   noun3adj : Str -> Str -> Gender -> Noun = \audax,audacis,g ->
     let 
       audac   = Predef.tk 2 audacis ;
@@ -515,63 +516,635 @@ Darauf folgt die Bildung der Komparativ- und Superlativformen genauso wie bei de
 \subsection{Verbflexion}
 \label{subsec:verb}
 Verben bilden im Lateinischen von allen Wortarten die meisten Formen. Denn bei finiten Verben werden folgende Merkmale unterschieden: Person, Numerus, Tempus, Modus, und Diathese, jeweils mit unterschiedlichen Wertebereichen. So gibt es drei Personen, zwei Numeri (Singular und Plural), sechs Zeitformen (Präsens, Imperfekt, Perfekt, Plusquamperfekt, Futur I und Futur II), drei Modi (Indikativ, Konjunktiv, Imperativ I und Imperativ II) und zwei Diathesen (Aktiv und Passiv). Hinzukommen infinitivische Verbformen wie der Infinitiv im Präsens, Perfekt und Futur, das Gerundium, das Supin, Partizipien im Präsens, Perfekt und Futur so wie das Gerundiv. Dabei zählen die Infinitive, das Gerundium und das Supin nach ihrer Verwendung und Formenbildung zu den substantivischen Formen und die Partizipien und das Gerundiv zu den adjektivischen Verbformen.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 66} Für jede dieser Formen ist im Datentyp für lateinische Verben im Grammatical Framework (vgl. Listing \ref{GF-Lexicon-Lincat}) ein Feld vorhanden. In den Typen der Felder sind auch jeweils kodiert, in welchen Merkmalen diese Form flektiert wird. So werden Aktiv-Formen eines Verbes nach Zeitstufe und Tempus, die zusammen die üblichen Tempora bilden, Numerus und Person flektiert.  \par
-Die wenigsten der lateinischen Verben bilden jedoch tatsächlich alle diese Verbformen. So kann ein komplettes Passiv nur von transitiven Verben gebildet werden\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 67}. Dagegen gibt es im Lateinischen so genannte Deponentia, die zwar aktivisch verwendet werden, allerdings nur passive Formen bilden\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 83}. Ganz zu schweigen von all den Besonderheiten der unregelmäßigen Verben\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 105ff.}. Um fehlende Verbformen zu markieren wurde eine Zeichenkette gewählt, die in Eingaben mit an Sicherheit grenzender Wahrscheinlichkeit nicht vorkommt. Die gewählte Zeichenkette ist wieder \textit{\#\#\#\#\#\#} und sollte ebenfalls in Zukunft auf die neue \texttt{Maybe}-Methode geändert werden. Sie sollte entsprechend an den nötigen Stellen behandelt werden. Allerdings ist die Fehlerbehandlung im Grammatical Framework momentan noch eher rudimentär. Die Behandlungen von fehlenden Werten soll aber in Zukunft durch die Einführung eines aus Haskell und anderen funktionalen Programmiersprachen bekannten\footnote{???} Maybe- oder auch Option-Datentyps ermöglicht werden. Dieser polymorphe Datentyp hat für einen konkreten Datentyp zwei mögliche Werte, entweder \textit{Just a} mit \texttt{a} einem konkreten Wert eines anderen Datentyps, wenn solch ein wert vorhanden ist, oder \texttt{Nothing}, wenn kein Wert vorhanden ist. Diese Möglichkeit mit dem Maybe-Datentyp zu arbeiten war allerdings zu Beginn der Arbeit noch nicht gegeben.\par
+Die wenigsten der lateinischen Verben bilden jedoch tatsächlich alle diese Verbformen. So kann ein komplettes Passiv nur von transitiven Verben gebildet werden\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 67}. Dagegen gibt es im Lateinischen so genannte Deponentia, die zwar aktivisch verwendet werden, allerdings nur passive Formen bilden\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 83}. Ganz zu schweigen von all den Besonderheiten der unregelmäßigen Verben\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 105ff.}. Um fehlende Verbformen zu markieren wurde eine Zeichenkette gewählt, die in Eingaben mit an Sicherheit grenzender Wahrscheinlichkeit nicht vorkommt. Die gewählte Zeichenkette ist wieder \textit{\#\#\#\#\#\#} und sollte ebenfalls in Zukunft auf die neue \texttt{Maybe}-Methode geändert werden. Sie sollte entsprechend an den nötigen Stellen behandelt werden. Allerdings ist die Fehlerbehandlung im Grammatical Framework momentan noch eher rudimentär. Die Behandlungen von fehlenden Werten soll aber in Zukunft durch die Einführung eines in Haskell und anderen funktionalen Programmiersprachen vorhandenen \texttt{Maybe}- oder auch Option-Datentyps ermöglicht werden. Dieser polymorphe Datentyp hat für einen konkreten Datentyp zwei mögliche Werte, entweder \texttt{Just $a$} mit einem konkreten Wert \texttt{$a$}eines anderen Datentyps, wenn solch ein Wert vorhanden ist, oder \texttt{Nothing}, wenn kein Wert vorhanden ist.\par
 \subsubsection{Konjugationsklassen}
-In der lateinischen Sprache gibt es für die Konjugation\footnote{Verbflexion} der Verben, ähnlich wie die Deklinationsklassen der Nomen, vier Klassen. Diese Konjugationsklassen verhalten sich teilweise auch ganz analog zu den Deklinationsklassen der Nomen und Adjektiven. Die Konjugationsklassen werden wieder anhand von Kennlauten unterschieden. Die erste Konjugation hat, wie die erste Deklination, als Kennlaut den Vokal \textit{-ā-}, die zweite den Kennlaut \textit{-ē-} und die vierte den Kennlaut \textit{-ī-}. Die dritte Konjugation ist wieder unterteilt, zum einen in die konsonantische Konjugation und zum anderen in die Kurzvokalische Konjugation. Wie der Name schon sagt, ist der Kennlaut der konsonantischen Konjugation ein Konsonant, und bei der kurzvokalischen Konjugation entweder der Kurzvokal \textit{-ǔ-} oder \textit{-ǐ-}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
-Diese Klassen gelten sowohl für die Konjugation der regulären Verben als auch für die Deponentia. Für die Bildung des Verbparadigmas gibt es wieder zwei Arten von Verben. Das Paradigma für die meisten Verben der ersten, zweiten und vierten Konjugation, sowohl bei den normalen Verben als auch bei den Deponentia, kann von einer einzigen Verbform, der Infinitiv-Präsens-Aktiv-Form, gebildet werden. Für Verben der dritten Konjugation so wie unregelmäßigere Verben der anderen Konjugationsklassen werden vier Verbformen verwendet. Neben der Infinitiv-Präsens-Aktiv-Form wird die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, die 1.-Person-Singular-Perfekt-Indikativ-Aktiv-Form, so wie die Partizip-Perfekt-Passiv-Form.  \par
-Denn für die Verben der ersten, zweiten und vierten Konjugation kann die Zugehörigkeit zur entsprechenden Konjugationsklasse am Wortausgang\footnote{Kennlaut zusammen mit der Endung} der Infinitiv-Präsens-Aktiv-Form abgelesen werden. Endet die Verbform auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-ri}, so handelt es sich um ein Deponens der ersten, zweiten oder vierten Konjugation. Endet die Verbform dagegen auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-re}, so handelt es sich entsprechend um ein reguläres Verb der ersten, zweiten oder vierten Konjugation. Zur Einordnung der Verben der dritten Konjugation sind mindestens zwei Wortformen, neben der Infinitiv-Präsens-Aktiv- auch noch die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, nötig. Endet die Verbform nämlich nur auf \textit{-i}, so gehört sie zu den Deponentia der dritten Konjugation. Der Kennlaut zur Unterscheidung in Konsonantenstämme oder Kurzvokalstämme erscheint erst bei den finiten Präsensformen, weshalb eine von diesen, nämlich die erwähnte 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, zu Rate gezogen wird. Ist in diesem Falle der Wortausgang \textit{-ior}, so gehört das Wort zu den Kurzvokalstämmen der dritten Konjugation, sonst gehört es zu den Konsonantenstämmen. Endet die Infinitiv-Form dagegen auf \textit{-ere} muss folgendermaßen unterschieden werden: Endet die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form auf einen Konsonanten gefolgt von \textit{-o}, so gehört das Verb zu den Konsonantenstämmen der dritten Konjugation, endet diese Form auf \textit{-eo}, so gehört sie statt zur dritten zur zweiten Konjugation, was jedoch nicht an der Infinitivform zu unterscheiden ist. Endet die Wortform auf einen der beiden Kennvokale der kurzvokalischen dritten Deklination gefolgt von einem \textit{-o}, so ist das Wort offensichtlich Teil der Kurzvokalstämme, in allen anderen Fällen ist es teil der Konsonantenstämme der dritten Konjugation.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
-\begin{lstlisting}[label={GF-Res-Verb},float=h!,caption={Datentyp eines Verbs im Grammatical Framework},basicstyle=\footnotesize]
-param
-  Agr = Ag Gender Number Case ; -- Agreement for NP et al.
-  VActForm  = VAct VAnter VTense Number Person ;
-  -- No anteriority in passive because perfect forms are built using participle
-  VPassForm = VPass VTense Number Person ;  
-  VInfForm  = VInfActPres | VInfActPerf Gender | VInfActFut Gender 
-            | VInfPassPres | VInfPassPerf Gender | VinfPassFut ;
-  VImpForm  = VImp1 Number | VImp2 Number Person ;
-  VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
-  VSupine   = VSupAcc | VSupAbl ;
-  VPartForm = VActPres | VActFut | VPassPerf ;
+In der lateinischen Sprache gibt es für die Konjugation\footnote{Verbflexion} der Verben, ähnlich wie die Deklinationsklassen der Nomen, vier Klassen. Diese Konjugationsklassen verhalten sich teilweise auch ganz analog zu den Deklinationsklassen der Nomen und Adjektiven. Die Konjugationsklassen werden wieder anhand von Kennlauten unterschieden. Die erste Konjugation hat, wie die erste Deklination, als Kennlaut den Vokal \textit{-ā-}, die zweite den Kennlaut \textit{-ē-} und die vierte den Kennlaut \textit{-ī-}. Die dritte Konjugation ist wieder unterteilt, zum einen in die konsonantische Konjugation und zum anderen in die kurzvokalische Konjugation. Wie der Name schon sagt, ist der Kennlaut der konsonantischen Konjugation ein Konsonant, und bei der kurzvokalischen Konjugation entweder der Kurzvokal \textit{-ǔ-} oder \textit{-ǐ-}.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
+Diese Klassen gelten sowohl für die Konjugation der regulären Verben als auch für die Deponentia. Denn für die Bildung des Verbparadigmas werden primär diese beiden Arten von Verben unterschieden, denn die meisten Verben gehören einer dieser beiden Verbklassen an. Das Paradigma für die meisten Verben der ersten, zweiten und vierten Konjugation, sowohl bei den normalen Verben als auch bei den Deponentia, kann von einer einzigen Verbform, der Infinitiv-Präsens-Aktiv-Form, gebildet werden. Für Verben der dritten Konjugation so wie unregelmäßigere Verben der anderen Konjugationsklassen werden vier Verbformen verwendet. Neben der Infinitiv-Präsens-Aktiv-Form wird die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, die 1.-Person-Singular-Perfekt-Indikativ-Aktiv-Form, sowie die Partizip-Perfekt-Passiv-Form.  \par
+\begin{lstlisting}[float=h!tp,caption={Smart Paradigm für eine Verbform (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Verb},basicstyle=\small]
 oper
-  Verb : Type = {
-    act   : VActForm => Str ;
-    pass  : VPassForm => Str ;
-    inf   : VInfForm => Str ;
-    imp   : VImpForm => Str ;
-    ger   : VGerund => Str ;
-    geriv : Agr => Str ; 
-    sup   : VSupine => Str ;
-    part  : VPartForm =>Agr => Str ;
+  verb : (iacere : Str) -> Verb = 
+    \iacere ->
+    case iacere of {
+      _ + "ari" => deponent1 iacere ;
+      _ + "eri" => deponent2 iacere ;
+      _ + "iri" => deponent4 iacere ;
+      _ + "are" => verb1 iacere ;
+      _ + "ire" => -- let iaci = Predef.tk 2 iacere in
+        verb4 iacere ; -- (iaci + "vi") (iaci + "tus") ;
+      _ + "ere" => verb2 iacere ;
+      _ => Predef.error ("verb: illegal infinitive form" ++ iacere) 
     } ;
 \end{lstlisting}
+Denn für die Verben der ersten, zweiten und vierten Konjugation kann die Zugehörigkeit zur entsprechenden Konjugationsklasse am Wortausgang\footnote{Kennlaut zusammen mit der Endung vgl. Tabelle \ref{Tabelle-Wortstamm}} der Infinitiv-Präsens-Aktiv-Form abgelesen werden. Endet die Verbform auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-ri}, so handelt es sich um ein Deponens der ersten, zweiten oder vierten Konjugation. Endet die Verbform dagegen auf \textit{-a-}, \textit{-e-} oder \textit{-i-} mit der Endung \textit{-re}, so handelt es sich entsprechend um ein reguläres Verb der ersten, zweiten oder vierten Konjugation (vgl. Listing \ref{GF-Morpho-Verb}. \par
+\begin{lstlisting}[float=h!tp,caption={Smart Paradigm für vier Verbformen (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Verb-Ippp},basicstyle=\small]
+oper
+  verb_ippp : (iacere,iacio,ieci,iactus : Str) -> Verb = 
+    \iacere,iacio,ieci,iactus ->
+    case iacere of {
+      _ + "ari" => deponent1 iacere ;
+      _ + "eri" => deponent2 iacere ;
+      _ + "iri" => deponent4 iacere ;
+      _ + "i" => case iacio of {
+  	_ + "ior" => deponent3i iacere iacio iactus ;
+  	_ => deponent3c iacere iacio iactus
+  	} ;
+      _ + "are" => verb1 iacere ;
+      _ + "ire" => verb4 iacere ; -- ieci iactus ;
+      _ + "ere" => case iacio of {
+        -- Bayer-Lindauer 74 1
+  	_ + #consonant + "o" => verb3c iacere ieci iactus ; 
+  	_ + "eo" => verb2 iacere ;
+        -- Bayer-Linduaer 74 1
+  	_ + ( "i" | "u" ) + "o" => verb3i iacere ieci iactus ; 
+  	_ => verb3c iacere ieci iactus
+  	} ;
+      _ => Predef.error ("verb_ippp: illegal infinitive form" ++ iacere) 
+    } ;
+\end{lstlisting}
+Zur Einordnung der Verben der dritten Konjugation sind mindestens zwei Wortformen, neben der Infinitiv-Präsens-Aktiv- auch noch die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, nötig. üblicherweise werden allerdings gleich vier Verbformen für die Formenbildung verwendet, nämlich auch noch 1.-Person-Perfekt-Indikativ-Aktiv und Partizip-Perfekt-Passiv. Endet die 1.-Person-Singular-Präsens-Aktiv-Form nämlich nur auf \textit{-i}, so gehört sie zu den Deponentia der dritten Konjugation. Der Kennlaut zur Unterscheidung in Konsonantenstämme oder Kurzvokalstämme erscheint erst bei den finiten Präsensformen, weshalb eine von diesen, nämlich die erwähnte 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form, zu Rate gezogen wird. Ist in diesem Falle der Wortausgang \textit{-ior}, so gehört das Wort zu den Kurzvokalstämmen der dritten Konjugation, sonst gehört es zu den Konsonantenstämmen. Endet die Infinitiv-Form dagegen auf \textit{-ere}, muss folgendermaßen unterschieden werden: Endet die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Form auf einen Konsonanten gefolgt von \textit{-o}, so gehört das Verb zu den Konsonantenstämmen der dritten Konjugation, endet diese Form auf \textit{-eo}, so gehört sie statt zur dritten zur zweiten Konjugation, was jedoch nicht allein anhand der Infinitivform zu unterscheiden ist. Endet die Wortform auf einen der beiden Kennvokale der kurzvokalischen dritten Deklination gefolgt von einem \textit{-o}, so ist das Wort offensichtlich Teil der Kurzvokalstämme, in allen anderen Fällen ist es teil der Konsonantenstämme der dritten Konjugation.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68f.} \par
 \FloatBarrier
 \subsubsection{Verbstämme}
-Für jede Konjugationsklasse werden nun einige Wortformen und -stämme gebildet, aus denen das gesamte Paradigma erstellt werden kann. Einige der dafür erstellten Formen mögen in einer der Konjugationsklassen redundant sein, das heißt für mehrere Merkmale wird die selbe Zeichenkette gebildet, dies liegt jedoch in der einheitlichen Form der Behandlung aller Verben. In Lateingrammatiken findet man meist drei Arten von Wortstämmen eines Verbes. Zu diesen gehört zunächst der Präsensstamm, von dem allgemein die Präsens- Imperfekt- und Futur-I-Formen im Aktiv und Passiv, das Gerundium, das Gerundiv und das Partizip so wie der Infinitiv Präsens gebildet werden. Der Perfekt dagegen wird verwendet um die Perfekt-, Plusquamperfekt- und Futur II-Formen im Aktiv so wie den Infinitiv Perfekt im Aktiv zu bilden. Und zuletzt den Partizipialstamm, von dem die Perfekt-, Plusquamperfekt- und Futur II-Formen im Passiv, zusammen mit dem Hilfsverb esse, so wie das Partizip und der Infinitiv Futur im Aktiv gebildet werden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 66} \par
-Zur zusätzlichen Erleichterung bei der Formenbildung werden zusätzlich zu den drei Verbstämmen für jede Zeitform und jeden Modus der entsprechende Wortstock und der Infinitiv-Präsens-Aktiv verwendet. Alles in allem wird das gesamte Verbparadigma also aus 15, bei Deponentia lediglich 9 wegen des unvollständigen Paradigmas, verschiedenen Zeichenketten durch Anhängen der Endungen gebildet, die die Merkmale wie Person, Numerus, Diathese, etc. kodieren. In der lateinischen Sprache werden grammatische Merkmale bei Verben an verschiedenen Stellen kodiert. Einerseits gibt es Infixe, die Tempus, im Bereich von Präsens, Imperfekt und Futur, und Modus, im Bereich von Indikativ und Konjunktiv, kodieren. Zum anderen werden in der Endung die Diathese, also Aktiv oder Passiv, das Zeitverhältnis\footnote{???}, der Modus des Imperativs, vor allem jedoch Numerus und Person, kodiert.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 71f.} \par
-Diese 15 bzw. 9 Formen werden für jede Konjugationsklasse unabhängig gebildet. Für reguläre Verben und Deponentia der ersten, zweiten und dritten Konjugation werden alle Zeichenkette alleinig aus der Infinitiv-Präsens-Aktiv-Form gebildet. Der erste Schritt auf dem Weg zum vollen Paradigma ist es, die Infinitiv Präsens-Endung, \textit{-re} bei regulären Verben und \textit{-ri} bei Deponentia abzutrennen um den Präsensstamm zu erhalten. Der Worstock im Präsens Indikativ ist zu diesem identisch, womit schon die ersten zwei der benötigten Formen vorhanden sind. Die dritte, der Stamm bei Präsens Konjunktiv, wird in der ersten Konjugation durch Ersetzen des Kennlauts gebildet. Der Kennlaut \textit{-ā-} wird durch ein \textit{-e-} ersetzt. Bei der zweiten und vierten Konjugation wird statt dessen an den Präsensstamm ein \textit{-a-} angehängt. Für das Imperfekt wird an den Präsensstamm ein Suffix angefügt, das sowohl diese Zeitstufe als auch den Modus ausdrückt. Dieses Suffix ist für den Indikativ \textit{-ba-} und für den Konjunktiv \textit{-re-}. Lediglich bei der vierten Konjugation wird zwischen Stamm und Suffix noch ein \textit{-e-} eingeschoben. Die sechste Form, der Worstock des Futur Indikativ, wird analog zum Imperfekt, durch ein Suffix ausgedrückt, in diesem Falle \textit{-bi-} bei Verben der ersten und zweiten und \textit{-e-} bei Verben der vierten Konjugation. Damit sind alle Wortstöcke, die auf dem Präsensstamm basieren, gebildet. Als nächstes folgt der Perfektstamm. Dieser, so wie alle auf ihm basierenden Wortstöcke, existieren nur bei den regulären Verben und nicht bei den Deponentia, denn diese bilden alle vorzeitigen Formen\footnote{Perfekt, Plusquamperfekt und Futur II im Gegensatz zu Präsens, Imperfekt und Futur} mit Hilfe des Partizips zusammen mit einer Form des Hilfsverbs \textit{esse}. Bei allen anderen Verben wird die Vorzeitigkeit durch das Suffix \textit{-v-} bzw. \textit{-u-} ausgedrückt. Deshalb wird bei diesen Verben der Perfektstamm im Grunde aus dem Präsensstamm durch Anhängen des passenden Suffixes gebildet. Bei Verben der ersten und vierten Konjugation geschieht dies wirklich nur durch Anhängen des Suffixes \textit{-v-}. Bei der zweiten Konjugation jedoch entfällt der Kennvokal \textit{-ē-}und statt des Suffixes \textit{-v-} wird das Suffix \textit{-u-} angehängt. Der Perfekt-Indikativ-Stamm ist wieder identisch zum Perfektstamm. Im Konjunktiv wird dagegen ein weiteres Suffix \textit{-eri-} benötigt. Das selbe betrifft die Plusquamperfekt-Stämme mit den Suffixen \textit{-era-} im Indikativ und \textit{-isse-} so wie den Futur II-Stamm mit dem Suffix \textit{-eri-}. Die letzte fehlende Zeichenkette um das Paradigma generieren zu können ist der Partizipialstamm, der auch wieder für die Deponentia gebildet wird. Dazu wird an den Präsensstamm einfach das Suffix \textit{-t-} angehängt. Lediglich bei Veben und Deponentia der zweiten Konjugation wird zusätzlich der Kennvokal \textit{-ē-} zu einem \textit{-i-}. Zusammen mit der als Ausgangsbasis gewählten Infinitiv sind damit alle 15 bzw. 9 Formen bzw. Formenbestandteile gebildet, die verwendet werden um das Paradigma zu generieren.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68ff.} \par
+Für jede Konjugationsklasse werden nun einige Wortformen und -stämme gebildet, aus denen das gesamte Paradigma erstellt werden kann. Einige der dafür erstellten Formen mögen in einer der Konjugationsklassen redundant sein, das heißt für mehrere Merkmale wird die selbe Zeichenkette gebildet, dies liegt jedoch an der einheitlichen Form der Behandlung aller Verben. \par
+In Lateingrammatiken findet man meist drei Arten von Wortstämmen eines Verbes. Zu diesen gehört zunächst der Präsensstamm, von dem allgemein die Präsens- Imperfekt- und Futur-I-Formen im Aktiv und Passiv, das Gerundium, das Gerundiv und das Partizip so wie der Infinitiv-Präsens gebildet werden. Der Perfektstamm dagegen wird verwendet, um die Perfekt-, Plusquamperfekt- und Futur-II-Formen im Aktiv so wie den Infinitiv-Perfekt im Aktiv zu bilden. Und zuletzt den Partizipialstamm, von dem die Perfekt-, Plusquamperfekt- und Futur II-Formen im Passiv, zusammen mit dem Hilfsverb esse, so wie das Partizip- und der Infinitiv-Futur im Aktiv gebildet werden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 66} \par
+Zur zusätzlichen Erleichterung bei der Formenbildung werden neben den drei Verbstämmen auch für jede Zeitform und jeden Modus der entsprechende Wortstock und der Infinitiv-Präsens-Aktiv verwendet. Alles in allem werden für das gesamte Verbparadigma also 15, bei Deponentia lediglich 9, wegen des unvollständigen Paradigmas, Grundformen verwendet. An diese verschiedenen Zeichenketten werden die Endungen angehängt, die die Merkmale wie Person, Numerus, Diathese, etc. kodieren. \par
+In der lateinischen Sprache werden grammatische Merkmale bei Verben an verschiedenen Stellen kodiert. Einerseits gibt es Infixe, die Tempus, im Bereich von Präsens, Imperfekt und Futur, und Modus, im Bereich von Indikativ und Konjunktiv, kodieren. Zum anderen werden in der Endung die Diathese, also Aktiv oder Passiv, der Modus des Imperativs, vor allem jedoch Numerus und Person, kodiert.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 71f.} \par
+\begin{lstlisting}[float=h!tp,caption={Bildung der Wortstämme und -stöcke für Verben der ersten Konjugation (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Verb3c},basicstyle=\small]
+oper
+-- 1./a-conjugation
+  verb1 : Str -> Verb = \laudare ->
+    let
+      lauda = Predef.tk 2 laudare ;
+      laud = init lauda ;
+      laudav = lauda + "v" ;
+      pres_stem = lauda ;
+      pres_ind_base = lauda ;
+      pres_conj_base = laud + "e" ;
+      impf_ind_base = lauda + "ba" ;
+      impf_conj_base = lauda + "re" ;
+      fut_I_base = lauda + "bi" ;
+      imp_base = lauda ;
+      perf_stem = laudav ;
+      perf_ind_base = laudav ;
+      perf_conj_base = laudav + "eri" ;
+      pqperf_ind_base = laudav + "era" ;
+      pqperf_conj_base = laudav + "isse" ;
+      fut_II_base = laudav + "eri" ;
+      part_stem = lauda + "t" ;
+    in
+    mkVerb laudare pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
+    perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+\end{lstlisting}
+\begin{lstlisting}[float=h!tp,caption={Bildung der Wortstämme und -stöcke für Deponentia der ersten Konjugation (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Verb3c},basicstyle=\small]
+oper
+-- 1./a-conjugation
+  deponent1 : Str -> Verb = \hortari ->
+    let
+      horta = Predef.tk 2 hortari ;
+      hort = init horta ;
+      pres_stem = horta ;
+      pres_ind_base = horta ;
+      pres_conj_base = hort + "e" ;
+      impf_ind_base = horta + "ba" ;
+      impf_conj_base = horta + "re" ;
+      fut_I_base = horta + "bi" ;
+      imp_base = horta ;
+      part_stem = horta + "t" ;
+    in
+    mkDeponent hortari pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
+\end{lstlisting}
+Diese 15 bzw. 9 Formen werden für jede Konjugationsklasse unabhängig gebildet. Für reguläre Verben und Deponentia der ersten, zweiten und dritten Konjugation werden alle Zeichenketten alleinig aus der Infinitiv-Präsens-Aktiv-Form gebildet. Der erste Schritt auf dem Weg zum vollen Paradigma ist es, die Infinitiv-Präsens-Endung, \textit{-re} bei regulären Verben und \textit{-ri} bei Deponentia abzutrennen um den Präsensstamm zu erhalten. Der Wortstock im Präsens Indikativ ist zu diesem identisch, womit schon die ersten zwei der benötigten Formen vorhanden sind. Die dritte, der Stamm bei Präsens Konjunktiv, wird in der ersten Konjugation durch Ersetzen des Kennlauts gebildet. Der Kennlaut \textit{-ā-} wird durch ein \textit{-e-} ersetzt. Bei der zweiten und vierten Konjugation wird statt dessen an den Präsensstamm ein \textit{-a-} angehängt. Für das Imperfekt wird an den Präsensstamm ein Suffix angefügt, das sowohl diese Zeitstufe als auch den Modus ausdrückt. Dieses Suffix ist für den Indikativ \textit{-ba-} und für den Konjunktiv \textit{-re-}. Lediglich bei der vierten Konjugation wird zwischen Stamm und Suffix noch ein \textit{-e-} eingeschoben. Die sechste Form, der Wortstock des Futur Indikativ, wird analog zum Imperfekt, durch ein Suffix ausgedrückt, in diesem Falle \textit{-bi-} bei Verben der ersten und zweiten und \textit{-e-} bei Verben der vierten Konjugation. Damit sind alle Wortstöcke, die auf dem Präsensstamm basieren, gebildet. \par
+Als nächstes folgt der Perfektstamm. Dieser, so wie alle auf ihm basierenden Wortstöcke, existieren nur bei den regulären Verben und nicht bei den Deponentia, denn diese bilden alle vorzeitigen Zeitformen, Perfekt, Plusquamperfekt und Futur II im Gegensatz zu Präsens, Imperfekt und Futur, mit Hilfe des Partizips zusammen mit einer Form des Hilfsverbs \textit{esse}. Bei allen anderen Verben wird die Vorzeitigkeit durch das Suffix \textit{-v-} bzw. \textit{-u-} ausgedrückt. Deshalb wird bei diesen Verben der Perfektstamm im Grunde aus dem Präsensstamm durch Anhängen des passenden Suffixes gebildet. Bei Verben der ersten und vierten Konjugation geschieht dies wirklich nur durch Anhängen des Suffixes \textit{-v-}. Bei der zweiten Konjugation jedoch entfällt der Kennvokal \textit{-ē-}und statt des Suffixes \textit{-v-} wird das Suffix \textit{-u-} angehängt. Der Perfekt-Indikativ-Stamm ist wieder identisch zum Perfektstamm. Im Konjunktiv wird dagegen ein weiteres Suffix \textit{-eri-} benötigt. Das selbe betrifft die Plusquamperfekt-Stämme mit den Suffixen \textit{-era-} im Indikativ und \textit{-isse-} so wie den Futur II-Stamm mit dem Suffix \textit{-eri-}. \par
+Die letzte fehlende Zeichenkette, um das Paradigma generieren zu können, ist der Partizipialstamm, der auch wieder für die Deponentia gebildet wird. Dazu wird an den Präsensstamm einfach das Suffix \textit{-t-} angehängt. Lediglich bei Veben und Deponentia der zweiten Konjugation wird zusätzlich der Kennvokal \textit{-ē-} zu einem \textit{-i-}. Zusammen mit der als Ausgangsbasis gewählten Infinitiv sind damit alle 15 bzw. 9 Formen bzw. Formenbestandteile gebildet, die verwendet werden, um das Paradigma zu generieren.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68ff.} \par
+\begin{lstlisting}[float=h!tp,caption={Bildung der Wortstämme und -stöcke für Verben der dritten Konjugation mit konsonantischem Stamm (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Verb3c},basicstyle=\small]
+oper
+-- 3./Consonant conjugation
+  verb3c : ( regere,rexi,rectus : Str ) -> Verb = \regere,rexi,rectus ->
+    let
+      rege = Predef.tk 2 regere ;
+      reg = init rege ;
+      rex = init rexi ;
+      rect = Predef.tk 2 rectus ;
+      pres_stem = reg ;
+      pres_ind_base = reg ;
+      pres_conj_base = reg + "a" ;
+      impf_ind_base = reg + "eba" ;
+      impf_conj_base = reg + "ere" ;
+      fut_I_base = rege ;
+      imp_base = reg ;
+      perf_stem = rex ;
+      perf_ind_base = rex ;
+      perf_conj_base = rex + "eri" ;
+      pqperf_ind_base = rex + "era" ;
+      pqperf_conj_base = rex + "isse" ;
+      fut_II_base = rex + "eri" ;
+      part_stem = rect ;
+    in
+    mkVerb regere pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base
+    perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+\end{lstlisting}
+\begin{lstlisting}[float=h!tp,caption={Bildung der Wortstämme und -stöcke für Deponentia der dritten Konjugation mit konsonantischem Stamm (vgl. \textbf{MorphoLat.gf})},label={GF-Morpho-Deponent3c},basicstyle=\small]
+oper
+-- 3./Consonant conjugation
+  deponent3c : ( sequi,sequor,secutus : Str ) -> Verb = \sequi,sequor,secutus ->
+    let
+      sequ = Predef.tk 2 sequor ;
+      secu = Predef.tk 3 secutus ; 
+      pres_stem = sequ ;
+      pres_ind_base = sequ ;
+      pres_conj_base = sequ + "a" ;
+      impf_ind_base = sequ + "eba" ;
+      impf_conj_base = sequ + "ere" ;
+      fut_I_base = sequ + "e" ;
+      imp_base = sequi ;
+      part_stem = secu + "t" ;
+    in
+    mkDeponent sequi pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base imp_base part_stem ;
+\end{lstlisting}
 Die Bildung der soeben genannten Formen ist für die Verben und Deponentia der dritten Konjugation etwas anders, vor allem weil die Formen nicht nur von einer einzelnen Wortform, wie bei den anderen Konjugationsklassen, sondern von drei Wortformen gebildet wird. Die zusätzlichen Wortformen sind 1.-Person-Singular-Perfekt-Indikativ-Aktiv und das Partizip-Perfekt-Passiv. Der Präsensstamm wird bei Konsonantenstämmen und kurzvokalischen Stämmen unterschiedlich gebildet. Zunächst wird bei beiden die Infinitiv-Endung, diesmal \textit{-ere}, abgetrennt. Und bei den kurzvokalischen Stämmen wird stattdessen ein Suffix \textit{-i-} angefügt. Bei den Deponentia wird bei den Konsonantenstämmen die Endung \textit{-or} von der 1.-Person-Singular Präsens-Indikativ-Aktiv abgetrennt, bei den Kurzvokalstämmen fällt der Präsensstamm mit der 1.-Person-Singular-Präsens-Indikativ-Aktiv zusammen. Die restlichen Präsensformen werden genauso gebildet, wie bei der vierten Konjugation, ebenso der Stamm bei Imperfekt-Indikativ. Beim Imperfekt-Konjunktiv-Stamm wird lediglich zusätzlich vor dem Suffix ein \textit{-e-} eingefügt. Der Futur I-Stamm fällt bei den Konsonantenstämmen mit dem Präsensstamm zusammen, bei den kurzvokalischen Stämmen wird wie bei der vierten Konjugation das Suffix \textit{-e-} angehängt. Der Perfektstamm, wo vorhanden, wird von der gegebenen Perfektform gebildet, indem die Endung \textit{-i} abgetrennt wird. Die restlichen Perfekt-, Plusquamperfekt- und Futur II-Formen werden analog zur vierten Konjugation aus dem Perfektstamm gebildet. Der Partizipstamm, als letzte nötige Zeichenkette, wird aus der gegebenen Partizip-Form durch Abtrennen der Endung \textit{-us} gebildet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 68ff.} \par
-Hat man all diese Wortstämme und -stöcke, so kann man einen großen Teil des Paradigmas allein durch das Anhängen der entsprechenden Endung bilden. Die Endungen sind zunächst einmal anhand des Modus in zwei Gruppen unterteilt, die Endungen für Indikativ und Konjunktiv so wie die Imperativ-Endungen. Erstere sind wieder unterteilt in Aktivendungen (\textit{-m} - 1. Person Singular, \textit{-s} - 2. Person Singular, \textit{-t} - 3. Person Singular, \textit{-mus} - 1. Person Plural, \textit{-tis} - 2. Person Plural, \textit{-nt} - 3. Person Plural), Aktivendungen bei Vorzeitigkeit\footnote{auch Perfekt-Aktiv-Endungen} (\textit{-i}, \textit{-is-ti}, \textit{-it}, \textit{-imus}, \textit{-is-tis}, \textit{-er-unt-}) und Passivendungen (\textit{-r}, \textit{-ris}, \textit{-tur},\textit{-mur}, \textit{-mini}, \textit{-ntur}). Zweitere sind unterteilt in Aktivendungen (\textit{-e} oder keine Endung - 2. Person Singular Imperativ I, \textit{-to} - 2./3. Person Imperativ Singular II, \textit{-te} - 2. Person Plural Imperativ I, \textit{-to-te} - 2. Person Plural Imperativ, \textit{-nto} - 3. Person Plural Imperativ II) und Imperativendungen bei Deponentia (\textit{-re} - 2. Person Singular Imperativ I, \textit{-tor} - 2./3. Person Singular Imperativ II, \textit{-mini} - 2. Person Plural Imperativ I, \textit{-ntor} - 3. Person Plural Imperativ II).\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 72} Allerdings kommen dabei immer wieder Lautgesetze zu tragen, weswegen es immer wieder Besonderheiten bei der Formenbildung gibt. So werden, wenn der entsprechende Wortstamm auf einen gewissen Laut endet, so wird bei einigen Formen zwischen Stamm und Endung noch ein zusätzlicher Vokal eingefügt. \par
+\subsubsection{Verbformenbildung}
+Hat man all diese Wortstämme und -stöcke, so kann man einen großen Teil des Paradigmas allein durch das Anhängen der entsprechenden Endung bilden. Die Endungen sind zunächst einmal anhand des Modus in zwei Gruppen unterteilt, die Endungen für Indikativ und Konjunktiv so wie die Imperativ-Endungen. Erstere sind wieder unterteilt in Aktivendungen (\textit{-m} - 1. Person Singular, \textit{-s} - 2. Person Singular, \textit{-t} - 3. Person Singular, \textit{-mus} - 1. Person Plural, \textit{-tis} - 2. Person Plural, \textit{-nt} - 3. Person Plural), Aktivendungen bei Vorzeitigkeit\footnote{auch Perfekt-Aktiv-Endungen} (\textit{-i}, \textit{-is-ti}, \textit{-it}, \textit{-imus}, \textit{-is-tis}, \textit{-er-unt-}) und Passivendungen (\textit{-r}, \textit{-ris}, \textit{-tur},\textit{-mur}, \textit{-mini}, \textit{-ntur}). Zweitere sind unterteilt in Aktivendungen (\textit{-e} oder keine Endung - 2. Person Singular Imperativ I, \textit{-to} - 2./3. Person Imperativ Singular II, \textit{-te} - 2. Person Plural Imperativ I, \textit{-to-te} - 2. Person Plural Imperativ, \textit{-nto} - 3. Person Plural Imperativ II) und Imperativendungen bei Deponentia (\textit{-re} - 2. Person Singular Imperativ I, \textit{-tor} - 2./3. Person Singular Imperativ II, \textit{-mini} - 2. Person Plural Imperativ I, \textit{-ntor} - 3. Person Plural Imperativ II).\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 72} Allerdings kommen dabei immer wieder Lautgesetze zu tragen, weswegen es immer wieder Besonderheiten bei der Formenbildung gibt. Wenn der entsprechende Wortstamm auf einen gewissen Laut endet, wird bei einigen Formen zwischen Stamm und Endung noch ein zusätzlicher Vokal eingefügt. Deshalb werden in den folgenden Abschnitten die Details bei der Formenbildung genau ausgeführt.\par
+\FloatBarrier
 \subsubsection{Reguläre Formenbildung}
-Zunächst einmal soll die Paradigmenbildung der regulären Verben geschildert werden. Beginnt man bei den Präsens-Indikativ-Aktiv-Formen, so ist man schon bei der 1.-Person-Singular mit einer recht unregelmäßigen Form konfrontiert. Denn es ist neben der 1.-Person-Singular-Futur-I-Indikativ-Aktiv-Form die einzige die nicht die übliche 1.-Person-Singular-Endung \textit{-m} sondern die Endung \textit{-o} hat. Des weiteren wird, wenn der Stamm auf ein \textit{-a} endet, dieses entfernt, bevor die Endung angefügt wird. Bei den restlichen Formen wird lediglich unter Umständen ein zusätzlicher Vokal, abhängig vom Ende des Präsens-Stamm, eingefügt. Endet der Stamm auf \textit{-a} oder \textit{-e}, so wird kein zusätzlicher Vokal eingefügt, endet der Stamm auf einen Konsonanten, so wird bei der 3. Person Plural der Vokal \textit{-u-} und bei jeder anderen Form der Vokal \textit{-i} eingefügt, und bei jedem anderen Vokal wird nur bei der 3. Person Plural der Vokal \textit{-u} eingefügt, bei anderen Formen allerdings nichts. Im Konjunktiv dagegen wird einfach die zu Person und Numerus passende Endung einfach an den Präsens-Konjunktiv-Aktiv-Stamm angehängt um alle Formen zu bilden. Analoges erfolgt bei den beiden Modi des Imperfekt. Lediglich bei den Futur-I-Aktiv-Formen muss der 1. Person Singular und der 3. Person Plural besondere Beachtung geschenkt werden. Endet der Futur-I-Wortstamm auf \textit{-bi} so wird bei der 1. Person Singular das \textit{-i} durch ein \textit{-o} ersetzt und keine weitere Endung angefügt. Andernfalls wird der letzte Buchstabe des Stammes durch ein \textit{-a} ersetzt und anschließend die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Endung angefügt. Bei der 3. Person Plural wird, falls der Stamm auf \textit{-bi} endet, das \textit{-i} durch ein \textit{-u} ersetzt, bevor die Endung angehängt wird. Endet der Stamm nicht auf \textit{-bi} so wird nur die entsprechende Endung angehängt. Bei den Perfekt-Indikativ-Formen muss lediglich die passende Perfekt-Aktiv-Endung an den der Zeitstufe entsprechenden Wortstamm angehängt werden. Bei den Plusquamperfekt-Formen und Futur-II-Formen wird dagegen die Präsens-Aktiv-Endung an den der Zeitform entsprechenden Wortstamm angehängt. Wobei bei der 1. Person Singular wieder ein Sonderfall eintritt. Statt eine Endung anzuhängen wird der letzte Buchstabe des Wortstamms entfernt und durch ein \textit{-o} ersetzt. Damit sind schon einmal alle Aktiv-Formen des Paradigmas gebildet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 74f., S. 78f. u. S. 84f.} \par
-Als nächstes soll die Bildung der Passivformen beschrieben werden. Im Passiv müssen nur die Präsens-, Imperfekt- und Futur-I-Formen gebildet werden, denn alle vorzeitigen Verbformen werden wieder durch das Partizip-Perfekt-Passiv zusammen mit einer passenden Form des Hilfsverbs \textit{esse} gebildet. Wie bei den Aktiv-Formen folgt die Mehrzahl der Formen, einige allerdings weichen vom grundlegenden Schema ab. Dies beginnt bereits bei den Präsens-Indikativ-Formen. Schon bei der Form für die 1. Person Singular muss, wenn der Präsens-Indikativ-Stamm auf ein \textit{-a} endet, dieses abgetrennt werden, bevor die passende Endung angefügt werden kann. Bei der 2. Person Singular muss, wenn wenn der Imperativ-Stamm auf einen Konsonanten und der Präsens-Indikativ-Stamm auf ein \textit{-i} endet, dieses entfernt und durch ein \textit{-e} ersetzt werden. Endet der Präsens-Indikativ-Stamm jedoch nicht auf ein \textit{-i} wird nur ein \textit{-e} angehängt bevor die passende Endung angefügt wird. Trifft die Bedingung bei dem Imperativ-Stamm nicht zu, wird dir Endung einfach an den Präsens-Stamm angehängt. Die restlichen Formen des Präsens-Indikativ verhalten sich wie bei den Aktiv-Formen. Es werden lediglich die Passiv-Endungen statt der Aktiv-Endungen angehängt. Ebenso bei Präsens-Konjunktiv-, Imperfekt- und den meisten der Futur-I-Formen. Lediglich die 2. Person Singular verhält sich anders als im Aktiv. Denn in diesem Falle wird zwischen Stamm und Endung noch ein \textit{-e-} eingefügt. Da, wie bereits gesagt, im Passiv alle Perfekt-, Plusquamperfekt- und Futur-II-Formen durch Partizipien umschrieben werden, sind damit auch alle Passiv-Formen beschrieben.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 76f u. S. 80f.} \par
+\begin{lstlisting}[float=h!tp,caption={Kopf der Funktion um reguläre Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb},basicstyle=\small]
+oper
+  mkVerb : 
+    (regere,reg,regi,rega,regeba,regere,rege,regi,rex,rex,rexeri,rexera,rexisse,rexeri,rect : Str) 
+    -> Verb = 
+    \inf_act_pres,pres_stem,pres_ind_base,pres_conj_base,impf_ind_base,impf_conj_base,fut_I_base,imp_base,
+    perf_stem,perf_ind_base,perf_conj_base,pqperf_ind_base,pqperf_conj_base,fut_II_base,part_stem -> 
+    let
+      fill : Str * Str * Str = case pres_stem of {
+	_ + ( "a" | "e" ) => < "" , "" , "" > ;
+	_ + #consonant => < "e" , "u" , "i" > ;
+	_ => < "e" , "u" , "" >
+	} ;
+    in 
+    {
+...
+    }
+\end{lstlisting}
+Zunächst einmal soll die Paradigmenbildung der regulären Verben geschildert werden. Die entsprechende, sehr umfangreiche Funktion \texttt{mkVerb} ist in der Datei \textbf{ResLat.gf} komplett zu finden. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um aktive Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Act},basicstyle=\small]
+act = 
+  table {
+    VAct VSim (VPres VInd)  Sg P1 => -- Present Indicative
+    ( case pres_ind_base of {
+      _ + "a" =>  ( init pres_ind_base ) ;
+      _ => pres_ind_base
+    }
+    ) + "o" ; --actPresEnding Sg P1 ;
+    VAct VSim (VPres VInd)  Pl P3 => -- Present Indicative
+      pres_ind_base + fill.p2 + actPresEnding Pl P3 ;
+    VAct VSim (VPres VInd)  n  p  =>  -- Present Indicative
+      pres_ind_base + fill.p3 + actPresEnding n p ;
+    VAct VSim (VPres VConj) n  p  => -- Present Conjunctive
+      pres_conj_base + actPresEnding n p ; 
+    VAct VSim (VImpf VInd)  n  p  => -- Imperfect Indicative
+      impf_ind_base + actPresEnding n p ; 
+    VAct VSim (VImpf VConj) n  p  => -- Imperfect Conjunctive
+      impf_conj_base + actPresEnding n p ; 
+    VAct VSim VFut          Sg P1 => -- Future I
+      case fut_I_base of {
+        _ + "bi" => ( init fut_I_base ) + "o" ;
+        _  => ( init fut_I_base ) + "a" + actPresEnding Sg P1 
+      } ;
+    VAct VSim VFut          Pl P3 => -- Future I
+      ( case fut_I_base of {
+        _ + "bi" => ( init fut_I_base ) + "u";
+        _ => fut_I_base
+      } 
+      ) + actPresEnding Pl P3 ;
+    VAct VSim VFut          n  p  => -- Future I
+      fut_I_base + actPresEnding n p ; 
+    VAct VAnt (VPres VInd)  n  p  => -- Prefect Indicative
+      perf_ind_base + actPerfEnding n p ; 
+    VAct VAnt (VPres VConj) n  p  => -- Prefect Conjunctive
+      perf_conj_base + actPresEnding n p ; 
+    VAct VAnt (VImpf VInd)  n  p  => -- Plusperfect Indicative
+      pqperf_ind_base + actPresEnding n p ; 
+    VAct VAnt (VImpf VConj) n  p  => -- Plusperfect Conjunctive
+      pqperf_conj_base + actPresEnding n p ; 
+    VAct VAnt VFut          Sg P1 => -- Future II 
+      ( init fut_II_base ) + "o" ; 
+    VAct VAnt VFut          n  p  => -- Future II 
+      fut_II_base + actPresEnding n p 
+  } ;
+\end{lstlisting}
+Beginnt man bei den Präsens-Indikativ-Aktiv-Formen, so ist man schon bei der 1.-Person-Singular mit einer recht unregelmäßigen Form konfrontiert. Denn es ist neben der 1.-Person-Singular-Futur-I-Indikativ-Aktiv-Form die einzige, die nicht die übliche 1.-Person-Singular-Endung \textit{-m} sondern die Endung \textit{-o} hat. Des weiteren wird, wenn der Stamm auf ein \textit{-a} endet, dieses entfernt, bevor die Endung angefügt wird. Bei den restlichen Formen wird lediglich unter Umständen ein zusätzlicher Vokal, abhängig vom Ende des Präsens-Stammes, eingefügt. Endet der Stamm auf \textit{-a} oder \textit{-e}, so wird kein zusätzlicher Vokal eingefügt, endet der Stamm auf einen Konsonanten, so wird bei der 3. Person Plural der Vokal \textit{-u-} und bei jeder anderen Form der Vokal \textit{-i} eingefügt, und bei jedem anderen Vokal wird nur bei der 3. Person Plural der Vokal \textit{-u} eingefügt, bei anderen Formen allerdings nichts. Im Konjunktiv dagegen wird einfach die zu Person und Numerus passende Endung an den Präsens-Konjunktiv-Aktiv-Stamm angehängt, um alle Formen zu bilden. Analoges erfolgt bei den beiden Modi des Imperfekt. Lediglich bei den Futur-I-Aktiv-Formen muss der 1. Person Singular und der 3. Person Plural besondere Beachtung geschenkt werden. Endet der Futur-I-Wortstamm auf \textit{-bi} so wird bei der 1. Person Singular das \textit{-i} durch ein \textit{-o} ersetzt und keine weitere Endung angefügt. Andernfalls wird der letzte Buchstabe des Stammes durch ein \textit{-a} ersetzt und die 1.-Person-Singular-Präsens-Indikativ-Aktiv-Endung angefügt. Bei der 3. Person Plural wird, falls der Stamm auf \textit{-bi} endet, das \textit{-i} durch ein \textit{-u} ersetzt, bevor die Endung angehängt wird. Endet der Stamm nicht auf \textit{-bi} so wird nur die entsprechende Endung angehängt. Bei den Perfekt-Indikativ-Formen muss lediglich die passende Perfekt-Aktiv-Endung an den der Zeitstufe entsprechenden Wortstamm angehängt werden. Bei den Plusquamperfekt-Formen und Futur-II-Formen wird dagegen die Präsens-Aktiv-Endung an den der Zeitform entsprechenden Wortstamm angehängt. Wobei bei der 1. Person Singular wieder ein Sonderfall eintritt. Statt eine Endung anzuhängen wird der letzte Buchstabe des Wortstamms entfernt und durch ein \textit{-o} ersetzt. Damit sind schon einmal alle Aktiv-Formen des Paradigmas gebildet.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 74f., S. 78f. u. S. 84f.} \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um passive Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Act},basicstyle=\small]
+pass = 
+  table {
+    VPass (VPres VInd)  Sg P1 => -- Present Indicative
+      ( case pres_ind_base of
+        {
+          _ + "a" => (init pres_ind_base ) ;
+          _ => pres_ind_base
+        }
+      )  + "o" + passPresEnding Sg P1 ;
+    VPass (VPres VInd)  Sg P2 => -- Present Indicative
+      ( case imp_base of {
+        _ + #consonant => 
+          ( case pres_ind_base of {
+            _ + "i" => ( init pres_ind_base ) ;
+            _ => pres_ind_base 
+          }
+        ) + "e" ;
+        _ => pres_ind_base 
+        }
+      ) + passPresEnding Sg P2 ;
+    VPass (VPres VInd)  Pl P3 => -- Present Indicative
+      pres_ind_base + fill.p2 + passPresEnding Pl P3 ;
+    VPass (VPres VInd)  n  p  => -- Present Indicative
+      pres_ind_base + fill.p3 + passPresEnding n p ;
+    VPass (VPres VConj) n  p  => -- Present Conjunctive
+      pres_conj_base + passPresEnding n p ;
+    VPass (VImpf VInd)  n  p  => -- Imperfect Indicative
+      impf_ind_base + passPresEnding n p ;
+    VPass (VImpf VConj) n  p  => -- Imperfect Conjunctive
+      impf_conj_base + passPresEnding n p ;
+    VPass VFut          Sg P1 => -- Future I
+      ( case fut_I_base of {
+          _ + "bi" => ( init fut_I_base ) + "o" ;
+          _ => ( init fut_I_base ) + "a"
+        }
+      ) + passPresEnding Sg P1 ;
+    VPass VFut          Sg P2 => -- Future I
+      ( init fut_I_base ) + "e" + passPresEnding Sg P2 ;
+    VPass VFut          Pl P3 => -- Future I
+      ( case fut_I_base of {
+          _ + "bi" => ( init fut_I_base ) + "u" ;
+          _ => fut_I_base
+        }
+      ) + passPresEnding Pl P3 ;
+    VPass VFut          n  p  => -- Future I
+      fut_I_base + passPresEnding n p
+  } ;
+\end{lstlisting}
+Als nächstes soll die Bildung der Passivformen beschrieben werden. Im Passiv müssen nur die Präsens-, Imperfekt- und Futur-I-Formen gebildet werden, denn alle vorzeitigen Verbformen werden wieder durch das Partizip-Perfekt-Passiv zusammen mit einer passenden Form des Hilfsverbs \textit{esse} gebildet. Wie bei den Aktiv-Formen folgt die Mehrzahl der Formen, einige allerdings weichen vom grundlegenden Schema ab. Dies beginnt bereits bei den Präsens-Indikativ-Formen. Schon bei der Form für die 1. Person Singular muss, wenn der Präsens-Indikativ-Stamm auf ein \textit{-a} endet, dieses abgetrennt werden, bevor die passende Endung angefügt werden kann. Bei der 2. Person Singular muss, wenn wenn der Imperativ-Stamm auf einen Konsonanten und der Präsens-Indikativ-Stamm auf ein \textit{-i} endet, dieses entfernt und durch ein \textit{-e} ersetzt werden. Endet der Präsens-Indikativ-Stamm jedoch nicht auf ein \textit{-i} wird nur ein \textit{-e} angehängt bevor die passende Endung angefügt wird. Trifft die Bedingung bei dem Imperativ-Stamm nicht zu, wird dir Endung einfach an den Präsens-Stamm angehängt. Die restlichen Formen des Präsens-Indikativ verhalten sich wie die entsprechenden Aktiv-Formen. Es werden lediglich die Passiv-Endungen statt der Aktiv-Endungen angehängt. Ebenso bei Präsens-Konjunktiv-, Imperfekt- und den meisten der Futur-I-Formen. Lediglich die 2. Person Singular verhält sich anders als im Aktiv. Denn in diesem Falle wird zwischen Stamm und Endung noch ein \textit{-e-} eingefügt. Da, wie bereits gesagt, im Passiv alle Perfekt-, Plusquamperfekt- und Futur-II-Formen durch Partizipien umschrieben werden, sind damit auch alle Passiv-Formen beschrieben.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 76f u. S. 80f.} \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Infinitiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Inf},basicstyle=\small]
+inf = 
+  table {
+    VInfActPres      => -- Infinitive Active Present
+      inf_act_pres ;
+    VInfActPerf _    => -- Infinitive Active Perfect
+      perf_stem + "isse" ;
+    VInfActFut Masc  => -- Infinitive Active Future
+      part_stem + "urum" ;
+    VInfActFut Fem   => -- Infinitive Active Future
+      part_stem + "uram" ; 
+    VInfActFut Neutr => -- Infinitive Active Future
+      part_stem + "urum" ;
+    VInfPassPres       => -- Infinitive Present Passive
+      ( init inf_act_pres ) + "i" ;
+    VInfPassPerf Masc  => -- Infinitive Perfect Passive
+      part_stem + "um" ;
+    VInfPassPerf Fem   => -- Infinitive Perfect Passive
+      part_stem + "am" ;
+    VInfPassPerf Neutr => -- Infinitive Perfect Passive
+      part_stem + "um" ;
+    VInfPassFut        => -- Infinitive Future Passive
+      part_stem + "um"
+  } ;
+\end{lstlisting}
 Damit sind die häufigsten Formen des Verbparadigmas bereits bekannt. Als nächstes folgen die Infinitiv-Formen. Infinitive gibt es in Latein für Präsens, Perfekt und Futur jeweils als Aktiv- und Passiv-Form. Die Infinitiv-Präsens-Aktiv-Form ist schon von Grund auf bekannt, da es die Verbform ist, die in jedem Verbeintrag im Lexikon vorkommen muss. Die Infinitiv-Perfekt-Aktiv-Form dagegen muss aus dem Perfekt-Stamm mit der Endung \textit{-isse} gebildet werden. Im Infinitiv-Futur-Aktiv dagegen basiert die Form auf dem Partizip-Futur-Aktiv und ist deshalb geschlechtsabhängig. An den Partizip-Stamm wird für Maskulina und Neutra \textit{-urum} und für Feminina \textit{-uram} angehängt. Des weiteren basiert dieser Infinitiv auf der Infinitiv-Präsens-Aktiv-Form des Hilfsverbs \textit{esse}, welche aber las Zeichenkette im Paradigma, hier und auch zukünftig, nicht explizit enthalten sein wird. Im Passiv ist der Infinitiv-Präsens wie der Infinitiv-Aktiv-Präsens, jedoch mit der Endung \textit{-ri} statt der Endung \textit{-re}. Der Infinitiv-Perfekt-Passiv bildet wie der Infinitiv-Futur-Aktiv genusabhängige Formen zusammen mit dem Hilfsverb \textit{esse}. Die Formen sind der Partizipialstamm mit den Endungen \textit{-um}, \textit{-am} und \textit{-um}. Und der Infinitiv-Futur-Passiv wird aus dem Partizipialstamm mit der Endung \textit{-um} und dem Verbform \textit{iri}\footnote{Infinitiv-Präsens-Passiv des Verbs \textit{ire}} gebildet.\par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Infinitiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Imp},basicstyle=\small]
+imp = 
+  let 
+    imp_fill : Str * Str =
+      case imp_base of {
+        _ + #consonant => < "e" , "i" > ;
+        _ => < "" , "" >
+      };
+  in
+  table {
+    VImp1 Sg           => -- Imperative I
+      imp_base + imp_fill.p1 ;
+    VImp1 Pl           => -- Imperative I
+      imp_base + imp_fill.p2 + "te" ;
+    VImp2 Sg ( P2 | P3 ) => -- Imperative II
+      imp_base + imp_fill.p2 + "to" ;
+    VImp2 Pl P2          => -- Imperative II
+      imp_base + fill.p3 + "tote" ;
+    VImp2 Pl P3          => -- Imperative II 
+      pres_stem + fill.p2 + "nto" ;
+    _ => "######" -- No imperative form
+  } ;
+\end{lstlisting}
 Es folgen die Imperativ-Formen, von denen es üblicherweise sechs Stück gibt. Zum einen den Imperativ I, der direkte Aufforderungen ausdrückt, in einer Singular- und einer Plural-Form. Und den Imperativ II, der eher in die fernere Zukunft gerichtet ist oder allgemeiner verwendet wird. Von ihm gibt es zwei Singular- und zwei Plural-Formen, jeweils für die 2. und 3. Person. Dabei fallen allerdings die beiden Singular-Formen zusammen, bilden also die gleiche Zeichenkette. Der Imperativ-I-Singular besteht aus dem Imperativ-Stamm an den keine Endung angehängt wird, außer er endet auf einen Konsonanten. Dann wird der Vokal \textit{-e} angehängt. Im Plural wird an den Stamm die Endung \textit{-to} angehängt und, wenn der Stamm auf einen Konsonanten endet ein Vokal \textit{-i-} eingeschoben. Die beiden Imperativ-II-Singular-Formen werden genau so wie der Imperativ-I-Plural gebildet, jedoch mit der Endung \textit{-to} statt der Endung \textit{-te}. In Plural dagegen wird bei der 2. Person die Endung \textit{-tote} angehängt. Davor wird allerdings, wenn der Stamm auf einen Konsonant endet, ein \textit{-i-} eingefügt. Und bei der 3. Person wird, wenn der Stamm nicht auf ein \textit{-a} oder \textit{-u} endet, ein \textit{-u-} eingefügt, bevor die Endung \textit{-nto} angefügt wird.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 82} \par
-Die Gerundivformen zählen zwar zu den substantivischen Nominalformen des Verbs, bilden allerdings nur vier Kasusformen, Genitiv, Dativ, Akkusativ und Ablativ. Diese Formen entsprechen im Grunde den Formen eines Nomens der zweiten Deklination. Gebildet werden sie, indem an den Präsens-Stamm die Endungen \textit{-ndi} (Genitiv), \textit{-ndo} (Dativ und Ablativ) und \textit{-ndum} (Akkusativ) angehängt werden. Und wieder wird, wenn der Stamm nicht auf ein \textit{-a} oder \textit{-e} endet, ein \textit{-e-} eingeschoben.\par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Gerundiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Ger},basicstyle=\small]
+ger = 
+  table {
+    VGenAcc => -- Gerund
+      pres_stem + fill.p1 + "ndum" ;
+    VGenGen => -- Gerund
+      pres_stem + fill.p1 + "ndi" ;
+    VGenDat => -- Gerund
+      pres_stem + fill.p1 + "ndo" ;
+    VGenAbl => -- Gerund
+      pres_stem + fill.p1 + "ndo" 
+  } ;
+\end{lstlisting}
+Die Gerund-Formen zählen zwar zu den substantivischen Nominalformen des Verbs, bilden allerdings nur vier Kasusformen, Genitiv, Dativ, Akkusativ und Ablativ. Diese Formen entsprechen im Grunde den Formen eines Nomens der zweiten Deklination. Gebildet werden sie, indem an den Präsens-Stamm die Endungen \textit{-ndi} (Genitiv), \textit{-ndo} (Dativ und Ablativ) und \textit{-ndum} (Akkusativ) angehängt werden. Und wieder wird, wenn der Stamm nicht auf ein \textit{-a} oder \textit{-e} endet, ein \textit{-e-} eingeschoben.\par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Gerundiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Geriv},basicstyle=\small]
+      geriv = 
+	( mkAdjective
+	    ( mkNoun ( pres_stem + fill.p1 + "ndus" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
+		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "nde" ) 
+		( pres_stem + fill.p1 + "ndi" ) ( pres_stem + fill.p1 + "ndos" ) ( pres_stem + fill.p1 + "ndorum" ) 
+		( pres_stem + fill.p1 + "ndis" ) 
+		Masc )
+	    ( mkNoun ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndam" ) ( pres_stem + fill.p1 + "ndae" ) 
+		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) 
+		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "ndas" ) (pres_stem + fill.p1 +"ndarum" ) 
+		( pres_stem + fill.p1 + "ndis" ) 
+		Fem )
+	    ( mkNoun ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
+		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndum" ) 
+		( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndorum" ) 
+		( pres_stem + fill.p1 + "ndis" ) 
+		Neutr )
+	    < \\_ => "" , "" >
+	    < \\_ => "" , "" >
+	).s!Posit ;
+\end{lstlisting}
 Das Gerundiv hingegen wird adjektivisch verwendet und verhält sich so wie ein drei-endiges Adjektiv der ersten und zweiten Deklination. Die Nominativformen sind analog zum Gerund und bestehen aus dem Präsens-Stamm, unter Umständen gefolgt von einem \textit{-e-} und den Endungen \textit{-ndus}, \textit{-nda} und \textit{-ndum}. Die restlichen Formen werden, wie von den Adjektiven gewohnt, gebildet.\par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Infinitiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Part},basicstyle=\small]
+part= table {
+  VActPres => table {
+    Ag ( Fem | Masc ) n c => 
+      ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ntem" ) 
+        ( pres_stem + fill.p1 + "ntis" ) ( pres_stem + fill.p1 + "nti" ) 
+        ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
+        ( pres_stem + fill.p1 + "ntes" ) ( pres_stem + fill.p1 + "ntes" ) 
+        ( pres_stem + fill.p1 + "ntium" ) ( pres_stem + fill.p1 + "ntibus" ) 
+        Masc ).s ! n ! c ;
+    Ag Neutr n c =>
+      ( mkNoun ( pres_stem + fill.p1 + "ns" ) ( pres_stem + fill.p1 + "ns" ) 
+        ( pres_stem + fill.p1 + "ntis" ) ( pres_stem + fill.p1 + "nti" ) 
+        ( pres_stem + fill.p1 + "nte" ) ( pres_stem + fill.p1 + "ns" ) 
+        ( pres_stem + fill.p1 + "ntia" ) ( pres_stem + fill.p1 + "ntia" ) 
+        ( pres_stem + fill.p1 + "ntium" ) ( pres_stem + fill.p1 + "ntibus" ) 
+        Masc ).s ! n ! c
+    } ;
+  VActFut => 
+    ( mkAdjective
+      ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+        ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) 
+        ( part_stem + "uri" ) ( part_stem + "uros" ) ( part_stem + "urorum" ) 
+        ( part_stem + "uris" ) Masc )
+      ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" )
+        ( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )
+        ( part_stem + "urae" ) ( part_stem + "uras" ) ( part_stem +"urarum" ) 
+        ( part_stem + "uris" ) Fem )
+      ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+        ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) 
+        ( part_stem + "ura" ) ( part_stem + "ura" ) ( part_stem + "urorum" ) 
+        ( part_stem + "uris" ) Neutr )
+      < \\_ => "" , "" > < \\_ => "" , "" > ).s!Posit ;
+  VPassPerf => 
+    ( mkAdjective
+      ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+        ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "e" ) 
+        ( part_stem + "i" ) ( part_stem + "os" ) ( part_stem + "orum" ) 
+        ( part_stem + "is" ) Masc )
+      ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) 
+        ( part_stem + "ae" ) ( part_stem + "a" ) ( part_stem + "a" ) 
+        ( part_stem + "ae" ) ( part_stem + "as" ) ( part_stem + "arum" ) 
+        ( part_stem + "is" ) Fem )
+      ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+        ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "um" ) 
+        ( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "orum" ) 
+        ( part_stem + "is" ) Neutr ) 
+      < \\_ => "" , "" > < \\_ => "" , "" > ).s!Posit
+  }
+\end{lstlisting}
 Ebenfalls wie Adjektive gebildet und verwendet werden die Partizipien. Es gibt drei Partizipien im Lateinischen. Das Partizip-Präsens-Aktiv, das Partizip-Futur-Aktiv und das Partizip-Perfekt-Passiv. Das Partizip-Präsens-Aktiv wird wie ein ein-endiges Adjektiv gebildet. Die Nominativ-Form besteht, wie bei Gerund und Gerundiv, aus dem Präsens-Stamm, gefolgt von einem \textit{-e-} wenn der Stamm nicht auf ein \textit{-e} oder \textit{-a} endet, und der Endung \textit{-ns}. Der Genitiv wird analog mit der Endung \textit{-ntis} gebildet. Das Partizip-Futur-Aktiv so wie das Partizip-Perfekt-Passiv werden wieder wie drei-endige Adjektive gebildet. Die Nominativ-Formen werden mit Hilfe des Partizip-Stammes gebildet. Beim Partizip-Futur-Aktiv lauten die drei Nominativ-Endungen \textit{-urus}, \textit{-urum} und \textit{-urum}, beim Partizip-Perfekt-Passiv \textit{-us}, \textit{-a} und \textit{-um}.
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkVerb} um Supin-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkVerb-Sup},basicstyle=\small]
+sup = 
+  table {
+    VSupAcc => -- Supin
+      part_stem + "um" ;
+    VSupAbl => -- Supin
+      part_stem + "u" 
+  } ;
+\end{lstlisting}
 Die beiden letzten Verbformen sind die Supin-Formen. Diese Formen werden gebildet wie die Maskulin-Akkusativ- und Maskulin-Ablativ-Singular-Form des Partizip-Perfekt-Passivs.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 82} \par
 Auf die Verwendung einiger dieser Formen wird später im Syntaxteil noch genauer eingegangen. Die meisten der soeben beschriebenen Formen ist die Verwendung außerhalb des Bereichs, der in dieser Arbeit abgedeckt ist. An dieser Stelle kann man auch einen kurzen Gedanken daran verschwenden, ob es sinnvoll ist all diese Verbformen an einer einzelnen Stelle zu bilden. Denn lediglich die Aktiv- und Passiv-Formen werden in der Syntax verwendet, wie man es für Verben gewohnt ist. Deshalb kann man möglicherweise nur die Bildung dieser Formen als Flexionsmorphologie\footnote{FlexMorph} ansehen, die an dieser Stelle dargestellt werden sollte. Alle anderen Formen, die hier gebildet werden, kann man dagegen als Derivationsmorphologie\footnote{DerivMorph} auffassen, die als eigenständige Funktion andernorts umgesetzt werden sollte um bei Bedarf aus gegebenen Verben andere Wortarten formen zu können. Jedoch findet man die Verbflexion in der hier besprochenen Form in gängigen Schulgrammatiken vor. Deshalb wurde diese Form auch für diese Arbeit gewählt. %\par
-% Beschreibung Partizipien, Supin, Etc.
+\FloatBarrier
 \subsubsection{Deponentia}
+\begin{lstlisting}[float=h!tp,caption={Kopf der Funktion um Deponentia-Formen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent},basicstyle=\small]
+oper
+  mkDeponent : ( sequi,sequ,sequi,sequa,sequeba,sequere,seque,sequi,secut : Str ) -> Verb =
+    \inf_pres,pres_stem,pres_ind_base,pres_conj_base,impf_ind_base,impf_conj_base,fut_I_base,imp_base,part_stem -> 
+  let fill : Str * Str =
+  case pres_ind_base of {
+    _ + ( "a" | "e" ) => < "" , "" >;
+    _ => < "u" , "e" > 
+  }
+  in
+  {
+...
+  }
+\end{lstlisting}
 Die zweitgrößte Gruppe der lateinischen Verben nach den regulären Verben sind die so genannten Deponentia. Deren Name kommt vom Verb \textit{deponere} (ablegen), da man sagen kann, dass diese Verben ihre aktiven Formen bzw. ihre passive Bedeutung abgelegt haben.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 83} \par
 Aus diesem Grunde ist das Paradigma, im Vergleich zu den regulären Verben, nicht vollständig. Es müssen also auch weniger Formen gebildet werden. Deshalb werden für die Bildung des ganzen Paradigmas auch weniger Wortstämme benötigt. Wie diese gebildet werden, ist bereits in einem vorangegangenen Kapitel, beschrieben worden. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Aktiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Act},basicstyle=\small]
+act = 
+  table {
+    VAct VSim (VPres VInd)  Sg P1 => -- Present Indicative
+      ( case pres_ind_base of {
+          _ + "a" =>  ( init pres_ind_base ) ;
+          _ => pres_ind_base }
+      ) + "o" + passPresEnding Sg P1 ;
+    VAct VSim (VPres VInd)  Sg P2 => -- Present Indicative
+      ( case inf_pres of {
+          _ + "ri" => pres_ind_base  ;
+          _ => ( case pres_ind_base of {
+                  _ + "i" => init pres_ind_base ;
+                  _ => pres_ind_base }
+               ) + "e" }
+      ) + passPresEnding Sg P2 ;
+    VAct VSim (VPres VInd)  Pl P3 => -- Present Indicative
+      pres_ind_base + fill.p1 + passPresEnding Pl P3 ;
+    VAct VSim (VPres VInd)  n  p  => -- Present Indicative
+      pres_ind_base +
+      ( case pres_ind_base of { _ + #consonant => "i" ; _ => "" }
+      ) + passPresEnding n p ;
+    VAct VSim (VPres VConj) n  p  => -- Present Conjunctive
+      pres_conj_base + passPresEnding n p ; 
+    VAct VSim (VImpf VInd)  n  p  => -- Imperfect Indicative
+      impf_ind_base + passPresEnding n p ;
+    VAct VSim (VImpf VConj) n  p  => -- Imperfect Conjunctive
+      impf_conj_base + passPresEnding n p ;
+    VAct VSim VFut          Sg P1 => -- Future I
+      (init fut_I_base ) + 
+      ( case fut_I_base of { _ + "bi" => "o" ; _ => "a" }
+      ) + passPresEnding Sg P1 ;
+    VAct VSim VFut          Sg P2 => -- Future I
+      ( case fut_I_base of { 
+          _ + "bi" => ( init fut_I_base ) + "e" ;
+          _ => fut_I_base }
+      ) + passPresEnding Sg P2 ;
+    VAct VSim VFut          Pl P3 => -- Future I
+      (init fut_I_base ) + 
+      ( case fut_I_base of { _ + "bi" => "u" ; _ => "e" } ) + passPresEnding Pl P3 ;
+    VAct VSim VFut          n  p  => -- Future I
+      fut_I_base + passPresEnding n p ;
+    VAct VAnt (VPres VInd)  n  p | -- Prefect Indicative
+    VAct VAnt (VPres VConj) n  p | -- Prefect Conjunctive
+    VAct VAnt (VImpf VInd)  n  p | -- Plusperfect Indicative
+    VAct VAnt (VImpf VConj) n  p | -- Plusperfect Conjunctive
+    VAct VAnt VFut          n  p  => -- Future II 
+      "######" -- Use participle
+  } ; 
+\end{lstlisting}
 Den Anfang bilden wieder die Aktiv-Formen. Die Präsens-Formen sind wieder geprägt von leichten Unterschieden zum Grundschema. So hängt die 1. Person Singular wieder von der Endung des Präsens-Stammes ab. Endet dieser auf \textit{-a} so wird dieses entfernt bevor die Endung \textit{-o} angefügt wird. Die Bildung der 2. Person ist dagegen von der Infinitiv-Form abhängig. Endet diese auf \textit{-ri} bleibt der Präsens-Stamm unverändert. Andernfalls wird, wenn der Präsens-Stamm auf eine \textit{-i} endet, dieses durch ein \textit{-e} ersetzt, oder falls nicht, das \textit{-e} einfach an den Präsens-Stamm angehängt. Schlussendlich folgt die 2.-Person-Singular-Passiv-Endung. Bei der 3. Person Singular wird die passende Endung entweder direkt an den Präsens-Stamm gehängt, außer dieser endet nicht auf ein \textit{-a} oder \textit{-e}, dann wird zwischen Stamm und Endung ein \textit{-u-} eingefügt. Bei allen weiteren Präsens-Formen wird die Endung entweder direkt an den Stamm gefügt, oder es wird, wenn der Stamm auf einen Konsonanten endet, der Vokal \textit{-i-} zwischen Stamm und Endung eingeschoben. Der Präsens-Konjunktiv und Imperfekt-Indikativ so wie Imperfekt-Konjunktiv haben wieder keine vom Grundschema, Stamm plus Endung, abweichenden Formen. Erst bei den Futur-I-Formen sind wieder Abweichungen zu finden. Bei der 1. Person Singular wird zunächst vom Futur-I-Stamm der letzte Buchstabe entfernt. War er teil des Suffixes \textit{-bi}, so wird er durch ein \textit{-o-} ersetzt, sonst durch ein \textit{-a-}. Zum Schluss wird die 1.-Person-Singular-Passiv-Endung angefügt. Bei der 2. Person Singular wird, wenn der Stamm auf das Suffix \textit{-bi} endet, wieder das \textit{-i} durch ein \textit{-e-} ersetzt, bevor die entsprechende Endung eingesetzt wird. Und schließlich wird bei der 3. Person Plural der letzte Buchstabe des Stammes entweder durch ein \textit{-u-} ersetzt, wenn der Stamm auf das Suffix \textit{-bi} endet, bevor die Endung angefügt wird. Andernfalls wird er durch ein \textit{-e-} ersetzt. \par
 Da alle weiteren Aktiv-Formen mit Hilfe des Partizips umschrieben werden, sind alle möglichen Aktiv-Formen beschrieben. Passiv-Formen kommen bei Deponentia naturgemäß nicht vor. Deshalb können diese Formen durch die Fehlerzeichenkette \textit{\#\#\#\#\#\#} ersetzt werden, um zu markieren, dass sie im Paradigma nicht vorhanden sind. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Infinitiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Inf},basicstyle=\small]
+inf = 
+  table {
+    VInfActPres        => -- Infinitive Present Active
+      inf_pres ;
+    VInfActPerf Masc   => -- Infinitive Perfect Active
+      part_stem + "um" ;
+    VInfActPerf Fem    => -- Infinitive Perfect Active
+      part_stem + "am" ;
+    VInfActPerf Neutr  => -- Infinitive Perfect Active
+      part_stem + "um" ;
+    VInfActFut Masc    => -- Infinitive Future Active
+      part_stem + "urum" ;
+    VInfActFut Fem     => -- Infinitive Perfect Active
+      part_stem + "uram" ; 
+    VInfActFut Neutr   => -- Infinitive Perfect Active
+      part_stem + "urum" ;
+    VInfPassPres       => -- Infinitive Present Passive
+      "######" ; -- no passive form
+    VInfPassPerf _     => -- Infinitive Perfect Passive
+      "######" ; -- no passive form
+    VInfPassFut        => -- Infinitive Future Passive
+      "######"  -- no passive form
+  } ;
+\end{lstlisting}
 Die nächsten im Paradigma teilweise vorhandenen Formen sind die Infinitiv-Formen. Der Infinitiv-Präsens-Aktiv ist identisch zum gegebenen Infinitiv-Stamm. Die Infinitive für Perfekt-Aktiv und Futur-Aktiv müssen, wie auch bei den regulären Verben, wieder im Geschlecht mit dem Bezugswort übereinstimmen und bilden deshalb drei Formen. Diese basieren auf dem Partizip-Stamm an den jeweils die drei geschlechtsspezifischen Endungen angefügt werden. Bei dem Infinitiv-Perfekt-Aktiv sind das \textit{-um}, \textit{-am} und \textit{-um}, bei dem Infinitiv-Futur-Aktiv sind es \textit{-urum}, \textit{-uram} und \textit{-urum}. Die passiven Infinitiv-Formen entfallen wieder und werden durch die Fehlerzeichenkette ersetzt. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Imperativ-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Imp},basicstyle=\small]
+imp = 
+  table {
+    VImp1 Sg             => -- Imperative I
+      ( case inf_pres of {
+          _ + "ri" => imp_base ;
+          _ => (init imp_base ) + "e" 
+        }
+      ) + "re" ;
+    VImp1 Pl             => -- Imperative I
+      imp_base + "mini" ;
+    VImp2 Sg ( P2 | P3 ) => -- Imperative II
+      imp_base + "tor" ;
+    VImp2 Pl P2          => -- Imperative II
+      "######" ; -- really no such form?
+    VImp2 Pl P3          => -- Imperative II
+      pres_ind_base + fill.p1 + "ntor" ;
+    _ => "######" -- No imperative form
+  } ;
+\end{lstlisting}
 Als nächstes folgen die Imperativ-Formen, von denen es den Imperativ-I im Singular und Plural sowie den Imperativ II in der 2. und 3. Person Singular und der 3. Person Plural gibt. Die erste Form, der Imperativ-I-Singular entspricht, wenn der Infinitiv-Stamm auf \textit{-ri} endet, einfach aus dem Imperativ-Stamm, im anderen Falle aber aus dem Imperativ-Stamm bei dem der letzte Buchstabe durch ein \textit{-e} ersetzt ist. Der Imperativ-I-Plural besteht einfach aus dem Imperativ-Stamm mit der Endung \textit{-mini} und die 2. und 3. Person des Imperativ II im Singular aus dem Stamm mit der Endung \textit{-tor}. Die 3. Person des Imperativ II im Plural dagegen besteht aus dem Präsens-Indikativ-Stamm, dem Vokal \textit{-u-}, wenn eben dieser Stamm nicht auf \textit{-a} oder \textit{-e} endet, und der Endung \textit{-ntor}. \par
-Die Bildung des Gerunds ist relativ analog zur Bildung des Gerundivs bei regulären Verben. Die vier Formen des Gerund werden aus dem Präsensstamm, dem Vokal \textit{-e-}, wenn der Präsens-Indikativ-Stamm nicht auf ein \textit{-a} oder \textit{-e} endet, und den vier Endungen \textit{-ndum}, \textit{-ndi}, \textit{-ndo} und \textit{-ndo}. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Gerund-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Ger},basicstyle=\small]
+ger = 
+  table {
+    VGenAcc => -- Gerund
+      pres_stem + fill.p2 + "ndum" ;
+    VGenGen => -- Gerund
+      pres_stem + fill.p2 + "ndi" ;
+    VGenDat => -- Gerund
+      pres_stem + fill.p2 + "ndo" ;
+    VGenAbl => -- Gerund
+      pres_stem + fill.p2 + "ndo" 
+  } ;
+\end{lstlisting}
+Die Bildung des Gerunds ist relativ analog zur Bildung des Gerunds bei regulären Verben. Die vier Formen des Gerund werden aus dem Präsensstamm, dem Vokal \textit{-e-}, wenn der Präsens-Indikativ-Stamm nicht auf ein \textit{-a} oder \textit{-e} endet, und den vier Endungen \textit{-ndum}, \textit{-ndi}, \textit{-ndo} und \textit{-ndo}. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Gerundiv-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Geriv},basicstyle=\small]
+geriv =
+  ( mkAdjective
+    ( mkNoun ( pres_stem + fill.p2 + "ndus" ) ( pres_stem + fill.p2 + "ndum" ) 
+        ( pres_stem + fill.p2 + "ndi" ) ( pres_stem + fill.p2 + "ndo" ) ( pres_stem + fill.p2 + "ndo" ) 
+        ( pres_stem + fill.p2 + "nde" ) ( pres_stem + fill.p2 + "ndi" ) ( pres_stem + fill.p2 + "ndos" ) 
+        ( pres_stem + fill.p2 + "ndorum" ) ( pres_stem + fill.p2 + "ndis" ) 
+        Masc )
+      ( mkNoun ( pres_stem + fill.p2 + "nda" ) ( pres_stem + fill.p2 + "ndam" ) 
+        ( pres_stem + fill.p2 + "ndae" ) ( pres_stem + fill.p2 + "ndae" ) ( pres_stem + fill.p2 + "nda" ) 
+        ( pres_stem + fill.p2 + "nda" ) ( pres_stem + fill.p2 + "ndae" ) ( pres_stem + fill.p2 + "ndas" ) 
+        (pres_stem + fill.p2 +"ndarum" ) ( pres_stem + fill.p2 + "ndis" ) 
+        Fem )
+      ( mkNoun ( pres_stem + fill.p2 + "ndum" ) ( pres_stem + fill.p2 + "ndum" ) 
+        ( pres_stem + fill.p2 + "ndi" ) ( pres_stem + fill.p2 + "ndo" ) ( pres_stem + fill.p2 + "ndo" ) 
+        ( pres_stem + fill.p2 + "ndum" ) ( pres_stem + fill.p2 + "nda" ) ( pres_stem + fill.p2 + "nda" ) 
+        ( pres_stem + fill.p2 + "ndorum" ) ( pres_stem + fill.p2 + "ndis" ) 
+        Neutr )
+      < \\_ => "" , "" >
+      < \\_ => "" , "" >
+    ).s!Posit ;
+\end{lstlisting}
 Das Gerundiv bildet wieder alle Formen eines drei-endigen Adjektivs der ersten und zweiten Deklination. Die drei Nominativ-Grundformen sind dabei, wie eben schon beim Gerund der Präsens-Stamm, unter den bereits genannten Bedingungen der Vokal \textit{-e-} und den Endungen \textit{-ndus}, \textit{-nda} und \textit{-ndum}. \par
-Als nächstes folgen wieder die Partizipien. Obwohl bisher alle passiven Formen aus dem Paradigma gefallen sind, sind nun allerdings alle drei Partizipien vorhanden. Deshalb möchte ich an dieser Stelle nicht von aktiven und passiven Partizipien, sondern nur von Partizip Präsens, Partizip Perfekt und Partizip Futur sprechen. Diese werden allerdings genau so gebildet wie das Partizip-Präsens-Aktiv, das Partizip-Perfekt-Passiv und das Partizip-Futur-Aktiv bei den regulären Verben. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Partizip-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Part},basicstyle=\small]
+-- Bayer-Lindauer 44 1
+part = table {
+  VActPres =>
+    table {
+      Ag ( Fem | Masc ) n c =>
+        ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ntem" ) 
+          ( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) 
+          ( pres_stem + fill.p2 + "nte" ) ( pres_stem + fill.p2 + "ns" ) 
+          ( pres_stem + fill.p2 + "ntes" ) ( pres_stem + fill.p2 + "ntes" ) 
+          ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+          Masc ).s ! n ! c ;
+      Ag Neutr n c => 
+        ( mkNoun ( pres_stem + fill.p2 + "ns" ) ( pres_stem + fill.p2 + "ns" ) 
+          ( pres_stem + fill.p2 + "ntis" ) ( pres_stem + fill.p2 + "nti" ) 
+          ( pres_stem + fill.p2 + "nte" ) ( pres_stem + fill.p2 + "ns" ) 
+          ( pres_stem + fill.p2 + "ntia" ) ( pres_stem + fill.p2 + "ntia" ) 
+          ( pres_stem + fill.p2 + "ntium" ) ( pres_stem + fill.p2 + "ntibus" ) 
+          Masc ).s ! n ! c } ;
+  VActFut => 
+    ( mkAdjective
+      ( mkNoun ( part_stem + "urus" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+        ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "ure" ) 
+        ( part_stem + "uri" ) ( part_stem + "uros" ) ( part_stem + "urorum" ) 
+        ( part_stem + "uris" ) Masc )
+      ( mkNoun ( part_stem + "ura" ) ( part_stem + "uram" ) ( part_stem + "urae" ) 
+        ( part_stem + "urae" ) ( part_stem + "ura" ) ( part_stem + "ura" )
+        ( part_stem + "urae" ) ( part_stem + "uras" ) ( part_stem +"urarum" ) 
+        ( part_stem + "uris" ) Fem )
+      ( mkNoun ( part_stem + "urum" ) ( part_stem + "urum" ) ( part_stem + "uri" ) 
+      ( part_stem + "uro" ) ( part_stem + "uro" ) ( part_stem + "urum" ) 
+      ( part_stem + "ura" ) ( part_stem + "ura" ) ( part_stem + "urorum" ) 
+      ( part_stem + "uris" ) Neutr )
+      < \\_ => "" , "" > < \\_ => "" , "" > ).s!Posit ;
+  VPassPerf =>
+    ( mkAdjective
+      ( mkNoun ( part_stem + "us" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+        ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "e" ) 
+        ( part_stem + "i" ) ( part_stem + "os" ) ( part_stem + "orum" ) 
+        ( part_stem + "is" ) Masc )
+      ( mkNoun ( part_stem + "a" ) ( part_stem + "am" ) ( part_stem + "ae" ) 
+        ( part_stem + "ae" ) ( part_stem + "a" ) ( part_stem + "a" ) 
+        ( part_stem + "ae" ) ( part_stem + "as" ) ( part_stem + "arum" ) 
+        ( part_stem + "is" ) Fem )
+      ( mkNoun ( part_stem + "um" ) ( part_stem + "um" ) ( part_stem + "i" ) 
+        ( part_stem + "o" ) ( part_stem + "o" ) ( part_stem + "um" ) 
+        ( part_stem + "a" ) ( part_stem + "a" ) ( part_stem + "orum" ) 
+        ( part_stem + "is" ) Neutr ) 
+      < \\_ => "" , "" > < \\_ => "" , "" > ).s!Posit
+  }
+\end{lstlisting}
+Als nächstes folgen die Partizipien. Obwohl bisher alle passiven Formen aus dem Paradigma gefallen sind, sind nun allerdings alle drei Partizipien vorhanden. Deshalb möchte ich an dieser Stelle nicht von aktiven und passiven Partizipien, sondern nur von Partizip Präsens, Partizip Perfekt und Partizip Futur sprechen. Diese werden allerdings genau so gebildet wie das Partizip-Präsens-Aktiv, das Partizip-Perfekt-Passiv und das Partizip-Futur-Aktiv bei den regulären Verben. \par
+\begin{lstlisting}[float=h!tp,caption={Ausschnitt aus der Funktion \texttt{mkDeponent} um Supin-Verbformen zu bilden (vgl. \textbf{ResLat.gf})},label={GF-Res-MkDeponent-Sup},basicstyle=\small]
+sup = 
+  table {
+    VSupAcc => -- Supin
+      part_stem + "um" ;
+    VSupAbl => -- Supin
+      part_stem + "u" 
+  } ;
+\end{lstlisting}
 Nun zur letzten Form des Deponens-Paradigmas, dem Supin. Dieses wird zum Abschluss auch wieder genau so gebildet, wie bei den regulären Verben. Damit ist auch die zweite größere Klasse lateinischer Verben komplett behandelt.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 86} \par
 \subsubsection{Unregelmäßige Verben}
 Zusätzlich zur relativ großen Gruppe der Deponentia, gibt es in der lateinischen Sprache noch einige andere unregelmäßige Verben. Diese bilden entweder stark vom simplen ``Stamm plus Endung''-Schema abweichende Formen oder nur kleine Teile des Paradigmas, oder auch beides. Deshalb müssen sie gesondert von den andren Verben behandelt werden. Dies geschieht in einem eigenen Teil der Grammatik zur Behandlung unregelmäßiger Wortbildung, den Dateien \textbf{IrregLatAbs.gf} und \textbf{IrregLat.gf}. Bisher werden die Formen einiger sehr wichtiger Verben auf diese Weise gebildet, so z.B. das Kopula \textit{esse}. Das vorgehen ist meist recht ähnlich. Zuerst werden die 9 oder 15 Wortstämme, je nachdem ob das Verb eher wie ein Deponens oder ein reguläres Verb gebildet wird, per Hand aufgelistet. Als nächstes wird die Funktion verwendet um aus den gegebenen Stämmen ein komplettes Paradigma zu erzeugen. Und als letzter Schritt werden in diesem kompletten Paradigma noch einmal Wortformen korrigiert, die falsch gebildet wurden und Wortformen entfernt, die im Zielparadigma nicht vorhanden sind. Auf diese Weise werden die Wörter \textit{esse} (\texttt{be\_V}), \textit{posse} (\texttt{can\_VV}), \textit{ferre} (\texttt{bring\_V}), \textit{velle} (\texttt{want\_V}), \textit{ire} (\texttt{go\_V}) und \textit{fieri} (\texttt{become\_V}) gebildet. \par

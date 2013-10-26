@@ -15,7 +15,7 @@ Die Perseus Digital Library, und vor allem die darin enthaltenen Wörterbücher,
 Eine der Onlinequellen für moderne lateinische Begriffe, die offizielle Liste des Vatikans zur Übersetzung moderner Alltagsbegriffe\footnote{\vatlatinitas}, wurde nicht verwendet, da sie nur zwischen Latein und Italienisch übersetzt. Dies würde aus verschiedenen Gründen zu Problemen führen.
 \subsection{Geschlossene Kategorien}
 \label{subsec:geschlossene}
-\begin{lstlisting}[float=h!,caption={Für \textbf{StructuralLat.gf} nötige \texttt{lincat}-Definitionen für geschlossene Kategorien},label={GF-Structural-Lincat},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Für \textbf{StructuralLat.gf} nötige \texttt{lincat}-Definitionen für geschlossene Kategorien},label={GF-Structural-Lincat},basicstyle=\small]
 param
   PronReflForm = PronRefl | PronNonRefl ;
   PronDropForm = PronDrop | PronNonDrop;
@@ -55,11 +55,11 @@ Die Einträge für die eben genannten Kategorien sind allerdings recht einfach, 
 Eine weitere geschlossene Kategorie bilden die vergleichenden Adverbien. Dies sind Ausdrücke bestehend aus zwei Adverbien, die zusammen ein Verhältnis zwischen zwei Objekten ausdrücken, zwischen welche sie gesetzt werden. So drückt \texttt{less\_CAdv} (lat. \textit{minus ... quam}) aus, dass etwas kleiner oder geringer ist als etwas anderes, und \texttt{more\_CAdv} (lat. \textit{magis ... quam}) dagegen drückt aus, dass etwas größer ist. Dagegen drückt \texttt{as\_CAdv} (lat. \textit{ita ... ut}) die Gleichheit aus. Objekte dieser Kategorie werden mit der Funktion \texttt{mkCAdv} aus den beiden Zeichenketten erstellt. \par
 Eine weitere recht interessante Kategorie ist die Kategorie des Determinans. Diese werden meist auf Basis von Adjektiven gebildet. Dadurch ist es möglich auf die Wortformenbildung von Adjektiven zurückzugreifen, um mit aus einzigen Wortform alle nötigen Formen bilden zu können. \par
 Die letzte hier zu erwähnende, einfache Kategorie von Wörtern sind Präpositionen. Präpositionen werden gemeinhin verwendet um die Funktion verschiedener Nominalobjekte genauer zu spezifizieren. So geben Präposition auch einen Kasus an, mit dem sie verwendet werden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 160f.} Allerdings haben die Kasus im Lateinischen bereits eine relativ feste Funktion, die in anderen Sprachen durch Präpositionen zusammen mit einem entsprechenden Kasus ausgedrückt werden. Deshalb gibt es in dieser Lateingrammatik auch einige "`leere"' Präpositionen, die also keine Zeichenkette produzieren, aber die Verwendung eines bestimmten Falles erzwingen. Zu diesen Präpositionen gehören unter anderem \texttt{part\_Prep} und \texttt{posses\_Prep}, deren Bedeutung schon allein durch einen Genitiv ausgedrückt wird. Andere, recht häufige, Präpositionen wie \textit{in} können dagegen auch mit mehreren Fällen benutzt werden. Dies wird in GF durch so genannte freie Variationen ermöglicht (Listing \ref{GF-Structural-in}). So kann \textit{in} sowohl zusammen mit Akkusativ oder Ablativ gebraucht werden.
-\begin{lstlisting}[float=h!,label={GF-Structural-in},caption={Beispiel für freie Variation}]
+\begin{lstlisting}[float=h!tp,label={GF-Structural-in},caption={Beispiel für freie Variation}]
 in_Prep = mkPrep "in" ( variants { Abl ; Acc } ) ; -- (Langenscheidts)
 \end{lstlisting}
 Kurz zu erwähnen sind auch Konjunktionen. Denn sie bestehen nicht nur aus einer einzelnen Zeichenkette, sondern aus einem Verbund aus zwei Zeichenketten, denn es gibt Konjunktionen wie z.B im Deutschen ``sowohl ... als auch ...'', die aus zwei teilen Bestehen, von denen der erste vor die erste zu verbindene Phrase gesetzt wird und der zweite zwischen die Teile. Dieser Verbundtyp wird durch eine Hilfsfunktion namesn \texttt{sd2} erzeugt, die allgemein in der Datei \textbf{Prelude.gf}\footnote{im Ordner \textbf{lib/src/prelude}} definiert ist. \par
-\begin{lstlisting}[float=h!,caption={Erzeugung des \texttt{NP}-Objekts für \texttt{everything\_NP}},label={GF-Structural-Everything},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Erzeugung des \texttt{NP}-Objekts für \texttt{everything\_NP}},label={GF-Structural-Everything},basicstyle=\small]
 oper
   regNP : (_,_,_,_,_,_ : Str) -> Gender -> Number -> NounPhrase = 
     \nom,acc,gen,dat,abl,voc,g,n ->
@@ -77,7 +77,7 @@ Es gibt in diesem Teil des Lexikons noch einige weitere einfache Kategorien wie 
 \FloatBarrier
 \subsection{Offene Kategorien}
 \label{subsec:offene}
-\begin{lstlisting}[float=h!,caption={Für \textbf{LexiconLat.gf} nötige \texttt{lincat}-Definitionen für offene Kategorien},label={GF-Lexicon-Lincat},basicstyle=\small]
+\begin{lstlisting}[float=h!tp,caption={Für \textbf{LexiconLat.gf} nötige \texttt{lincat}-Definitionen für offene Kategorien},label={GF-Lexicon-Lincat},basicstyle=\small]
 param 
   VActForm  = VAct VAnter VTense Number Person ;
   VPassForm = VPass VTense Number Person ; -- No anteriority because perfect forms are built using participle
