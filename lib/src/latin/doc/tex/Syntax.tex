@@ -6,8 +6,11 @@ Als erstes sollen nun die verschiedenen Möglichkeiten beschrieben werden, eine 
 lin
   DetCN det cn = -- Det -> CN -> NP
     {
-      s = \\c => det.s ! cn.g ! c ++ cn.preap.s ! (Ag cn.g det.n c) ++ 
-                 cn.s ! det.n ! c ++ cn.postap.s ! (Ag cn.g det.n c) ; 
+      s = \\c => 
+        det.s ! cn.g ! c ++ 
+        cn.preap.s ! (Ag cn.g det.n c) ++ 
+        cn.s ! det.n ! c ++ 
+        cn.postap.s ! (Ag cn.g det.n c) ; 
       n = det.n ;  
       g = cn.g ; 
       p = P3 ;
@@ -19,17 +22,20 @@ Adjektivphrasen und Adjektiv können in diesem Falle synonym verwendet werden, d
 lincat
   [AP] = {s1,s2 : Agr => Str } ;
 lin
-  ConjAP conj ss = conjunctDistrTable Agr conj ss ;
-  BaseAP x y = lin A ( twoTable Agr x y ) ;
-  ConsAP xs x = lin A ( consrTable Agr and_Conj.s2 xs x );
+  ConjAP conj ss = 
+    conjunctDistrTable Agr conj ss ;
+  BaseAP x y = 
+    lin A ( twoTable Agr x y ) ;
+  ConsAP xs x = 
+    lin A ( consrTable Agr and_Conj.s2 xs x );
 \end{lstlisting}
 Dazu muss kurz erklärt werden, wie Listen im Grammatical Framework erzeugt werden könne. Im Grammatical Framework werden Listentypen als Typen in eckigen Klammern geschrieben. So ist \texttt{[AP]} eine Liste von Objekten des Typs \texttt{AP}. Die Liste der Adjektivphrasen ist als ein Verbund von zwei Feldern definiert. Das zweite davon enthält das letzte Element der Liste und das erste alle davor befindlichen Elemente, die schon durch Konjunktionen verbunden sind. Diese Listen werden mit folgenden zwei Regeln aufgebaut. Die Regel \texttt{BaseAP} erzeugt eine zweielementige Liste aus zwei Adjektivphrasen. Dazu wird eine interne Funktion namens \texttt{twoTables}\footnote{vgl. \textbf{Coordination.gf} in \textbf{lib/src/prelude}} verwendet, die den Verbund erstellt und den richtigen Typ festlegt. Die zweite Listenoperation ist die Funktion \texttt{ConsAP}, die an eine bestehende Liste ein Element anfügt. Dazu wird das ehemals letzte Element zunächst an den Rest angehängt. Zur Verbindung wird eine fixe Zeichenkette verwendet, in diesem Falle pauschal die Konjunktion \texttt{and\_Conj}. Mit diesen Regeln können Adjektivphrasen erstellt werden, die aus mehreren einzelnen \texttt{AP}s bestehen, die mit Konjunktionen verbunden sind. Die beiden Funktionen \texttt{consrTable} und \texttt{conjunctDistrTable} sind wie \texttt{twoTable} Hilfsfunktionen, die direkt vom Grammatical Framework bereitgestellt werden um die Listenhandhabung zu ermöglichen. \par
-\begin{lstlisting}[float=h!tp,caption={Die Syntaxregeln \texttt{UseN} und \texttt{UseN2} um ein Nomen als \texttt{CN} zu verwenden (vgl. \textbf{NounLat.gf}},label={GF-Noun-DetCN}]
+\begin{lstlisting}[float=h!tp,caption={Die Syntaxregeln \texttt{UseN} und \texttt{UseN2} um ein Nomen als \texttt{CN} zu verwenden (vgl. \textbf{NounLat.gf}},label={GF-Noun-UseNs}]
 lin
   UseN n = -- N -> CN
-    lin CN ( n ** {preap, postap = {s = \\_ => "" } } ) ;     
+    lin CN ( n ** {preap, postap = {s = \\_ => "" } } ) ;
   UseN2 n2 = -- N2 -> CN
-    lin CN ( n2 ** {preap, postap = {s = \\_ => "" } } ) ; 
+    lin CN ( n2 ** {preap, postap = {s = \\_ => "" } } ) ;
 \end{lstlisting}
 \begin{lstlisting}[float=h!tp,caption={Die Syntaxregeln \texttt{AdjCN} um ein Common Noun mit einer Adjektivphrase zu erweitern (vgl. \textbf{NounLat.gf}},label={GF-Noun-AdjCN}]
 param
@@ -42,9 +48,11 @@ lin
       s = cn.s ; g = cn.g
       postap = case pos of { 
         Pre => cn.postap ; 
-        Post => { s = \\a => ap.s ! a ++ cn.postap.s ! a } } ;
+        Post => 
+          { s = \\a => ap.s ! a ++ cn.postap.s ! a } } ;
       preap = case pos of { 
-        Pre => { s = \\a => ap.s ! a ++ cn.preap.s ! a } ; 
+        Pre => 
+          { s = \\a => ap.s ! a ++ cn.preap.s ! a } ; 
         Post => cn.preap } ;
     } ;
 \end{lstlisting}
@@ -56,8 +64,10 @@ lin
   DefArt = { s = \\_ => [] ; sp = \\_ => [] } ;
   IndefArt = { s = \\_ => [] ; sp = \\_ => [] } ;
   DetQuant quant num = {
-    s  = \\g,c => quant.s  ! Ag g num.n c ++ num.s ! g ! c ;
-    sp = \\g,c => quant.sp ! Ag g num.n c ++ num.s ! g ! c ;
+    s  = \\g,c => 
+      quant.s  ! Ag g num.n c ++ num.s ! g ! c ;
+    sp = \\g,c => 
+      quant.sp ! Ag g num.n c ++ num.s ! g ! c ;
     n  = num.n
   };
 \end{lstlisting}
@@ -66,17 +76,20 @@ Damit haben wir alle nötigen Bestandteile für die \texttt{DetCN}-Regel (Listin
 Als nächstes folgt die Nomenform, die den Numerus des Determinans übernimmt, so wie den Kasus aus \texttt{c}. Als letztes folgen die Adjektivphrasen nach dem Nomen aus dem Feld \texttt{postap} analog zu \texttt{preap}. Durch die Verkettung dieser Bestandteile wird die Zeichenkette gebildet, die der Nominalphrase entspricht. Diese Nominalphrase behält den Numerus des Artikels so wie das Genus des Common Nouns als inhärente Merkmale. Zusätzlich hat sie als Person die 3. Person, die die Verbform beeinflusst. Dies ist die komplexeste der bisher implementierten Regeln um Nominalphrasen zu erzeugen. \par
 \begin{lstlisting}[float=h!tp,caption={Die Syntaxregel \texttt{UsePN}, um einen Eigennamen als \texttt{NP} zu verwenden (vgl. \textbf{NounLat.gf}},label={GF-Noun-UsePN}]
 lin
-  UsePN pn = lin NP { s = pn.s ! Sg ; g = pn.g ; n = Sg ; p = P3 } ;
+  UsePN pn = 
+    lin NP { s = pn.s ! Sg ; g = pn.g ; n = Sg ; p = P3 } ;
 \end{lstlisting}
 Daneben gibt es noch zwei kurze Regeln um Nominalphrasen aus Eigennamen und Personalpronomen zu erzeugen. Die erste namens \texttt{UsePN} hat die selbe Form wie der verwendete Name im Singular. Entsprechend ist der Genus der \texttt{NP} gleich dem Genus des Eigennamens, der Numerus ist Singular und die Person wieder die 3. Person. \par
-\begin{lstlisting}[float=h!tp,caption={Die Syntaxregel \texttt{UsePN} um ein Personalpronomen als \texttt{NP} zu verwenden (vgl. \textbf{NounLat.gf})},label={GF-Noun-UsePN}]
+\begin{lstlisting}[float=h!tp,caption={Die Syntaxregel \texttt{UsePN} um ein Personalpronomen als \texttt{NP} zu verwenden (vgl. \textbf{NounLat.gf})},label={GF-Noun-UsePron}]
 lin
   UsePron p = -- Pron -> Np
   { 
     g = p.g ; n = p.n ; p = p.p ;
     s = \\c => case c of { 
-      Nom => p.pers ! PronDrop ! PronRefl ; -- Drop pronoun in nominative case
-      _ => p.pers ! PronNonDrop ! PronRefl  -- but don't drop it otherwise
+      -- Drop pronoun in nominative case
+      Nom => p.pers ! PronDrop ! PronRefl ;
+      -- but don't drop it otherwise 
+      _ => p.pers ! PronNonDrop ! PronRefl 
     } ! c ;
   } ;
 \end{lstlisting}
@@ -98,9 +111,9 @@ oper
 \end{lstlisting}
 Dies sind finite Verbformen, infinite Verbformen, wenn vorhanden ein Objekt und möglicherweise auch ein modifizierendes Adjektiv. Die Typen \texttt{VActForm} und \texttt{VInfForm} haben dabei die selben möglichen Werte wie bei den Verben. Die Funktion \texttt{predV} füllt das \texttt{fin}-Feld mit den aktiven Verbformen und das \texttt{inf}-Feld mit den Infinitivformen des Verbs. Die Felder für das Objekt und das Adjektiv werden mit leeren Zeichenketten gefüllt. Damit ist die Verbalphrase auch schon erzeugt. \par
 Für transitive Verben ist auf dem Weg zur Verbalphrase noch ein Zwischenschritt nötig. Denn aus einem transitiven Verb wird zunächst eine \texttt{VP} erzeugt, der eine Nominalphrase in der Objektposition fehlt. Diese Kategorie heißt analog zur Nomenklatur im GPSG-Grammatikformalismus VPSlash (in der GPSG-Notation VP/NP).\footnote{vgl. \cite{RANTA2011} S. 217} Solch eine \texttt{VPSlash} besteht lediglich aus einer, um ein zusätzliches Feld erweiterte, Verbalphrase. In diesem zusätzlichen Feld kann, wenn nötig eine Präposition gespeichert werden, die unter anderem bestimmt, in welchem Kasus das Objekt des Verbs stehen muss. Diese bei transitiven Verben nötige Präposition ist üblicherweise im Lexikoneintrag des Verbs zu finden oder ein Akkusativobjekt wird angenommen. Die Transformation eines transitiven Verbs in eine \texttt{VPSlash} erfolgt in der Regel \texttt{SlashV2a} analog zu den intransitiven Verben mit einer Funktion namens \texttt{predV2}, wobei der Typ \texttt{V2} der Typ für transitive Verben ist. Diese Funktion macht nichts anderes um mit Hilfe von \texttt{predV} eine \texttt{VP} zu erzeugen, um die Präposition des transitiven Verbs erweitern und den Typ auf \texttt{VPSlash} zu ändern. \par
-\begin{lstlisting}[float=h!tp,caption={Die Syntaxregel \texttt{ComplSlash} um eine \texttt{VPSlash} und eine \texttt{NP} zu einer Verbalphrase zu verbinden (vgl. \textbf{NounLat.gf} und \textbf{ResLat.gf})},label={GF-Noun-UsePN}]
+\begin{lstlisting}[float=h!tp,caption={Die Syntaxregel \texttt{ComplSlash} um eine \texttt{VPSlash} und eine \texttt{NP} zu einer Verbalphrase zu verbinden (vgl. \textbf{NounLat.gf} und \textbf{ResLat.gf})},label={GF-Noun-ComplSlash}]
 oper
-  appPrep : Preposition -> (Case => Str) -> Str = 
+  appPrep : Preposition -> (Case => Str) -> Str =
     \c,s -> c.s ++ s ! c.c ;
 lin
   ComplSlash vp np = -- VPSlash -> NP -> VP
@@ -117,7 +130,8 @@ Wie man an diesen Beispielen sehen kann, wurden selbst in einem recht kurzen Zei
 In den Ressource Grammars des Grammatical Frameworks gibt es drei verschiedene Kategorien für Sätze, bei denen unterschiedliche Merkmale fixiert oder variabel sind. Bei Clauses (\texttt{Cl}) sind noch alle Tempusmerkmale, die Polarität, also ob ein Satz verneint oder nicht geäußert wird, und im Lateinischen die Wortstellung variabel. Bei Sentences (\texttt{S}), also auf der Satzebene werden die Wortstellung, die Tempusmerkmale und die Polarität festgelegt. Dabei ist die Wortstellung bisher fix und die anderen Merkmale können über Parameter gesetzt werden. Die nächste Stufe der Utterances \texttt{Utt} verhält sich an sich wie Sentences kann aber mit einer Konjunktion und einem Vokativ zu einer Phrase (\texttt{Phr}) erweitert werden. Phrases sind die übliche Startkategorie für Sätze im Grammatical Framework. Dabei werden Konjunktion und Vokativ dadurch optional, dass Objekte der entsprechende Typen gegeben sind, die die leere Zeichenkette erzeugen. \par
 \begin{lstlisting}[float=h!tp,caption={Typ von Clauses (vgl. \textbf{CalLat.gf})},label={GF-Cat-Cl}]
 lincat
-  Cl = { s : Tense => Anteriority => Polarity => Order => Str } ;
+  Cl = { s : Tense => Anteriority \
+     => Polarity => Order => Str } ;
 \end{lstlisting}
 Der Typ eines Clauses ist eine \texttt{Str}-Tabelle, die von \texttt{Tense}, \texttt{Anteriority}, \texttt{Polarity} und \texttt{Order} abhängig ist. Dabei sind \texttt{Tense}, \texttt{Anteriority} und \texttt{Polarity} gemeinsame Parameter vieler Sprachen und deshalb auch unabhängig von diesen definiert.\footnote{vgl. \textbf{ParamX.gf} im Ordner \textbf{lib/src/common/}}. Der Parameter \texttt{Order} entspricht den oben genannten Wortstellungen (\texttt{Order = SVO | VSO | VOS | OSV | OVS | SOV} vgl. \textbf{ResLat.gf}). \par
 \begin{lstlisting}[float=h!tp,caption={Syntaxregel \texttt{PredVP} um eine \texttt{NP} und eine \texttt{VP} zu einer \texttt{Cl} zu kombinieren (vgl. \textbf{SentenceLat.gf})},basicstyle=\small,label={GF-Sentence-PredVP}]
@@ -126,8 +140,10 @@ lin
   {
     s = \\tense,anter,pol,order => 
       case order of {
-        SVO => np.s ! Nom ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ 
-          vp.fin ! VAct ( anteriorityToVAnter anter ) 
+        SVO => 
+          np.s ! Nom ++ negation pol ++ 
+          vp.adj ! Ag np.g Sg Nom ++ 
+          vp.fin ! VAct ( anteriorityToVAnter anter )
                         ( tenseToVTense tense ) 
                         np.n np.p ++
           vp.obj ;
@@ -146,7 +162,8 @@ lin
           vp.fin ! VAct ( anteriorityToVAnter anter ) 
                         ( tenseToVTense tense ) 
                         np.n np.p ;
-        OVS => vp.obj ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++
+        OVS => vp.obj ++ negation pol ++ 
+          vp.adj ! Ag np.g Sg Nom ++
           vp.fin ! VAct ( anteriorityToVAnter anter ) 
                         ( tenseToVTense tense ) 
                         np.n np.p ++ 
@@ -159,13 +176,14 @@ lin
     }
   } ;
 \end{lstlisting}
-Erzeugt werden Clauses durch die Regel \texttt{PredVP} (siehe Listing \ref{GF-Sentence-PredVP}), die eine \texttt{NP} und eine \texttt{VP} zu einer Clause kombiniert. Die Kombination der Bestandteile erfolgt logischerweise bei den verschiedenen Wortstellungen in unterschiedlicher Reihenfolge. Das Vorgehen wird allerdings der Einfachheit halber nur am Beispiel der Wortstellung Subjekt-Objekt-Verb gezeigt. \par
+Erzeugt werden Clauses durch die Regel \texttt{PredVP} (vgl. Listing \ref{GF-Sentence-PredVP}), die eine \texttt{NP} und eine \texttt{VP} zu einer Clause kombiniert. Die Kombination der Bestandteile erfolgt logischerweise bei den verschiedenen Wortstellungen in unterschiedlicher Reihenfolge. Das Vorgehen wird allerdings der Einfachheit halber nur am Beispiel der Wortstellung Subjekt-Objekt-Verb gezeigt. \par
 Zunächst wird eine, von allen nötigen Merkmalen abhängige Tabelle gebildet, die nach Auswahl aller Merkmale eine Zeichenkette liefert. Diese Zeichenkette ist folgendermaßen aufgebaut: Aus der Subjekt-\texttt{NP}, die unter dem Namen \texttt{np} zu finden ist, wird die Nominativ-Form verwendet und an diese wird die im \texttt{obj}-Feld der \texttt{VP} gespeicherte Objektform angehängt. Als nächstes wird, wenn der Satz negiert ist, der Negationspartikel \textit{non} eingefügt. Dies geschieht mit Hilfe der Funktion \texttt{negation} aus \textbf{ResLat.gf}, die wenn der Wert für \texttt{pol} negativ ist, die entsprechende Zeichenkette, und wenn \texttt{pol} positiv ist, die leere Zeichenkette zurück gibt. Für den Fall, dass ein Adjektiv prädikativ gebraucht wird, ist dieses Adjektiv in der Verbalphrase im Feld \texttt{adj} abgelegt, und wird als nächstes in die Zeichenkette eingefügt. Dazu wird die Singular-Nominativ-Form des Adjektivs im Genus des Subjekts gewählt. Und zum Schluss folgt das Verb in der passenden Form. Dazu werden die Tabellenwerte für die Tempusmerkmale so wie der Numerus und das Genus des Subjekts verwendet. Da für die Verbformen eigene Typen für die Tempusmerkmale verwendet werden, die von denen in \textbf{ParamX.gf} unterschiedlich sind, müssen sie mit den Hilfsfunktionen \texttt{anteriorityToVAnter} und \texttt{tenseToVTens}\footnote{vgl. \textbf{ResLat.gf}} entsprechend umgewandelt werden. Das hat historische Gründe, denn die Verb-Merkmale wurden von den vorhergehenden Arbeiten an der Grammatik übernommen, die allerdings aus einem früheren Stand der Ressource Grammar Library zu stammen scheinen. Als auf Satzebene die Merkmale aus \texttt{ParamX} nötig waren, wurde der Einfachheit halber die beschriebene Abbildung zwischen den Merkmalen implementiert. In Zukunft sollten diese Merkmale möglichst vereinheitlicht werden. Für die anderen Wortstellungen erfolgt die Zusammensetzung der Zeichenkette analog, jedoch in anderer Reihenfolge der einzelnen Komponenten.\footnote{vgl. \textbf{SentenceLat.gf}} \par
 Damit ist die erste Stufe auf dem Weg einer komplette Phrase abgeschlossen. Als nächstes Folgt die Umwandlung einer Clause in einen Sentence. Diese Umwandlung wird in der Regel \texttt{UseCl} beschrieben. Zusätzlich zu einem \texttt{Cl}-Objekt werden ein Objekt vom Typ \texttt{Temp} und ein Objekt vom Typ \texttt{Pol} benötigt. \texttt{Temp} ist eine gemeinsame Datenstruktur, die \texttt{Tense} im \texttt{t}-Feld, \texttt{Anteriority} im \texttt{a}-Feld und eine mögliche Zeichenkette im \texttt{s}-Feld zusammenfasst. Ebenso enthält \texttt{Pol} die \texttt{Polarity} in einem \texttt{p}-Feld und eine Zeichenkette im \texttt{s}-Feld\footnote{vgl. \textbf{CommonX.gf} im Ordner \textbf{lib/src/common}}. Die Funktion \texttt{UseCl} fasst diese Parameter nun so zusammen, dass sie das \texttt{s}-Feld des \texttt{Temp}-Parameter mit dem \texttt{s}-Feld des \texttt{Pol}-Parameters und dem \texttt{s}-Feld der Clause verbindet. Anzumerken ist, dass die beiden \texttt{s}-Felder üblicherweise leer sind. Also wird aus der Clause die passende Form ausgewählt, in dem \texttt{Tense} und \texttt{Anteriority}, also das \texttt{t}- und \texttt{a}-Feld aus der Variable \texttt{t}, die das \texttt{Temp}-Objekt enthält, verwendet werden. Anschließend wird anhand der Polarität aus dem \texttt{Pol}-Objekt ausgewählt und schließlich die Wortstellung \texttt{SOV} festgelegt.\footnote{vgl. \textbf{SentenceLat.gf}} \par
 Nachdem auch dieser Schritt getan ist, sind nur noch zwei weitere Regeln nötig, bis Objekte vom Typ \texttt{Phr} erzeugt werden können. Zunächst muss es möglich sein Sentences in Utterances zu transformieren. Dies geschieht in der Regel \texttt{UttS} allein durch die explizite Änderung des Typs mit Hilfe des Schlüsselworts \texttt{lin}. \par
-\begin{lstlisting}[float=h!tp,caption={Syntaxregeln um eine Utterance mit einer Konjunktion und einem Vokativ zu einer Phrase zu kombinieren (vgl. \textbf{PhraseLat.gf})},basicstyle=\small,label={GF-Sentence-PredVP}]
+\begin{lstlisting}[float=h!tp,caption={Syntaxregeln um eine Utterance mit einer Konjunktion und einem Vokativ zu einer Phrase zu kombinieren (vgl. \textbf{PhraseLat.gf})},basicstyle=\small,label={GF-Phrase-PhrUtt}]
 lin
-  PhrUtt pconj utt voc = -- PConj -> Utt -> Voc -> Phr ;
+  -- PConj -> Utt -> Voc -> Phr ;
+  PhrUtt pconj utt voc = 
     {s = pconj.s ++ utt.s ++ voc.s} ;
   NoPConj = {s = []} ;
   PConjConj conj = {s = conj.s2} ; ---

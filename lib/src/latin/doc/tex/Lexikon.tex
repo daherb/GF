@@ -21,10 +21,12 @@ param
   PronDropForm = PronDrop | PronNonDrop;
   Agr = Ag Gender Number Case ;
 oper
-  Determiner : Type = { s : Gender => Case => Str ; n : Number } ;
+  Determiner : Type = 
+    { s : Gender => Case => Str ; n : Number } ;
   Preposition : Type = {s : Str ; c : Case} ;
   NounPhrase : Type = 
-    { s : Case => Str ; g : Gender ; n : Number ; p : Person } ;
+    { s : Case => Str ; 
+      g : Gender ; n : Number ; p : Person } ;
   Pronoun : Type = {
     pers : PronDropForm => PronReflForm => Case => Str ;
     poss : PronReflForm => Agr => Str ;
@@ -62,7 +64,8 @@ in_Prep = mkPrep "in" ( variants { Abl ; Acc } ) ; \
 Kurz zu erwähnen sind auch Konjunktionen. Denn sie bestehen nicht nur aus einer einzelnen Zeichenkette, sondern aus einem Verbund aus zwei Zeichenketten, denn es gibt Konjunktionen wie z.B im Deutschen ``sowohl ... als auch ...'', die aus zwei teilen Bestehen, von denen der erste vor die erste zu verbindende Phrase gesetzt wird und der zweite zwischen die Teile. Dieser Verbundtyp wird durch eine Hilfsfunktion namens \texttt{sd2} erzeugt, die allgemein in der Datei \textbf{Prelude.gf}\footnote{im Ordner \textbf{lib/src/prelude}} definiert ist. \par
 \begin{lstlisting}[float=h!tp,caption={Erzeugung des \texttt{NP}-Objekts für \texttt{everything\_NP} (vgl. \textbf{ResLat.gf} und \textbf{StructuralLat.gf})},label={GF-Structural-Everything},basicstyle=\small]
 oper
-  regNP : (_,_,_,_,_,_ : Str) -> Gender -> Number -> NounPhrase = 
+  regNP : (_,_,_,_,_,_ : Str) 
+    -> Gender -> Number -> NounPhrase =
     \nom,acc,gen,dat,abl,voc,g,n ->
     {
       s = table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
@@ -71,8 +74,8 @@ oper
       p = P3 
     } ;
 lin
-  everything_NP = regNP "omnia" "omnia" "omnium" "omnis" "omnis"
-    "omnia" Neutr Pl ; 
+  everything_NP = regNP "omnia" "omnia" "omnium" "omnis" 
+    "omnis" "omnia" Neutr Pl ; 
 \end{lstlisting}
 Des weiterern sind hier auch einige komplette Nominalphrasen enthalten. Viele davon werden wieder durch Pronomenformen ausgedrückt, wie z.B. \texttt{everybody\_NP}, \texttt{somebody\_NP}, \texttt{something\_NP}, \texttt{nobody\_NP} und \texttt{nothing\_NP}. Diese werden allgemein durch Formen von Indefinitpronomina gebildet. Allerdings müssen diese \texttt{NP}-Objekte unter Berücksichtigung aller Kasus-Formen, dem Genus und dem Numerus mit Hilfe der Funktion \texttt{regNP} (Listing \ref{GF-Structural-Everything} erzeugt werden. Die Tabellenschreibweise im \texttt{s}-Feld ist eine weitere Kurzform für Tabellen.\footnote{Allgemeine Form \texttt{table $Typ_1$ [$v_1 ; \dots ; v_n$ ] ;} mit $Typ_1=V_1| \dots |V_n$ ist gleichbedeutend mit \texttt{table \{$V_1 => v_1 ; \dots ; V_n => v_n$\}}} Lediglich \texttt{everything\_NP} wird passender durch das Nomen \textit{omnis} im Plural ausgedrückt.
 Es gibt in diesem Teil des Lexikons noch einige weitere einfache Kategorien wie satzbeginnende Konjunktionen, deren Einträge allerdings selbsterklärend sind, so dass sie hier nicht gesondert aufgeführt werden müssen.
@@ -82,10 +85,12 @@ Es gibt in diesem Teil des Lexikons noch einige weitere einfache Kategorien wie 
 \begin{lstlisting}[float=h!tp,caption={Für \textbf{LexiconLat.gf} nötige \texttt{lincat}-Definitionen für offene Kategorien},label={GF-Lexicon-Lincat},basicstyle=\small]
 param 
   VActForm  = VAct VAnter VTense Number Person ;
--- No anteriority because perfect forms are built using participle
+-- No anteriority because perfect forms are built 
+-- using participle
   VPassForm = VPass VTense Number Person ; 
-  VInfForm  = VInfActPres | VInfActPerf Gender | VInfActFut Gender | 
-    VInfPassPres | VInfPassPerf Gender | VinfPassFut ;
+  VInfForm  = VInfActPres | VInfActPerf Gender | 
+    VInfActFut Gender | VInfPassPres | VInfPassPerf Gender |
+    VinfPassFut ;
   VImpForm  = VImp1 Number | VImp2 Number Person ;
   VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
   VSupine   = VSupAcc | VSupAbl ;
@@ -130,6 +135,6 @@ Eine weitere Form speziellerer Nomen sind Nomen, die nur im Plural vorkommen kö
 Zusätzlich zu den einfachen Nomen gibt es Relationalnomen, die eine Beziehung zwischen Objekten ausdrücken. Ein Beispiel hierfür ist das Wort "`Vater"', das neben seiner einfachen Verwendung, auch die Verwendung im Sinne ``Vater von ...'' haben kann. Deshalb benötigen diese Nomen neben ihrer einfachen Wortform auch die Information, wie diese Beziehung zu anderen Objekten ausgedrückt werden kann. Dies wird allgemein durch Präpositionen kodiert, das heißt diese Nomen haben in ihrem Lexikoneintrag zusätzlich zu den Wortformen, die nötig sind das Paradigma zu generieren, auch die Informationen zur Verwendung in Form der Angabe eines oder mehrerer Präpositionen. \par
 Nun bleiben noch einige der moderneren Begriffe aus dem Bereich der Nomen zu nennen, nämlich \texttt{airplane\_N}, \texttt{bank\_N}, \texttt{bike\_N}, \texttt{car\_N}, \texttt{computer\_N}, \texttt{fridge\_N}, \texttt{paper\_N}, \texttt{planet\_N}, \texttt{plastic\_N}, \texttt{radio\_N}, \texttt{train\_N} und noch einige mehr. Die Übersetzungen dieser Begriffe wurden mit den in den Abschnitten \ref{subsec:woerterbuch} und \ref{subsec:online} genannten Quellen erfolgreich bewältigt. Abgesehen vom Auffinden einer möglichen Übersetzung ist es relativ unproblematisch gewesen, die Lexikoneinträge zu erstellen. \par
 Die Einträge für Adjektive in diesem Lexikon sind alles in allem unproblematisch. Adjektive der ersten und zweiten Deklination können wieder aus einer einzigen Wortform, der maskulinen Nominativ-Singular-Form, erstellt werden. Lediglich bei Adjektiven der dritten Deklination wird, wie bei den Nomen, zusätzlich die Genitiv-Singular-Form benötigt. Es gibt auch im Bereich des Testlexikons \textbf{LexiconLat.gf} kein Adjektiv, bei dem das Erstellen des Eintrags in irgendeiner Form Probleme bereitet hat. \par
-Bei den regelmäßigen Verben der ersten, zweiten und vierten Konjugation ist die einzige benötigte Information im Lexikon die Infinitiv-Präsens-Form. Dafür werden bei unregelmäßigen Verben und Verben der dritten Konjugation, wenn vorhanden, vier Verbformen benötigt. Dazu gehören neben dem Infinitiv die 1.-""Person-""Präsens-""Indikativ-""Aktiv, die 1.-""Person-""Perfekt-""Indikativ-""Aktiv und das Partizip-""Perfekt-""Passiv. \par
+Bei den regelmäßigen Verben der ersten, zweiten und vierten Konjugation ist die einzige benötigte Information im Lexikon die Infinitiv-Präsens-Form. Dafür werden bei unregelmäßigen Verben und Verben der dritten Konjugation, wenn vorhanden, vier Verbformen benötigt. Dazu gehören neben dem Infinitiv die 1.-""Person-""Präsens-""Indikativ-""Aktiv, die 1.-""Per\-son-""Per\-fekt-""In\-di\-ka\-tiv-""Ak\-tiv und das Par\-ti\-zip-""Per\-fekt-""Passiv. \par
 Die einzigen Verben, deren Übersetzung problematisch war, sind \texttt{switch8off\_V2} und \texttt{switch8on\_V2}. Da hier auch nicht die Wikipedia von Hilfe sein konnte, wurden zwei nahe liegende lateinische Begriffe gewählt, deren Bedeutung näherungsweise passend erschienen, nämlich \textit{exstinguere} (löschen) und \textit{accendere} (entzünden). Obwohl es keine direkten Übersetzungen sind, ist die Verwendung insofern gerechtfertigt, dass das entsprechende italienische Wort für ``einschalten'' auch \textit{accendere} sein kann und \textit{exstinguere} das Gegenteil davon ist. \par
 Hiermit sind alle problematischen oder interessanten Aspekte des Lexikons erläutert. Wie die Paradigmen aus diesen Lexikoneinträgen erzeugt werden können, wird im kommenden Abschnitt über die lateinische Morphologie ausführlich erläutert.

@@ -1,6 +1,6 @@
 \section{Ergebnis}
 Alle nötigen Schritte, um eine Ressource-Grammatik im Grammatical Framework zu implementieren, sind hiermit abgeschlossen. Die Grammatik kann nun geladen und getestet werden. Um die Lateingrammatik zu laden, muss entweder die Datei \textbf{LangLat.gf} oder die Datei \textbf{AllLat.gf} geladen werden. Dies geschieht entweder durch das Aufrufen des Grammatical Frameworks mit der gewünschten Datei als Kommandozeilenparameter (\texttt{\$ gf LangLat.gf} bzw. \texttt{\$ gf AllLat.gf}) oder, wenn die interaktive Eingabeaufforderung des Grammatical Frameworks bereits gestartet ist, durch den Befehl \texttt{> import LangLat.gf} bzw. \texttt{> import AllLat.gf}. Die erste dieser Dateien lädt nur die Bestandteile, die alle Sprachen in der Ressource Grammar Library gemein haben, die zweite lädt zusätzlich die sprachspezifische Extra-Grammatik. Ist eine dieser Dateien geladen, kann man die Abhängigkeiten der einzelnen Module betrachten, um den vollen Umfang dieser Implementierung zu sehen. Wie dieser Abhängigkeitsgraph für die Datei \textbf{AllLat.gf} aussieht, ist in der Grafik \ref{GF-DepGraph} zu sehen. Der Graph für \textbf{LangLat.gf} ist ein Subgraph dieses Graphen, bei dem alle Knoten fehlen, die mit ``All'' und ``Extra'' beginnen. \par
-\begin{sidewaysfigure}[h]
+\begin{sidewaysfigure}[h!tp]
 \includegraphics[scale=0.25]{graphics/LatinDependencyGraph.eps}
 \caption{Die Abhängigkeiten zwischen den Modulen der Lateingrammatik}\label{GF-DepGraph}
 \end{sidewaysfigure}
@@ -17,7 +17,7 @@ Dagegen ist im Bereich der Syntax noch einiges an Arbeit nötig um den vollen Um
 \section{Anwendung}
 Eine Frage der man sich für die Zukunft ebenfalls widmen kann, ist die mögliche Anwendung dieser Lateingrammatik, vor allem, wenn sie in Zukunft noch in den gerade genannten Bereichen verbessert werden sollte. \par
 Der Traum jedes Schülers und zugleich wohl der Alptraum der Lehrer wäre ein tatsächlich funktionierendes Lateinübersetzungsprogramm. Ob dieses Ziel, vor allem bei der Übersetzung literarischer und lyrischer Texte, erreicht werden kann, ist jedoch noch nicht abzusehen. Allerdings wäre es denkbar z.B. eine automatisch Übersetzungshilfe für lateinische Inschriften für interessierte Touristen anzubieten. Dafür wäre die Integration in eine Anwendung für moderne Mobiltelefone denkbar. Dies ist insofern möglich, da das Grammatical Framework in der Lage ist Grammatiken in ein portables Grammatikformat namens "`PGF"'umzuwandeln, für das es, teils noch unvollständige, Bibliotheken für verschiedene Programmiersprachen, unter anderem auch Java, gibt. Dadurch ist die Möglichkeit der Benutzung einer PGF-Grammatik in einer Android-Anwendung gegeben. Ebenfalls wäre die Integration in ein Webangebot möglich, da auch hierfür Bibliotheken bereitgestellt werden.\footnote{vgl. \cite{RANTA2011} S. 166ff.} \par
-\begin{figure}
+\begin{figure}[h!tp]
 \includegraphics{graphics/FridgeScreen.pdf}
 \caption{Beispiel für eine "`fridge magnet"'-Sitzung}\label{Fridge}
 \end{figure}
