@@ -1,5 +1,6 @@
 --# -path=.:alltenses:prelude
-concrete RglSatzEng of RglSatzAbs = open SyntaxEng,ParadigmsEng in {
+concrete RglSatzEng of RglSatzAbs = 
+open SyntaxEng,ParadigmsEng in {
   flags coding=utf8;
   lincat
     S = SyntaxEng.S ;
@@ -10,7 +11,9 @@ concrete RglSatzEng of RglSatzAbs = open SyntaxEng,ParadigmsEng in {
     N = SyntaxEng.N ;
     Det = SyntaxEng.Det ;
   lin
-    mkS np vp = SyntaxEng.mkS presentTense simultaneousAnt positivePol (mkCl np vp) ;
+    mkS np vp = SyntaxEng.mkS 
+      presentTense simultaneousAnt positivePol 
+      (mkCl np vp) ;
     mkNP det n = SyntaxEng.mkNP det n ;
     mkVP v = SyntaxEng.mkVP v ;
     mkVP2 v2 np = SyntaxEng.mkVP v2 np ;
