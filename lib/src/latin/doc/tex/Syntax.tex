@@ -1,4 +1,4 @@
-Den letzten Teil dieser Arbeit bildet der Bereich der Syntax, um aus den einfachen Einheiten aus dem Lexikon komplexe Einheiten von einfacheren Phrasen bis hin zu kompletten Sätzen zu bilden. Zunächst wird erläutert, wie einfache Phrasen konstruiert werden. Und diese Phrasen wiederum werden weiter kombiniert, um größere Ausdrücke zu erzeugen, bis hin zur Satzebene, bzw. zu den Äußerungen (Utterances, \texttt{Utt}) in der Nomenklatur des Grammatical Framework.
+Den letzten Teil dieser Arbeit bildet der Bereich der Syntax, um aus den einfachen Einheiten aus dem Lexikon komplexe Einheiten von einfacheren Phrasen bis hin zu kompletten Sätzen zu bilden. Zunächst wird erläutert, wie einfache Phrasen konstruiert werden. Und diese Phrasen wiederum werden weiter kombiniert, um größere Ausdrücke zu erzeugen, bis hin zur Satzebene, bzw. zu den Äußerungen (Utterances, \texttt{Utt}) in der Nomenklatur des Grammatical Frameworks.
 \subsection{Nominalphrasen}
 \label{subsec:nominalphrasen}
 Als erstes sollen nun die verschiedenen Möglichkeiten beschrieben werden, eine Nominalphrase zu konstruieren. Dies geschieht mit Hilfe von Regeln die in der Datei \textbf{NounLat.gf} zu finden sind. \par
@@ -57,7 +57,7 @@ lin
     } ;
 \end{lstlisting}
 Die einfachste Möglichkeit Common Nouns zu bilden ist es, einfach Nomen als \texttt{CN}s zu verwenden. Dazu gibt es die beiden Regeln \texttt{UseN} und \texttt{UseN2}. Sie erweitern die beiden Nomentypen \texttt{N} und \texttt{N2} lediglich um die beiden leeren \texttt{AP}-Felder um sie in Common Nouns zu verwandeln. Diese Common Nouns können dann durch Adjektive genauer bestimmt werden. Dazu wird in der Regel \texttt{AdjCN} über freie Variation ausgewählt, ob die modifizierende Adjektivphrase vor oder hinter das Common Noun eingefügt wird. Entsprechend der so gewählten Position wird die \texttt{AP} in eines der beiden vorgesehenen Felder eingefügt. Das \texttt{s}-Feld für die Nomen-Formen so wie das Nomen-Genus werden dabei einfach übernommen. \par
-\begin{lstlisting}[float=h!tp,caption={Die Syntaxregeln \texttt{DetQuant} um aus einem Number Determining Element und einem Quantifikator ein \texttt{Det} zu erzeugen (vgl. \textbf{NounLat.gf}},label={GF-Noun-DetQuant}]
+\begin{lstlisting}[float=h!tp,caption={Die Syntaxregeln \texttt{DetQuant} um aus einem \texttt{Num}-Element und einem Quantifikator ein \texttt{Det} zu erzeugen (vgl. \textbf{NounLat.gf}},label={GF-Noun-DetQuant}]
 lin
   NumSg = { s = \\_,_ => [] ; n = Sg } ;
   NumPl = { s = \\_,_ => [] ; n = Pl } ;
